@@ -4,11 +4,12 @@ import './index.css';
 import App from './app/App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import Search from './components/pages/Search'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Search />
   </React.StrictMode>
 );
 

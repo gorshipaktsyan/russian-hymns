@@ -61,7 +61,10 @@ function App() {
 
   function handlePress() {
     if (deferredPrompt) {
+      alert('not found')
       deferredPrompt.prompt()
+    } else {
+      alert('not found')
     }
   }
 
