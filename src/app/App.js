@@ -32,8 +32,8 @@ function App() {
     <div className='app'>
       <CssBaseline />
       <Routes>
-        <Route path="/" element={ <Hymn/> } />
-        <Route path="/settings" element={ <Settings/> } />
+        <Route path="/russian-hymns" element={ <Hymn/> } />
+        <Route path="/russian-hymns/settings" element={ <Settings/> } />
       </Routes>
     </div>
   );
