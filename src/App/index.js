@@ -1,8 +1,19 @@
-import React from 'react';
-import { Routes, Route } from "react-router-dom"
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Hymn, Settings } from '../view/pages';
-import './indexs.scss';
+import {
+  About,
+  AlphabeticalIndex,
+  Content,
+  History,
+  Hymn,
+  Preface,
+  Reference,
+  Search,
+  Settings,
+} from "../view/pages";
+import "./indexs.scss";
+import { Bookmark } from "@mui/icons-material";
 //let deferredPrompt;
 
 /*window.addEventListener('beforeinstallprompt', (e) => {
@@ -15,10 +26,20 @@ import './indexs.scss';
   // Optionally, send analytics event that PWA install promo was shown.
   alert(`'beforeinstallprompt' event was fired.`);
 });*/
-
+const routes = [
+  { path: "/russian-hymns", element: <Hymn /> },
+  { path: "/russian-hymns/settings", element: <Settings /> },
+  { path: "/russian-hymns/about", element: <About /> },
+  { path: "/russian-hymns/alphabetical", element: <AlphabeticalIndex /> },
+  { path: "/russian-hymns/bookmark", element: <Bookmark /> },
+  { path: "/russian-hymns/content", element: <Content /> },
+  { path: "/russian-hymns/history", element: <History /> },
+  { path: "/russian-hymns/preface", element: <Preface /> },
+  { path: "/russian-hymns/reference", element: <Reference /> },
+  { path: "/russian-hymns/search", element: <Search /> },
+];
 function App() {
-
-   /*function handlePress() {
+  /*function handlePress() {
      if (deferredPrompt) {
        alert('not found')
        deferredPrompt.prompt()
@@ -28,11 +49,12 @@ function App() {
    }*/
 
   return (
-    <div className='app'>
+    <div className="app">
       <CssBaseline />
       <Routes>
-        <Route path="/russian-hymns" element={ <Hymn/> } />
-        <Route path="/russian-hymns/settings" element={ <Settings/> } />
+        {routes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
       </Routes>
     </div>
   );

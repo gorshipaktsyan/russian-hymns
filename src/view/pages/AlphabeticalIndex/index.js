@@ -1,7 +1,5 @@
 function AlphabeticalIndex() {
-    return (
-        <div>AlphabeticalIndex</div>
-    )
+  return <div>AlphabeticalIndex</div>;
 }
 
-export default AlphabeticalIndex
+export default AlphabeticalIndex;
