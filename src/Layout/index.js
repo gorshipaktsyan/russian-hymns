@@ -5,8 +5,21 @@ import AppBar from "../view/components/AppBar";
 import Drawer from "../view/components/Drawer";
 import Footer from "../view/components/Footer";
 import storage from "../view/services/storage/storage.json";
-import "./index.scss";
 import App from "../App";
+import "./index.scss";
+
+//let deferredPrompt;
+
+/*window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Update UI notify the user they can install the PWA
+  // showInstallPromotion();
+  // Optionally, send analytics event that PWA install promo was shown.
+  alert(`'beforeinstallprompt' event was fired.`);
+});*/
 
 const navItems = [
   { tittle: "Поиск", route: "search" },
@@ -62,6 +75,15 @@ function Layout() {
     config
   );
 
+  /*function handlePress() {
+   if (deferredPrompt) {
+     alert('not found')
+     deferredPrompt.prompt()
+   } else {
+     alert('not found')
+   }
+ }*/
+
   /*    const toggleMobileMenu = () => {
           setMobileMenuOpen(!isMobileMenuOpen);
       };*/
@@ -72,14 +94,14 @@ function Layout() {
   return (
     <Box sx={{ height: "100%" }} {...handlers}>
       <AppBar handleDrawerToggle={handleDrawerToggle} tittle={tittle} />
+      <App number={number} />
+      <Footer />
       <Drawer
         handleDrawerToggle={handleDrawerToggle}
         navItems={navItems}
         mobileOpen={mobileOpen}
         setTittle={setTittle}
       />
-      <App number={number} />
-      <Footer />
     </Box>
   );
 }

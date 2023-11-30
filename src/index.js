@@ -4,7 +4,6 @@ import ReactDOM from "react-dom/client";
 import Layout from "./Layout";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.css";
 import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
