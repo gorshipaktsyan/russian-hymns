@@ -26,19 +26,20 @@ import { Bookmark } from "@mui/icons-material";
   // Optionally, send analytics event that PWA install promo was shown.
   alert(`'beforeinstallprompt' event was fired.`);
 });*/
-const routes = [
-  { path: "/russian-hymns", element: <Hymn /> },
-  { path: "/russian-hymns/settings", element: <Settings /> },
-  { path: "/russian-hymns/about", element: <About /> },
-  { path: "/russian-hymns/alphabetical", element: <AlphabeticalIndex /> },
-  { path: "/russian-hymns/bookmark", element: <Bookmark /> },
-  { path: "/russian-hymns/content", element: <Content /> },
-  { path: "/russian-hymns/history", element: <History /> },
-  { path: "/russian-hymns/preface", element: <Preface /> },
-  { path: "/russian-hymns/reference", element: <Reference /> },
-  { path: "/russian-hymns/search", element: <Search /> },
-];
-function App() {
+
+function App({ number }) {
+  const routes = [
+    { path: "/russian-hymns", element: <Hymn /> },
+    { path: "/russian-hymns/settings", element: <Settings /> },
+    { path: "/russian-hymns/about", element: <About /> },
+    { path: "/russian-hymns/alphabetical", element: <AlphabeticalIndex /> },
+    { path: "/russian-hymns/bookmark", element: <Bookmark /> },
+    { path: "/russian-hymns/content", element: <Content /> },
+    { path: "/russian-hymns/history", element: <History /> },
+    { path: "/russian-hymns/preface", element: <Preface /> },
+    { path: "/russian-hymns/reference", element: <Reference /> },
+    { path: "/russian-hymns/search", element: <Search /> },
+  ];
   /*function handlePress() {
      if (deferredPrompt) {
        alert('not found')
@@ -47,13 +48,16 @@ function App() {
        alert('not found')
      }
    }*/
-
   return (
     <div className="app">
       <CssBaseline />
       <Routes>
         {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
+          <Route
+            key={route.path}
+            path={route.path}
+            element={React.cloneElement(route.element, { number })}
+          />
         ))}
       </Routes>
     </div>
