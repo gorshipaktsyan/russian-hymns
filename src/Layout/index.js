@@ -5,8 +5,9 @@ import AppBar from "../view/components/AppBar";
 import Drawer from "../view/components/Drawer";
 import Footer from "../view/components/Footer";
 import storage from "../view/services/storage/storage.json";
-import "../index.scss";
-import App from "../App/index";
+import "./index.scss";
+import App from "../App";
+
 const navItems = [
   { tittle: "Поиск", route: "search" },
   { tittle: "Содержанье", route: "content" },
@@ -28,10 +29,10 @@ const config = {
   touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
 };
 
-function Layout({ children }) {
+function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [number, setNumber] = useState(1);
-
+  const [tittle, setTittle] = useState("Гимны (1-800)");
   function handleLeftSwipe() {
     const index = storage.findIndex(
       (el) => Number(el.number) === Number(number + 1)
@@ -70,15 +71,12 @@ function Layout({ children }) {
   };
   return (
     <Box sx={{ height: "100%" }} {...handlers}>
-      <AppBar
-        navItems={navItems}
-        handleDrawerToggle={handleDrawerToggle}
-        number={number}
-      />
+      <AppBar handleDrawerToggle={handleDrawerToggle} tittle={tittle} />
       <Drawer
         handleDrawerToggle={handleDrawerToggle}
         navItems={navItems}
         mobileOpen={mobileOpen}
+        setTittle={setTittle}
       />
       <App number={number} />
       <Footer />

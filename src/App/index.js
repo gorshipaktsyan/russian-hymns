@@ -12,7 +12,7 @@ import {
   Search,
   Settings,
 } from "../view/pages";
-import "./indexs.scss";
+import "./index.scss";
 import { Bookmark } from "@mui/icons-material";
 //let deferredPrompt;
 

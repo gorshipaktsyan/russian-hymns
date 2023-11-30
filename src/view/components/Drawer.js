@@ -9,10 +9,16 @@ import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
-function DrawerComponent({ navItems, mobileOpen, handleDrawerToggle }) {
+function DrawerComponent({
+  navItems,
+  mobileOpen,
+  handleDrawerToggle,
+  setTittle,
+}) {
   const navigate = useNavigate();
   function handleNavigate(item) {
-    navigate(`/russian-hymns/${item}`);
+    navigate(`/russian-hymns/${item.route}`);
+    setTittle(item.tittle);
   }
   return (
     <Drawer
@@ -32,7 +38,7 @@ function DrawerComponent({ navItems, mobileOpen, handleDrawerToggle }) {
             <ListItem
               key={item.tittle}
               disablePadding
-              onClick={() => handleNavigate(item.route)}
+              onClick={() => handleNavigate(item)}
             >
               <ListItemButton>
                 <ListItemText primary={item.tittle} />
