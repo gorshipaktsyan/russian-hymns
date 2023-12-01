@@ -15,9 +15,17 @@ import {
 import { Bookmark } from "@mui/icons-material";
 import "./index.scss";
 
-function App({ number }) {
+function App({ currentNumber, setCurrentNumber }) {
   const routes = [
-    { path: "/russian-hymns", element: <Hymn /> },
+    {
+      path: "/russian-hymns",
+      element: (
+        <Hymn
+          currentNumber={currentNumber}
+          setCurrentNumber={setCurrentNumber}
+        />
+      ),
+    },
     { path: "/russian-hymns/settings", element: <Settings /> },
     { path: "/russian-hymns/about", element: <About /> },
     { path: "/russian-hymns/alphabetical", element: <AlphabeticalIndex /> },
@@ -26,7 +34,10 @@ function App({ number }) {
     { path: "/russian-hymns/history", element: <History /> },
     { path: "/russian-hymns/preface", element: <Preface /> },
     { path: "/russian-hymns/reference", element: <Reference /> },
-    { path: "/russian-hymns/search", element: <Search /> },
+    {
+      path: "/russian-hymns/search",
+      element: <Search setCurrentNumber={setCurrentNumber} />,
+    },
   ];
 
   return (
@@ -34,11 +45,7 @@ function App({ number }) {
       <CssBaseline />
       <Routes>
         {routes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={React.cloneElement(route.element, { number })}
-          />
+          <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Routes>
     </div>
