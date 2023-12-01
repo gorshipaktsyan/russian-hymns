@@ -44,6 +44,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
     },
     config
   );
+  console.log(currentNumber)
   return (
     <Box sx={{ width: "100%" }} {...handlers}>
       {<div dangerouslySetInnerHTML={{ __html: hymn?.html }} />}

@@ -1,4 +1,4 @@
-import {List, ListItem, ListItemText, Divider} from "@mui/material";
+import { List, ListItem, ListItemText, Divider } from "@mui/material";
 import titles from "../../services/storage/titles.json";
 import './index.scss';
 
@@ -16,7 +16,7 @@ function Content() {
                         <ListItem className='item' key={title._id} onClick={() => handleTitleClose(title)}>
                             <ListItemText className='text' primary={title.name} />
                         </ListItem>
-                        <Divider />
+                        <Divider t />
                     </>
 
                 ))}
