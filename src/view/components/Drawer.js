@@ -1,11 +1,11 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -13,12 +13,12 @@ function DrawerComponent({
   navItems,
   mobileOpen,
   handleDrawerToggle,
-  setTittle,
+  setTitle,
 }) {
   const navigate = useNavigate();
   function handleNavigate(item) {
     navigate(`/russian-hymns/${item.route}`);
-    setTittle(item.tittle);
+    setTitle(item.tittle);
   }
   return (
     <Drawer

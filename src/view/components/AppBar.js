@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 
-function AppBarComponent({ handleDrawerToggle, tittle }) {
+function AppBarComponent({ handleDrawerToggle, title }) {
   return (
     <AppBar component="nav" sx={{ backgroundColor: "#000" }}>
       <Toolbar>
@@ -17,7 +17,7 @@ function AppBarComponent({ handleDrawerToggle, tittle }) {
         >
           <MenuIcon />
         </IconButton>
-        <Box>{tittle}</Box>
+        <Box>{title}</Box>
       </Toolbar>
     </AppBar>
   );
