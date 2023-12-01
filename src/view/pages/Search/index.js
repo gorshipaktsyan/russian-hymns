@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { TextField, styled } from "@mui/material";
 import "./index.scss";
-
+import hymnsStorage from "../../../utils/storage";
 const StyledForm = styled("form")({
   display: "flex",
   alignItems: "center",
@@ -20,6 +20,7 @@ function Search({ setCurrentNumber }) {
   function handleSubmit(e) {
     e.preventDefault();
     setCurrentNumber(number);
+    hymnsStorage.addItem("searchedNumbers", number);
     navigate("/russian-hymns");
   }
 
