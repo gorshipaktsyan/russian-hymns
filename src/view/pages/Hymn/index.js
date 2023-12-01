@@ -1,7 +1,7 @@
 import React from "react";
 import { useSwipeable } from "react-swipeable";
 import Box from "@mui/material/Box";
-import storage from "../../services/storage/storage.json";
+import hymns from "../../services/storage/hymns.json";
 import "./index.scss";
 
 const config = {
@@ -14,10 +14,10 @@ const config = {
   touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
 };
 function Hymn({ currentNumber, setCurrentNumber }) {
-  const hymn = storage.find((h) => Number(h.number) === Number(currentNumber));
-  // console.log(typeof currentNumber);
+  const hymn = hymns.find((h) => Number(h.number) === Number(currentNumber));
+
   function handleLeftSwipe() {
-    const index = storage.findIndex(
+    const index = hymns.findIndex(
       (el) => Number(el.number) === Number(currentNumber + 1)
     );
     if (index !== -1) {
@@ -26,7 +26,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
   }
 
   function handleRightSwipe(n) {
-    const index = storage.findIndex(
+    const index = hymns.findIndex(
       (el) => Number(el.number) === Number(currentNumber - 1)
     );
     if (index !== -1) {

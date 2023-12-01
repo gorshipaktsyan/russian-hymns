@@ -2,25 +2,31 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { TextField, styled } from "@mui/material";
+import persistentStore from "../../services/PersistentStore";
 import "./index.scss";
-import hymnsStorage from "../../../utils/storage";
+
 const StyledForm = styled("form")({
   display: "flex",
   alignItems: "center",
   flexDirection: "column",
   marginTop: "10%",
 });
+
 const StyledButton = styled(Button)({
   margin: "1%",
 });
 
 function Search({ setCurrentNumber }) {
+
   const [number, setNumber] = useState("");
   const navigate = useNavigate();
+
   function handleSubmit(e) {
     e.preventDefault();
     setCurrentNumber(number);
-    hymnsStorage.addItem("searchedNumbers", number);
+    const searchedNumbers = persistentStore.get("searchedNumbers") || [];
+    const numbers = [...new Set([number, ...searchedNumbers])];
+    persistentStore.set("searchedNumbers", numbers);
     navigate("/russian-hymns");
   }
 
@@ -34,8 +40,7 @@ function Search({ setCurrentNumber }) {
         name="search"
         label="Поиск"
         value={number}
-        placeholder="Поиск"
-        onChange={(e) => handleChange(e)}
+        onChange={handleChange}
         fullwidth="true"
       />
       <StyledButton type="submit" variant="contained" fullwidth="true">

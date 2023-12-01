@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Bookmark } from "@mui/icons-material";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
   About,
@@ -12,7 +13,6 @@ import {
   Search,
   Settings,
 } from "../view/pages";
-import { Bookmark } from "@mui/icons-material";
 import "./index.scss";
 
 function App({ currentNumber, setCurrentNumber }) {

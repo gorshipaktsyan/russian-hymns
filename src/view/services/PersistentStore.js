@@ -1,9 +1,4 @@
-class Store {
-  addItem(key, newItem) {
-    const items = this.get(key);
-    items.push(newItem);
-    this.set(key, items);
-  }
+class PersistentStore {
   set(key, value) {
     try {
       const currentItems = JSON.stringify(value);
@@ -36,6 +31,6 @@ class Store {
   //   }
   // }
 }
-const hymnsStorage = new Store();
+const persistentStore = new PersistentStore();
 
-export default hymnsStorage;
+export default persistentStore;

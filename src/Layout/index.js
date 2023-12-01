@@ -45,10 +45,6 @@ function Layout() {
    }
  }*/
 
-  /*    const toggleMobileMenu = () => {
-          setMobileMenuOpen(!isMobileMenuOpen);
-      };*/
-
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };

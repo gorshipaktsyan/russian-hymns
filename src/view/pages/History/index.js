@@ -1,7 +1,10 @@
 import { List, ListItem } from "@mui/material";
-import hymnsStorage from "../../../utils/storage";
+import persistentStore from "../../services/PersistentStore";
+
 function History() {
-  const history = hymnsStorage.get();
+
+  const history = persistentStore.get();
+
   return (
     <List>
       {history.map((item) => (
