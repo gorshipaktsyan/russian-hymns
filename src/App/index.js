@@ -28,7 +28,10 @@ function App({ currentNumber, setCurrentNumber }) {
     },
     { path: "/russian-hymns/settings", element: <Settings /> },
     { path: "/russian-hymns/about", element: <About /> },
-    { path: "/russian-hymns/alphabetical", element: <AlphabeticalIndex /> },
+    {
+      path: "/russian-hymns/alphabetical",
+      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber}/>
+    },
     { path: "/russian-hymns/bookmark", element: <Bookmark /> },
     {
       path: "/russian-hymns/content",

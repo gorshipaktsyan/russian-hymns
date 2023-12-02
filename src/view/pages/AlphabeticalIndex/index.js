@@ -1,31 +1,30 @@
-import {List, ListItem} from "@mui/material";
+import {useState} from 'react';
+import {useNavigate} from "react-router-dom";
+import Alphabet from "./Alphabet";
+import HymnsList from "./HymnsList";
+import persistentStore from "../../services/PersistentStore";
 import './index.scss'
 
-const RussianAlphabetCapital = [
-  'А', 'Б', 'В', 'Г', 'Д',
-  'Е', 'Ж', 'З', 'И', 'К',
-  'Л', 'М', 'Н', 'О', 'П',
-  'Р', 'С', 'Т', 'У', 'Х',
-  'Ц', 'Ч', 'Ш', 'Щ', 'Ъ',
-  'Ы', 'Ь', 'Э', 'Ю', 'Я'
-];
+function AlphabeticalIndex({setCurrentNumber}) {
+  const [letter, setLetter] = useState("")
+  const navigate = useNavigate();
 
-function AlphabeticalIndex() {
-
-  function handleLetterClick(letter) {
-    alert(letter)
+  function handleTitleClick(hymn) {
+    setCurrentNumber(hymn.number);
+    const searchedNumbers = persistentStore.get("searchedNumbers") || [];
+    const numbers = [...new Set([hymn.number, ...searchedNumbers])];
+    persistentStore.set("searchedNumbers", numbers);
+    navigate("/russian-hymns");
   }
 
   return (
-      <div className='alphabetical-page'>
-        <List className='list-wrapper'>
-          {RussianAlphabetCapital.map((letter) => (
-              <ListItem className='letter' key={letter} onClick={() => handleLetterClick(letter)}>
-                {letter}
-              </ListItem>
-          ))}
-        </List>
-      </div>
+    <div className='alphabetical-page'>
+      {letter ? (
+        <HymnsList letter={letter} handleTitleClick={handleTitleClick} handleBackClick={() => setLetter("")}/>
+      ) : (
+        <Alphabet setLetter={setLetter}/>
+      )}
+    </div>
   )
 }
 
