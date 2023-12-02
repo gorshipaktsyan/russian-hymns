@@ -3,6 +3,9 @@ import { useSwipeable } from "react-swipeable";
 import Box from "@mui/material/Box";
 import hymns from "../../services/storage/hymns.json";
 import "./index.scss";
+import Fab from "@mui/material/Fab";
+import SearchIcon from "@mui/icons-material/Search";
+import {useNavigate} from "react-router-dom";
 
 const config = {
   delta: 10, // min distance(px) before a swipe starts. *See Notes*
@@ -14,6 +17,8 @@ const config = {
   touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
 };
 function Hymn({ currentNumber, setCurrentNumber }) {
+  const navigate = useNavigate();
+
   const hymn = hymns.find((h) => Number(h.number) === Number(currentNumber));
 
   function handleLeftSwipe() {
@@ -44,9 +49,17 @@ function Hymn({ currentNumber, setCurrentNumber }) {
     },
     config
   );
+
+  function handleSearch() {
+    navigate("/russian-hymns/search");
+  }
+
   return (
     <Box sx={{ width: "100%" }} {...handlers}>
       {<div dangerouslySetInnerHTML={{ __html: hymn?.html }} />}
+      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: '30px', right: '30px' }} onClick={handleSearch}>
+        <SearchIcon />
+      </Fab>
     </Box>
   );
 }
