@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import {Divider, Box} from "@mui/material";
-import subtitles from "../../services/storage/subtitles.json";
 import hymns from "../../services/storage/hymns.json";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';

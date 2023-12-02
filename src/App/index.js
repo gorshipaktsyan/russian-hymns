@@ -34,7 +34,8 @@ function App({ currentNumber, setCurrentNumber }) {
       path: "/russian-hymns/content",
       element: <Content setCurrentNumber={setCurrentNumber} />
     },
-    { path: "/russian-hymns/history", element: <History /> },
+    { path: "/russian-hymns/history", element: <History setCurrentNumber={setCurrentNumber} /> },
+
     { path: "/russian-hymns/preface", element: <Preface /> },
     { path: "/russian-hymns/reference", element: <Reference /> },
     {

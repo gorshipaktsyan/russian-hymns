@@ -1,11 +1,9 @@
 import {useState} from 'react'
-import {List, ListItem, ListItemText, Divider} from "@mui/material";
-import titles from "../../services/storage/titles.json";
+import {useNavigate} from "react-router-dom";
 import TitlesList from "./TitlesList";
 import SubTitlesList from "./SubTitlesList";
-import './index.scss';
 import persistentStore from "../../services/PersistentStore";
-import {useNavigate} from "react-router-dom";
+import './index.scss';
 
 function Content({setCurrentNumber}) {
     const [selectedTitle, setSelectedTitle] = useState(null)
@@ -26,7 +24,7 @@ function Content({setCurrentNumber}) {
     return (
         <div className='content-page'>
             {selectedTitle ? (
-                <SubTitlesList selectedTitle={selectedTitle} setSelectedTitle={setSelectedTitle} handleHymnClick={handleHymnClick}/>
+                <SubTitlesList selectedTitle={selectedTitle} setSelectedTitle={setSelectedTitle} handleHymnClick={handleHymnClick} />
             ) : (
                 <TitlesList handleTitleClick={handleTitleClick} />
             )}

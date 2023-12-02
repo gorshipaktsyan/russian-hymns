@@ -10,7 +10,7 @@ function TitlesList({handleTitleClick}) {
                     <ListItem className='item' key={title._id} onClick={() => handleTitleClick(title)}>
                         <ListItemText className='text' primary={title.name} />
                     </ListItem>
-                    <Divider />
+                    <Divider/>
                 </>
 
             ))}

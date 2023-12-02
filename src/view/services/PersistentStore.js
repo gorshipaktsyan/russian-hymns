@@ -7,7 +7,7 @@ class PersistentStore {
       console.error(`Error setting item in local storage: ${error.message}`);
     }
   }
-  get(key) {
+  get() {
     try {
       const value = localStorage.getItem("searchedNumbers");
       return JSON.parse(value) || [];

@@ -1,11 +1,11 @@
 import React from "react";
 import { useSwipeable } from "react-swipeable";
 import Box from "@mui/material/Box";
-import hymns from "../../services/storage/hymns.json";
-import "./index.scss";
 import Fab from "@mui/material/Fab";
 import SearchIcon from "@mui/icons-material/Search";
 import {useNavigate} from "react-router-dom";
+import hymns from "../../services/storage/hymns.json";
+import "./index.scss";
 
 const config = {
   delta: 10, // min distance(px) before a swipe starts. *See Notes*
