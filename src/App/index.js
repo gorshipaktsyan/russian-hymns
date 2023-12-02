@@ -30,8 +30,12 @@ function App({ currentNumber, setCurrentNumber }) {
     { path: "/russian-hymns/about", element: <About /> },
     { path: "/russian-hymns/alphabetical", element: <AlphabeticalIndex /> },
     { path: "/russian-hymns/bookmark", element: <Bookmark /> },
-    { path: "/russian-hymns/content", element: <Content /> },
+    {
+      path: "/russian-hymns/content",
+      element: <Content setCurrentNumber={setCurrentNumber} />
+    },
     { path: "/russian-hymns/history", element: <History setCurrentNumber={setCurrentNumber} /> },
+
     { path: "/russian-hymns/preface", element: <Preface /> },
     { path: "/russian-hymns/reference", element: <Reference /> },
     {
@@ -45,7 +49,11 @@ function App({ currentNumber, setCurrentNumber }) {
       <CssBaseline />
       <Routes>
         {routes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
+          <Route
+            key={route.path}
+            path={route.path}
+            element={route.element}
+          />
         ))}
       </Routes>
     </div>
