@@ -1,17 +1,21 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import persistentStore from "../services/PersistentStore";
 
-function AppBarComponent({ handleDrawerToggle, title }) {
-  const saved = true;
+function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
+  const SAVED_HYMNS = persistentStore.get("savedHymns") || [];
+  console.log(SAVED_HYMNS)
 
   function handleBookmarkClick() {
-
+    // saved ? persistentStore.set("savedHymns", currentNumber) : persistentStore.remove("savedHymns", currentNumber);
   }
 
   return (
@@ -31,7 +35,7 @@ function AppBarComponent({ handleDrawerToggle, title }) {
           color="inherit"
           onClick={handleBookmarkClick}
         >
-            {saved ? <BookmarkBorderIcon /> : <BookmarkIcon />}
+          {/* {isSaved ? <BookmarkIcon /> : <BookmarkBorderIcon />} */}
         </IconButton>
       </Toolbar>
     </AppBar>

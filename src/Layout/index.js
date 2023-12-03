@@ -54,10 +54,12 @@ function Layout() {
   };
   return (
     <Box sx={{ height: "100%" }}>
-      <AppBar handleDrawerToggle={handleDrawerToggle} title={title} />
+      <AppBar handleDrawerToggle={handleDrawerToggle} title={title} currentNumber={currentNumber}
+      />
       <App
         currentNumber={currentNumber}
         setCurrentNumber={updateCurrentNumber}
+
       />
       <Footer />
       <Drawer
