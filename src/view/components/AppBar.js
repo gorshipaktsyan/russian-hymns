@@ -4,8 +4,16 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 function AppBarComponent({ handleDrawerToggle, title }) {
+  const saved = true;
+
+  function handleBookmarkClick() {
+
+  }
+
   return (
     <AppBar component="nav" sx={{ backgroundColor: "#000" }}>
       <Toolbar>
@@ -18,6 +26,13 @@ function AppBarComponent({ handleDrawerToggle, title }) {
           <MenuIcon />
         </IconButton>
         <Box>{title}</Box>
+        <Box sx={{ flexGrow: 1 }} />
+        <IconButton
+          color="inherit"
+          onClick={handleBookmarkClick}
+        >
+            {saved ? <BookmarkBorderIcon /> : <BookmarkIcon />}
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
