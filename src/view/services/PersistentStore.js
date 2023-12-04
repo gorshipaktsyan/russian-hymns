@@ -10,7 +10,8 @@ class PersistentStore {
   get(key) {
     try {
       const value = localStorage.getItem(key);
-      return JSON.parse(value) || [];
+      const parsedValue = [JSON.parse(value)];
+      return Array.isArray(parsedValue) ? parsedValue : [];
     } catch (error) {
       console.error(`Error getting item from local storage: ${error.message}`);
       return [];
@@ -27,7 +28,9 @@ class PersistentStore {
     try {
       localStorage.removeItem(key);
     } catch (error) {
-      console.error(`Error removing item "${key}" from local storage: ${error.message}`);
+      console.error(
+        `Error removing item "${key}" from local storage: ${error.message}`
+      );
     }
   }
 }

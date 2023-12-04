@@ -11,13 +11,18 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import persistentStore from "../services/PersistentStore";
 
 function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
-  const SAVED_HYMNS = persistentStore.get("savedHymns") || [];
-  console.log(SAVED_HYMNS)
-
-  function handleBookmarkClick() {
-    // saved ? persistentStore.set("savedHymns", currentNumber) : persistentStore.remove("savedHymns", currentNumber);
-  }
-
+  const [saved, setSaved] = useState(true);
+  const SAVED_HYMNS = persistentStore.get("savedHymns") || {};
+  const isSaved = SAVED_HYMNS.includes(currentNumber);
+  const handleBookmarkClick = () => {
+    if (isSaved) {
+      persistentStore.remove("savedHymns");
+      setSaved(!saved);
+    } else {
+      persistentStore.set("savedHymns", currentNumber);
+      setSaved(!saved);
+    }
+  };
   return (
     <AppBar component="nav" sx={{ backgroundColor: "#000" }}>
       <Toolbar>
@@ -31,11 +36,8 @@ function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
         </IconButton>
         <Box>{title}</Box>
         <Box sx={{ flexGrow: 1 }} />
-        <IconButton
-          color="inherit"
-          onClick={handleBookmarkClick}
-        >
-          {/* {isSaved ? <BookmarkIcon /> : <BookmarkBorderIcon />} */}
+        <IconButton color="inherit" onClick={handleBookmarkClick}>
+          {saved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
         </IconButton>
       </Toolbar>
     </AppBar>

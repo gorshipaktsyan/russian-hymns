@@ -17,13 +17,12 @@ const StyledButton = styled(Button)({
 });
 
 function Search({ setCurrentNumber }) {
-
   const [number, setNumber] = useState("");
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    setCurrentNumber(number);
+    setCurrentNumber(Number(number));
     const searchedNumbers = persistentStore.get("searchedNumbers") || [];
     const numbers = [...new Set([number, ...searchedNumbers])];
     persistentStore.set("searchedNumbers", numbers);
