@@ -16,7 +16,7 @@ function Content({setCurrentNumber}) {
     const handleHymnClick = (hymn) => {
         setCurrentNumber(hymn.number);
         const searchedNumbers = persistentStore.get("searchedNumbers") || [];
-        const numbers = [...new Set([hymn.number, ...searchedNumbers])];
+        const numbers = [...new Set([Number(hymn.number), ...searchedNumbers])];
         persistentStore.set("searchedNumbers", numbers);
         navigate("/russian-hymns");
     }

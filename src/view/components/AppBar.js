@@ -12,10 +12,10 @@ import persistentStore from "../services/PersistentStore";
 
 function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
   const [saved, setSaved] = useState(true);
-  const SAVED_HYMNS = persistentStore.get("savedHymns") || {};
-  const isSaved = SAVED_HYMNS.includes(currentNumber);
+  //const SAVED_HYMNS = persistentStore.get("savedHymns") || {};
+  //const isSaved = SAVED_HYMNS.includes(currentNumber);
   const handleBookmarkClick = () => {
-    if (isSaved) {
+    if (true) {
       persistentStore.remove("savedHymns");
       setSaved(!saved);
     } else {

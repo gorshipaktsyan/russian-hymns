@@ -10,20 +10,18 @@ class PersistentStore {
   get(key) {
     try {
       const value = localStorage.getItem(key);
-      const parsedValue = [JSON.parse(value)];
-      return Array.isArray(parsedValue) ? parsedValue : [];
+      return JSON.parse(value);
     } catch (error) {
       console.error(`Error getting item from local storage: ${error.message}`);
-      return [];
     }
   }
-  // clear() {
-  //   try {
-  //     localStorage.clear();
-  //   } catch (error) {
-  //     console.error(`Error clearing local storage: ${error.message}`);
-  //   }
-  // }
+  clear() {
+    try {
+      localStorage.clear();
+    } catch (error) {
+      console.error(`Error clearing local storage: ${error.message}`);
+    }
+  }
   remove(key) {
     try {
       localStorage.removeItem(key);

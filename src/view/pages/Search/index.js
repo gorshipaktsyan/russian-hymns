@@ -24,7 +24,7 @@ function Search({ setCurrentNumber }) {
     e.preventDefault();
     setCurrentNumber(Number(number));
     const searchedNumbers = persistentStore.get("searchedNumbers") || [];
-    const numbers = [...new Set([number, ...searchedNumbers])];
+    const numbers = [...new Set([Number(number), ...searchedNumbers])];
     persistentStore.set("searchedNumbers", numbers);
     navigate("/russian-hymns");
   }
