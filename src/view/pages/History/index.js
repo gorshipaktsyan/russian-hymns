@@ -5,7 +5,7 @@ import titles from "../../services/storage/titles.json"
 import styled from "@emotion/styled";
 
 function History({ setCurrentNumber }) {
-  const HISTORY = persistentStore.get();
+  const HISTORY = persistentStore.get("searchedNumbers");
   const searchedHymns = titles.filter((title) => HISTORY.includes(String(title._id)))
   const navigate = useNavigate();
   const StyledBox = styled(Box)({
