@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -12,14 +11,14 @@ import persistentStore from "../services/PersistentStore";
 
 function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
   const [saved, setSaved] = useState(true);
-  //const SAVED_HYMNS = persistentStore.get("savedHymns") || {};
-  //const isSaved = SAVED_HYMNS.includes(currentNumber);
   const handleBookmarkClick = () => {
-    if (true) {
+    if (saved) {
       persistentStore.remove("savedHymns");
       setSaved(!saved);
     } else {
-      persistentStore.set("savedHymns", currentNumber);
+      const SAVED_HYMNS = persistentStore.get("savedHymns") || [];
+      const SAVED_H_NUMBERS = [...new Set([currentNumber, ...SAVED_HYMNS])];
+      persistentStore.set("savedHymns", SAVED_H_NUMBERS);
       setSaved(!saved);
     }
   };
