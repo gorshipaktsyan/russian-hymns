@@ -21,7 +21,6 @@ const StyledListItem = styled(ListItem)({
 function History({ setCurrentNumber }) {
   const HISTORY = persistentStore.get("searchedNumbers") || [];
   const searchedHymns = hymns.filter((h) => HISTORY.includes(h._id));
-
   const navigate = useNavigate();
 
   function handleClick(id) {
