@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Bookmark } from "@mui/icons-material";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
   About,
   AlphabeticalIndex,
+  Bookmarks,
   Content,
   History,
   Hymn,
@@ -30,14 +30,20 @@ function App({ currentNumber, setCurrentNumber }) {
     { path: "/russian-hymns/about", element: <About /> },
     {
       path: "/russian-hymns/alphabetical",
-      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber}/>
+      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber} />,
     },
-    { path: "/russian-hymns/bookmark", element: <Bookmark /> },
+    {
+      path: "/russian-hymns/bookmark",
+      element: <Bookmarks setCurrentNumber={setCurrentNumber} />,
+    },
     {
       path: "/russian-hymns/content",
-      element: <Content setCurrentNumber={setCurrentNumber} />
+      element: <Content setCurrentNumber={setCurrentNumber} />,
     },
-    { path: "/russian-hymns/history", element: <History setCurrentNumber={setCurrentNumber} /> },
+    {
+      path: "/russian-hymns/history",
+      element: <History setCurrentNumber={setCurrentNumber} />,
+    },
 
     { path: "/russian-hymns/preface", element: <Preface /> },
     { path: "/russian-hymns/reference", element: <Reference /> },
@@ -52,11 +58,7 @@ function App({ currentNumber, setCurrentNumber }) {
       <CssBaseline />
       <Routes>
         {routes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={route.element}
-          />
+          <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Routes>
     </div>
