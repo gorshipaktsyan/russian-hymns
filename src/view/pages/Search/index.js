@@ -13,7 +13,11 @@ const StyledForm = styled("form")({
 });
 
 const StyledButton = styled(Button)({
+  background: "black",
   margin: "1%",
+  "&:hover": {
+    background: "grey"
+  }
 });
 
 function Search({ setCurrentNumber }) {

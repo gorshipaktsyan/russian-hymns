@@ -9,13 +9,14 @@ const StyledBox = styled(Box)({
   justifyContent: "center",
 });
 const StyledListItem = styled(ListItem)({
-  display: "flex",
-  justifyContent: "space-between",
   width: "100%",
   "&:hover": {
     backgroundColor: "rgb(240, 240, 220)",
     cursor: "pointer",
   },
+});
+const StyledText = styled(Box)({
+  padding: "5px",
 });
 
 function History({ setCurrentNumber }) {
@@ -34,8 +35,8 @@ function History({ setCurrentNumber }) {
         {searchedHymns.map((h) => (
           <>
             <StyledListItem key={h?._id} onClick={() => handleClick(h?._id)}>
-              <Box>{h?.first_string}</Box>
-              <Box>{h?.number}</Box>
+              <StyledText>{h?.number}</StyledText>
+              <StyledText>{h?.first_string}</StyledText>
             </StyledListItem>
             <Divider />
           </>

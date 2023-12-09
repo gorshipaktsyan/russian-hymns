@@ -3,7 +3,7 @@ import { useSwipeable } from "react-swipeable";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import SearchIcon from "@mui/icons-material/Search";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import hymns from "../../services/storage/hymns.json";
 import "./index.scss";
 
@@ -57,7 +57,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
   return (
     <Box sx={{ width: "100%" }} {...handlers}>
       {<div dangerouslySetInnerHTML={{ __html: hymn?.html }} />}
-      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: '30px', right: '30px' }} onClick={handleSearch}>
+      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: '30px', right: '30px', backgroundColor: "black", "&:hover": { backgroundColor: "grey" } }} onClick={handleSearch}>
         <SearchIcon />
       </Fab>
     </Box>

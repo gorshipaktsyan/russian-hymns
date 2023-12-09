@@ -89,10 +89,10 @@ function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
       <Fab
         color="primary"
         aria-label="add"
-        sx={{ position: "fixed", bottom: "30px", right: "30px" }}
+        sx={{ position: "fixed", bottom: "30px", right: "30px", backgroundColor: "black", "&:hover": { backgroundColor: "grey" } }}
         onClick={() => handleBackClick()}
       >
-        <AddIcon />
+        <AddIcon sx={{}} />
       </Fab>
     </div>
   );
