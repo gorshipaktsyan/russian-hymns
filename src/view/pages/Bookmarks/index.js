@@ -11,16 +11,30 @@ const StyledBox = styled(Box)({
 const StyledListItem = styled(ListItem)({
   display: "flex",
   justifyContent: "space-between",
-  width: "100%",
+  with: "100%",
+  alignItems: "center",
+
   "&:hover": {
     backgroundColor: "rgb(240, 240, 220)",
     cursor: "pointer",
   },
 });
-
+const StyledText = styled(Box)({
+  padding: "5px",
+});
 function Bookmarks({ setCurrentNumber }) {
   const SAVED = persistentStore.get("savedHymns") || [];
-  const SAVED_HYMNS = hymns.filter((h) => SAVED.includes(h._id));
+  const SAVED_HYMNS = SAVED.map((saved) => {
+    const matchingHymn = hymns.find((h) => h.number === saved.number);
+    if (matchingHymn) {
+      return {
+        ...matchingHymn,
+        date: saved.date,
+      };
+    }
+    return null;
+  }).filter(Boolean);
+
   const navigate = useNavigate();
   function handleClick(id) {
     setCurrentNumber(id);
@@ -32,8 +46,9 @@ function Bookmarks({ setCurrentNumber }) {
         {SAVED_HYMNS.map((h) => (
           <>
             <StyledListItem key={h._id} onClick={() => handleClick(h._id)}>
-              <Box>{h?.first_string}</Box>
-              <Box>{h?.number}</Box>
+              <StyledText>{h?.first_string}</StyledText>
+              <StyledText>{h?.number}.</StyledText>
+              <StyledText>({h.date})</StyledText>
             </StyledListItem>
             <Divider />
           </>

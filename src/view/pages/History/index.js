@@ -11,16 +11,29 @@ const StyledBox = styled(Box)({
 const StyledListItem = styled(ListItem)({
   display: "flex",
   justifyContent: "space-between",
-  width: "100%",
+  with: "100%",
+  alignItems: "center",
   "&:hover": {
     backgroundColor: "rgb(240, 240, 220)",
     cursor: "pointer",
   },
 });
+const StyledText = styled(Box)({
+  padding: "5px",
+});
 
 function History({ setCurrentNumber }) {
   const HISTORY = persistentStore.get("searchedNumbers") || [];
-  const searchedHymns = hymns.filter((h) => HISTORY.includes(h._id));
+  const searchedHymns = HISTORY.map((searched) => {
+    const matchingHymn = hymns.find((h) => h.number === searched.number);
+    if (matchingHymn) {
+      return {
+        ...matchingHymn,
+        date: searched.date,
+      };
+    }
+    return null;
+  }).filter(Boolean);
   const navigate = useNavigate();
 
   function handleClick(id) {
@@ -34,8 +47,9 @@ function History({ setCurrentNumber }) {
         {searchedHymns.map((h) => (
           <>
             <StyledListItem key={h?._id} onClick={() => handleClick(h?._id)}>
-              <Box>{h?.first_string}</Box>
-              <Box>{h?.number}</Box>
+              <StyledText>{h?.first_string}</StyledText>
+              <StyledText>{h?.number}</StyledText>
+              <StyledText>({h.date})</StyledText>
             </StyledListItem>
             <Divider />
           </>

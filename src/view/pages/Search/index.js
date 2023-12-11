@@ -13,7 +13,11 @@ const StyledForm = styled("form")({
 });
 
 const StyledButton = styled(Button)({
+  background: "black",
   margin: "1%",
+  "&:hover": {
+    background: "grey",
+  },
 });
 
 function Search({ setCurrentNumber }) {
@@ -22,10 +26,14 @@ function Search({ setCurrentNumber }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const currentData = new Date();
     setCurrentNumber(Number(number));
     const searchedNumbers = persistentStore.get("searchedNumbers") || [];
-    const numbers = [...new Set([Number(number), ...searchedNumbers])];
-    persistentStore.set("searchedNumbers", numbers);
+    // const numbers = [...new Set([Number(number), ...searchedNumbers])];
+    const HYMN_OBJECT = { number: Number(number), date: currentData };
+    const UPDATED_HYMNS = [...searchedNumbers, HYMN_OBJECT];
+
+    persistentStore.set("searchedNumbers", UPDATED_HYMNS);
     navigate("/russian-hymns");
   }
 
