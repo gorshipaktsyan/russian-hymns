@@ -52,7 +52,6 @@ function Layout() {
     setCurrentNumber(number);
     setTitle(`Гимны ${number}`);
   };
-  console.log(isHymnPage);
   return (
     <Box sx={{ height: "100%" }}>
       <AppBar

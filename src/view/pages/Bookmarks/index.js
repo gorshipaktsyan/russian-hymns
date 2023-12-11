@@ -9,6 +9,11 @@ const StyledBox = styled(Box)({
   justifyContent: "center",
 });
 const StyledListItem = styled(ListItem)({
+  display: "flex",
+  justifyContent: "space-between",
+  with: "100%",
+  alignItems: "center",
+
   "&:hover": {
     backgroundColor: "rgb(240, 240, 220)",
     cursor: "pointer",
@@ -41,8 +46,8 @@ function Bookmarks({ setCurrentNumber }) {
         {SAVED_HYMNS.map((h) => (
           <>
             <StyledListItem key={h._id} onClick={() => handleClick(h._id)}>
-              <StyledText>{h?.number}.</StyledText>
               <StyledText>{h?.first_string}</StyledText>
+              <StyledText>{h?.number}.</StyledText>
               <StyledText>({h.date})</StyledText>
             </StyledListItem>
             <Divider />

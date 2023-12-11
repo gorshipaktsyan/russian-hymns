@@ -25,7 +25,7 @@ class PersistentStore {
   remove(key, value) {
     try {
       const items = this.get(key) || [];
-      const updatedItems = items.filter((item) => item.number !== value);
+      const updatedItems = items.filter((item) => item !== value);
       this.set(key, updatedItems);
     } catch (error) {
       console.error(

@@ -37,7 +37,7 @@ function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
   const [expanded, setExpanded] = useState(false);
   const grouped = hymns.filter((hymn) => hymn.title === selectedTitle);
   const groupedItems = groupItemsBySubtitle(grouped);
-  console.log("groupedItems", groupedItems);
+  // console.log("groupedItems", groupedItems);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -57,9 +57,12 @@ function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
             key={item}
             expanded={expanded === item}
             onChange={handleChange(item)}
+            sx={{ backgroundColor: "#ffffe7" }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography sx={{ flexShrink: 0 }}>{item}</Typography>
+              <Typography sx={{ flexShrink: 0 }}>
+                {hymns[0].first_string}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
               {hymns.map((h) => {
@@ -73,6 +76,7 @@ function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
                         display: "flex",
                         justifyContent: "space-between",
                         with: "100%",
+                        alignItems: "center",
                       }}
                     >
                       <Box sx={{ maxWidth: "80%" }}>{h.first_string}</Box>
@@ -89,7 +93,13 @@ function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
       <Fab
         color="primary"
         aria-label="add"
-        sx={{ position: "fixed", bottom: "30px", right: "30px", backgroundColor: "black", "&:hover": { backgroundColor: "grey" } }}
+        sx={{
+          position: "fixed",
+          bottom: "30px",
+          right: "30px",
+          backgroundColor: "black",
+          "&:hover": { backgroundColor: "grey" },
+        }}
         onClick={() => handleBackClick()}
       >
         <AddIcon sx={{}} />

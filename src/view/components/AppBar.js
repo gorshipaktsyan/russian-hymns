@@ -19,22 +19,26 @@ function AppBarComponent({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const SAVED_HYMNS_LIST = persistentStore.get("savedHymns") || [];
   useEffect(() => {
-    setSaved(SAVED_HYMNS_LIST.some((hymn) => hymn.number === currentNumber));
-  }, [currentNumber, SAVED_HYMNS_LIST]);
+    if (SAVED_HYMNS_LIST.includes(currentNumber)) {
+      setSaved(true);
+    } else {
+      setSaved(false);
+    }
+  }, [currentNumber]);
 
   const handleBookmarkClick = () => {
     if (saved) {
       persistentStore.remove("savedHymns", currentNumber);
       setSaved(!saved);
+      console.log(currentNumber);
     } else {
-      const currentData = new Date();
-      const HYMN_OBJECT = { number: currentNumber, date: currentData };
-      const UPDATED_HYMNS = [...SAVED_HYMNS_LIST, HYMN_OBJECT];
-      persistentStore.set("savedHymns", UPDATED_HYMNS);
+      const SAVED_H_NUMBERS = [
+        ...new Set([currentNumber, ...SAVED_HYMNS_LIST]),
+      ];
+      persistentStore.set("savedHymns", SAVED_H_NUMBERS);
       setSaved(!saved);
     }
   };
-  console.log(title);
   return (
     <AppBar component="nav" sx={{ backgroundColor: "#000" }}>
       <Toolbar>
