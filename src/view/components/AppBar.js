@@ -9,11 +9,15 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import persistentStore from "../services/PersistentStore";
 
-function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
+function AppBarComponent({
+  handleDrawerToggle,
+  title,
+  currentNumber,
+  isHymnPage,
+}) {
   const [saved, setSaved] = useState();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const SAVED_HYMNS_LIST = persistentStore.get("savedHymns") || [];
-
   useEffect(() => {
     setSaved(SAVED_HYMNS_LIST.some((hymn) => hymn.number === currentNumber));
   }, [currentNumber, SAVED_HYMNS_LIST]);
@@ -30,6 +34,7 @@ function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
       setSaved(!saved);
     }
   };
+  console.log(title);
   return (
     <AppBar component="nav" sx={{ backgroundColor: "#000" }}>
       <Toolbar>
@@ -43,9 +48,11 @@ function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
         </IconButton>
         <Box>{title}</Box>
         <Box sx={{ flexGrow: 1 }} />
-        <IconButton color="inherit" onClick={handleBookmarkClick}>
-          {saved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-        </IconButton>
+        {isHymnPage ? (
+          <IconButton color="inherit" onClick={handleBookmarkClick}>
+            {saved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+          </IconButton>
+        ) : null}
       </Toolbar>
     </AppBar>
   );

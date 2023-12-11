@@ -14,11 +14,13 @@ function DrawerComponent({
   mobileOpen,
   handleDrawerToggle,
   setTitle,
+  setIsHymnPage,
 }) {
   const navigate = useNavigate();
   function handleNavigate(item) {
     navigate(`/russian-hymns/${item.route}`);
     setTitle(item.tittle);
+    setIsHymnPage(false);
   }
   return (
     <Drawer

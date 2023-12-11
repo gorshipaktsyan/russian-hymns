@@ -35,7 +35,7 @@ function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentNumber, setCurrentNumber] = useState(1);
   const [title, setTitle] = useState(`Гимны ${currentNumber}`);
-
+  const [isHymnPage, setIsHymnPage] = useState(true);
   /*function handlePress() {
    if (deferredPrompt) {
      alert('not found')
@@ -52,14 +52,18 @@ function Layout() {
     setCurrentNumber(number);
     setTitle(`Гимны ${number}`);
   };
+  console.log(isHymnPage);
   return (
     <Box sx={{ height: "100%" }}>
-      <AppBar handleDrawerToggle={handleDrawerToggle} title={title} currentNumber={currentNumber}
+      <AppBar
+        handleDrawerToggle={handleDrawerToggle}
+        title={title}
+        currentNumber={currentNumber}
+        isHymnPage={isHymnPage}
       />
       <App
         currentNumber={currentNumber}
         setCurrentNumber={updateCurrentNumber}
-
       />
       <Footer />
       <Drawer
@@ -67,6 +71,7 @@ function Layout() {
         navItems={navItems}
         mobileOpen={mobileOpen}
         setTitle={setTitle}
+        setIsHymnPage={setIsHymnPage}
       />
     </Box>
   );
