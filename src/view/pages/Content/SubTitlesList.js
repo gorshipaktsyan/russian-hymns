@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Divider, Box } from "@mui/material";
 import hymns from "../../services/storage/hymns.json";
+import Subtitles from "../../services/storage/subtitles.json"
+import { Divider, Box } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -17,27 +18,11 @@ const StyledBox = styled(Box)({
     cursor: "pointer",
   },
 });
-function groupItemsBySubtitle(items) {
-  const groupedItems = {};
-
-  items.forEach((item) => {
-    const subtitle = item.subtitle;
-
-    if (groupedItems[subtitle]) {
-      groupedItems[subtitle].push(item);
-    } else {
-      groupedItems[subtitle] = [item];
-    }
-  });
-
-  return groupedItems;
-}
 
 function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
   const [expanded, setExpanded] = useState(false);
   const grouped = hymns.filter((hymn) => hymn.title === selectedTitle);
-  const groupedItems = groupItemsBySubtitle(grouped);
-  // console.log("groupedItems", groupedItems);
+  const subtitles = Subtitles.filter((sub) => sub.title === selectedTitle)
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -50,42 +35,41 @@ function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
 
   return (
     <div className="list-wrapper">
-      {Object.keys(groupedItems).map((item) => {
-        const hymns = groupedItems[item];
+      {subtitles.map((subtitle) => {
+        const hymns = grouped.filter((h) => h.subtitle === subtitle._id);
         return (
           <Accordion
-            key={item}
-            expanded={expanded === item}
-            onChange={handleChange(item)}
+            key={subtitle._id}
+            expanded={expanded === subtitle._id}
+            onChange={handleChange(subtitle._id)}
             sx={{ backgroundColor: "#ffffe7" }}
           >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography sx={{ flexShrink: 0 }}>
-                {hymns[0].first_string}
+              <Typography key={subtitle._id} sx={{ flexShrink: 0 }}>
+                {subtitle.name_upper}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {hymns.map((h) => {
-                return (
-                  <Box
-                    sx={{ marginBottom: "10px" }}
-                    onClick={() => handleHymnClick(h)}
+              {hymns.map((h) => (
+                <Box
+                  key={h._id}
+                  sx={{ marginBottom: "10px" }}
+                  onClick={() => handleHymnClick(h)}
+                >
+                  <StyledBox
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "100%",
+                      alignItems: "center",
+                    }}
                   >
-                    <StyledBox
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        with: "100%",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Box sx={{ maxWidth: "80%" }}>{h.first_string}</Box>
-                      <Box>{h.number}</Box>
-                    </StyledBox>
-                    <Divider />
-                  </Box>
-                );
-              })}
+                    <Box sx={{ maxWidth: "80%" }}>{h.first_string}</Box>
+                    <Box>{h.number}</Box>
+                  </StyledBox>
+                  <Divider />
+                </Box>
+              ))}
             </AccordionDetails>
           </Accordion>
         );
@@ -100,7 +84,7 @@ function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
           backgroundColor: "black",
           "&:hover": { backgroundColor: "grey" },
         }}
-        onClick={() => handleBackClick()}
+        onClick={handleBackClick}
       >
         <AddIcon sx={{}} />
       </Fab>

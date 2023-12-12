@@ -24,18 +24,9 @@ const StyledText = styled(Box)({
 });
 function Bookmarks({ setCurrentNumber }) {
   const SAVED = persistentStore.get("savedHymns") || [];
-  const SAVED_HYMNS = SAVED.map((saved) => {
-    const matchingHymn = hymns.find((h) => h.number === saved.number);
-    if (matchingHymn) {
-      return {
-        ...matchingHymn,
-        date: saved.date,
-      };
-    }
-    return null;
-  }).filter(Boolean);
-
+  const SAVED_HYMNS = hymns.filter((h) => SAVED.includes(h._id));
   const navigate = useNavigate();
+
   function handleClick(id) {
     setCurrentNumber(id);
     navigate("/russian-hymns");
@@ -47,8 +38,7 @@ function Bookmarks({ setCurrentNumber }) {
           <>
             <StyledListItem key={h._id} onClick={() => handleClick(h._id)}>
               <StyledText>{h?.first_string}</StyledText>
-              <StyledText>{h?.number}.</StyledText>
-              <StyledText>({h.date})</StyledText>
+              <StyledText>{h?.number}</StyledText>
             </StyledListItem>
             <Divider />
           </>
