@@ -30,7 +30,6 @@ function AppBarComponent({
     if (saved) {
       persistentStore.remove("savedHymns", currentNumber);
       setSaved(!saved);
-      console.log(currentNumber);
     } else {
       const SAVED_H_NUMBERS = [
         ...new Set([currentNumber, ...SAVED_HYMNS_LIST]),
