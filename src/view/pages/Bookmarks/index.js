@@ -22,7 +22,7 @@ const StyledListItem = styled(ListItem)({
 const StyledText = styled(Box)({
   padding: "5px",
 });
-function Bookmarks({ setCurrentNumber }) {
+function Bookmarks({ setCurrentNumber, setIsHymnPage }) {
   const SAVED = persistentStore.get("savedHymns") || [];
   const SAVED_HYMNS = hymns.filter((h) => SAVED.includes(h._id));
   const navigate = useNavigate();
@@ -30,6 +30,7 @@ function Bookmarks({ setCurrentNumber }) {
   function handleClick(id) {
     setCurrentNumber(id);
     navigate("/russian-hymns");
+    setIsHymnPage(true);
   }
   return (
     <StyledBox>
