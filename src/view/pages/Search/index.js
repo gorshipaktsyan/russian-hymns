@@ -20,7 +20,7 @@ const StyledButton = styled(Button)({
   },
 });
 
-function Search({ setCurrentNumber }) {
+function Search({ setCurrentNumber, setIsHymnPage }) {
   const [number, setNumber] = useState("");
   const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ function Search({ setCurrentNumber }) {
 
     persistentStore.set("searchedNumbers", UPDATED_HYMNS);
     navigate("/russian-hymns");
+    setIsHymnPage(true);
   }
 
   function handleChange(e) {

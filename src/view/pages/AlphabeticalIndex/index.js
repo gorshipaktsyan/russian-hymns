@@ -1,11 +1,12 @@
-import {useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Alphabet from "./Alphabet";
 import HymnsList from "./HymnsList";
 import persistentStore from "../../services/PersistentStore";
 import './index.scss'
 
-function AlphabeticalIndex({setCurrentNumber}) {
+function AlphabeticalIndex({ setCurrentNumber, setIsHymnPage
+}) {
   const [letter, setLetter] = useState("")
   const navigate = useNavigate();
 
@@ -15,14 +16,15 @@ function AlphabeticalIndex({setCurrentNumber}) {
     const numbers = [...new Set([Number(hymn.number), ...searchedNumbers])];
     persistentStore.set("searchedNumbers", numbers);
     navigate("/russian-hymns");
+    setIsHymnPage(true);
   }
 
   return (
     <div className='alphabetical-page'>
       {letter ? (
-        <HymnsList letter={letter} handleTitleClick={handleTitleClick} handleBackClick={() => setLetter("")}/>
+        <HymnsList letter={letter} handleTitleClick={handleTitleClick} handleBackClick={() => setLetter("")} />
       ) : (
-        <Alphabet setLetter={setLetter}/>
+        <Alphabet setLetter={setLetter} />
       )}
     </div>
   )

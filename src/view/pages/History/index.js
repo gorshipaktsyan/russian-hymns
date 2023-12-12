@@ -22,7 +22,7 @@ const StyledText = styled(Box)({
   padding: "5px",
 });
 
-function History({ setCurrentNumber }) {
+function History({ setCurrentNumber, setIsHymnPage }) {
   const HISTORY = persistentStore.get("searchedNumbers") || [];
   const searchedHymns = HISTORY.map((searched) => {
     const matchingHymn = hymns.find((h) => h.number === searched.number);
@@ -39,6 +39,7 @@ function History({ setCurrentNumber }) {
   function handleClick(id) {
     setCurrentNumber(id);
     navigate("/russian-hymns");
+    setIsHymnPage(true)
   }
 
   return (

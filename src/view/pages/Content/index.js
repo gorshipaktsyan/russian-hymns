@@ -1,11 +1,11 @@
-import {useState} from 'react'
-import {useNavigate} from "react-router-dom";
+import { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import TitlesList from "./TitlesList";
 import SubTitlesList from "./SubTitlesList";
 import persistentStore from "../../services/PersistentStore";
 import './index.scss';
 
-function Content({setCurrentNumber}) {
+function Content({ setCurrentNumber, setIsHymnPage }) {
     const [selectedTitle, setSelectedTitle] = useState(null)
     const navigate = useNavigate();
 
@@ -19,6 +19,7 @@ function Content({setCurrentNumber}) {
         const numbers = [...new Set([Number(hymn.number), ...searchedNumbers])];
         persistentStore.set("searchedNumbers", numbers);
         navigate("/russian-hymns");
+        setIsHymnPage(true);
     }
 
     return (

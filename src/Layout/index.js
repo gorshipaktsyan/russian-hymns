@@ -63,6 +63,7 @@ function Layout() {
       <App
         currentNumber={currentNumber}
         setCurrentNumber={updateCurrentNumber}
+        setIsHymnPage={setIsHymnPage}
       />
       <Footer />
       <Drawer
