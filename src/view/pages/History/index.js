@@ -48,8 +48,13 @@ function History({ setCurrentNumber, setIsHymnPage }) {
         {searchedHymns.map((h) => (
           <>
             <StyledListItem key={h?._id} onClick={() => handleClick(h?._id)}>
-              <StyledText>{h?.first_string}</StyledText>
-              <StyledText>{h?.number}</StyledText>
+              <Box sx={{
+                display: "flex",
+                justifyContent: "space-between", width: "100%"
+              }}>
+                <StyledText>{h?.first_string}</StyledText>
+                <StyledText>{h?.number}</StyledText>
+              </Box>
               <StyledText>({h.date})</StyledText>
             </StyledListItem>
             <Divider />

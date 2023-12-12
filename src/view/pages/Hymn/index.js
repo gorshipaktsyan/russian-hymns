@@ -16,7 +16,7 @@ const config = {
   swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
   touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
 };
-function Hymn({ currentNumber, setCurrentNumber }) {
+function Hymn({ currentNumber, setCurrentNumber, setIsHymnPage }) {
   const navigate = useNavigate();
 
   const hymn = hymns.find((h) => Number(h.number) === Number(currentNumber));
@@ -52,6 +52,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
 
   function handleSearch() {
     navigate("/russian-hymns/search");
+    setIsHymnPage(false)
   }
 
   return (
