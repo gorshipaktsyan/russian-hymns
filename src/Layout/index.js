@@ -35,7 +35,6 @@ function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentNumber, setCurrentNumber] = useState(1);
   const [title, setTitle] = useState(`Гимны ${currentNumber}`);
-  const [isHymnPage, setIsHymnPage] = useState(true);
   /*function handlePress() {
    if (deferredPrompt) {
      alert('not found')
@@ -58,12 +57,10 @@ function Layout() {
         handleDrawerToggle={handleDrawerToggle}
         title={title}
         currentNumber={currentNumber}
-        isHymnPage={isHymnPage}
       />
       <App
         currentNumber={currentNumber}
         setCurrentNumber={updateCurrentNumber}
-        setIsHymnPage={setIsHymnPage}
       />
       <Footer />
       <Drawer
@@ -71,7 +68,6 @@ function Layout() {
         navItems={navItems}
         mobileOpen={mobileOpen}
         setTitle={setTitle}
-        setIsHymnPage={setIsHymnPage}
       />
     </Box>
   );

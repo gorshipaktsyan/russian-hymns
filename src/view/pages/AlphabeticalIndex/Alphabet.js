@@ -40,8 +40,7 @@ const StyledListItem = styled(ListItem)({
     cursor: "pointer",
   },
 });
-function Alphabet({ setLetter, setIsHymnPage
-}) {
+function Alphabet({ setLetter }) {
   return (
     <div className="alphabetical-page">
       <List className="list-wrapper">

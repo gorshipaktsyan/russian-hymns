@@ -13,16 +13,15 @@ const StyledListItem = styled(ListItem)({
   justifyContent: "space-between",
   with: "100%",
   alignItems: "center",
-
   "&:hover": {
-    backgroundColor: "rgb(240, 240, 220)",
+    backgroundColor: "#f0f0dc",
     cursor: "pointer",
   },
 });
 const StyledText = styled(Box)({
   padding: "5px",
 });
-function Bookmarks({ setCurrentNumber, setIsHymnPage }) {
+function Bookmarks({ setCurrentNumber }) {
   const SAVED = persistentStore.get("savedHymns") || [];
   const SAVED_HYMNS = hymns.filter((h) => SAVED.includes(h._id));
   const navigate = useNavigate();
@@ -30,7 +29,6 @@ function Bookmarks({ setCurrentNumber, setIsHymnPage }) {
   function handleClick(id) {
     setCurrentNumber(id);
     navigate("/russian-hymns");
-    setIsHymnPage(true);
   }
   return (
     <StyledBox>

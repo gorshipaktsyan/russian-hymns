@@ -15,8 +15,7 @@ import {
 } from "../view/pages";
 import "./index.scss";
 
-function App({ currentNumber, setCurrentNumber, setIsHymnPage
-}) {
+function App({ currentNumber, setCurrentNumber }) {
   const routes = [
     {
       path: "/russian-hymns",
@@ -24,8 +23,6 @@ function App({ currentNumber, setCurrentNumber, setIsHymnPage
         <Hymn
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
-          setIsHymnPage={setIsHymnPage}
-
         />
       ),
     },
@@ -33,31 +30,26 @@ function App({ currentNumber, setCurrentNumber, setIsHymnPage
     { path: "/russian-hymns/about", element: <About /> },
     {
       path: "/russian-hymns/alphabetical",
-      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber} setIsHymnPage={setIsHymnPage}
-      />,
+      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber} />,
     },
     {
       path: "/russian-hymns/bookmark",
-      element: <Bookmarks setCurrentNumber={setCurrentNumber} setIsHymnPage={setIsHymnPage}
-      />,
+      element: <Bookmarks setCurrentNumber={setCurrentNumber} />,
     },
     {
       path: "/russian-hymns/content",
-      element: <Content setCurrentNumber={setCurrentNumber} setIsHymnPage={setIsHymnPage}
-      />,
+      element: <Content setCurrentNumber={setCurrentNumber} />,
     },
     {
       path: "/russian-hymns/history",
-      element: <History setCurrentNumber={setCurrentNumber} setIsHymnPage={setIsHymnPage}
-      />,
+      element: <History setCurrentNumber={setCurrentNumber} />,
     },
 
     { path: "/russian-hymns/preface", element: <Preface /> },
     { path: "/russian-hymns/reference", element: <Reference /> },
     {
       path: "/russian-hymns/search",
-      element: <Search setCurrentNumber={setCurrentNumber} setIsHymnPage={setIsHymnPage}
-      />,
+      element: <Search setCurrentNumber={setCurrentNumber} />,
     },
   ];
 
