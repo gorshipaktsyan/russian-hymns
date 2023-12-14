@@ -16,7 +16,7 @@ const config = {
   swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
   touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
 };
-function Hymn({ currentNumber, setCurrentNumber, setIsHymnPage }) {
+function Hymn({ currentNumber, setCurrentNumber }) {
   const navigate = useNavigate();
 
   const hymn = hymns.find((h) => Number(h.number) === Number(currentNumber));
@@ -52,13 +52,23 @@ function Hymn({ currentNumber, setCurrentNumber, setIsHymnPage }) {
 
   function handleSearch() {
     navigate("/russian-hymns/search");
-    setIsHymnPage(false)
   }
 
   return (
     <Box sx={{ width: "100%" }} {...handlers}>
       {<div dangerouslySetInnerHTML={{ __html: hymn?.html }} />}
-      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: '30px', right: '30px', backgroundColor: "black", "&:hover": { backgroundColor: "grey" } }} onClick={handleSearch}>
+      <Fab
+        color="primary"
+        aria-label="add"
+        sx={{
+          position: "fixed",
+          bottom: "30px",
+          right: "30px",
+          backgroundColor: "black",
+          "&:hover": { backgroundColor: "grey" },
+        }}
+        onClick={handleSearch}
+      >
         <SearchIcon />
       </Fab>
     </Box>

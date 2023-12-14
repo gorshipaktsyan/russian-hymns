@@ -8,14 +8,11 @@ import Toolbar from "@mui/material/Toolbar";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import persistentStore from "../services/PersistentStore";
+import { useLocation } from "react-router-dom";
 
-function AppBarComponent({
-  handleDrawerToggle,
-  title,
-  currentNumber,
-  isHymnPage,
-}) {
+function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
   const [saved, setSaved] = useState();
+  const location = useLocation();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const SAVED_HYMNS_LIST = persistentStore.get("savedHymns") || [];
   useEffect(() => {
@@ -51,7 +48,7 @@ function AppBarComponent({
         </IconButton>
         <Box>{title}</Box>
         <Box sx={{ flexGrow: 1 }} />
-        {isHymnPage ? (
+        {location.pathname === "/russian-hymns" ? (
           <IconButton color="inherit" onClick={handleBookmarkClick}>
             {saved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
           </IconButton>

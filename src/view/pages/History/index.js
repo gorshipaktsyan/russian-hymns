@@ -14,7 +14,7 @@ const StyledListItem = styled(ListItem)({
   with: "100%",
   alignItems: "center",
   "&:hover": {
-    backgroundColor: "rgb(240, 240, 220)",
+    backgroundColor: "#f0f0dc",
     cursor: "pointer",
   },
 });
@@ -22,7 +22,7 @@ const StyledText = styled(Box)({
   padding: "5px",
 });
 
-function History({ setCurrentNumber, setIsHymnPage }) {
+function History({ setCurrentNumber }) {
   const HISTORY = persistentStore.get("searchedNumbers") || [];
   const searchedHymns = HISTORY.map((searched) => {
     const matchingHymn = hymns.find((h) => h.number === searched.number);
@@ -39,7 +39,6 @@ function History({ setCurrentNumber, setIsHymnPage }) {
   function handleClick(id) {
     setCurrentNumber(id);
     navigate("/russian-hymns");
-    setIsHymnPage(true)
   }
 
   return (
@@ -48,16 +47,12 @@ function History({ setCurrentNumber, setIsHymnPage }) {
         {searchedHymns.map((h) => (
           <>
             <StyledListItem key={h?._id} onClick={() => handleClick(h?._id)}>
-              <Box sx={{
-                display: "flex",
-                justifyContent: "space-between", width: "100%"
-              }}>
-                <StyledText>{h?.first_string}</StyledText>
-                <StyledText>{h?.number}</StyledText>
-              </Box>
-              <StyledText>({h.date})</StyledText>
+              <StyledText>{h?.first_string}</StyledText>
+              <StyledText>{h?.number}</StyledText>
             </StyledListItem>
-            <Divider />
+            <Divider>
+              <Box>{new Date(h.date).toDateString()}</Box>
+            </Divider>
           </>
         ))}
       </List>

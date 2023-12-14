@@ -1,6 +1,6 @@
 import { useState } from "react";
 import hymns from "../../services/storage/hymns.json";
-import Subtitles from "../../services/storage/subtitles.json"
+import Subtitles from "../../services/storage/subtitles.json";
 import { Divider, Box } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -22,7 +22,7 @@ const StyledBox = styled(Box)({
 function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
   const [expanded, setExpanded] = useState(false);
   const grouped = hymns.filter((hymn) => hymn.title === selectedTitle);
-  const subtitles = Subtitles.filter((sub) => sub.title === selectedTitle)
+  const subtitles = Subtitles.filter((sub) => sub.title === selectedTitle);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -86,7 +86,7 @@ function SubTitlesList({ selectedTitle, setSelectedTitle, handleHymnClick }) {
         }}
         onClick={handleBackClick}
       >
-        <AddIcon sx={{}} />
+        <AddIcon />
       </Fab>
     </div>
   );
