@@ -1,31 +1,35 @@
-import { List, ListItem, ListItemText, Divider } from "@mui/material";
-import styled from "@emotion/styled";
-import titles from "../../services/storage/titles.json";
-import "./index.scss";
+import { List, ListItem, Divider, Box } from '@mui/material'
+import styled from '@emotion/styled'
+import titles from '../../services/storage/titles.json'
+import './index.scss'
 
+const StyledList = styled(List)({
+  width: '100%',
+  paddingBottom: '100px'
+})
 const StyledListItem = styled(ListItem)({
-  "&:hover": {
-    backgroundColor: "rgb(240, 240, 220)",
-    cursor: "pointer",
-  },
-});
-function TitlesList({ handleTitleClick }) {
+  '&:hover': {
+    backgroundColor: '#f0f0dc',
+    cursor: 'pointer'
+  }
+})
+function TitlesList ({ handleTitleClick }) {
   return (
-    <List className="list-wrapper">
-      {titles.map((title) => (
+    <StyledList sx={{ maxWidth: '500px' }}>
+      {titles.map(title => (
         <>
           <StyledListItem
-            className="item"
+            className='item'
             key={title._id}
             onClick={() => handleTitleClick(title)}
           >
-            <ListItemText className="text" primary={title.name} />
+            <Box>{title.name}</Box>
           </StyledListItem>
           <Divider />
         </>
       ))}
-    </List>
-  );
+    </StyledList>
+  )
 }
 
-export default TitlesList;
+export default TitlesList

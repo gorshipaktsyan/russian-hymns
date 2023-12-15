@@ -31,7 +31,17 @@ const StyledTextField = styled(TextField)({
     margin: "0",
   },
 });
-
+function formattingDate(date) {
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    weekday: "short",
+  };
+  const dateFormatter = new Intl.DateTimeFormat("ru", options);
+  const formattedDate = dateFormatter.format(date);
+  return formattedDate;
+}
 function Search({ setCurrentNumber }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
@@ -51,9 +61,10 @@ function Search({ setCurrentNumber }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const currentData = new Date();
+    const currentDate = formattingDate(new Date());
+    console.log(currentDate);
     const searchedNumbers = persistentStore.get("searchedNumbers") || [];
-    let HYMN_OBJECT = { number: "", date: currentData };
+    let HYMN_OBJECT = { number: "", date: currentDate };
     if (rusNumber) {
       searchRussianNumber(HYMN_OBJECT);
     } else if (engNumber) {
@@ -103,7 +114,6 @@ function Search({ setCurrentNumber }) {
         setCurrentNumber={setCurrentNumber}
         navigate={navigate}
       />
-      ;
     </StyledForm>
   );
 }
