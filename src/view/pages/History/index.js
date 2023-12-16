@@ -7,12 +7,12 @@ import styled from '@emotion/styled'
 const StyledBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
-  width: '100%',
-  maxWidth: '500px'
+  width: '100%'
 })
 const StyledList = styled(List)({
   width: '100%',
-  paddingBottom: '100px'
+  paddingBottom: '100px',
+  maxWidth: '400px'
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
@@ -26,6 +26,19 @@ const StyledListItem = styled(ListItem)({
 const StyledText = styled(Box)({
   padding: '5px'
 })
+function formattingDate (date) {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    weekday: 'short'
+  }
+  const dateFormatter = new Intl.DateTimeFormat('ru', options)
+  const formattedDate = dateFormatter.format(new Date(date))
+  console.log(formattedDate)
+
+  return formattedDate
+}
 
 function History ({ setCurrentNumber }) {
   const HISTORY = persistentStore.get('searchedNumbers') || []
@@ -34,7 +47,8 @@ function History ({ setCurrentNumber }) {
     if (matchingHymn) {
       return {
         ...matchingHymn,
-        date: searched.date
+        date: searched.date,
+        formattedDate: formattingDate(searched.date)
       }
     }
     return null
@@ -55,7 +69,7 @@ function History ({ setCurrentNumber }) {
               <StyledText>{h?.first_string}</StyledText>
               <StyledText>{h?.number}</StyledText>
             </StyledListItem>
-            <Divider />
+            <Divider>{h.formattedDate}</Divider>
           </>
         ))}
       </StyledList>

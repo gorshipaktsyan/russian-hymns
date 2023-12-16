@@ -1,19 +1,20 @@
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import persistentStore from '../../services/PersistentStore'
 import hymns from '../../services/storage/hymns.json'
-import { Box, Divider, Fab, List, ListItem } from '@mui/material'
+import { Box, Divider, List, ListItem } from '@mui/material'
 import styled from '@emotion/styled'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 const StyledBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
-  width: '100%',
-  maxWidth: '500px'
+  width: '100%'
 })
 const StyledList = styled(List)({
   width: '100%',
-  paddingBottom: '100px'
+  paddingBottom: '100px',
+  maxWidth: '400px'
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
@@ -27,39 +28,40 @@ const StyledListItem = styled(ListItem)({
 const StyledText = styled(Box)({
   padding: '5px'
 })
-const StyledFab = styled(Fab)({
-  backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'grey' }
+const StyledDelIcon = styled(DeleteIcon)({
+  '&:hover': { color: 'grey' }
 })
+
 function Bookmarks ({ setCurrentNumber }) {
-  const SAVED = persistentStore.get('savedHymns') || []
-  const SAVED_HYMNS = hymns.filter(h => SAVED.includes(h._id))
   const navigate = useNavigate()
+  const [savedHymns, setSavedHymns] = useState([])
+  useEffect(() => {
+    const SAVED = persistentStore.get('savedHymns') || []
+    const savedHymnsData = hymns.filter(h => SAVED.includes(h._id))
+    setSavedHymns(savedHymnsData)
+  }, [savedHymns])
   function handleClick (id) {
     setCurrentNumber(id)
     navigate('/russian-hymns')
+    persistentStore.set('searchedNumbers', id)
   }
   function handleDelete (id) {
-    const REMOVED_HYMN = SAVED_HYMNS.find(h => h._id === id)
-    console.log(REMOVED_HYMN._id)
-    persistentStore.remove('savedHymns', REMOVED_HYMN._id)
+    persistentStore.remove('savedHymns', id)
+    const UPDATED_HYMNS = savedHymns.filter(h => h._id !== id)
+    setSavedHymns(UPDATED_HYMNS)
   }
   return (
     <StyledBox>
       <StyledList sx={{ maxWidth: '500px', width: '100%' }}>
-        {SAVED_HYMNS.map(h => (
+        {savedHymns.map(h => (
           <>
-            <StyledListItem key={h._id} onClick={() => handleClick(h._id)}>
-              <StyledText>{h?.first_string}</StyledText>
-              <StyledText>{h?.number}</StyledText>
-            </StyledListItem>
-            <StyledFab
-              color='primary'
-              aria-label='add'
-              onClick={() => handleDelete(h._id)}
-            >
-              <DeleteIcon />
-            </StyledFab>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <StyledListItem key={h._id} onClick={() => handleClick(h._id)}>
+                <StyledText>{h?.first_string}</StyledText>
+                <StyledText>{h?.number}</StyledText>
+              </StyledListItem>
+              <StyledDelIcon onClick={() => handleDelete(h._id)} />
+            </Box>
             <Divider />
           </>
         ))}
