@@ -1,56 +1,63 @@
-import { List, ListItem, Divider, Box } from "@mui/material";
-import hymns from "../../services/storage/hymns.json";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/ArrowBack";
-import styled from "@emotion/styled";
-import "./index.scss";
+import { List, ListItem, Divider, Box } from '@mui/material'
+import hymns from '../../services/storage/hymns.json'
+import Fab from '@mui/material/Fab'
+import AddIcon from '@mui/icons-material/ArrowBack'
+import styled from '@emotion/styled'
+import './index.scss'
 
 const StyledBox = styled(Box)({
-  display: "flex",
-  justifyContent: "center",
-});
+  display: 'flex',
+  justifyContent: 'center',
+  width: '100%',
+  maxWidth: '500px'
+})
+const StyledList = styled(List)({
+  width: '100%',
+  paddingBottom: '100px'
+})
 const StyledListItem = styled(ListItem)({
-  display: "flex",
-  justifyContent: "space-between",
-  with: "100%",
-  alignItems: "center",
-  "&:hover": {
-    backgroundColor: "rgb(240, 240, 220)",
-    cursor: "pointer",
-  },
-});
+  display: 'flex',
+  justifyContent: 'space-between',
+  padding: '10px 5px',
+  '&:hover': {
+    backgroundColor: '#f0f0dc',
+    cursor: 'pointer'
+  }
+})
+const StyledText = styled(Box)({
+  padding: '5px'
+})
+const StyledFab = styled(Fab)({
+  position: 'fixed',
+  bottom: '10px',
+  right: '10px',
+  backgroundColor: 'black',
+  '&:hover': { backgroundColor: 'grey' }
+})
 
-function HymnsList({ handleTitleClick, letter, handleBackClick }) {
-  const filteredHymns = hymns.filter((h) => h.first_letter === letter);
+function HymnsList ({ handleTitleClick, letter, handleBackClick }) {
+  const filteredHymns = hymns.filter(h => h.first_letter === letter)
   return (
-    <>
-      <StyledBox>
-        <List className="list-wrapper">
-          {filteredHymns.map((hymn) => (
-            <>
-              <StyledListItem
-                className="item"
-                key={hymn._id}
-                onClick={() => handleTitleClick(hymn)}
-              >
-                <Box sx={{ maxWidth: "80%" }}>{hymn.first_string}</Box>
-                <Box>{hymn.number}</Box>
-              </StyledListItem>
-              <Divider />
-            </>
-          ))}
-        </List>
-      </StyledBox>
-      <Fab
-        color="primary"
-        aria-label="add"
-        sx={{ position: "fixed", bottom: "30px", right: "30px" }}
-        onClick={handleBackClick}
-      >
+    <StyledBox>
+      <StyledList>
+        {filteredHymns.map(hymn => (
+          <>
+            <StyledListItem
+              key={hymn?._id}
+              onClick={() => handleTitleClick(hymn)}
+            >
+              <StyledText>{hymn.first_string}</StyledText>
+              <StyledText>{hymn.number}</StyledText>
+            </StyledListItem>
+            <Divider />
+          </>
+        ))}
+      </StyledList>
+      <StyledFab color='primary' aria-label='add' onClick={handleBackClick}>
         <AddIcon />
-      </Fab>
-    </>
-  );
+      </StyledFab>
+    </StyledBox>
+  )
 }
 
-export default HymnsList;
+export default HymnsList

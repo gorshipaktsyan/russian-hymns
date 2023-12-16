@@ -16,7 +16,7 @@ const StyledBox = styled(Box)({
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "400px",
   backgroundColor: "#fdfde8",
   border: "2px solid #000",
   boxShadow: "0px 0px 20px 5px ",
@@ -25,7 +25,7 @@ const StyledBox = styled(Box)({
 const StyledListItem = styled(ListItem)({
   display: "flex",
   justifyContent: "space-between",
-  with: "100%",
+  width: "100%",
   alignItems: "center",
   "&:hover": {
     backgroundColor: "rgb(240, 240, 220)",
@@ -75,21 +75,21 @@ function HymnList({ open, setOpen, searchedText, setCurrentNumber, navigate }) {
                 <Divider />
               </>
             ))}
+            <Fab
+              color="primary"
+              aria-label="add"
+              sx={{
+                position: "fixed",
+                bottom: "20px",
+                right: "30px",
+                backgroundColor: "black",
+                "&:hover": { backgroundColor: "grey" },
+              }}
+              onClick={handleBackClick}
+            >
+              <CloseIcon />
+            </Fab>
           </List>
-          <Fab
-            color="primary"
-            aria-label="add"
-            sx={{
-              position: "fixed",
-              bottom: "20px",
-              right: "30px",
-              backgroundColor: "black",
-              "&:hover": { backgroundColor: "grey" },
-            }}
-            onClick={handleBackClick}
-          >
-            <CloseIcon />
-          </Fab>
         </StyledBox>
       </Modal>
     </div>
