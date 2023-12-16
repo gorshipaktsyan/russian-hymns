@@ -16,12 +16,19 @@ const StyledForm = styled("div")({
 
 const StyledButton = styled(Button)({
   background: "black",
+  width: '200px',
+  height: '50px',
+  marginTop: '20px',
+
   "&:hover": {
     background: "grey",
   },
 });
 const StyledTextField = styled(TextField)({
   marginBottom: "1%",
+  width: '80%',
+  maxWidth: '400px',
+  marginTop: '10px',
   "& input": {
     "-webkit-appearance": "none",
     margin: "0",

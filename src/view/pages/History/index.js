@@ -6,7 +6,8 @@ import styled from '@emotion/styled'
 
 const StyledBox = styled(Box)({
   display: 'flex',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  padding: '5px',
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
@@ -43,7 +44,7 @@ function History ({ setCurrentNumber }) {
 
   return (
     <StyledBox>
-      <List>
+      <List sx={{ width: '100%', maxWidth: '500px' }}>
         {searchedHymns.map(h => (
           <>
             <StyledListItem key={h?._id} onClick={() => handleClick(h?._id)}>
