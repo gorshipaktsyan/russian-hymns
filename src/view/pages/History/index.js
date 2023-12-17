@@ -7,13 +7,19 @@ import styled from '@emotion/styled'
 const StyledBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
+  width: '100%',
+  maxWidth: '500px',
+})
+const StyledList = styled(List)({
+  width: '100%',
+  paddingBottom: '100px'
   padding: '5px',
+  maxWidth: '500px'
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
-  padding: '0px',
+  padding: '10px 5px',
   '&:hover': {
     backgroundColor: '#f0f0dc',
     cursor: 'pointer'
@@ -44,7 +50,7 @@ function History ({ setCurrentNumber }) {
 
   return (
     <StyledBox>
-      <List sx={{ width: '100%', maxWidth: '500px' }}>
+      <StyledList>
         {searchedHymns.map(h => (
           <>
             <StyledListItem key={h?._id} onClick={() => handleClick(h?._id)}>
@@ -54,7 +60,7 @@ function History ({ setCurrentNumber }) {
             <Divider />
           </>
         ))}
-      </List>
+      </StyledList>
     </StyledBox>
   )
 }
