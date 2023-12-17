@@ -41,9 +41,13 @@ function Bookmarks ({ setCurrentNumber }) {
     setSavedHymns(savedHymnsData)
   }, [savedHymns])
   function handleClick (id) {
+    const currentDate = new Date()
+    const searchedNumbers = persistentStore.get('searchedNumbers') || []
+    const HYMN_OBJECT = { number: id, date: currentDate }
+    const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
+    persistentStore.set('searchedNumbers', UPDATED_HYMNS)
     setCurrentNumber(id)
     navigate('/russian-hymns')
-    persistentStore.set('searchedNumbers', id)
   }
   function handleDelete (id) {
     persistentStore.remove('savedHymns', id)

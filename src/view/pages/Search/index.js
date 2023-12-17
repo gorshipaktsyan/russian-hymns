@@ -91,7 +91,12 @@ function Search ({ setCurrentNumber }) {
         name='search'
         label='поиск по тексту'
         value={searchedText}
-        onChange={e => setSearchedText(e.target.value)}
+        onChange={e => {
+          const inputValue = e.target.value
+          if (inputValue === '' || /^[\p{L}\s]+$/u.test(inputValue)) {
+            setSearchedText(inputValue)
+          }
+        }}
       />
       <StyledButton type='submit' variant='contained' onClick={handleSubmit}>
         Поиск

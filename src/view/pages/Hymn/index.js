@@ -9,13 +9,13 @@ import SearchIcon from '@mui/icons-material/Search'
 import './index.scss'
 
 const config = {
-  delta: 10, // min distance(px) before a swipe starts. *See Notes*
-  preventScrollOnSwipe: false, // prevents scroll during swipe (*See Details*)
-  trackTouch: true, // track touch input
-  trackMouse: false, // track mouse input
-  rotationAngle: 0, // set a rotation angle
-  swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
-  touchEventOptions: { passive: true } // options for touch listeners (*See Details*)
+  delta: 10,
+  preventScrollOnSwipe: false,
+  trackTouch: true,
+  trackMouse: false,
+  rotationAngle: 0,
+  swipeDuration: Infinity,
+  touchEventOptions: { passive: true }
 }
 const StyledFab = styled(Fab)({
   position: 'fixed',
@@ -39,7 +39,7 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
     }
   }
 
-  function handleRightSwipe (n) {
+  function handleRightSwipe () {
     const index = hymns.findIndex(
       el => Number(el.number) === Number(currentNumber - 1)
     )
@@ -64,8 +64,8 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
   }
 
   return (
-    <Box sx={{ width: '100%' }} {...handlers}>
-      {<div dangerouslySetInnerHTML={{ __html: hymn?.html }} />}
+    <Box sx={{ height: '100vh' }} {...handlers}>
+      <div dangerouslySetInnerHTML={{ __html: hymn?.html }} />
       <StyledFab color='primary' aria-label='add' onClick={handleSearch}>
         <SearchIcon />
       </StyledFab>
