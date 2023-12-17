@@ -8,11 +8,13 @@ const StyledBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  maxWidth: '500px'
+  maxWidth: '500px',
 })
 const StyledList = styled(List)({
   width: '100%',
   paddingBottom: '100px'
+  padding: '5px',
+  maxWidth: '500px'
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
