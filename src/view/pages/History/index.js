@@ -12,7 +12,7 @@ const StyledBox = styled(Box)({
 })
 const StyledList = styled(List)({
   width: '100%',
-  paddingBottom: '100px'
+  paddingBottom: '100px',
   padding: '5px',
   maxWidth: '500px'
 })
