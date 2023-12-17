@@ -5,7 +5,8 @@ import './index.scss'
 
 const StyledList = styled(List)({
   width: '100%',
-  paddingBottom: '100px'
+  paddingBottom: '100px',
+  maxWidth: '400px'
 })
 const StyledListItem = styled(ListItem)({
   '&:hover': {
@@ -15,11 +16,10 @@ const StyledListItem = styled(ListItem)({
 })
 function TitlesList ({ handleTitleClick }) {
   return (
-    <StyledList sx={{ maxWidth: '500px' }}>
+    <StyledList>
       {titles.map(title => (
         <>
           <StyledListItem
-            className='item'
             key={title._id}
             onClick={() => handleTitleClick(title)}
           >
