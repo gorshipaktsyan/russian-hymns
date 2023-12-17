@@ -13,6 +13,8 @@ const StyledList = styled(List)({
   width: '100%',
   paddingBottom: '100px',
   maxWidth: '400px'
+  width: '100%',
+  maxWidth: '500px',
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',

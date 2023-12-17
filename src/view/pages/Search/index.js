@@ -21,14 +21,29 @@ const StyledButton = styled(Button)({
   }
 })
 const StyledTextField = styled(TextField)({
-  marginBottom: '1%',
-  '& input': {
-    '-webkit-appearance': 'none',
-    margin: '0'
+  marginBottom: "1%",
+  width: '80%',
+  maxWidth: '400px',
+  marginTop: '10px',
+  "& input": {
+    "-webkit-appearance": "none",
+    margin: "0",
+  },
+  "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+    "-webkit-appearance": "none",
+    margin: "0",
   },
   '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
     '-webkit-appearance': 'none',
-    margin: '0'
+    margin: '0',
+    background: "black",
+    width: '200px',
+    height: '50px',
+    marginTop: '20px',
+
+    "&:hover": {
+      background: "grey",
+    },
   }
 })
 

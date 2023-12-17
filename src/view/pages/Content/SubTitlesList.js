@@ -48,7 +48,7 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
   }
 
   return (
-    <Box>
+    <Box sx={{padding: '5px'}}>
       {subtitles.map(subtitle => {
         const hymns = grouped.filter(h => h.subtitle === subtitle._id)
         return (
@@ -56,7 +56,6 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
             key={subtitle._id}
             expanded={expanded === subtitle._id}
             onChange={handleChange(subtitle._id)}
-            sx={{ backgroundColor: '#ffffe7' }}
           >
             <AccordionSummary
               sx={{ marginBottom: '0px' }}
