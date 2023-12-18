@@ -9,7 +9,7 @@ const StyledBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  maxWidth: '500px'
+  maxWidth: '400px'
 })
 const StyledList = styled(List)({
   width: '100%',
