@@ -1,3 +1,4 @@
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Divider, List, ListItem } from '@mui/material'
 import persistentStore from '../../services/PersistentStore'
@@ -13,8 +14,6 @@ const StyledList = styled(List)({
   width: '100%',
   paddingBottom: '100px',
   maxWidth: '400px'
-  width: '100%',
-  maxWidth: '500px',
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
@@ -37,42 +36,54 @@ function formattingDate (date) {
   }
   const dateFormatter = new Intl.DateTimeFormat('ru', options)
   const formattedDate = dateFormatter.format(new Date(date))
-  console.log(formattedDate)
 
   return formattedDate
 }
 
 function History ({ setCurrentNumber }) {
   const HISTORY = persistentStore.get('searchedNumbers') || []
-  const searchedHymns = HISTORY.map(searched => {
+  const navigate = useNavigate()
+  const groupedHymns = {}
+
+  HISTORY.forEach(searched => {
     const matchingHymn = hymns.find(h => h.number === searched.number)
     if (matchingHymn) {
-      return {
+      const formattedDate = formattingDate(searched.date)
+      if (!groupedHymns[formattedDate]) {
+        groupedHymns[formattedDate] = []
+      }
+      groupedHymns[formattedDate].push({
         ...matchingHymn,
         date: searched.date,
-        formattedDate: formattingDate(searched.date)
-      }
+        formattedDate: formattedDate
+      })
     }
-    return null
-  }).filter(Boolean)
-  const navigate = useNavigate()
+  })
 
   function handleClick (id) {
     setCurrentNumber(id)
     navigate('/russian-hymns')
   }
-
+  console.log(groupedHymns)
   return (
     <StyledBox>
       <StyledList>
-        {searchedHymns.map(h => (
-          <>
-            <StyledListItem key={h?._id} onClick={() => handleClick(h?._id)}>
-              <StyledText>{h?.first_string}</StyledText>
-              <StyledText>{h?.number}</StyledText>
-            </StyledListItem>
-            <Divider>{h.formattedDate}</Divider>
-          </>
+        {Object.entries(groupedHymns).map(([date, hymns]) => (
+          <Box key={date} sx={{ paddingBottom: '30px' }}>
+            <Divider>{date}</Divider>
+            {hymns.map(h => (
+              <>
+                <StyledListItem
+                  key={h?._id}
+                  onClick={() => handleClick(h?._id)}
+                >
+                  <StyledText>{h?.first_string}</StyledText>
+                  <StyledText>{h?.number}</StyledText>
+                </StyledListItem>
+                <Divider />
+              </>
+            ))}
+          </Box>
         ))}
       </StyledList>
     </StyledBox>
