@@ -14,7 +14,7 @@ const StyledList = styled(List)({
   paddingBottom: '100px',
   maxWidth: '400px'
   width: '100%',
-  maxWidth: '500px',
+  padding: '5px',
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
