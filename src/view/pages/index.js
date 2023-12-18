@@ -7,7 +7,7 @@ import Content from './Content'
 import History from './History'
 import Preface from './Preface'
 import Reference from './Reference'
-import Search from './Ext search'
+import Search from './Search'
 
 export {
   Hymn,
