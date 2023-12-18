@@ -13,7 +13,8 @@ const StyledBox = styled(Box)({
 const StyledList = styled(List)({
   width: '100%',
   paddingBottom: '100px',
-  maxWidth: '400px'
+  maxWidth: '400px',
+  padding: '5px',
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
@@ -35,9 +36,7 @@ function formattingDate (date) {
     weekday: 'short'
   }
   const dateFormatter = new Intl.DateTimeFormat('ru', options)
-  const formattedDate = dateFormatter.format(new Date(date))
-
-  return formattedDate
+  return dateFormatter.format(new Date(date))
 }
 
 function History ({ setCurrentNumber }) {
