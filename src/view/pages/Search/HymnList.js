@@ -34,6 +34,13 @@ const StyledListItem = styled(ListItem)({
     cursor: 'pointer'
   }
 })
+const StyledFab = styled(Fab)({
+  position: 'fixed',
+  bottom: '20px',
+  right: '30px',
+  backgroundColor: 'black',
+  '&:hover': { backgroundColor: 'grey' }
+})
 
 function HymnList ({ open, setOpen, searchedText, setCurrentNumber, navigate }) {
   const hymnsByText = hymns.filter(h => h.text.includes(searchedText))
@@ -76,20 +83,13 @@ function HymnList ({ open, setOpen, searchedText, setCurrentNumber, navigate }) 
                 <Divider />
               </>
             ))}
-            <Fab
+            <StyledFab
               color='primary'
               aria-label='add'
-              sx={{
-                position: 'fixed',
-                bottom: '20px',
-                right: '30px',
-                backgroundColor: 'black',
-                '&:hover': { backgroundColor: 'grey' }
-              }}
               onClick={handleBackClick}
             >
               <CloseIcon />
-            </Fab>
+            </StyledFab>
           </List>
         </StyledBox>
       </Modal>
