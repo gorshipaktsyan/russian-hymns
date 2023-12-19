@@ -62,3 +62,23 @@ div.hymn table td.chorus {
     padding-top: 0.25em;
     font-size: 0.875em;
 }
+
+input {
+    width: 40px;
+    height: 40px;
+    margin-right: 25px;
+    background-color: transparent;
+    transition: width 0.5s ease-in-out;
+    border: 1px solid black;
+    border-radius: 20px;
+    float:right;
+}
+
+input:focus {
+    width: 200px;
+    border-radius: 20px;
+
+}
+.container {
+    overflow: hidden;
+}

@@ -7,6 +7,7 @@ import Fab from '@mui/material/Fab'
 import styled from '@emotion/styled'
 import SearchIcon from '@mui/icons-material/Search'
 import './index.scss'
+import SearchBar from './SearchBar'
 
 const config = {
   delta: 10,
@@ -66,11 +67,12 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
   return (
     <Box sx={{ height: '100vh' }} {...handlers}>
       <div dangerouslySetInnerHTML={{ __html: hymn?.html }} />
-      <StyledFab color='primary' aria-label='add' onClick={handleSearch}>
-        <SearchIcon />
+      <SearchBar />
+      <StyledFab color='primary' aria-label='add'>
+        {/* <SearchIcon /> */}
       </StyledFab>
     </Box>
   )
 }
 
-export default Hymn
+export default Hymn;
