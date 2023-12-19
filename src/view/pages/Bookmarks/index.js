@@ -59,7 +59,7 @@ function Bookmarks ({ setCurrentNumber }) {
       <StyledList sx={{ maxWidth: '500px', width: '100%' }}>
         {savedHymns.map(h => (
           <>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', paddingRight: '5px' }}>
               <StyledListItem key={h._id} onClick={() => handleClick(h._id)}>
                 <StyledText>{h?.first_string}</StyledText>
                 <StyledText>{h?.number}</StyledText>

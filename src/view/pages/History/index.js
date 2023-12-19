@@ -19,7 +19,7 @@ const StyledList = styled(List)({
 const StyledListItem = styled(ListItem)({
   display: 'flex',
   justifyContent: 'space-between',
-  padding: '10px 5px',
+  padding: '5px 5px',
   '&:hover': {
     backgroundColor: '#f0f0dc',
     cursor: 'pointer'

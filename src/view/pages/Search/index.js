@@ -16,16 +16,17 @@ const StyledForm = styled('div')({
 
 const StyledButton = styled(Button)({
   width: '50%',
-  maxWidth: '250px',
+  maxWidth: '150px',
+  height: '50px',
   background: 'black',
+  marginTop: '20px',
   '&:hover': {
     background: 'grey'
   }
 })
 const StyledTextField = styled(TextField)({
-  marginBottom: '1%',
   width: '100%',
-  maxWidth: '500px',
+  maxWidth: '300px',
   padding: '5px',
   '& input': {
     '-webkit-appearance': 'none',
@@ -80,9 +81,6 @@ function Search ({ setCurrentNumber }) {
     <StyledForm>
       <StyledTextField
         type="number"
-        name="search"
-        pattern="[0-9]*"
-        inputmode="numeric"
         label="поиск по русскому  номеру"
         value={rusNumber}
         inputProps={{
@@ -93,7 +91,6 @@ function Search ({ setCurrentNumber }) {
       />
       <StyledTextField
         type='number'
-        name='search'
         label='поиск по английскому номеру'
         value={engNumber}
         inputProps={{
@@ -103,7 +100,6 @@ function Search ({ setCurrentNumber }) {
         onChange={e => setEngNumber(e.target.value)}
       />
       <StyledTextField
-        name='search'
         label='поиск по тексту'
         value={searchedText}
         onChange={e => {

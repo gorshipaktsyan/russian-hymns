@@ -5,7 +5,6 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 
 const drawerWidth = 240;
 
@@ -41,7 +40,9 @@ function DrawerComponent({
               onClick={() => handleNavigate(item)}
             >
               <ListItemButton>
-                <ListItemText primary={item.tittle} />
+                <Box sx={{fontSize: '18px'}}>
+                  {item.tittle}
+                </Box>
               </ListItemButton>
             </ListItem>
           ))}

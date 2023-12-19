@@ -19,8 +19,8 @@ const config = {
 }
 const StyledFab = styled(Fab)({
   position: 'fixed',
-  bottom: '10px',
-  right: '10px',
+  bottom: '30px',
+  right: '25px',
   backgroundColor: 'black',
   '&:hover': { backgroundColor: 'grey' }
 })

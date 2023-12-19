@@ -15,13 +15,14 @@ function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
   const location = useLocation();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const SAVED_HYMNS_LIST = persistentStore.get("savedHymns") || [];
+
   useEffect(() => {
     if (SAVED_HYMNS_LIST.includes(currentNumber)) {
       setSaved(true);
     } else {
       setSaved(false);
     }
-  }, [currentNumber]);
+  }, [currentNumber, SAVED_HYMNS_LIST]);
 
   const handleBookmarkClick = () => {
     if (saved) {
@@ -37,20 +38,20 @@ function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
   };
   return (
     <AppBar component="nav" sx={{ backgroundColor: "#000" }}>
-      <Toolbar>
+      <Toolbar sx={{paddingRight: 0}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
         >
-          <MenuIcon />
+          <MenuIcon sx={{fontSize: '30px'}} />
         </IconButton>
-        <Box>{title}</Box>
+        <Box sx={{ fontSize: '20px' }}>{title}</Box>
         <Box sx={{ flexGrow: 1 }} />
         {location.pathname === "/russian-hymns" ? (
           <IconButton color="inherit" onClick={handleBookmarkClick}>
-            {saved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+            {saved ? <BookmarkIcon sx={{fontSize: '30px'}}/> : <BookmarkBorderIcon sx={{fontSize: '30px'}}/>}
           </IconButton>
         ) : null}
       </Toolbar>
