@@ -23,7 +23,7 @@ const StyledFab = styled(Fab)({
   bottom: '30px',
   right: '25px',
   backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'grey' }
+  '&:hover': { backgroundColor: 'grey'}
 })
 
 function Hymn ({ currentNumber, setCurrentNumber }) {
@@ -69,7 +69,7 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
       <div dangerouslySetInnerHTML={{ __html: hymn?.html }} />
       <SearchBar />
       <StyledFab color='primary' aria-label='add'>
-        {/* <SearchIcon /> */}
+        <SearchIcon />
       </StyledFab>
     </Box>
   )

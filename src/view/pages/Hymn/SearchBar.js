@@ -5,7 +5,7 @@ function SearchBar(){
         <div className ="navbar navbar-dark bg-dark">
             <div className="container">
                 <form className="w-75 text-end">
-                    <input type="text" className="border" placeholder="Search..." />
+                    <input type="text" className="border" placeholder="" />
                 </form>
             </div>
         </div>
