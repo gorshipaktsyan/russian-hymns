@@ -1,9 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Divider, List, ListItem } from '@mui/material'
+import { Box, Collapse, Divider, List, ListItem } from '@mui/material'
 import persistentStore from '../../services/PersistentStore'
 import hymns from '../../services/storage/hymns.json'
 import styled from '@emotion/styled'
+import { TransitionGroup } from 'react-transition-group'
 
 const StyledBox = styled(Box)({
   display: 'flex',
@@ -14,7 +15,7 @@ const StyledList = styled(List)({
   width: '100%',
   paddingBottom: '100px',
   maxWidth: '400px',
-  padding: '5px',
+  padding: '5px'
 })
 const StyledListItem = styled(ListItem)({
   display: 'flex',
@@ -58,32 +59,38 @@ function History ({ setCurrentNumber }) {
       })
     }
   })
-
+  const sortedEntries = Object.entries(groupedHymns).sort(
+    ([dateA], [dateB]) => new Date(dateA) - new Date(dateB)
+  )
   function handleClick (id) {
     setCurrentNumber(id)
     navigate('/russian-hymns')
   }
-  console.log(groupedHymns)
+  console.log(sortedEntries)
   return (
     <StyledBox>
       <StyledList>
-        {Object.entries(groupedHymns).map(([date, hymns]) => (
-          <Box key={date} sx={{ paddingBottom: '30px' }}>
-            <Divider>{date}</Divider>
-            {hymns.map(h => (
-              <>
-                <StyledListItem
-                  key={h?._id}
-                  onClick={() => handleClick(h?._id)}
-                >
-                  <StyledText>{h?.first_string}</StyledText>
-                  <StyledText>{h?.number}</StyledText>
-                </StyledListItem>
-                <Divider />
-              </>
-            ))}
-          </Box>
-        ))}
+        <TransitionGroup>
+          {sortedEntries.map(([date, hymns]) => (
+            <Collapse key={date}>
+              <Box sx={{ paddingBottom: '30px' }}>
+                <Divider>{date}</Divider>
+                {hymns.map(h => (
+                  <>
+                    <StyledListItem
+                      key={h?._id}
+                      onClick={() => handleClick(h?._id)}
+                    >
+                      <StyledText>{h?.first_string}</StyledText>
+                      <StyledText>{h?.number}</StyledText>
+                    </StyledListItem>
+                    <Divider />
+                  </>
+                ))}
+              </Box>
+            </Collapse>
+          ))}
+        </TransitionGroup>
       </StyledList>
     </StyledBox>
   )

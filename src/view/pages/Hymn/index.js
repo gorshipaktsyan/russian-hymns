@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
@@ -23,14 +23,13 @@ const StyledFab = styled(Fab)({
   bottom: '30px',
   right: '25px',
   backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'grey'}
+  '&:hover': { backgroundColor: 'grey' }
 })
 
 function Hymn ({ currentNumber, setCurrentNumber }) {
   const navigate = useNavigate()
-
   const hymn = hymns.find(h => Number(h.number) === Number(currentNumber))
-
+  const [open, setOpen] = useState(false)
   function handleLeftSwipe () {
     const index = hymns.findIndex(
       el => Number(el.number) === Number(currentNumber + 1)
@@ -60,19 +59,22 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
     config
   )
 
-  function handleSearch () {
-    navigate('/russian-hymns/search')
-  }
-
   return (
-    <Box sx={{ height: '100vh' }} {...handlers}>
+    <Box className='hymns-page-wrapper' sx={{ height: '100vh' }} {...handlers}>
       <div dangerouslySetInnerHTML={{ __html: hymn?.html }} />
-      <SearchBar />
-      <StyledFab color='primary' aria-label='add'>
-        <SearchIcon />
-      </StyledFab>
+      {open ? (
+        <SearchBar />
+      ) : (
+        <StyledFab
+          color='primary'
+          aria-label='add'
+          onClick={() => setOpen(true)}
+        >
+          <SearchIcon />
+        </StyledFab>
+      )}
     </Box>
   )
 }
 
-export default Hymn;
+export default Hymn

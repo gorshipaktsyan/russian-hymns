@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box'
-import AppBar from '../view/components/AppBar'
-import Drawer from '../view/components/Drawer'
-import Footer from '../view/components/Footer'
+import { AppBar, Drawer } from '../view/components'
 import App from '../App'
 import './index.scss'
 
@@ -62,7 +60,6 @@ function Layout () {
         currentNumber={currentNumber}
         setCurrentNumber={updateCurrentNumber}
       />
-      <Footer />
       <Drawer
         handleDrawerToggle={handleDrawerToggle}
         navItems={navItems}

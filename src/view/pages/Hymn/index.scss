@@ -1,3 +1,4 @@
+.hymns-page-wrapper{
 div.hymn {
     padding: 0.5em 0.25em 1em 0em;
     text-align: center;
@@ -67,27 +68,15 @@ input {
     position: fixed;
     bottom: 30px;
     right: 25px;
-    width: 56px;
-    height: 56px;
-    // margin-right: 25px;
-    background-color: transparent;
-    transition: width 0.2s ease-in-out;
+    width: 200px;
     border: 1px solid black;
     border-radius: 56px;
-    float:right;
     z-index: 1100 !important;
+    background-color: red;
 }
 
-input:focus {
-    width: 200px;
-    border-radius: 28px;
-    border:1px solid black;
-    padding-left: 5px;
-}
-// input:not(:focus) {
-//     width: 56px;
-//     height: 56px;
-// }
 .container {
     overflow: hidden;
+
+}
 }

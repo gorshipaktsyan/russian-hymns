@@ -80,8 +80,8 @@ function Search ({ setCurrentNumber }) {
   return (
     <StyledForm>
       <StyledTextField
-        type="number"
-        label="поиск по русскому  номеру"
+        type='number'
+        label='поиск по русскому  номеру'
         value={rusNumber}
         inputProps={{
           inputMode: 'numeric',
