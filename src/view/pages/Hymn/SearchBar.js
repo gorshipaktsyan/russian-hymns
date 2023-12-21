@@ -1,11 +1,26 @@
-import { Box, FormControl, Input, TextField } from '@mui/material'
-import './index.scss'
+import { useEffect, useState, useRef } from 'react'
+import persistentStore from '../../services/PersistentStore'
+import { Collapse, TextField } from '@mui/material'
 import styled from '@emotion/styled'
+import Fab from '@mui/material/Fab'
+import SearchIcon from '@mui/icons-material/Search'
 
 const StyledTextField = styled(TextField)({
-  width: '100%',
-  maxWidth: '300px',
-  padding: '5px',
+  position: 'fixed',
+  bottom: '30px',
+  right: '25px',
+  width: '80%',
+  maxWidth: '500px',
+  border: '1px solid black',
+  borderRadius: '30px',
+  backgroundColor: '#f1f1e0',
+  transition: 'width 0.5s',
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '30px'
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderRadius: '30px'
+  },
   '& input': {
     '-webkit-appearance': 'none',
     margin: '0'
@@ -15,19 +30,69 @@ const StyledTextField = styled(TextField)({
     margin: '0'
   }
 })
-function SearchBar () {
+const StyledFab = styled(Fab)({
+  zIndex: 1000,
+  position: 'fixed',
+  bottom: '30px',
+  right: '25px',
+  backgroundColor: 'black',
+  '&:hover': { backgroundColor: 'grey' }
+})
+
+function SearchBar ({ open, setOpen, setCurrentNumber }) {
+  const [number, setNumber] = useState('')
+  const inputRef = useRef(null)
+
+  // useEffect(() => {
+  //   const handleClickOutside = event => {
+  //     if (
+  //       open &&
+  //       inputRef.current &&
+  //       !inputRef.current.contains(event.target)
+  //     ) {
+  //       setOpen(false)
+  //       console.log('searchbar', open)
+  //     }
+  //   }
+  //   document.addEventListener('click', handleClickOutside)
+
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutside)
+  //   }
+  // }, [setOpen])
+  function handleClick () {
+    if (number && open) {
+      setCurrentNumber(Number(number))
+      const currentDate = new Date()
+      const searchedNumbers = persistentStore.get('searchedNumbers') || []
+      const hymnObject = { number: Number(number), date: currentDate }
+      const UPDATED_HYMNS = [...new Set([hymnObject, ...searchedNumbers])]
+      persistentStore.set('searchedNumbers', UPDATED_HYMNS)
+      setNumber('')
+      setOpen(!open)
+    } else {
+      setOpen(!open)
+    }
+  }
   return (
-    <FormControl>
-      <StyledTextField
-        type='number'
-        label='поиск по русскому  номеру'
-        inputProps={{
-          inputMode: 'numeric',
-          pattern: '[0-9]*'
-        }}
-        // onChange={e => setRusNumber(e.target.value)}
-      />{' '}
-    </FormControl>
+    <Collapse orientation='horizontal' in={open} collapsedSize={40}>
+      {open && (
+        <StyledTextField
+          id='search-textfield'
+          type='number'
+          value={number}
+          inputProps={{
+            inputMode: 'numeric',
+            pattern: '[0-9]*'
+          }}
+          ref={inputRef}
+          onChange={e => setNumber(e.target.value)}
+        />
+      )}
+      <StyledFab color='primary' aria-label='add' onClick={handleClick}>
+        <SearchIcon />
+      </StyledFab>
+    </Collapse>
   )
 }
 

@@ -63,7 +63,7 @@ function History ({ setCurrentNumber }) {
     ([dateA], [dateB]) => new Date(dateA) - new Date(dateB)
   )
   function handleClick (id) {
-    setCurrentNumber(id)
+    setCurrentNumber([id])
     navigate('/russian-hymns')
   }
   console.log(sortedEntries)

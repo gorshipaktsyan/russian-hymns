@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
-import Fab from '@mui/material/Fab'
-import styled from '@emotion/styled'
-import SearchIcon from '@mui/icons-material/Search'
 import './index.scss'
 import SearchBar from './SearchBar'
+import { Divider } from '@mui/material'
 
 const config = {
   delta: 10,
@@ -18,19 +15,19 @@ const config = {
   swipeDuration: Infinity,
   touchEventOptions: { passive: true }
 }
-const StyledFab = styled(Fab)({
-  position: 'fixed',
-  bottom: '30px',
-  right: '25px',
-  backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'grey' }
-})
 
 function Hymn ({ currentNumber, setCurrentNumber }) {
-  const navigate = useNavigate()
-  const hymn = hymns.find(h => Number(h.number) === Number(currentNumber))
+  const hymn = currentNumber.map(number =>
+    hymns.find(h => Number(h.number) === Number(number))
+  )
+  console.log(hymn)
+
   const [open, setOpen] = useState(false)
+
   function handleLeftSwipe () {
+    if (open) {
+      return
+    }
     const index = hymns.findIndex(
       el => Number(el.number) === Number(currentNumber + 1)
     )
@@ -40,6 +37,9 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
   }
 
   function handleRightSwipe () {
+    if (open) {
+      return
+    }
     const index = hymns.findIndex(
       el => Number(el.number) === Number(currentNumber - 1)
     )
@@ -61,18 +61,19 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
 
   return (
     <Box className='hymns-page-wrapper' sx={{ height: '100vh' }} {...handlers}>
-      <div dangerouslySetInnerHTML={{ __html: hymn?.html }} />
-      {open ? (
-        <SearchBar />
-      ) : (
-        <StyledFab
-          color='primary'
-          aria-label='add'
-          onClick={() => setOpen(true)}
-        >
-          <SearchIcon />
-        </StyledFab>
-      )}
+      {hymn.map(h => {
+        return (
+          <>
+            <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
+            <Divider />
+          </>
+        )
+      })}
+      <SearchBar
+        open={open}
+        setOpen={setOpen}
+        setCurrentNumber={setCurrentNumber}
+      />
     </Box>
   )
 }
