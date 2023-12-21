@@ -19,7 +19,7 @@ function Content ({ setCurrentNumber }) {
     const HYMN_OBJECT = { number: hymn.number, date: currentDate }
     const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
     persistentStore.set('searchedNumbers', UPDATED_HYMNS)
-    setCurrentNumber(hymn.number)
+    setCurrentNumber([hymn.number])
     navigate('/russian-hymns')
   }
 

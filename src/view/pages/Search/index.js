@@ -46,12 +46,13 @@ function Search ({ setCurrentNumber }) {
   const navigate = useNavigate()
 
   function searchRussianNumber (hymnObject) {
-    setCurrentNumber(Number(rusNumber))
+    alert(rusNumber.split(',').map(num => Number(num.trim())))
+    setCurrentNumber([Number(rusNumber)])
     hymnObject.number = Number(rusNumber)
   }
   function searchEnglishNumber (hymnObject) {
     const hymn = hymns.find(h => h.number_eng === Number(engNumber))
-    setCurrentNumber(hymn.number)
+    setCurrentNumber([hymn.number])
     hymnObject.number = hymn.number
   }
 
@@ -69,7 +70,7 @@ function Search ({ setCurrentNumber }) {
       return
     } else {
       const randomNumber = Math.floor(Math.random() * 800)
-      setCurrentNumber(Number(randomNumber))
+      setCurrentNumber([Number(randomNumber)])
       hymnObject.number = Number(randomNumber)
     }
     const UPDATED_HYMNS = [...new Set([hymnObject, ...searchedNumbers])]
@@ -80,12 +81,12 @@ function Search ({ setCurrentNumber }) {
   return (
     <StyledForm>
       <StyledTextField
-        type="number"
-        label="поиск по русскому  номеру"
+        type='number'
+        label='поиск по русскому  номеру'
         value={rusNumber}
         inputProps={{
-          inputMode: 'numeric',
-          pattern: '[0-9]*'
+          inputMode: 'decimal',
+          pattern: '[0-9,\\s]*'
         }}
         onChange={e => setRusNumber(e.target.value)}
       />
@@ -94,14 +95,17 @@ function Search ({ setCurrentNumber }) {
         label='поиск по английскому номеру'
         value={engNumber}
         inputProps={{
-          inputMode: 'numeric',
-          pattern: '[0-9]*'
+          inputMode: 'decimal',
+          pattern: '[0-9,\\s]*'
         }}
         onChange={e => setEngNumber(e.target.value)}
       />
       <StyledTextField
         label='поиск по тексту'
         value={searchedText}
+        inputProps={{
+          inputMode: 'search'
+        }}
         onChange={e => {
           const inputValue = e.target.value
           if (inputValue === '' || /^[\p{L}\s]+$/u.test(inputValue)) {

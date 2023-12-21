@@ -1,13 +1,10 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
-import Fab from '@mui/material/Fab'
-import styled from '@emotion/styled'
-import SearchIcon from '@mui/icons-material/Search'
 import './index.scss'
 import SearchBar from './SearchBar'
+import { Divider } from '@mui/material'
 
 const config = {
   delta: 10,
@@ -18,20 +15,19 @@ const config = {
   swipeDuration: Infinity,
   touchEventOptions: { passive: true }
 }
-const StyledFab = styled(Fab)({
-  position: 'fixed',
-  bottom: '30px',
-  right: '25px',
-  backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'grey'}
-})
 
 function Hymn ({ currentNumber, setCurrentNumber }) {
-  const navigate = useNavigate()
+  const hymn = currentNumber.map(number =>
+    hymns.find(h => Number(h.number) === Number(number))
+  )
+  console.log(hymn)
 
-  const hymn = hymns.find(h => Number(h.number) === Number(currentNumber))
+  const [open, setOpen] = useState(false)
 
   function handleLeftSwipe () {
+    if (open) {
+      return
+    }
     const index = hymns.findIndex(
       el => Number(el.number) === Number(currentNumber + 1)
     )
@@ -41,6 +37,9 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
   }
 
   function handleRightSwipe () {
+    if (open) {
+      return
+    }
     const index = hymns.findIndex(
       el => Number(el.number) === Number(currentNumber - 1)
     )
@@ -60,19 +59,23 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
     config
   )
 
-  function handleSearch () {
-    navigate('/russian-hymns/search')
-  }
-
   return (
-    <Box sx={{ height: '100vh' }} {...handlers}>
-      <div dangerouslySetInnerHTML={{ __html: hymn?.html }} />
-      <SearchBar />
-      <StyledFab color='primary' aria-label='add'>
-        <SearchIcon />
-      </StyledFab>
+    <Box className='hymns-page-wrapper' sx={{ height: '100vh' }} {...handlers}>
+      {hymn.map(h => {
+        return (
+          <>
+            <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
+            <Divider />
+          </>
+        )
+      })}
+      <SearchBar
+        open={open}
+        setOpen={setOpen}
+        setCurrentNumber={setCurrentNumber}
+      />
     </Box>
   )
 }
 
-export default Hymn;
+export default Hymn
