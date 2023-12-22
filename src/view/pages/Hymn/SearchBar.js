@@ -62,7 +62,7 @@ function SearchBar ({ open, setOpen, setCurrentNumber }) {
   // }, [setOpen])
   function handleClick () {
     if (number && open) {
-      setCurrentNumber(Number(number))
+      setCurrentNumber([Number(number)])
       const currentDate = new Date()
       const searchedNumbers = persistentStore.get('searchedNumbers') || []
       const hymnObject = { number: Number(number), date: currentDate }

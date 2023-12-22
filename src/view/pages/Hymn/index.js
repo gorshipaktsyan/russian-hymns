@@ -32,7 +32,7 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
       el => Number(el.number) === Number(currentNumber[0] + 1)
     )
     if (index !== -1) {
-      setCurrentNumber(currentNumber[0] + 1)
+      setCurrentNumber([currentNumber[0] + 1])
     }
   }
 
@@ -44,7 +44,7 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
       el => Number(el.number) === Number(currentNumber[0] - 1)
     )
     if (index !== -1) {
-      setCurrentNumber(currentNumber[0] - 1)
+      setCurrentNumber([currentNumber[0] - 1])
     }
   }
 

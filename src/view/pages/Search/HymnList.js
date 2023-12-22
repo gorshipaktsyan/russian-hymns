@@ -47,7 +47,7 @@ function HymnList ({ open, setOpen, searchedText, setCurrentNumber, navigate }) 
   const handleClose = () => setOpen(false)
 
   function handleClick (id) {
-    setCurrentNumber(id)
+    setCurrentNumber([id])
     navigate('/russian-hymns')
   }
   const handleBackClick = () => {

@@ -46,8 +46,8 @@ function Layout () {
     setMobileOpen(prevState => !prevState)
   }
   const updateCurrentNumber = number => {
-    setCurrentNumber([number])
-    setTitle(`Гимны ${number}`)
+    setCurrentNumber(number)
+    setTitle(`Гимны ${number.join(',')}`)
   }
 
   const setMultipleNumbers = (numbers) => {
