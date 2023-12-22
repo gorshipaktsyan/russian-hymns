@@ -17,7 +17,7 @@ function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
   const SAVED_HYMNS_LIST = persistentStore.get("savedHymns") || [];
 
   useEffect(() => {
-    if (SAVED_HYMNS_LIST.includes(currentNumber)) {
+    if (SAVED_HYMNS_LIST.includes(currentNumber[0])) {
       setSaved(true);
     } else {
       setSaved(false);
@@ -26,11 +26,11 @@ function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
 
   const handleBookmarkClick = () => {
     if (saved) {
-      persistentStore.remove("savedHymns", currentNumber);
+      persistentStore.remove("savedHymns", currentNumber[0]);
       setSaved(!saved);
     } else {
       const SAVED_H_NUMBERS = [
-        ...new Set([currentNumber, ...SAVED_HYMNS_LIST]),
+        ...new Set([currentNumber[0], ...SAVED_HYMNS_LIST]),
       ];
       persistentStore.set("savedHymns", SAVED_H_NUMBERS);
       setSaved(!saved);

@@ -15,7 +15,7 @@ import {
 } from "../view/pages";
 import "./index.scss";
 
-function App({ currentNumber, setCurrentNumber }) {
+function App({ currentNumber, setCurrentNumber, setMultipleNumbers }) {
   const routes = [
     {
       path: "/russian-hymns",
@@ -49,7 +49,7 @@ function App({ currentNumber, setCurrentNumber }) {
     { path: "/russian-hymns/reference", element: <Reference /> },
     {
       path: "/russian-hymns/search",
-      element: <Search setCurrentNumber={setCurrentNumber} />,
+      element: <Search setCurrentNumber={setCurrentNumber} setMultipleNumbers={setMultipleNumbers}/>,
     },
   ];
 

@@ -49,6 +49,12 @@ function Layout () {
     setCurrentNumber([number])
     setTitle(`Гимны ${number}`)
   }
+
+  const setMultipleNumbers = (numbers) => {
+    setCurrentNumber(numbers)
+    setTitle(`Гимны ${numbers[0]}`)
+  }
+
   return (
     <Box sx={{ height: '100%' }}>
       <AppBar
@@ -59,6 +65,7 @@ function Layout () {
       <App
         currentNumber={currentNumber}
         setCurrentNumber={updateCurrentNumber}
+        setMultipleNumbers={setMultipleNumbers}
       />
       <Drawer
         handleDrawerToggle={handleDrawerToggle}

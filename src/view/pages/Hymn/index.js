@@ -29,10 +29,10 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
       return
     }
     const index = hymns.findIndex(
-      el => Number(el.number) === Number(currentNumber + 1)
+      el => Number(el.number) === Number(currentNumber[0] + 1)
     )
     if (index !== -1) {
-      setCurrentNumber(currentNumber + 1)
+      setCurrentNumber(currentNumber[0] + 1)
     }
   }
 
@@ -41,10 +41,10 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
       return
     }
     const index = hymns.findIndex(
-      el => Number(el.number) === Number(currentNumber - 1)
+      el => Number(el.number) === Number(currentNumber[0] - 1)
     )
     if (index !== -1) {
-      setCurrentNumber(currentNumber - 1)
+      setCurrentNumber(currentNumber[0] - 1)
     }
   }
 

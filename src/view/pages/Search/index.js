@@ -27,7 +27,7 @@ const StyledButton = styled(Button)({
 const StyledTextField = styled(TextField)({
   width: '100%',
   maxWidth: '300px',
-  padding: '5px',
+  marginTop: '10px',
   '& input': {
     '-webkit-appearance': 'none',
     margin: '0'
@@ -38,7 +38,7 @@ const StyledTextField = styled(TextField)({
   }
 })
 
-function Search ({ setCurrentNumber }) {
+function Search ({ setCurrentNumber, setMultipleNumbers }) {
   const [rusNumber, setRusNumber] = useState('')
   const [engNumber, setEngNumber] = useState('')
   const [searchedText, setSearchedText] = useState('')
@@ -46,8 +46,8 @@ function Search ({ setCurrentNumber }) {
   const navigate = useNavigate()
 
   function searchRussianNumber (hymnObject) {
-    alert(rusNumber.split(',').map(num => Number(num.trim())))
-    setCurrentNumber([Number(rusNumber)])
+    const numbers = rusNumber.split(',').map(num => Number(num.trim()));
+    setMultipleNumbers(numbers)
     hymnObject.number = Number(rusNumber)
   }
   function searchEnglishNumber (hymnObject) {
@@ -81,22 +81,22 @@ function Search ({ setCurrentNumber }) {
   return (
     <StyledForm>
       <StyledTextField
-        type='number'
         label='поиск по русскому  номеру'
         value={rusNumber}
         inputProps={{
+          type: 'decimal',
           inputMode: 'decimal',
-          pattern: '[0-9,\\s]*'
+          pattern: '[0-9]*'
         }}
         onChange={e => setRusNumber(e.target.value)}
       />
       <StyledTextField
-        type='number'
+        type='decimal'
         label='поиск по английскому номеру'
         value={engNumber}
         inputProps={{
-          inputMode: 'decimal',
-          pattern: '[0-9,\\s]*'
+          //inputMode: 'decimal',
+          //pattern: '[0-9,\\s]*'
         }}
         onChange={e => setEngNumber(e.target.value)}
       />
