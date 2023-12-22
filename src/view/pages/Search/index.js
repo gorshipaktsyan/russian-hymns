@@ -38,7 +38,7 @@ const StyledTextField = styled(TextField)({
   }
 })
 
-function Search ({ setCurrentNumber, setMultipleNumbers }) {
+function Search ({ setCurrentNumber }) {
   const [rusNumber, setRusNumber] = useState('')
   const [engNumber, setEngNumber] = useState('')
   const [searchedText, setSearchedText] = useState('')
@@ -47,7 +47,7 @@ function Search ({ setCurrentNumber, setMultipleNumbers }) {
 
   function searchRussianNumber (hymnObject) {
     const numbers = rusNumber.split(',').map(num => Number(num.trim()));
-    setMultipleNumbers(numbers)
+    setCurrentNumber(numbers)
     hymnObject.number = Number(rusNumber)
   }
   function searchEnglishNumber (hymnObject) {

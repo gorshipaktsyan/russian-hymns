@@ -49,7 +49,7 @@ function App({ currentNumber, setCurrentNumber, setMultipleNumbers }) {
     { path: "/russian-hymns/reference", element: <Reference /> },
     {
       path: "/russian-hymns/search",
-      element: <Search setCurrentNumber={setCurrentNumber} setMultipleNumbers={setMultipleNumbers}/>,
+      element: <Search setCurrentNumber={setCurrentNumber} />,
     },
   ];
 
