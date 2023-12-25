@@ -45,46 +45,50 @@ function Search ({ setCurrentNumber }) {
   const [open, setOpen] = React.useState(false)
   const navigate = useNavigate()
 
-  function searchRussianNumber (hymnObject) {
-    const numbers = rusNumber.split(',').map(num => Number(num.trim()));
+  function searchRussianNumber () {
+    const numbers = rusNumber.split(',').map(num => Number(num.trim()))
     setCurrentNumber(numbers)
-    hymnObject.number = Number(rusNumber)
+    return numbers
   }
-  function searchEnglishNumber (hymnObject) {
-    const hymn = hymns.find(h => h.number_eng === Number(engNumber))
-    setCurrentNumber([hymn.number])
-    hymnObject.number = hymn.number
+  function searchEnglishNumber () {
+    let numbers = engNumber.split(',').map(num => Number(num.trim()))
+    const matchingHymns = hymns.filter(h => numbers.includes(h.number_eng))
+    numbers = matchingHymns.map(h => h.number)
+    setCurrentNumber(numbers)
+    return numbers
   }
 
   function handleSubmit (e) {
     e.preventDefault()
     const currentDate = new Date()
     const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    let hymnObject = { number: '', date: currentDate }
+    let number
     if (rusNumber) {
-      searchRussianNumber(hymnObject)
+      number = searchRussianNumber()
     } else if (engNumber) {
-      searchEnglishNumber(hymnObject)
+      number = searchEnglishNumber()
     } else if (searchedText) {
       setOpen(true)
       return
     } else {
       const randomNumber = Math.floor(Math.random() * 800)
       setCurrentNumber([Number(randomNumber)])
-      hymnObject.number = Number(randomNumber)
+      number = Number(randomNumber)
     }
-    const UPDATED_HYMNS = [...new Set([hymnObject, ...searchedNumbers])]
-    persistentStore.set('searchedNumbers', UPDATED_HYMNS)
+
+    let hymnObject = { number, date: currentDate }
+    const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
+    persistentStore.set('searchedNumbers', updatedHymns)
     navigate('/russian-hymns')
   }
 
   return (
     <StyledForm>
       <StyledTextField
+        type='decimal'
         label='поиск по русскому  номеру'
         value={rusNumber}
         inputProps={{
-          type: 'decimal',
           inputMode: 'decimal',
           pattern: '[0-9]*'
         }}
@@ -95,8 +99,8 @@ function Search ({ setCurrentNumber }) {
         label='поиск по английскому номеру'
         value={engNumber}
         inputProps={{
-          //inputMode: 'decimal',
-          //pattern: '[0-9,\\s]*'
+          inputMode: 'decimal',
+          pattern: '[0-9]*'
         }}
         onChange={e => setEngNumber(e.target.value)}
       />

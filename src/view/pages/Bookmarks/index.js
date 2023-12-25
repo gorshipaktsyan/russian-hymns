@@ -86,7 +86,7 @@ function Bookmarks ({ setCurrentNumber }) {
           </TransitionGroup>
         </StyledList>
       ) : (
-        <StyledTypography>No data</StyledTypography>
+        <StyledTypography>Нет данных</StyledTypography>
       )}
     </StyledBox>
   )
