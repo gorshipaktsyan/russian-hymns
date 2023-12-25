@@ -45,7 +45,6 @@ const StyledFab = styled(Fab)({
 function HymnList ({ open, setOpen, searchedText, setCurrentNumber, navigate }) {
   const hymnsByText = hymns.filter(h => h.text.includes(searchedText))
   const handleClose = () => setOpen(false)
-
   function handleClick (id) {
     setCurrentNumber([id])
     navigate('/russian-hymns')
@@ -99,10 +98,13 @@ function HymnList ({ open, setOpen, searchedText, setCurrentNumber, navigate }) 
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       open={open}
       onClose={handleClose}
-      message='I love snacks'
     >
-      <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
-        No matching hymns found!{' '}
+      <Alert
+        onClose={handleClose}
+        severity='error'
+        sx={{ width: '100%', marginTop: '50px' }}
+      >
+        Соответствующие гимны не найдены!
       </Alert>
     </Snackbar>
   )

@@ -41,37 +41,37 @@ function formattingDate (date) {
 }
 
 function History ({ setCurrentNumber }) {
-  const HISTORY = persistentStore.get('searchedNumbers') || []
+  const history = persistentStore.get('searchedNumbers') || []
   const navigate = useNavigate()
   const groupedHymns = {}
 
-  HISTORY.forEach(searched => {
-    const matchingHymn = hymns.find(h => h.number === searched.number)
-    if (matchingHymn) {
-      const formattedDate = formattingDate(searched.date)
-      if (!groupedHymns[formattedDate]) {
-        groupedHymns[formattedDate] = []
+  history.forEach(searched => {
+    searched.number.forEach(number => {
+      const matchingHymn = hymns.find(h => h.number === number)
+      if (matchingHymn) {
+        const formattedDate = formattingDate(searched.date)
+        if (!groupedHymns[formattedDate]) {
+          groupedHymns[formattedDate] = []
+        }
+        groupedHymns[formattedDate].push({
+          ...matchingHymn,
+          date: searched.date,
+          formattedDate: formattedDate
+        })
       }
-      groupedHymns[formattedDate].push({
-        ...matchingHymn,
-        date: searched.date,
-        formattedDate: formattedDate
-      })
-    }
+    })
   })
-  const sortedEntries = Object.entries(groupedHymns).sort(
-    ([dateA], [dateB]) => new Date(dateA) - new Date(dateB)
-  )
   function handleClick (id) {
     setCurrentNumber([id])
     navigate('/russian-hymns')
   }
-  console.log(sortedEntries)
+  console.log('history', history)
+  console.log('grouped', groupedHymns)
   return (
     <StyledBox>
       <StyledList>
         <TransitionGroup>
-          {sortedEntries.map(([date, hymns]) => (
+          {Object.entries(groupedHymns).map(([date, hymns]) => (
             <Collapse key={date}>
               <Box sx={{ paddingBottom: '30px' }}>
                 <Divider>{date}</Divider>

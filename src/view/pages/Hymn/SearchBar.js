@@ -62,12 +62,13 @@ function SearchBar ({ open, setOpen, setCurrentNumber }) {
   // }, [setOpen])
   function handleClick () {
     if (number && open) {
-      setCurrentNumber([Number(number)])
+      const numbers = number.split(',').map(num => Number(num.trim()))
+      setCurrentNumber(numbers)
       const currentDate = new Date()
       const searchedNumbers = persistentStore.get('searchedNumbers') || []
-      const hymnObject = { number: Number(number), date: currentDate }
-      const UPDATED_HYMNS = [...new Set([hymnObject, ...searchedNumbers])]
-      persistentStore.set('searchedNumbers', UPDATED_HYMNS)
+      let hymnObject = { number: numbers, date: currentDate }
+      const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
+      persistentStore.set('searchedNumbers', updatedHymns)
       setNumber('')
       setOpen(!open)
     } else {
