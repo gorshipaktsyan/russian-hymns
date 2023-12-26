@@ -25,7 +25,7 @@ const navItems = [
   { tittle: 'Закладки', route: 'bookmark' },
   { tittle: 'Предисловие', route: 'preface' },
   { tittle: 'Справка', route: 'reference' },
-  { tittle: 'Настройки', route: 'settings' },
+  /*{ tittle: 'Настройки', route: 'settings' },*/
   { tittle: 'O Программе', route: 'about' }
 ]
 
