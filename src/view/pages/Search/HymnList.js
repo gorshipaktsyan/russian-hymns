@@ -1,6 +1,7 @@
 import React from 'react'
 import hymns from '../../services/storage/hymns.json'
 import Snackbar from '@mui/material/Snackbar'
+import persistentStore from '../../services/PersistentStore'
 import {
   Alert,
   Box,
@@ -42,20 +43,32 @@ const StyledFab = styled(Fab)({
   '&:hover': { backgroundColor: 'grey' }
 })
 
-function HymnList ({ open, setOpen, searchedText, setCurrentNumber, navigate }) {
+function HymnList ({
+  openHymnList,
+  setOpenHymnList,
+  searchedText,
+  setCurrentNumber,
+  navigate
+}) {
   const hymnsByText = hymns.filter(h => h.text.includes(searchedText))
-  const handleClose = () => setOpen(false)
+  const handleClose = () => setOpenHymnList(false)
+
   function handleClick (id) {
+    const currentDate = new Date()
+    const searchedNumbers = persistentStore.get('searchedNumbers') || []
+    const HYMN_OBJECT = { number: [id], date: currentDate }
+    const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
+    persistentStore.set('searchedNumbers', UPDATED_HYMNS)
     setCurrentNumber([id])
     navigate('/russian-hymns')
   }
   const handleBackClick = () => {
-    setOpen(false)
+    setOpenHymnList(false)
   }
   return hymnsByText.length > 0 ? (
     <div>
       <Modal
-        open={open}
+        open={openHymnList}
         onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
@@ -96,7 +109,7 @@ function HymnList ({ open, setOpen, searchedText, setCurrentNumber, navigate }) 
   ) : (
     <Snackbar
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      open={open}
+      open={openHymnList}
       onClose={handleClose}
     >
       <Alert

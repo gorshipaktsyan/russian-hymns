@@ -16,7 +16,7 @@ function Content ({ setCurrentNumber }) {
   const handleHymnClick = hymn => {
     const currentDate = new Date()
     const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    const HYMN_OBJECT = { number: hymn.number, date: currentDate }
+    const HYMN_OBJECT = { number: [hymn.number], date: currentDate }
     const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
     persistentStore.set('searchedNumbers', UPDATED_HYMNS)
     setCurrentNumber([hymn.number])

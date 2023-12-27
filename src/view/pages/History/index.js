@@ -65,8 +65,6 @@ function History ({ setCurrentNumber }) {
     setCurrentNumber([id])
     navigate('/russian-hymns')
   }
-  console.log('history', history)
-  console.log('grouped', groupedHymns)
   return (
     <StyledBox>
       <StyledList>

@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import HymnList from './HymnList'
 import hymns from '../../services/storage/hymns.json'
 import Button from '@mui/material/Button'
-import { TextField, styled } from '@mui/material'
+import Snackbar from '@mui/material/Snackbar'
+
+import { Alert, TextField, styled } from '@mui/material'
 import persistentStore from '../../services/PersistentStore'
 import './index.scss'
 
@@ -42,7 +44,9 @@ function Search ({ setCurrentNumber }) {
   const [rusNumber, setRusNumber] = useState('')
   const [engNumber, setEngNumber] = useState('')
   const [searchedText, setSearchedText] = useState('')
-  const [open, setOpen] = React.useState(false)
+  const [openHymnList, setOpenHymnList] = useState(false)
+  const [alert, setAlert] = useState(false)
+  const handleClose = () => setAlert(false)
   const navigate = useNavigate()
 
   function searchRussianNumber () {
@@ -68,20 +72,21 @@ function Search ({ setCurrentNumber }) {
     } else if (engNumber) {
       number = searchEnglishNumber()
     } else if (searchedText) {
-      setOpen(true)
+      setOpenHymnList(true)
       return
     } else {
       const randomNumber = Math.floor(Math.random() * 800)
-      setCurrentNumber([Number(randomNumber)])
-      number = Number(randomNumber)
+      setCurrentNumber([randomNumber])
+      number = [randomNumber]
     }
-
-    let hymnObject = { number, date: currentDate }
-    const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
-    persistentStore.set('searchedNumbers', updatedHymns)
-    navigate('/russian-hymns')
+    if (number.length) {
+      let hymnObject = { number, date: currentDate }
+      const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
+      persistentStore.set('searchedNumbers', updatedHymns)
+      navigate('/russian-hymns')
+    }
+    setAlert(true)
   }
-
   return (
     <StyledForm>
       <StyledTextField
@@ -121,12 +126,26 @@ function Search ({ setCurrentNumber }) {
         Поиск
       </StyledButton>
       <HymnList
-        open={open}
-        setOpen={setOpen}
+        openHymnList={openHymnList}
+        setOpenHymnList={setOpenHymnList}
         searchedText={searchedText}
         setCurrentNumber={setCurrentNumber}
         navigate={navigate}
       />
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={alert}
+        onClose={handleClose}
+        message='I love snacks'
+      >
+        <Alert
+          onClose={handleClose}
+          severity='error'
+          sx={{ width: '100%', marginTop: '50px' }}
+        >
+          Соответствующий гимн не найден!
+        </Alert>
+      </Snackbar>
     </StyledForm>
   )
 }
