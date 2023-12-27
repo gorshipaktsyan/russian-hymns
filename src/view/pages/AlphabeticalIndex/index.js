@@ -12,7 +12,7 @@ function AlphabeticalIndex ({ setCurrentNumber }) {
   function handleTitleClick (hymn) {
     const searchedNumbers = persistentStore.get('searchedNumbers') || []
     const currentDate = new Date()
-    const HYMN_OBJECT = { number: hymn.number, date: currentDate }
+    const HYMN_OBJECT = { number: [hymn.number], date: currentDate }
     const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
     persistentStore.set('searchedNumbers', UPDATED_HYMNS)
     setCurrentNumber([hymn.number])

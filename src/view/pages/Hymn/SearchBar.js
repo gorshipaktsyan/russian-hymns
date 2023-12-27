@@ -41,25 +41,20 @@ const StyledFab = styled(Fab)({
 
 function SearchBar ({ open, setOpen, setCurrentNumber }) {
   const [number, setNumber] = useState('')
-  const inputRef = useRef(null)
 
-  // useEffect(() => {
-  //   const handleClickOutside = event => {
-  //     if (
-  //       open &&
-  //       inputRef.current &&
-  //       !inputRef.current.contains(event.target)
-  //     ) {
-  //       setOpen(false)
-  //       console.log('searchbar', open)
-  //     }
-  //   }
-  //   document.addEventListener('click', handleClickOutside)
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (open && event.key === 'Enter') {
+        handleClick()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleClick, open])
 
-  //   return () => {
-  //     document.removeEventListener('click', handleClickOutside)
-  //   }
-  // }, [setOpen])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleClick () {
     if (number && open) {
       const numbers = number.split(',').map(num => Number(num.trim()))
@@ -75,19 +70,19 @@ function SearchBar ({ open, setOpen, setCurrentNumber }) {
       setOpen(!open)
     }
   }
+
   return (
     <Collapse orientation='horizontal' in={open} collapsedSize={40}>
       {open && (
         <StyledTextField
-          id='search-textfield'
-          type='number'
+          type='decimal'
           value={number}
           inputProps={{
-            inputMode: 'numeric',
+            inputMode: 'decimal',
             pattern: '[0-9]*'
           }}
-          ref={inputRef}
           onChange={e => setNumber(e.target.value)}
+          autoFocus
         />
       )}
       <StyledFab color='primary' aria-label='add' onClick={handleClick}>
