@@ -74,7 +74,7 @@ function HymnList ({
         aria-describedby='modal-modal-description'
       >
         <StyledBox>
-          <List sx={{ overflowY: 'auto', height: '100vh' }}>
+          <List sx={{ overflowY: 'auto', height: '90vh' }}>
             {hymnsByText.map(h => (
               <>
                 <StyledListItem

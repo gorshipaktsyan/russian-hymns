@@ -45,8 +45,8 @@ function Search ({ setCurrentNumber }) {
   const [engNumber, setEngNumber] = useState('')
   const [searchedText, setSearchedText] = useState('')
   const [openHymnList, setOpenHymnList] = useState(false)
-  const [alert, setAlert] = useState(false)
-  const handleClose = () => setAlert(false)
+  const [errorAlert, setErrorAlert] = useState(false)
+  const handleClose = () => setErrorAlert(false)
   const navigate = useNavigate()
 
   function searchRussianNumber () {
@@ -85,7 +85,7 @@ function Search ({ setCurrentNumber }) {
       persistentStore.set('searchedNumbers', updatedHymns)
       navigate('/russian-hymns')
     }
-    setAlert(true)
+    setErrorAlert(true)
   }
   return (
     <StyledForm>
@@ -98,6 +98,7 @@ function Search ({ setCurrentNumber }) {
           pattern: '[0-9]*'
         }}
         onChange={e => setRusNumber(e.target.value)}
+        autoFocus
       />
       <StyledTextField
         type='decimal'
@@ -134,7 +135,7 @@ function Search ({ setCurrentNumber }) {
       />
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={alert}
+        open={errorAlert}
         onClose={handleClose}
         message='I love snacks'
       >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
@@ -26,6 +26,7 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
   )
   const [open, setOpen] = useState(false)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe () {
     if (open) {
       return
@@ -37,6 +38,7 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
       setCurrentNumber([currentNumber[0] + 1])
     }
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleRightSwipe () {
     if (open) {
       return
@@ -58,6 +60,24 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
     },
     config
   )
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.code === 'KeyP') {
+        setOpen(!open)
+      }
+      if (event.key === 'Enter') {
+        // alert('Enter key pressed!')
+      } else if (event.key === 'ArrowLeft') {
+        handleRightSwipe()
+      } else if (event.key === 'ArrowRight') {
+        handleLeftSwipe()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleRightSwipe, handleLeftSwipe, open])
 
   return (
     <Box className='hymns-page-wrapper' sx={{ height: '100vh' }} {...handlers}>
