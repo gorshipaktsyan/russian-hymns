@@ -4,7 +4,6 @@ import HymnList from './HymnList'
 import hymns from '../../services/storage/hymns.json'
 import Button from '@mui/material/Button'
 import Snackbar from '@mui/material/Snackbar'
-
 import { Alert, TextField, styled } from '@mui/material'
 import persistentStore from '../../services/PersistentStore'
 import './index.scss'
@@ -87,6 +86,15 @@ function Search ({ setCurrentNumber }) {
     }
     setErrorAlert(true)
   }
+  function handleTextChange (e) {
+    const inputValue = e.target.value
+    const inputValueLowerCase = inputValue.toLowerCase()
+    const isAlphaNumeric = /^[a-zA-Zа-яА-Я0-9\s]+$/u.test(inputValue)
+    if (inputValue === '' || isAlphaNumeric) {
+      setSearchedText(inputValueLowerCase)
+    }
+  }
+
   return (
     <StyledForm>
       <StyledTextField
@@ -116,12 +124,7 @@ function Search ({ setCurrentNumber }) {
         inputProps={{
           inputMode: 'search'
         }}
-        onChange={e => {
-          const inputValue = e.target.value
-          if (inputValue === '' || /^[\p{L}\s]+$/u.test(inputValue)) {
-            setSearchedText(inputValue)
-          }
-        }}
+        onChange={handleTextChange}
       />
       <StyledButton type='submit' variant='contained' onClick={handleSubmit}>
         Поиск

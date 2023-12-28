@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import Box from '@mui/material/Box'
+import React, { useState } from 'react'
 import { AppBar, Drawer } from '../view/components'
 import App from '../App'
+import ScrollToTop from '../view/components/ScrollToTop'
+import Box from '@mui/material/Box'
+
 import './index.scss'
 
 //let deferredPrompt;
@@ -52,6 +54,7 @@ function Layout () {
 
   return (
     <Box sx={{ height: '100%' }}>
+      <ScrollToTop />
       <AppBar
         handleDrawerToggle={handleDrawerToggle}
         title={title}
