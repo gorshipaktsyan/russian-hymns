@@ -1,17 +1,9 @@
 import React from 'react'
+import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Snackbar from '@mui/material/Snackbar'
 import persistentStore from '../../services/PersistentStore'
-import {
-  Alert,
-  Box,
-  Divider,
-  Fab,
-  List,
-  ListItem,
-  Modal,
-  styled
-} from '@mui/material'
+import { Alert, Box, Divider, Fab, List, Modal, styled } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 
 const StyledBox = styled(Box)({
@@ -25,15 +17,12 @@ const StyledBox = styled(Box)({
   boxShadow: '0px 0px 20px 5px ',
   padding: '4px'
 })
-const StyledListItem = styled(ListItem)({
-  display: 'flex',
-  justifyContent: 'space-between',
+const StyledList = styled(List)({
   width: '100%',
-  alignItems: 'center',
-  '&:hover': {
-    backgroundColor: 'rgb(240, 240, 220)',
-    cursor: 'pointer'
-  }
+  paddingBottom: '100px',
+  maxWidth: '400px',
+  overflowY: 'auto',
+  height: '90vh'
 })
 const StyledFab = styled(Fab)({
   position: 'fixed',
@@ -74,26 +63,15 @@ function HymnList ({
         aria-describedby='modal-modal-description'
       >
         <StyledBox>
-          <List sx={{ overflowY: 'auto', height: '90vh' }}>
+          <StyledList>
             {hymnsByText.map(h => (
-              <>
-                <StyledListItem
-                  key={h?._id}
-                  onClick={() => handleClick(h?._id)}
-                >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      width: '100%'
-                    }}
-                  >
-                    <Box>{h?.first_string}</Box>
-                    <Box>{h?.number}</Box>
-                  </Box>
-                </StyledListItem>
-                <Divider />
-              </>
+              <HymnTitle
+                title={h?.first_string}
+                number={h.number}
+                id={h.number}
+                BorderBottom={Divider}
+                onTitleClick={handleClick}
+              />
             ))}
             <StyledFab
               color='primary'
@@ -102,7 +80,7 @@ function HymnList ({
             >
               <CloseIcon />
             </StyledFab>
-          </List>
+          </StyledList>
         </StyledBox>
       </Modal>
     </div>

@@ -82,7 +82,7 @@ function SearchBar ({ open, setOpen, setCurrentNumber }) {
             pattern: '[0-9]*'
           }}
           onChange={e => setNumber(e.target.value)}
-          autoFocus
+          // autoFocus
         />
       )}
       <StyledFab color='primary' aria-label='add' onClick={handleClick}>

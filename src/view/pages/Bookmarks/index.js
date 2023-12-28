@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import HymnTitle from '../../components/HymnTitle'
 import persistentStore from '../../services/PersistentStore'
 import hymns from '../../services/storage/hymns.json'
-import { Box, Divider, List, ListItem, Typography } from '@mui/material'
+import { Box, Divider, List, Typography } from '@mui/material'
 import styled from '@emotion/styled'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TransitionGroup } from 'react-transition-group'
@@ -18,21 +19,6 @@ const StyledList = styled(List)({
   paddingBottom: '100px',
   maxWidth: '400px'
 })
-const StyledListItem = styled(ListItem)({
-  display: 'flex',
-  justifyContent: 'space-between',
-  padding: '5px 5px',
-  '&:hover': {
-    backgroundColor: '#f0f0dc',
-    cursor: 'pointer'
-  }
-})
-const StyledText = styled(Box)({
-  padding: '5px'
-})
-const StyledDelIcon = styled(DeleteIcon)({
-  '&:hover': { color: 'grey' }
-})
 const StyledTypography = styled(Typography)({
   marginTop: '100px'
 })
@@ -45,16 +31,16 @@ function Bookmarks ({ setCurrentNumber }) {
   function handleClick (id) {
     const currentDate = new Date()
     const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    const HYMN_OBJECT = { number: [id], date: currentDate }
-    const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
-    persistentStore.set('searchedNumbers', UPDATED_HYMNS)
+    const hymnObject = { number: [id], date: currentDate }
+    const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
+    persistentStore.set('searchedNumbers', updatedHymns)
     setCurrentNumber([id])
     navigate('/russian-hymns')
   }
   function handleDelete (id) {
     persistentStore.remove('savedHymns', id)
-    const UPDATED_HYMNS = savedHymns.filter(h => h._id !== id)
-    setSavedHymns(UPDATED_HYMNS)
+    const updatedHymns = savedHymns.filter(h => h._id !== id)
+    setSavedHymns(updatedHymns)
   }
 
   return (
@@ -64,23 +50,15 @@ function Bookmarks ({ setCurrentNumber }) {
           <TransitionGroup>
             {savedHymns.map(h => (
               <Collapse>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    paddingRight: '5px'
-                  }}
-                >
-                  <StyledListItem
-                    key={h._id}
-                    onClick={() => handleClick(h._id)}
-                  >
-                    <StyledText>{h?.first_string}</StyledText>
-                    <StyledText>{h?.number}</StyledText>
-                  </StyledListItem>
-                  <StyledDelIcon onClick={() => handleDelete(h._id)} />
-                </Box>
-                <Divider />
+                <HymnTitle
+                  title={h?.first_string}
+                  number={h?.number}
+                  id={h._id}
+                  Icon={DeleteIcon}
+                  BorderBottom={Divider}
+                  onTitleClick={handleClick}
+                  iconClick={handleDelete}
+                />
               </Collapse>
             ))}
           </TransitionGroup>
