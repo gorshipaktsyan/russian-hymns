@@ -9,13 +9,13 @@ function AlphabeticalIndex ({ setCurrentNumber }) {
   const [letter, setLetter] = useState('')
   const navigate = useNavigate()
 
-  function handleTitleClick (hymn) {
+  function handleTitleClick (id) {
     const searchedNumbers = persistentStore.get('searchedNumbers') || []
     const currentDate = new Date()
-    const HYMN_OBJECT = { number: [hymn.number], date: currentDate }
+    const HYMN_OBJECT = { number: [id], date: currentDate }
     const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
     persistentStore.set('searchedNumbers', UPDATED_HYMNS)
-    setCurrentNumber([hymn.number])
+    setCurrentNumber([id])
     navigate('/russian-hymns')
   }
 

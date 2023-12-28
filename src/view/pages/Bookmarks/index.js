@@ -3,7 +3,7 @@ import { useState } from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import persistentStore from '../../services/PersistentStore'
 import hymns from '../../services/storage/hymns.json'
-import { Box, Divider, List, Typography } from '@mui/material'
+import { Box, Button, Checkbox, Divider, List, Typography } from '@mui/material'
 import styled from '@emotion/styled'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TransitionGroup } from 'react-transition-group'
@@ -22,27 +22,47 @@ const StyledList = styled(List)({
 const StyledTypography = styled(Typography)({
   marginTop: '100px'
 })
+const StyledButton = styled(Button)({
+  border: '1px solid',
+  width: '150px',
+  color: 'black',
+  '&:hover': {
+    backgroundColor: '#f0f0dc'
+  }
+})
 function Bookmarks ({ setCurrentNumber }) {
   const SAVED = persistentStore.get('savedHymns') || []
   const savedHymnsData = hymns.filter(h => SAVED.includes(h._id))
   const navigate = useNavigate()
   const [savedHymns, setSavedHymns] = useState(savedHymnsData)
+  const [selectedHymns, setSelectedHymns] = useState([])
 
-  function handleClick (id) {
+  function handleClick (ids) {
+    const hymnIds = Array.isArray(ids) ? ids : [ids]
+    console.log(hymnIds)
     const currentDate = new Date()
     const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    const hymnObject = { number: [id], date: currentDate }
+    const hymnObject = { number: hymnIds, date: currentDate }
     const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
     persistentStore.set('searchedNumbers', updatedHymns)
-    setCurrentNumber([id])
+    setCurrentNumber(hymnIds)
     navigate('/russian-hymns')
   }
-  function handleDelete (id) {
-    persistentStore.remove('savedHymns', id)
-    const updatedHymns = savedHymns.filter(h => h._id !== id)
-    setSavedHymns(updatedHymns)
-  }
 
+  function handleDelete (ids) {
+    const hymnIds = Array.isArray(ids) ? ids : [ids]
+    persistentStore.remove('savedHymns', hymnIds)
+    const updatedHymns = savedHymns.filter(h => !selectedHymns.includes(h._id))
+    setSavedHymns(updatedHymns)
+    setSelectedHymns([])
+  }
+  const handleCheckboxChange = id => {
+    setSelectedHymns(prevSelected =>
+      prevSelected.includes(id)
+        ? prevSelected.filter(selectedId => selectedId !== id)
+        : [...prevSelected, id]
+    )
+  }
   return (
     <StyledBox>
       {!!savedHymns.length ? (
@@ -54,14 +74,26 @@ function Bookmarks ({ setCurrentNumber }) {
                   title={h?.first_string}
                   number={h?.number}
                   id={h._id}
+                  selectedHymns={selectedHymns}
                   Icon={DeleteIcon}
                   BorderBottom={Divider}
+                  onCheckBoxClick={handleCheckboxChange}
                   onTitleClick={handleClick}
-                  iconClick={handleDelete}
+                  onIconClick={handleDelete}
                 />
               </Collapse>
             ))}
           </TransitionGroup>
+          {selectedHymns.length > 0 && (
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <StyledButton onClick={() => handleClick(selectedHymns)}>
+                Открыть
+              </StyledButton>
+              <StyledButton onClick={() => handleDelete(selectedHymns)}>
+                Удалить
+              </StyledButton>
+            </Box>
+          )}
         </StyledList>
       ) : (
         <StyledTypography>Нет данных</StyledTypography>
