@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Subtitles from '../../services/storage/subtitles.json'
 import { Divider, Box } from '@mui/material'
@@ -10,20 +11,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/ArrowBack'
 import styled from '@emotion/styled'
-import './index.scss'
 
 const StyledBox = styled(Box)({
-  display: 'flex',
-  justifyContent: 'space-between',
   width: '100%',
-  alignItems: 'center',
-  '&:hover': {
-    backgroundColor: ' #f0f0dc',
-    cursor: 'pointer'
-  }
-})
-const StyledText = styled(Box)({
-  padding: '5px'
+  paddingBottom: '100px',
+  maxWidth: '400px'
 })
 const StyledFab = styled(Fab)({
   position: 'fixed',
@@ -41,14 +33,13 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false)
   }
-
   const handleBackClick = () => {
     setExpanded(false)
     setSelectedTitle(null)
   }
 
   return (
-    <Box sx={{padding: '5px'}}>
+    <StyledBox>
       {subtitles.map(subtitle => {
         const hymns = grouped.filter(h => h.subtitle === subtitle._id)
         return (
@@ -65,13 +56,12 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
             </AccordionSummary>
             <AccordionDetails>
               {hymns.map(h => (
-                <>
-                  <StyledBox key={h._id} onClick={() => handleHymnClick(h)}>
-                    <StyledText>{h.first_string}</StyledText>
-                    <StyledText>{h.number}</StyledText>
-                  </StyledBox>
-                  <Divider />
-                </>
+                <HymnTitle
+                  title={h?.first_string}
+                  id={h.number}
+                  BorderBottom={Divider}
+                  onTitleClick={handleHymnClick}
+                />
               ))}
             </AccordionDetails>
           </Accordion>
@@ -80,7 +70,7 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
       <StyledFab color='primary' aria-label='add' onClick={handleBackClick}>
         <AddIcon />
       </StyledFab>
-    </Box>
+    </StyledBox>
   )
 }
 

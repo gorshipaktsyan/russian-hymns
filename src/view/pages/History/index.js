@@ -1,8 +1,9 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Box, Collapse, Divider, List, ListItem } from '@mui/material'
-import persistentStore from '../../services/PersistentStore'
+import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
+import { useNavigate } from 'react-router-dom'
+import { Box, Collapse, Divider, List } from '@mui/material'
+import persistentStore from '../../services/PersistentStore'
 import styled from '@emotion/styled'
 import { TransitionGroup } from 'react-transition-group'
 
@@ -14,20 +15,7 @@ const StyledBox = styled(Box)({
 const StyledList = styled(List)({
   width: '100%',
   paddingBottom: '100px',
-  maxWidth: '400px',
-  padding: '5px'
-})
-const StyledListItem = styled(ListItem)({
-  display: 'flex',
-  justifyContent: 'space-between',
-  padding: '5px 5px',
-  '&:hover': {
-    backgroundColor: '#f0f0dc',
-    cursor: 'pointer'
-  }
-})
-const StyledText = styled(Box)({
-  padding: '5px'
+  maxWidth: '400px'
 })
 function formattingDate (date) {
   const options = {
@@ -71,19 +59,16 @@ function History ({ setCurrentNumber }) {
         <TransitionGroup>
           {Object.entries(groupedHymns).map(([date, hymns]) => (
             <Collapse key={date}>
-              <Box sx={{ paddingBottom: '30px' }}>
+              <Box sx={{ paddingBottom: '20px' }}>
                 <Divider>{date}</Divider>
                 {hymns.map(h => (
-                  <>
-                    <StyledListItem
-                      key={h?._id}
-                      onClick={() => handleClick(h?._id)}
-                    >
-                      <StyledText>{h?.first_string}</StyledText>
-                      <StyledText>{h?.number}</StyledText>
-                    </StyledListItem>
-                    <Divider />
-                  </>
+                  <HymnTitle
+                    title={h?.first_string}
+                    number={h?.number}
+                    id={h._id}
+                    BorderBottom={Divider}
+                    onTitleClick={handleClick}
+                  />
                 ))}
               </Box>
             </Collapse>
