@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Box, ListItem, Icon } from '@mui/material'
+import { Box, ListItem, Icon, Checkbox } from '@mui/material'
 
 const StyledListItem = styled(ListItem)({
   display: 'flex',
@@ -20,9 +20,11 @@ function HymnTitle ({
   title,
   number,
   id,
+  selectedHymns,
   Icon,
   BorderBottom,
-  iconClick,
+  onCheckBoxClick,
+  onIconClick,
   onTitleClick
 }) {
   return (
@@ -34,11 +36,18 @@ function HymnTitle ({
           alignItems: 'center'
         }}
       >
+        {onCheckBoxClick && (
+          <Checkbox
+            onChange={() => onCheckBoxClick(id)}
+            checked={selectedHymns.includes(id)}
+            color='default'
+          />
+        )}
         <StyledListItem>
           <StyledText onClick={() => onTitleClick(id)}>{title}</StyledText>
           <StyledText>{number}</StyledText>
         </StyledListItem>
-        {Icon && <StyledIcon as={Icon} onClick={() => iconClick(id)} />}
+        {Icon && <StyledIcon as={Icon} onClick={() => onIconClick(id)} />}
       </Box>
       {BorderBottom && <BorderBottom />}
     </>

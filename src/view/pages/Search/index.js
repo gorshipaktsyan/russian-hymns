@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import HymnList from './HymnList'
 import hymns from '../../services/storage/hymns.json'
@@ -49,18 +49,19 @@ function Search ({ setCurrentNumber }) {
   const navigate = useNavigate()
 
   function searchRussianNumber () {
-    const numbers = rusNumber.split(',').map(num => Number(num.trim()))
-    setCurrentNumber(numbers)
-    return numbers
+    return findSearchedNumbers(rusNumber, 'number')
   }
   function searchEnglishNumber () {
-    let numbers = engNumber.split(',').map(num => Number(num.trim()))
-    const matchingHymns = hymns.filter(h => numbers.includes(h.number_eng))
-    numbers = matchingHymns.map(h => h.number)
-    setCurrentNumber(numbers)
-    return numbers
+    return findSearchedNumbers(engNumber, 'number_eng')
   }
-
+  function findSearchedNumbers (input, property) {
+    const numbers = input.split(',').map(num => Number(num.trim()))
+    const matchingHymns = hymns.filter(h => numbers.includes(h[property]))
+    const resultNumbers = matchingHymns.map(h => h.number)
+    setCurrentNumber(resultNumbers)
+    return resultNumbers
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleSubmit (e) {
     e.preventDefault()
     const currentDate = new Date()
@@ -94,6 +95,17 @@ function Search ({ setCurrentNumber }) {
       setSearchedText(inputValueLowerCase)
     }
   }
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.key === 'Enter') {
+        handleSubmit(event)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleSubmit])
 
   return (
     <StyledForm>
@@ -106,7 +118,6 @@ function Search ({ setCurrentNumber }) {
           pattern: '[0-9]*'
         }}
         onChange={e => setRusNumber(e.target.value)}
-        autoFocus
       />
       <StyledTextField
         type='decimal'

@@ -8,7 +8,6 @@ function ScrollToTop () {
     window.scrollTo(0, 0)
   }, [pathname])
 
-  console.log(pathname)
   return null
 }
 
