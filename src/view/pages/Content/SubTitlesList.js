@@ -58,7 +58,7 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
               {hymns.map(h => (
                 <HymnTitle
                   title={h?.first_string}
-                  id={h.number}
+                  number={h.number}
                   BorderBottom={Divider}
                   onTitleClick={handleHymnClick}
                 />

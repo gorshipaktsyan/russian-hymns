@@ -43,8 +43,8 @@ function HymnTitle ({
             color='default'
           />
         )}
-        <StyledListItem>
-          <StyledText onClick={() => onTitleClick(id)}>{title}</StyledText>
+        <StyledListItem onClick={() => onTitleClick(id)}>
+          <StyledText>{title}</StyledText>
           <StyledText>{number}</StyledText>
         </StyledListItem>
         {Icon && <StyledIcon as={Icon} onClick={() => onIconClick(id)} />}

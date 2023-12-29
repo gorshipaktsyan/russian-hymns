@@ -28,8 +28,8 @@ function HymnsList ({ handleTitleClick, letter, handleBackClick }) {
       <StyledList>
         {filteredHymns.map(h => (
           <HymnTitle
-            title={h?.first_string}
-            number={h?.number}
+            title={h.first_string}
+            number={h.number}
             id={h._id}
             BorderBottom={Divider}
             onTitleClick={handleTitleClick}
