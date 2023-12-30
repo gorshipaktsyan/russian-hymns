@@ -59,6 +59,7 @@ function Layout () {
         handleDrawerToggle={handleDrawerToggle}
         title={title}
         currentNumber={currentNumber}
+        setCurrentNumber={updateCurrentNumber}
       />
       <App
         currentNumber={currentNumber}

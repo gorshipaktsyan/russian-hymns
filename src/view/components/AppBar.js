@@ -9,8 +9,14 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import BookmarkIcon from '@mui/icons-material/Bookmark'
 import persistentStore from '../services/PersistentStore'
 import { useLocation } from 'react-router-dom'
+import SearchBar from './SearchBar'
 
-function AppBarComponent ({ handleDrawerToggle, title, currentNumber }) {
+function AppBarComponent ({
+  handleDrawerToggle,
+  title,
+  currentNumber,
+  setCurrentNumber
+}) {
   const [saved, setSaved] = useState()
   const location = useLocation()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,8 +43,17 @@ function AppBarComponent ({ handleDrawerToggle, title, currentNumber }) {
     }
   }
   return (
-    <AppBar component='nav' sx={{ backgroundColor: '#000' }}>
-      <Toolbar sx={{ paddingRight: 0 }}>
+    <AppBar
+      component='nav'
+      sx={{
+        backgroundColor: '#000'
+      }}
+    >
+      <Toolbar
+        sx={{
+          paddingRight: '0px'
+        }}
+      >
         <IconButton
           color='inherit'
           aria-label='open drawer'
@@ -48,15 +63,23 @@ function AppBarComponent ({ handleDrawerToggle, title, currentNumber }) {
           <MenuIcon sx={{ fontSize: '30px' }} />
         </IconButton>
         <Box sx={{ fontSize: '20px' }}>{title}</Box>
-        <Box sx={{ flexGrow: 1 }} />
         {location.pathname === '/russian-hymns' ? (
-          <IconButton color='inherit' onClick={handleBookmarkClick}>
-            {saved ? (
-              <BookmarkIcon sx={{ fontSize: '30px' }} />
-            ) : (
-              <BookmarkBorderIcon sx={{ fontSize: '30px' }} />
-            )}
-          </IconButton>
+          <>
+            <Box
+              sx={{
+                flexGrow: '1'
+              }}
+            >
+              <SearchBar setCurrentNumber={setCurrentNumber} />
+            </Box>
+            <IconButton color='inherit' onClick={handleBookmarkClick}>
+              {saved ? (
+                <BookmarkIcon sx={{ fontSize: '30px' }} />
+              ) : (
+                <BookmarkBorderIcon sx={{ fontSize: '30px' }} />
+              )}
+            </IconButton>
+          </>
         ) : null}
       </Toolbar>
     </AppBar>
