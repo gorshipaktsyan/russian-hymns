@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
@@ -19,13 +19,15 @@ const StyledDivider = styled(Divider)({
   width: '400px',
   margin: '0 auto'
 })
-function Hymn ({ currentNumber, setCurrentNumber }) {
+function Hymn ({ open, currentNumber, setCurrentNumber }) {
   const hymn = currentNumber.map(number =>
     hymns.find(h => Number(h.number) === Number(number))
   )
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe () {
+    if (open) {
+      return
+    }
     const index = hymns.findIndex(
       el => Number(el.number) === Number(currentNumber[0] + 1)
     )
@@ -35,6 +37,9 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleRightSwipe () {
+    if (open) {
+      return
+    }
     const index = hymns.findIndex(
       el => Number(el.number) === Number(currentNumber[0] - 1)
     )
@@ -54,9 +59,7 @@ function Hymn ({ currentNumber, setCurrentNumber }) {
   )
   useEffect(() => {
     const handleKeyDown = event => {
-      if (event.key === 'Enter') {
-        // alert('Enter key pressed!')
-      } else if (event.key === 'ArrowLeft') {
+      if (event.key === 'ArrowLeft') {
         handleRightSwipe()
       } else if (event.key === 'ArrowRight') {
         handleLeftSwipe()

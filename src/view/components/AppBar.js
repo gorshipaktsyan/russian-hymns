@@ -15,7 +15,9 @@ function AppBarComponent ({
   handleDrawerToggle,
   title,
   currentNumber,
-  setCurrentNumber
+  setCurrentNumber,
+  open,
+  setOpen
 }) {
   const [saved, setSaved] = useState()
   const location = useLocation()
@@ -70,7 +72,11 @@ function AppBarComponent ({
                 flexGrow: '1'
               }}
             >
-              <SearchBar setCurrentNumber={setCurrentNumber} />
+              <SearchBar
+                setCurrentNumber={setCurrentNumber}
+                open={open}
+                setOpen={setOpen}
+              />
             </Box>
             <IconButton color='inherit' onClick={handleBookmarkClick}>
               {saved ? (

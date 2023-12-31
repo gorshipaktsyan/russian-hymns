@@ -15,12 +15,13 @@ import {
 } from '../view/pages'
 import './index.scss'
 
-function App ({ currentNumber, setCurrentNumber }) {
+function App ({ open, currentNumber, setCurrentNumber }) {
   const routes = [
     {
       path: '/russian-hymns',
       element: (
         <Hymn
+          open={open}
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
         />
