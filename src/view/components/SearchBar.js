@@ -7,7 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 const SearchedBox = styled(Box)({
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'flex-end',
   alignItems: 'center'
 })
 const DesktopStyledTextField = styled(TextField)({
