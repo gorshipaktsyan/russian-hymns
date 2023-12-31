@@ -57,8 +57,9 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
             <AccordionDetails>
               {hymns.map(h => (
                 <HymnTitle
-                  title={h?.first_string}
+                  title={h.first_string}
                   number={h.number}
+                  id={h._id}
                   BorderBottom={Divider}
                   onTitleClick={handleHymnClick}
                 />

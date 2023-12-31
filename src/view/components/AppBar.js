@@ -48,14 +48,10 @@ function AppBarComponent ({
     <AppBar
       component='nav'
       sx={{
-        backgroundColor: '#000'
+        backgroundColor: 'black'
       }}
     >
-      <Toolbar
-        sx={{
-          paddingRight: '0px'
-        }}
-      >
+      <Toolbar>
         <IconButton
           color='inherit'
           aria-label='open drawer'
