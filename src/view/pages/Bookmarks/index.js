@@ -49,12 +49,11 @@ function Bookmarks ({ setCurrentNumber }) {
     navigate('/russian-hymns')
   }
 
-  function handleDelete (ids) {
-    const hymnIds = Array.isArray(ids) ? ids : [ids]
-    persistentStore.remove('savedHymns', hymnIds)
-    const updatedHymns = savedHymns.filter(h => !selectedHymns.includes(h._id))
+  function handleDelete (id) {
+    persistentStore.remove('savedHymns', id)
+    const updatedHymns = savedHymns.filter(h => h._id !== id)
+    setSelectedHymns(selectedHymns.filter(n => n !== id))
     setSavedHymns(updatedHymns)
-    setSelectedHymns([])
   }
   const handleCheckboxChange = id => {
     setSelectedHymns(prevSelected =>
@@ -88,9 +87,6 @@ function Bookmarks ({ setCurrentNumber }) {
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <StyledButton onClick={() => handleClick(selectedHymns)}>
                 Открыть
-              </StyledButton>
-              <StyledButton onClick={() => handleDelete(selectedHymns)}>
-                Удалить
               </StyledButton>
             </Box>
           )}

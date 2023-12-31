@@ -35,6 +35,7 @@ function Layout () {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [currentNumber, setCurrentNumber] = useState([1])
   const [title, setTitle] = useState(`Гимн ${currentNumber}`)
+  const [open, setOpen] = useState(false)
   /*function handlePress() {
    if (deferredPrompt) {
      alert('not found')
@@ -59,8 +60,12 @@ function Layout () {
         handleDrawerToggle={handleDrawerToggle}
         title={title}
         currentNumber={currentNumber}
+        setCurrentNumber={updateCurrentNumber}
+        open={open}
+        setOpen={setOpen}
       />
       <App
+        open={open}
         currentNumber={currentNumber}
         setCurrentNumber={updateCurrentNumber}
       />
