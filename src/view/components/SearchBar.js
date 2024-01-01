@@ -75,7 +75,7 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
 
   useEffect(() => {
     const handleKeyDown = event => {
-      if (event.key === 'Enter') {
+      if (number && event.key === 'Enter') {
         DesktophandleClick(event)
       }
     }
@@ -83,7 +83,7 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [DesktophandleClick])
+  }, [DesktophandleClick, number])
 
   useEffect(() => {
     if (matches) {

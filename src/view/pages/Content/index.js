@@ -10,12 +10,10 @@ function Content ({ setCurrentNumber }) {
   const navigate = useNavigate()
 
   function handleTitleClick (id) {
-    console.log('title', id)
     setSelectedTitle(id)
   }
 
   function handleHymnClick (id) {
-    console.log('hymn', id)
     const currentDate = new Date()
     const searchedNumbers = persistentStore.get('searchedNumbers') || []
     const hymnObject = { number: [id], date: currentDate }

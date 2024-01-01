@@ -16,10 +16,21 @@ const StyledIcon = styled(Icon)({
 const StyledText = styled(Box)({
   padding: '5px'
 })
+
+function addDivider (BorderBottom, hymnsList, index) {
+  if (BorderBottom && index !== hymnsList.length - 1) {
+    const lastIndex = hymnsList.length - 1
+    return <BorderBottom key={lastIndex} />
+  }
+  return null
+}
+
 function HymnTitle ({
   title,
   number,
   id,
+  hymnsList,
+  index,
   selectedHymns,
   Icon,
   BorderBottom,
@@ -49,7 +60,7 @@ function HymnTitle ({
         </StyledListItem>
         {Icon && <StyledIcon as={Icon} onClick={() => onIconClick(id)} />}
       </Box>
-      {BorderBottom && <BorderBottom />}
+      {addDivider(BorderBottom, hymnsList, index)}
     </>
   )
 }

@@ -26,11 +26,13 @@ function HymnsList ({ handleTitleClick, letter, handleBackClick }) {
   return (
     <StyledBox>
       <StyledList>
-        {filteredHymns.map(h => (
+        {filteredHymns.map((h, index) => (
           <HymnTitle
             title={h.first_string}
             number={h.number}
             id={h._id}
+            hymnsList={filteredHymns}
+            index={index}
             BorderBottom={Divider}
             onTitleClick={handleTitleClick}
           />

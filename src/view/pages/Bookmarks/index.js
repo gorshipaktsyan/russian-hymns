@@ -67,12 +67,14 @@ function Bookmarks ({ setCurrentNumber }) {
       {!!savedHymns.length ? (
         <StyledList sx={{ maxWidth: '500px', width: '100%' }}>
           <TransitionGroup>
-            {savedHymns.map(h => (
-              <Collapse>
+            {savedHymns.map((h, index) => (
+              <Collapse key={h._id || index}>
                 <HymnTitle
                   title={h?.first_string}
                   number={h?.number}
                   id={h._id}
+                  hymnsList={savedHymns}
+                  index={index}
                   selectedHymns={selectedHymns}
                   Icon={DeleteIcon}
                   BorderBottom={Divider}

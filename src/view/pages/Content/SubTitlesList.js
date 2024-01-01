@@ -55,11 +55,13 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
               <Typography key={subtitle._id}>{subtitle.name_upper}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {hymns.map(h => (
+              {hymns.map((h, index) => (
                 <HymnTitle
                   title={h.first_string}
                   number={h.number}
                   id={h._id}
+                  hymnsList={hymns}
+                  index={index}
                   BorderBottom={Divider}
                   onTitleClick={handleHymnClick}
                 />

@@ -64,11 +64,13 @@ function HymnList ({
       >
         <StyledBox>
           <StyledList>
-            {hymnsByText.map(h => (
+            {hymnsByText.map((h, index) => (
               <HymnTitle
                 title={h?.first_string}
                 number={h.number}
                 id={h.number}
+                hymnsList={hymnsByText}
+                index={index}
                 BorderBottom={Divider}
                 onTitleClick={handleClick}
               />

@@ -61,11 +61,13 @@ function History ({ setCurrentNumber }) {
             <Collapse key={date}>
               <Box sx={{ paddingBottom: '20px' }}>
                 <Divider>{date}</Divider>
-                {hymns.map(h => (
+                {hymns.map((h, index) => (
                   <HymnTitle
                     title={h?.first_string}
                     number={h?.number}
                     id={h._id}
+                    hymnsList={hymns}
+                    index={index}
                     BorderBottom={Divider}
                     onTitleClick={handleClick}
                   />

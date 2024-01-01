@@ -12,10 +12,12 @@ const StyledList = styled(List)({
 function TitlesList ({ handleTitleClick }) {
   return (
     <StyledList>
-      {titles.map(title => (
+      {titles.map((title, index) => (
         <HymnTitle
           title={title?.name}
           id={title._id}
+          hymnsList={titles}
+          index={index}
           BorderBottom={Divider}
           onTitleClick={handleTitleClick}
         />
