@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import persistentStore from '../../services/PersistentStore'
 import hymns from '../../services/storage/hymns.json'
@@ -31,11 +31,14 @@ const StyledButton = styled(Button)({
   }
 })
 function Bookmarks ({ setCurrentNumber }) {
-  const SAVED = persistentStore.get('savedHymns') || []
-  const savedHymnsData = hymns.filter(h => SAVED.includes(h._id))
-  const navigate = useNavigate()
+  const savedHymnsData = useMemo(() => {
+    const saved = persistentStore.get('savedHymns') || []
+    return hymns.filter(h => saved.includes(h._id))
+  }, [])
+
   const [savedHymns, setSavedHymns] = useState(savedHymnsData)
   const [selectedHymns, setSelectedHymns] = useState([])
+  const navigate = useNavigate()
 
   function handleClick (ids) {
     const hymnIds = Array.isArray(ids) ? ids : [ids]

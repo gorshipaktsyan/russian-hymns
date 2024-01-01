@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import { useNavigate } from 'react-router-dom'
@@ -29,26 +29,32 @@ function formattingDate (date) {
 }
 
 function History ({ setCurrentNumber }) {
-  const history = persistentStore.get('searchedNumbers') || []
   const navigate = useNavigate()
-  const groupedHymns = {}
 
-  history.forEach(searched => {
-    searched.number.forEach(number => {
-      const matchingHymn = hymns.find(h => h.number === number)
-      if (matchingHymn) {
-        const formattedDate = formattingDate(searched.date)
-        if (!groupedHymns[formattedDate]) {
-          groupedHymns[formattedDate] = []
+  const groupedHymns = useMemo(() => {
+    const history = persistentStore.get('searchedNumbers') || {}
+    const result = {}
+
+    history.forEach(searched => {
+      searched.number.forEach(number => {
+        const matchingHymn = hymns.find(h => h.number === number)
+        if (matchingHymn) {
+          const formattedDate = formattingDate(searched.date)
+          if (!result[formattedDate]) {
+            result[formattedDate] = []
+          }
+          result[formattedDate].push({
+            ...matchingHymn,
+            date: searched.date,
+            formattedDate: formattedDate
+          })
         }
-        groupedHymns[formattedDate].push({
-          ...matchingHymn,
-          date: searched.date,
-          formattedDate: formattedDate
-        })
-      }
+      })
     })
-  })
+
+    return result
+  }, [])
+
   function handleClick (id) {
     setCurrentNumber([id])
     navigate('/russian-hymns')

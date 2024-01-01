@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
@@ -20,8 +20,12 @@ const StyledDivider = styled(Divider)({
   margin: '0 auto'
 })
 function Hymn ({ open, currentNumber, setCurrentNumber }) {
-  const hymn = currentNumber.map(number =>
-    hymns.find(h => Number(h.number) === Number(number))
+  const hymn = useMemo(
+    () =>
+      currentNumber.map(number =>
+        hymns.find(h => Number(h.number) === Number(number))
+      ),
+    [currentNumber]
   )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe () {
