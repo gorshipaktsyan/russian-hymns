@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { List, Divider, Box } from '@mui/material'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
@@ -22,7 +23,9 @@ const StyledFab = styled(Fab)({
 })
 
 function HymnsList ({ handleTitleClick, letter, handleBackClick }) {
-  const filteredHymns = hymns.filter(h => h.first_letter === letter)
+  const filteredHymns = useMemo(() => {
+    return hymns.filter(h => h.first_letter === letter)
+  }, [letter])
   return (
     <StyledBox>
       <StyledList>

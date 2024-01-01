@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Subtitles from '../../services/storage/subtitles.json'
@@ -27,8 +27,12 @@ const StyledFab = styled(Fab)({
 
 function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
   const [expanded, setExpanded] = useState(false)
-  const grouped = hymns.filter(hymn => hymn.title === selectedTitle)
-  const subtitles = Subtitles.filter(sub => sub.title === selectedTitle)
+  const grouped = useMemo(() => {
+    return hymns.filter(hymn => hymn.title === selectedTitle)
+  }, [selectedTitle])
+  const subtitles = useMemo(() => {
+    return Subtitles.filter(sub => sub.title === selectedTitle)
+  }, [selectedTitle])
 
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false)
