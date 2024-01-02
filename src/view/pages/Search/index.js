@@ -148,7 +148,6 @@ function Search ({ setCurrentNumber }) {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorAlert}
         onClose={handleClose}
-        message='I love snacks'
       >
         <Alert
           onClose={handleClose}
