@@ -8,6 +8,7 @@ import styled from '@emotion/styled'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TransitionGroup } from 'react-transition-group'
 import Collapse from '@mui/material/Collapse'
+import historyStore from '../../services/HistoryStore'
 
 const StyledBox = styled(Box)({
   display: 'flex',
@@ -41,13 +42,7 @@ function Bookmarks ({ setCurrentNumber }) {
   const navigate = useNavigate()
 
   function handleClick (ids) {
-    const hymnIds = Array.isArray(ids) ? ids : [ids]
-    console.log(hymnIds)
-    const currentDate = new Date()
-    const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    const hymnObject = { number: hymnIds, date: currentDate }
-    const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
-    persistentStore.set('searchedNumbers', updatedHymns)
+    const hymnIds = historyStore.set('searchedHymns', ids)
     setCurrentNumber(hymnIds)
     navigate('/russian-hymns')
   }

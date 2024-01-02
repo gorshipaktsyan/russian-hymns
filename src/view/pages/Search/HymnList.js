@@ -2,9 +2,9 @@ import React from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Snackbar from '@mui/material/Snackbar'
-import persistentStore from '../../services/PersistentStore'
 import { Alert, Box, Divider, Fab, List, Modal, styled } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import historyStore from '../../services/HistoryStore'
 
 const StyledBox = styled(Box)({
   position: 'absolute',
@@ -43,12 +43,8 @@ function HymnList ({
   const handleClose = () => setOpenHymnList(false)
 
   function handleClick (id) {
-    const currentDate = new Date()
-    const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    const HYMN_OBJECT = { number: [id], date: currentDate }
-    const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
-    persistentStore.set('searchedNumbers', UPDATED_HYMNS)
-    setCurrentNumber([id])
+    const hymnIds = historyStore.set('searchedHymns', id)
+    setCurrentNumber(hymnIds)
     navigate('/russian-hymns')
   }
   const handleBackClick = () => {

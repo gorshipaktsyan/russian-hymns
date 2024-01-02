@@ -5,8 +5,8 @@ import hymns from '../../services/storage/hymns.json'
 import Button from '@mui/material/Button'
 import Snackbar from '@mui/material/Snackbar'
 import { Alert, TextField, styled } from '@mui/material'
-import persistentStore from '../../services/PersistentStore'
 import './index.scss'
+import historyStore from '../../services/HistoryStore'
 
 const StyledForm = styled('div')({
   display: 'flex',
@@ -64,8 +64,6 @@ function Search ({ setCurrentNumber }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleSubmit (e) {
     e.preventDefault()
-    const currentDate = new Date()
-    const searchedNumbers = persistentStore.get('searchedNumbers') || []
     let number
     if (rusNumber) {
       number = searchRussianNumber()
@@ -79,10 +77,9 @@ function Search ({ setCurrentNumber }) {
       setCurrentNumber([randomNumber])
       number = [randomNumber]
     }
+
     if (number.length) {
-      let hymnObject = { number, date: currentDate }
-      const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
-      persistentStore.set('searchedNumbers', updatedHymns)
+      historyStore.set('searchedHymns', number)
       navigate('/russian-hymns')
     }
     setErrorAlert(true)

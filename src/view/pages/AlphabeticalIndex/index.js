@@ -2,20 +2,16 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Alphabet from './Alphabet'
 import HymnsList from './HymnsList'
-import persistentStore from '../../services/PersistentStore'
 import './index.scss'
+import historyStore from '../../services/HistoryStore'
 
 function AlphabeticalIndex ({ setCurrentNumber }) {
   const [letter, setLetter] = useState('')
   const navigate = useNavigate()
 
   function handleTitleClick (id) {
-    const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    const currentDate = new Date()
-    const HYMN_OBJECT = { number: [id], date: currentDate }
-    const UPDATED_HYMNS = [...new Set([HYMN_OBJECT, ...searchedNumbers])]
-    persistentStore.set('searchedNumbers', UPDATED_HYMNS)
-    setCurrentNumber([id])
+    const hymnIds = historyStore.set('searchedHymns', id)
+    setCurrentNumber(hymnIds)
     navigate('/russian-hymns')
   }
 

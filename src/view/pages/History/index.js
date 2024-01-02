@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react'
 import HymnTitle from '../../components/HymnTitle'
-import hymns from '../../services/storage/hymns.json'
 import { useNavigate } from 'react-router-dom'
 import { Box, Collapse, Divider, List } from '@mui/material'
-import persistentStore from '../../services/PersistentStore'
 import styled from '@emotion/styled'
 import { TransitionGroup } from 'react-transition-group'
+import historyStore from '../../services/HistoryStore'
 
 const StyledBox = styled(Box)({
   display: 'flex',
@@ -17,42 +16,12 @@ const StyledList = styled(List)({
   paddingBottom: '100px',
   maxWidth: '400px'
 })
-function formattingDate (date) {
-  const options = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    weekday: 'short'
-  }
-  const dateFormatter = new Intl.DateTimeFormat('ru', options)
-  return dateFormatter.format(new Date(date))
-}
 
 function History ({ setCurrentNumber }) {
   const navigate = useNavigate()
 
   const groupedHymns = useMemo(() => {
-    const history = persistentStore.get('searchedNumbers') || {}
-    const result = {}
-
-    history.forEach(searched => {
-      searched.number.forEach(number => {
-        const matchingHymn = hymns.find(h => h.number === number)
-        if (matchingHymn) {
-          const formattedDate = formattingDate(searched.date)
-          if (!result[formattedDate]) {
-            result[formattedDate] = []
-          }
-          result[formattedDate].push({
-            ...matchingHymn,
-            date: searched.date,
-            formattedDate: formattedDate
-          })
-        }
-      })
-    })
-
-    return result
+    return historyStore.get('searchedHymns')
   }, [])
 
   function handleClick (id) {
