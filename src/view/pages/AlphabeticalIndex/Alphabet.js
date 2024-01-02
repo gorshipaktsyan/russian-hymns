@@ -26,12 +26,7 @@ const RussianAlphabetCapital = [
   'Ц',
   'Ч',
   'Ш',
-  'Щ',
-  'Ъ',
-  'Ы',
-  'Ь',
   'Э',
-  'Ю',
   'Я'
 ]
 const StyledListItem = styled(ListItem)({
@@ -42,12 +37,12 @@ const StyledListItem = styled(ListItem)({
 })
 function Alphabet ({ setLetter }) {
   return (
-    <Box sx={{ maxWidth: '300px' }}>
+    <Box sx={{ maxWidth: '250px' }}>
       <List className='list-wrapper'>
-        {RussianAlphabetCapital.map(letter => (
+        {RussianAlphabetCapital.map((letter, index) => (
           <StyledListItem
             className='letter'
-            key={letter}
+            key={index}
             onClick={() => setLetter(letter)}
           >
             {letter}
