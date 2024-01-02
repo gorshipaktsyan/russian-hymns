@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import persistentStore from '../services/PersistentStore'
 import { Box, Collapse, Fab, TextField } from '@mui/material'
 import styled from '@emotion/styled'
 import SearchIcon from '@mui/icons-material/Search'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import historyStore from '../services/HistoryStore'
 
 const SearchedBox = styled(Box)({
   display: 'flex',
@@ -65,6 +65,7 @@ const StyledFab = styled(Fab)({
   '&:hover': { backgroundColor: 'black' }
 })
 const StyledSearchIcon = styled(SearchIcon)({
+  fontSize: '30px',
   marginLeft: '10px',
   '&:hover': { color: 'grey' }
 })
@@ -94,30 +95,23 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
   function DesktophandleClick (e) {
     e.preventDefault()
     const numbers = number.split(',').map(num => Number(num.trim()))
-    setCurrentNumber(numbers)
-    const currentDate = new Date()
-    const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    let hymnObject = { number: numbers, date: currentDate }
-    const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
-    persistentStore.set('searchedNumbers', updatedHymns)
+    const hymnIds = historyStore.set('searchedHymns', numbers)
+    setCurrentNumber(hymnIds)
     setNumber('')
   }
   function MobilehandleClick (e) {
     e.preventDefault()
     if (number && open) {
       const numbers = number.split(',').map(num => Number(num.trim()))
-      setCurrentNumber(numbers)
-      const currentDate = new Date()
-      const searchedNumbers = persistentStore.get('searchedNumbers') || []
-      let hymnObject = { number: numbers, date: currentDate }
-      const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
-      persistentStore.set('searchedNumbers', updatedHymns)
+      const hymnIds = historyStore.set('searchedHymns', numbers)
+      setCurrentNumber(hymnIds)
       setNumber('')
       setOpen(!open)
     } else {
       setOpen(!open)
     }
   }
+
   return matches ? (
     <SearchedBox>
       <DesktopStyledTextField
