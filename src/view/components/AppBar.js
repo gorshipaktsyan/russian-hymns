@@ -76,9 +76,13 @@ function AppBarComponent ({
             </Box>
             <IconButton color='inherit' onClick={handleBookmarkClick}>
               {saved ? (
-                <BookmarkIcon sx={{ fontSize: '30px' }} />
+                <BookmarkIcon
+                  sx={{ fontSize: '30px', '&:hover': { color: 'grey' } }}
+                />
               ) : (
-                <BookmarkBorderIcon sx={{ fontSize: '30px' }} />
+                <BookmarkBorderIcon
+                  sx={{ fontSize: '30px', '&:hover': { color: 'grey' } }}
+                />
               )}
             </IconButton>
           </>

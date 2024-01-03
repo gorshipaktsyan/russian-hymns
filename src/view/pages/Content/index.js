@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TitlesList from './TitlesList'
 import SubTitlesList from './SubTitlesList'
-import persistentStore from '../../services/PersistentStore'
 import './index.scss'
+import historyStore from '../../services/HistoryStore'
 
 function Content ({ setCurrentNumber }) {
   const [selectedTitle, setSelectedTitle] = useState(null)
@@ -14,12 +14,8 @@ function Content ({ setCurrentNumber }) {
   }
 
   function handleHymnClick (id) {
-    const currentDate = new Date()
-    const searchedNumbers = persistentStore.get('searchedNumbers') || []
-    const hymnObject = { number: [id], date: currentDate }
-    const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])]
-    persistentStore.set('searchedNumbers', updatedHymns)
-    setCurrentNumber([id])
+    const hymnIds = historyStore.set('searchedHymns', id)
+    setCurrentNumber(hymnIds)
     navigate('/russian-hymns')
   }
 
