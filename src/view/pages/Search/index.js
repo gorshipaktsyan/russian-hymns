@@ -2,42 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import HymnList from './HymnList'
 import hymns from '../../services/storage/hymns.json'
-import Button from '@mui/material/Button'
 import Snackbar from '@mui/material/Snackbar'
-import { Alert, TextField, styled } from '@mui/material'
-import './index.scss'
+import { Alert } from '@mui/material'
 import historyStore from '../../services/HistoryStore'
+import StyledComponents from '../../../utils/sharedStyles'
 
-const StyledForm = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column',
-  marginTop: '5%'
-})
-
-const StyledButton = styled(Button)({
-  width: '50%',
-  maxWidth: '150px',
-  height: '50px',
-  background: 'black',
-  marginTop: '20px',
-  '&:hover': {
-    background: 'grey'
-  }
-})
-const StyledTextField = styled(TextField)({
-  width: '100%',
-  maxWidth: '300px',
-  marginTop: '10px',
-  '& input': {
-    '-webkit-appearance': 'none',
-    margin: '0'
-  },
-  '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-    '-webkit-appearance': 'none',
-    margin: '0'
-  }
-})
+const { StyledForm, StyledSearchButton, StyledTextField } = StyledComponents
 
 function Search ({ setCurrentNumber }) {
   const [rusNumber, setRusNumber] = useState('')
@@ -134,9 +104,13 @@ function Search ({ setCurrentNumber }) {
         }}
         onChange={handleTextChange}
       />
-      <StyledButton type='submit' variant='contained' onClick={handleSubmit}>
+      <StyledSearchButton
+        type='submit'
+        variant='contained'
+        onClick={handleSubmit}
+      >
         Поиск
-      </StyledButton>
+      </StyledSearchButton>
       <HymnList
         openHymnList={openHymnList}
         setOpenHymnList={setOpenHymnList}
