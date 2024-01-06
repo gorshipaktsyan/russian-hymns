@@ -1,81 +1,21 @@
 import { useEffect, useState } from 'react'
 import hymns from '../services/storage/hymns.json'
-import { Box, Collapse, Fab, TextField, Alert } from '@mui/material'
-import styled from '@emotion/styled'
+import { Collapse, Alert } from '@mui/material'
 import Snackbar from '@mui/material/Snackbar'
 import SearchIcon from '@mui/icons-material/Search'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import historyStore from '../services/HistoryStore'
 import RightArrow from '@mui/icons-material/East'
-const SearchedBox = styled(Box)({
-  display: 'flex',
-  justifyContent: 'flex-end',
-  alignItems: 'center'
-})
-const DesktopStyledTextField = styled(TextField)({
-  maxWidth: '300px',
-  backgroundColor: '#f1f1e0',
-  borderRadius: '30px',
-  '& .MuiOutlinedInput-root': {
-    borderRadius: '30px'
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderRadius: '30px'
-  },
-  '& input': {
-    '-webkit-appearance': 'none',
-    margin: '0',
-    padding: '0px 8px',
-    fontSize: '20px'
-  },
-  '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-    '-webkit-appearance': 'none',
-    margin: '0'
-  }
-})
-const MobileStyledTextField = styled(TextField)({
-  position: 'fixed',
-  bottom: '30px',
-  right: '25px',
-  width: '80%',
-  maxWidth: '500px',
-  border: '1px solid black',
-  borderRadius: '30px',
-  backgroundColor: '#f1f1e0',
-  transition: 'width 0.5s',
-  '& .MuiOutlinedInput-root': {
-    borderRadius: '30px'
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderRadius: '30px'
-  },
-  '& input': {
-    '-webkit-appearance': 'none',
-    margin: '0'
-  },
-  '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-    '-webkit-appearance': 'none',
-    margin: '0'
-  }
-})
-const StyledFab = styled(Fab)({
-  zIndex: 1000,
-  position: 'fixed',
-  bottom: '30px',
-  right: '25px',
-  backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'black' }
-})
-const StyledSearchIcon = styled(SearchIcon)({
-  fontSize: '30px',
-  marginLeft: '10px',
-  '&:hover': { color: 'grey' }
-})
-const StyledRightArrowIcon = styled(RightArrow)({
-  fontSize: '30px',
-  marginLeft: '10px',
-  '&:hover': { color: 'grey' }
-})
+import StyledComponents from '../../utils/sharedStyles'
+
+const {
+  SearchedBox,
+  DesktopStyledTextField,
+  MobileStyledTextField,
+  StyledFab,
+  StyledSearchIcon,
+  StyledRightArrowIcon
+} = StyledComponents
 
 function SearchBar ({ setCurrentNumber, open, setOpen }) {
   const [number, setNumber] = useState('')

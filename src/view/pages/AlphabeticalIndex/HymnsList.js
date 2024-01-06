@@ -1,26 +1,12 @@
 import { useMemo } from 'react'
-import { List, Divider, Box } from '@mui/material'
+import { Divider } from '@mui/material'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
-import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/ArrowBack'
-import styled from '@emotion/styled'
 import './index.scss'
+import StyledComponents from '../../../utils/sharedStyles'
 
-const StyledBox = styled(Box)({
-  width: '100%',
-  maxWidth: '400px'
-})
-const StyledList = styled(List)({
-  paddingBottom: '100px'
-})
-const StyledFab = styled(Fab)({
-  position: 'fixed',
-  bottom: '30px',
-  right: '30px',
-  backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'grey' }
-})
+const { StyledBox, StyledList, StyledFab } = StyledComponents
 
 function HymnsList ({ handleTitleClick, letter, handleBackClick }) {
   const filteredHymns = useMemo(() => {

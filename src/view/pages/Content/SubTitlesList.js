@@ -2,28 +2,16 @@ import { useState, useMemo } from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Subtitles from '../../services/storage/subtitles.json'
-import { Divider, Box } from '@mui/material'
+import { Divider } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/ArrowBack'
-import styled from '@emotion/styled'
+import StyledComponents from '../../../utils/sharedStyles'
 
-const StyledBox = styled(Box)({
-  width: '100%',
-  paddingBottom: '100px',
-  maxWidth: '400px'
-})
-const StyledFab = styled(Fab)({
-  position: 'fixed',
-  bottom: '10px',
-  right: '10px',
-  backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'grey' }
-})
+const { StyledList, StyledFab } = StyledComponents
 
 function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
   const [expanded, setExpanded] = useState(false)
@@ -43,7 +31,7 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
   }
 
   return (
-    <StyledBox>
+    <StyledList>
       {subtitles.map(subtitle => {
         const hymns = grouped.filter(h => h.subtitle === subtitle._id)
         return (
@@ -77,7 +65,7 @@ function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
       <StyledFab color='primary' aria-label='add' onClick={handleBackClick}>
         <AddIcon />
       </StyledFab>
-    </StyledBox>
+    </StyledList>
   )
 }
 
