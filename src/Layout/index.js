@@ -55,7 +55,7 @@ function Layout () {
 
   return (
     <Box sx={{ height: '100%' }}>
-      <ScrollToTop />
+      <ScrollToTop currentNumber={currentNumber} />
       <AppBar
         handleDrawerToggle={handleDrawerToggle}
         title={title}
