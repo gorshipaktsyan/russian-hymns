@@ -2,35 +2,13 @@ import React from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Snackbar from '@mui/material/Snackbar'
-import { Alert, Box, Divider, Fab, List, Modal, styled } from '@mui/material'
+import { Divider, Modal } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import historyStore from '../../services/HistoryStore'
+import StyledComponents from '../../../utils/sharedStyles'
 
-const StyledBox = styled(Box)({
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '400px',
-  backgroundColor: '#fdfde8',
-  border: '2px solid #000',
-  boxShadow: '0px 0px 20px 5px ',
-  padding: '4px'
-})
-const StyledList = styled(List)({
-  width: '100%',
-  paddingBottom: '100px',
-  maxWidth: '400px',
-  overflowY: 'auto',
-  height: '90vh'
-})
-const StyledFab = styled(Fab)({
-  position: 'fixed',
-  bottom: '20px',
-  right: '30px',
-  backgroundColor: 'black',
-  '&:hover': { backgroundColor: 'grey' }
-})
+const { StyledModalBox, StyledModalList, StyledFab, StyledAlert } =
+  StyledComponents
 
 function HymnList ({
   openHymnList,
@@ -58,8 +36,8 @@ function HymnList ({
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <StyledBox>
-          <StyledList>
+        <StyledModalBox>
+          <StyledModalList>
             {hymnsByText.map((h, index) => (
               <HymnTitle
                 title={h?.first_string}
@@ -78,8 +56,8 @@ function HymnList ({
             >
               <CloseIcon />
             </StyledFab>
-          </StyledList>
-        </StyledBox>
+          </StyledModalList>
+        </StyledModalBox>
       </Modal>
     </div>
   ) : (
@@ -87,14 +65,15 @@ function HymnList ({
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       open={openHymnList}
       onClose={handleClose}
+      autoHideDuration={2000}
     >
-      <Alert
+      <StyledAlert
         onClose={handleClose}
         severity='error'
         sx={{ width: '100%', marginTop: '50px' }}
       >
         Соответствующие гимны не найдены!
-      </Alert>
+      </StyledAlert>
     </Snackbar>
   )
 }

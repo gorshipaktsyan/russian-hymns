@@ -13,7 +13,9 @@ import {
   Search,
   Settings
 } from '../view/pages'
-import './index.scss'
+import StyledComponents from '../utils/sharedStyles'
+
+const { StyledApp } = StyledComponents
 
 function App ({ open, currentNumber, setCurrentNumber }) {
   const routes = [
@@ -55,14 +57,14 @@ function App ({ open, currentNumber, setCurrentNumber }) {
   ]
 
   return (
-    <div className='app'>
+    <StyledApp>
       <CssBaseline />
       <Routes>
         {routes.map(route => (
           <Route key={route.path} path={route.path} element={route.element} />
         ))}
       </Routes>
-    </div>
+    </StyledApp>
   )
 }
 

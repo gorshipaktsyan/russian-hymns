@@ -60,7 +60,7 @@ function AppBarComponent ({
         >
           <MenuIcon sx={{ fontSize: '30px' }} />
         </IconButton>
-        <Box sx={{ fontSize: '20px' }}>{title}</Box>
+        <Box sx={{ fontSize: '20px', cursor: 'default' }}>{title}</Box>
         {location.pathname === '/russian-hymns' ? (
           <>
             <Box
@@ -76,13 +76,9 @@ function AppBarComponent ({
             </Box>
             <IconButton color='inherit' onClick={handleBookmarkClick}>
               {saved ? (
-                <BookmarkIcon
-                  sx={{ fontSize: '30px', '&:hover': { color: 'grey' } }}
-                />
+                <BookmarkIcon sx={{ fontSize: '30px' }} />
               ) : (
-                <BookmarkBorderIcon
-                  sx={{ fontSize: '30px', '&:hover': { color: 'grey' } }}
-                />
+                <BookmarkBorderIcon sx={{ fontSize: '30px' }} />
               )}
             </IconButton>
           </>

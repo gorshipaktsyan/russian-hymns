@@ -5,17 +5,9 @@ import { Box, Collapse, Divider, List } from '@mui/material'
 import styled from '@emotion/styled'
 import { TransitionGroup } from 'react-transition-group'
 import historyStore from '../../services/HistoryStore'
+import StyledComponents from '../../../utils/sharedStyles'
 
-const StyledBox = styled(Box)({
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100%'
-})
-const StyledList = styled(List)({
-  width: '100%',
-  paddingBottom: '100px',
-  maxWidth: '400px'
-})
+const { StyledBox, StyledList } = StyledComponents
 
 function History ({ setCurrentNumber }) {
   const navigate = useNavigate()

@@ -1,6 +1,5 @@
-import { Box, List, ListItem } from '@mui/material'
-import styled from '@emotion/styled'
-import './index.scss'
+import { Box } from '@mui/material'
+import StyledComponents from '../../../utils/sharedStyles'
 
 const RussianAlphabetCapital = [
   'А',
@@ -29,26 +28,17 @@ const RussianAlphabetCapital = [
   'Э',
   'Я'
 ]
-const StyledListItem = styled(ListItem)({
-  '&:hover': {
-    backgroundColor: 'rgb(240, 240, 220)',
-    cursor: 'pointer'
-  }
-})
+const { StyledAlphabet, StyledLetter } = StyledComponents
 function Alphabet ({ setLetter }) {
   return (
     <Box sx={{ maxWidth: '250px' }}>
-      <List className='list-wrapper'>
+      <StyledAlphabet>
         {RussianAlphabetCapital.map((letter, index) => (
-          <StyledListItem
-            className='letter'
-            key={index}
-            onClick={() => setLetter(letter)}
-          >
+          <StyledLetter key={index} onClick={() => setLetter(letter)}>
             {letter}
-          </StyledListItem>
+          </StyledLetter>
         ))}
-      </List>
+      </StyledAlphabet>
     </Box>
   )
 }

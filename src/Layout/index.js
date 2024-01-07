@@ -4,8 +4,6 @@ import App from '../App'
 import ScrollToTop from '../view/components/ScrollToTop'
 import Box from '@mui/material/Box'
 
-import './index.scss'
-
 //let deferredPrompt;
 
 /*window.addEventListener('beforeinstallprompt', (e) => {
@@ -55,7 +53,7 @@ function Layout () {
 
   return (
     <Box sx={{ height: '100%' }}>
-      <ScrollToTop />
+      <ScrollToTop currentNumber={currentNumber} />
       <AppBar
         handleDrawerToggle={handleDrawerToggle}
         title={title}

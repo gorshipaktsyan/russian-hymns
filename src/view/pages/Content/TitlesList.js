@@ -1,14 +1,9 @@
 import HymnTitle from '../../components/HymnTitle'
-import { List, Divider } from '@mui/material'
-import styled from '@emotion/styled'
+import { Divider } from '@mui/material'
 import titles from '../../services/storage/titles.json'
-import './index.scss'
+import StyledComponents from '../../../utils/sharedStyles'
 
-const StyledList = styled(List)({
-  width: '100%',
-  paddingBottom: '100px',
-  maxWidth: '400px'
-})
+const { StyledList } = StyledComponents
 function TitlesList ({ handleTitleClick }) {
   return (
     <StyledList>

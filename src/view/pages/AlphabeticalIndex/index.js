@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Alphabet from './Alphabet'
 import HymnsList from './HymnsList'
-import './index.scss'
 import historyStore from '../../services/HistoryStore'
+import StyledComponents from '../../../utils/sharedStyles'
+
+const { StyledBox } = StyledComponents
 
 function AlphabeticalIndex ({ setCurrentNumber }) {
   const [letter, setLetter] = useState('')
@@ -16,7 +18,7 @@ function AlphabeticalIndex ({ setCurrentNumber }) {
   }
 
   return (
-    <div className='alphabetical-page'>
+    <StyledBox>
       {letter ? (
         <HymnsList
           letter={letter}
@@ -26,7 +28,7 @@ function AlphabeticalIndex ({ setCurrentNumber }) {
       ) : (
         <Alphabet setLetter={setLetter} />
       )}
-    </div>
+    </StyledBox>
   )
 }
 

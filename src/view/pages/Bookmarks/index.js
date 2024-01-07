@@ -9,28 +9,10 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { TransitionGroup } from 'react-transition-group'
 import Collapse from '@mui/material/Collapse'
 import historyStore from '../../services/HistoryStore'
+import StyledComponents from '../../../utils/sharedStyles'
 
-const StyledBox = styled(Box)({
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100%',
-})
-const StyledList = styled(List)({
-  width: '100%',
-  paddingBottom: '100px',
-  maxWidth: '400px'
-})
-const StyledTypography = styled(Typography)({
-  marginTop: '100px'
-})
-const StyledButton = styled(Button)({
-  border: '1px solid',
-  width: '150px',
-  color: 'black',
-  '&:hover': {
-    backgroundColor: '#f0f0dc'
-  }
-})
+const { StyledBox, StyledList, StyledTypography, StyledOpenButton } = StyledComponents
+
 function Bookmarks ({ setCurrentNumber }) {
   const savedHymnsData = useMemo(() => {
     const saved = persistentStore.get('savedHymns') || []
@@ -63,7 +45,7 @@ function Bookmarks ({ setCurrentNumber }) {
   return (
     <StyledBox>
       {!!savedHymns.length ? (
-        <StyledList sx={{ maxWidth: '500px', width: '100%' }}>
+        <StyledList>
           <TransitionGroup>
             {savedHymns.map((h, index) => (
               <Collapse key={h._id || index}>
@@ -85,9 +67,9 @@ function Bookmarks ({ setCurrentNumber }) {
           </TransitionGroup>
           {selectedHymns.length > 0 && (
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <StyledButton onClick={() => handleClick(selectedHymns)}>
+              <StyledOpenButton onClick={() => handleClick(selectedHymns)}>
                 Открыть
-              </StyledButton>
+              </StyledOpenButton>
             </Box>
           )}
         </StyledList>

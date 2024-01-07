@@ -1,22 +1,7 @@
-import styled from '@emotion/styled'
-import { Box, ListItem, Icon, Checkbox } from '@mui/material'
+import { Box, Checkbox } from '@mui/material'
+import StyledComponents from '../../utils/sharedStyles'
 
-const StyledListItem = styled(ListItem)({
-  display: 'flex',
-  justifyContent: 'space-between',
-  padding: '5px 5px',
-  '&:hover': {
-    backgroundColor: '#f0f0dc',
-    cursor: 'pointer'
-  }
-})
-const StyledIcon = styled(Icon)({
-  '&:hover': { color: 'grey', cursor: 'pointer' },
-  marginRight: '10px',
-})
-const StyledText = styled(Box)({
-  padding: '5px'
-})
+const { StyledListItem, StyledIcon, StyledText } = StyledComponents
 
 function addDivider (BorderBottom, hymnsList, index) {
   if (BorderBottom && index !== hymnsList.length - 1) {

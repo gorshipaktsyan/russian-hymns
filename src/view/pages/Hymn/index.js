@@ -2,9 +2,8 @@ import React, { useEffect, useMemo } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
-import { Divider } from '@mui/material'
-import styled from '@emotion/styled'
 import './index.scss'
+import StyledComponents from '../../../utils/sharedStyles'
 
 const config = {
   delta: 10,
@@ -15,10 +14,8 @@ const config = {
   swipeDuration: Infinity,
   touchEventOptions: { passive: true }
 }
-const StyledDivider = styled(Divider)({
-  width: '400px',
-  margin: '0 auto'
-})
+const { StyledDivider } = StyledComponents
+
 function Hymn ({ open, currentNumber, setCurrentNumber }) {
   const hymn = useMemo(
     () =>

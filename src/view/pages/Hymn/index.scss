@@ -1,6 +1,6 @@
 .hymns-page-wrapper{
 div.hymn {
-    padding: 0.5em 0.25em 1em 0em;
+    padding: 8px 4px 16px 0;
     text-align: center;
     background-color: rgb(253, 253, 232);
 }
@@ -8,6 +8,7 @@ div.hymn {
 div.hymn table {
     text-align: center;
     margin: 0 auto;
+    padding-bottom: 200px;
 }
 
 div.hymn .title {

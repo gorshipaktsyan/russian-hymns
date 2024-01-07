@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TitlesList from './TitlesList'
 import SubTitlesList from './SubTitlesList'
-import './index.scss'
 import historyStore from '../../services/HistoryStore'
+import StyledComponents from '../../../utils/sharedStyles'
 
+const { StyledBox } = StyledComponents
 function Content ({ setCurrentNumber }) {
   const [selectedTitle, setSelectedTitle] = useState(null)
   const navigate = useNavigate()
@@ -20,7 +21,7 @@ function Content ({ setCurrentNumber }) {
   }
 
   return (
-    <div className='content-page'>
+    <StyledBox>
       {selectedTitle ? (
         <SubTitlesList
           selectedTitle={selectedTitle}
@@ -30,7 +31,7 @@ function Content ({ setCurrentNumber }) {
       ) : (
         <TitlesList handleTitleClick={handleTitleClick} />
       )}
-    </div>
+    </StyledBox>
   )
 }
 
