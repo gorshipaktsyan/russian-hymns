@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import HymnList from './HymnList'
 import hymns from '../../services/storage/hymns.json'
 import Snackbar from '@mui/material/Snackbar'
-import { Alert } from '@mui/material'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
 
-const { StyledForm, StyledSearchButton, StyledTextField } = StyledComponents
+const { StyledForm, StyledSearchButton, StyledTextField, StyledAlert } =
+  StyledComponents
 
 function Search ({ setCurrentNumber }) {
   const [rusNumber, setRusNumber] = useState('')
@@ -84,7 +84,11 @@ function Search ({ setCurrentNumber }) {
           inputMode: 'decimal',
           pattern: '[0-9]*'
         }}
-        onChange={e => setRusNumber(e.target.value)}
+        onChange={e => {
+          setRusNumber(e.target.value)
+          setEngNumber('')
+          setSearchedText('')
+        }}
       />
       <StyledTextField
         type='decimal'
@@ -94,7 +98,11 @@ function Search ({ setCurrentNumber }) {
           inputMode: 'decimal',
           pattern: '[0-9]*'
         }}
-        onChange={e => setEngNumber(e.target.value)}
+        onChange={e => {
+          setEngNumber(e.target.value)
+          setRusNumber('')
+          setSearchedText('')
+        }}
       />
       <StyledTextField
         label='поиск по тексту'
@@ -102,7 +110,11 @@ function Search ({ setCurrentNumber }) {
         inputProps={{
           inputMode: 'search'
         }}
-        onChange={handleTextChange}
+        onChange={e => {
+          handleTextChange(e)
+          setRusNumber('')
+          setEngNumber('')
+        }}
       />
       <StyledSearchButton
         type='submit'
@@ -122,14 +134,15 @@ function Search ({ setCurrentNumber }) {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorAlert}
         onClose={handleClose}
+        autoHideDuration={2000}
       >
-        <Alert
+        <StyledAlert
           onClose={handleClose}
           severity='error'
           sx={{ width: '100%', marginTop: '50px' }}
         >
           Соответствующий гимн не найден!
-        </Alert>
+        </StyledAlert>
       </Snackbar>
     </StyledForm>
   )

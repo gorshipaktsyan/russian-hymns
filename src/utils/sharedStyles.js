@@ -8,7 +8,8 @@ import {
   Fab,
   Icon,
   Typography,
-  Divider
+  Divider,
+  Alert
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import RightArrow from '@mui/icons-material/East'
@@ -82,7 +83,7 @@ const StyledComponents = {
     background: 'black',
     marginTop: '20px',
     '&:hover': {
-      background: '#f0f0dc'
+      background: 'grey'
     }
   }),
   StyledFab: styled(Fab)({
@@ -91,7 +92,7 @@ const StyledComponents = {
     bottom: '30px',
     right: '30px',
     backgroundColor: 'black',
-    '&:hover': { backgroundColor: 'grey' }
+    '&:hover': { backgroundColor: 'black' }
   }),
   StyledIcon: styled(Icon)({
     '&:hover': { color: 'grey', cursor: 'pointer' }
@@ -155,12 +156,12 @@ const StyledComponents = {
   }),
   MobileStyledTextField: styled(TextField)({
     position: 'fixed',
-    bottom: '30px',
+    bottom: '29px',
     right: '30px',
     width: '80%',
     maxWidth: '500px',
     border: '1px solid black',
-    borderRadius: '35px',
+    borderRadius: '30px',
     backgroundColor: '#f1f1e0',
     transition: 'width 0.5s',
     '& .MuiOutlinedInput-root': {
@@ -181,17 +182,21 @@ const StyledComponents = {
   StyledSearchIcon: styled(SearchIcon)({
     fontSize: '30px',
     marginLeft: '10px',
-    '&:hover': { color: 'grey' }
+    cursor: 'pointer'
   }),
   StyledRightArrowIcon: styled(RightArrow)({
     fontSize: '30px',
     marginLeft: '10px',
-    '&:hover': { color: 'grey' }
+    cursor: 'pointer'
   }),
   StyledApp: styled(Box)({
     minHeight: '100vh',
     backgroundColor: '#fdfde8',
     paddingTop: '64px'
+  }),
+  StyledAlert: styled(Alert)({
+    width: '100%',
+    marginTop: '50px'
   })
 }
 

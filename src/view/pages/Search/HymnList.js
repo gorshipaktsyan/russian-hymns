@@ -2,12 +2,13 @@ import React from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Snackbar from '@mui/material/Snackbar'
-import { Alert, Divider, Modal } from '@mui/material'
+import { Divider, Modal } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
 
-const { StyledModalBox, StyledModalList, StyledFab } = StyledComponents
+const { StyledModalBox, StyledModalList, StyledFab, StyledAlert } =
+  StyledComponents
 
 function HymnList ({
   openHymnList,
@@ -64,14 +65,15 @@ function HymnList ({
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       open={openHymnList}
       onClose={handleClose}
+      autoHideDuration={2000}
     >
-      <Alert
+      <StyledAlert
         onClose={handleClose}
         severity='error'
         sx={{ width: '100%', marginTop: '50px' }}
       >
         Соответствующие гимны не найдены!
-      </Alert>
+      </StyledAlert>
     </Snackbar>
   )
 }

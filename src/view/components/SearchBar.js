@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import hymns from '../services/storage/hymns.json'
-import { Collapse, Alert } from '@mui/material'
+import { Collapse } from '@mui/material'
 import Snackbar from '@mui/material/Snackbar'
 import SearchIcon from '@mui/icons-material/Search'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -14,7 +14,8 @@ const {
   MobileStyledTextField,
   StyledFab,
   StyledSearchIcon,
-  StyledRightArrowIcon
+  StyledRightArrowIcon,
+  StyledAlert
 } = StyledComponents
 
 function SearchBar ({ setCurrentNumber, open, setOpen }) {
@@ -58,6 +59,10 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
     }
     if (!matches && !open) {
       setOpen(true)
+      return
+    }
+    if (!matches && open && !number) {
+      setOpen(false)
       return
     }
     setErrorAlert(true)
@@ -118,14 +123,15 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorAlert}
         onClose={handleClose}
+        autoHideDuration={2000}
       >
-        <Alert
+        <StyledAlert
           onClose={handleClose}
           severity='error'
           sx={{ width: '100%', marginTop: '50px' }}
         >
           Соответствующий гимн не найден!
-        </Alert>
+        </StyledAlert>
       </Snackbar>
     </>
   )
