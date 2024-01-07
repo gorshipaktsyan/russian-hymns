@@ -1,7 +1,6 @@
 import HymnTitle from '../../components/HymnTitle'
 import { Divider } from '@mui/material'
 import titles from '../../services/storage/titles.json'
-import './index.scss'
 import StyledComponents from '../../../utils/sharedStyles'
 
 const { StyledList } = StyledComponents

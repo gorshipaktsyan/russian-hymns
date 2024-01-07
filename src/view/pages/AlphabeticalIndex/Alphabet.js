@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import StyledComponents from '../../../utils/sharedStyles'
-import './index.scss'
 
 const RussianAlphabetCapital = [
   'А',

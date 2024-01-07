@@ -3,7 +3,6 @@ import { Divider } from '@mui/material'
 import HymnTitle from '../../components/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import AddIcon from '@mui/icons-material/ArrowBack'
-import './index.scss'
 import StyledComponents from '../../../utils/sharedStyles'
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents

@@ -2,8 +2,6 @@ import React, { useEffect, useMemo } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
-import { Divider } from '@mui/material'
-import styled from '@emotion/styled'
 import './index.scss'
 import StyledComponents from '../../../utils/sharedStyles'
 
