@@ -41,12 +41,15 @@ const StyledComponents = {
       cursor: 'pointer'
     }
   }),
-
   StyledLetter: styled(ListItem)({
     fontSize: '25px',
     width: '50px',
     height: '50px',
-    display: 'flex'
+    display: 'flex',
+    '&:hover': {
+      backgroundColor: '#f0f0dc',
+      cursor: 'pointer'
+    }
   }),
   StyledTextField: styled(TextField)({
     width: '100%',
@@ -184,6 +187,11 @@ const StyledComponents = {
     fontSize: '30px',
     marginLeft: '10px',
     '&:hover': { color: 'grey' }
+  }),
+  StyledApp: styled(Box)({
+    minHeight: '100vh',
+    backgroundColor: '#fdfde8',
+    paddingTop: '64px'
   })
 }
 

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import TitlesList from './TitlesList'
 import SubTitlesList from './SubTitlesList'
-import './index.scss'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
 
