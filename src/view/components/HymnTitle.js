@@ -11,7 +11,8 @@ const StyledListItem = styled(ListItem)({
   }
 })
 const StyledIcon = styled(Icon)({
-  '&:hover': { color: 'grey', cursor: 'pointer' }
+  '&:hover': { color: 'grey', cursor: 'pointer' },
+  marginRight: '10px',
 })
 const StyledText = styled(Box)({
   padding: '5px'

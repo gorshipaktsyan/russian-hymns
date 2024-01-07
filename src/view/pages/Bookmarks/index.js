@@ -13,7 +13,7 @@ import historyStore from '../../services/HistoryStore'
 const StyledBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
-  width: '100%'
+  width: '100%',
 })
 const StyledList = styled(List)({
   width: '100%',
