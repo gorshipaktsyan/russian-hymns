@@ -94,7 +94,8 @@ const StyledComponents = {
     backgroundColor: 'black',
     '&:hover': { backgroundColor: 'black' }
   }),
-  StyledIcon: styled(Icon)({
+  StyledDeletedIcon: styled(Icon)({
+    marginRight: '10px',
     '&:hover': { color: 'grey', cursor: 'pointer' }
   }),
   StyledTypography: styled(Typography)({

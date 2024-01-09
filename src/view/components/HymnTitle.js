@@ -1,7 +1,7 @@
 import { Box, Checkbox } from '@mui/material'
 import StyledComponents from '../../utils/sharedStyles'
 
-const { StyledListItem, StyledIcon, StyledText } = StyledComponents
+const { StyledListItem, StyledDeletedIcon, StyledText } = StyledComponents
 
 function addDivider (BorderBottom, hymnsList, index) {
   if (BorderBottom && index !== hymnsList.length - 1) {
@@ -44,7 +44,9 @@ function HymnTitle ({
           <StyledText>{title}</StyledText>
           <StyledText>{number}</StyledText>
         </StyledListItem>
-        {Icon && <StyledIcon as={Icon} onClick={() => onIconClick(id)} />}
+        {Icon && (
+          <StyledDeletedIcon as={Icon} onClick={() => onIconClick(id)} />
+        )}
       </Box>
       {addDivider(BorderBottom, hymnsList, index)}
     </>
