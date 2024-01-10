@@ -3,15 +3,15 @@ import { useState, useMemo } from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import persistentStore from '../../services/PersistentStore'
 import hymns from '../../services/storage/hymns.json'
-import { Box, Button, Divider, List, Typography } from '@mui/material'
-import styled from '@emotion/styled'
+import { Box, Divider } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TransitionGroup } from 'react-transition-group'
 import Collapse from '@mui/material/Collapse'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
 
-const { StyledBox, StyledList, StyledTypography, StyledOpenButton } = StyledComponents
+const { StyledBox, StyledList, StyledTypography, StyledOpenButton } =
+  StyledComponents
 
 function Bookmarks ({ setCurrentNumber }) {
   const savedHymnsData = useMemo(() => {

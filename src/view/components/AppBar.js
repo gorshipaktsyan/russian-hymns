@@ -20,7 +20,7 @@ function AppBarComponent ({
   setOpen
 }) {
   const [saved, setSaved] = useState()
-  // const [sign, setSign] = useState()
+  const [sign, setSign] = useState('')
   const location = useLocation()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const SAVED_HYMNS_LIST = persistentStore.get('savedHymns') || []
@@ -31,11 +31,10 @@ function AppBarComponent ({
       setSaved(false)
     }
   }, [currentNumber, SAVED_HYMNS_LIST])
-  // useEffect(() => {
-  //   const currentHymn = hymns.filter(h => (h.number = currentNumber))
-  //   setSign(currentHymn.sign)
-  //   console.log(sign)
-  // }, [])
+  useEffect(() => {
+    const currentHymn = hymns.find(h => currentNumber.includes(h.number))
+    setSign(currentHymn?.sign)
+  }, [currentNumber])
 
   const handleBookmarkClick = () => {
     if (saved) {
@@ -67,7 +66,7 @@ function AppBarComponent ({
         </IconButton>
         <Box sx={{ fontSize: '20px', cursor: 'default' }}>
           {title}
-          {/* {currentHymn.sign} */}
+          {sign}
         </Box>
         {location.pathname === '/russian-hymns' ? (
           <>
