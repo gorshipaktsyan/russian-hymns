@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
@@ -17,6 +17,7 @@ const config = {
 const { StyledDivider } = StyledComponents
 
 function Hymn ({ open, currentNumber, setCurrentNumber }) {
+  const [fontSize, setFontSize] = useState(1)
   const hymn = useMemo(
     () =>
       currentNumber.map(number =>
@@ -24,6 +25,19 @@ function Hymn ({ open, currentNumber, setCurrentNumber }) {
       ),
     [currentNumber]
   )
+  // Disable pinch zoom on mobile devices
+  const handleGestureStart = e => {
+    e.preventDefault()
+    setFontSize(fontSize + 0.1)
+  }
+
+  // Disable double-tap to zoom on iOS
+  const handleTouchStart = e => {
+    if (e.touches.length > 1) {
+      e.preventDefault()
+    }
+  }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe () {
     if (open) {
@@ -58,6 +72,19 @@ function Hymn ({ open, currentNumber, setCurrentNumber }) {
     },
     config
   )
+
+  useEffect(() => {
+    const boxElement = document.querySelector('.hymns-page-wrapper')
+    if (boxElement) {
+      boxElement.style.fontSize = `${fontSize}em`
+    }
+    return () => {
+      if (boxElement) {
+        boxElement.style.fontSize = ''
+      }
+    }
+  }, [fontSize])
+
   useEffect(() => {
     const handleKeyDown = event => {
       if (event.key === 'ArrowLeft') {
@@ -67,8 +94,14 @@ function Hymn ({ open, currentNumber, setCurrentNumber }) {
       }
     }
     window.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('gesturestart', handleGestureStart)
+    document.addEventListener('touchstart', handleTouchStart, {
+      passive: false
+    })
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('gesturestart', handleGestureStart)
+      document.removeEventListener('touchstart', handleTouchStart)
     }
   }, [handleRightSwipe, handleLeftSwipe])
 
