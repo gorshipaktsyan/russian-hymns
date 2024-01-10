@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import HymnTitle from '../../components/HymnTitle'
 import { useNavigate } from 'react-router-dom'
-import { Box, Collapse, Divider, List } from '@mui/material'
+import { Box, Collapse, Divider } from '@mui/material'
 import { TransitionGroup } from 'react-transition-group'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
