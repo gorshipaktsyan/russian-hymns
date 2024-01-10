@@ -32,7 +32,7 @@ const navItems = [
 function Layout () {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [currentNumber, setCurrentNumber] = useState([1])
-  const [title, setTitle] = useState(`Гимн ${currentNumber}`)
+  const [title, setTitle] = useState(`Гимны ${currentNumber}`)
   const [open, setOpen] = useState(false)
   /*function handlePress() {
    if (deferredPrompt) {

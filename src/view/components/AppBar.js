@@ -10,7 +10,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark'
 import persistentStore from '../services/PersistentStore'
 import { useLocation } from 'react-router-dom'
 import SearchBar from './SearchBar'
-
+import hymns from '../services/storage/hymns.json'
 function AppBarComponent ({
   handleDrawerToggle,
   title,
@@ -20,10 +20,10 @@ function AppBarComponent ({
   setOpen
 }) {
   const [saved, setSaved] = useState()
+  // const [sign, setSign] = useState()
   const location = useLocation()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const SAVED_HYMNS_LIST = persistentStore.get('savedHymns') || []
-
   useEffect(() => {
     if (SAVED_HYMNS_LIST.includes(currentNumber[0])) {
       setSaved(true)
@@ -31,6 +31,11 @@ function AppBarComponent ({
       setSaved(false)
     }
   }, [currentNumber, SAVED_HYMNS_LIST])
+  // useEffect(() => {
+  //   const currentHymn = hymns.filter(h => (h.number = currentNumber))
+  //   setSign(currentHymn.sign)
+  //   console.log(sign)
+  // }, [])
 
   const handleBookmarkClick = () => {
     if (saved) {
@@ -60,7 +65,10 @@ function AppBarComponent ({
         >
           <MenuIcon sx={{ fontSize: '30px' }} />
         </IconButton>
-        <Box sx={{ fontSize: '20px', cursor: 'default' }}>{title}</Box>
+        <Box sx={{ fontSize: '20px', cursor: 'default' }}>
+          {title}
+          {/* {currentHymn.sign} */}
+        </Box>
         {location.pathname === '/russian-hymns' ? (
           <>
             <Box
