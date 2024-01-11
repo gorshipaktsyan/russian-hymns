@@ -137,10 +137,20 @@ function Hymn ({ open, currentNumber, setCurrentNumber }) {
   }, [handleRightSwipe, handleLeftSwipe, handleTouchStart, handleTouchMove])
 
   return (
-    <Box className='hymns-page-wrapper' sx={{ height: '100vh' }} {...handlers}>
+    <Box
+      className='hymns-page-wrapper'
+      sx={{
+        height: '100vh'
+        // display: 'flex',
+        // flexDirection: 'column',
+        // justifyContent: 'center'
+      }}
+      {...handlers}
+    >
       {hymn.map((h, index) => {
         return (
           <Box key={index}>
+            <div className='number'>{h.number}</div>
             <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
             {index !== hymn.length - 1 && <StyledDivider />}
           </Box>
