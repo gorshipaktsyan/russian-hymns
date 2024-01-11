@@ -57,10 +57,7 @@ function Search ({ setCurrentNumber }) {
   function handleTextChange (e) {
     const inputValue = e.target.value
     const inputValueLowerCase = inputValue.toLowerCase()
-    const isAlphaNumeric = /^[a-zA-Zа-яА-Я0-9\s]+$/u.test(inputValue)
-    if (inputValue === '' || isAlphaNumeric) {
-      setSearchedText(inputValueLowerCase)
-    }
+    setSearchedText(inputValueLowerCase)
   }
   useEffect(() => {
     const handleKeyDown = event => {

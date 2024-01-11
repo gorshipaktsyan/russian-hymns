@@ -31,6 +31,7 @@ function AppBarComponent ({
       setSaved(false)
     }
   }, [currentNumber, SAVED_HYMNS_LIST])
+
   useEffect(() => {
     const currentHymn = hymns.find(h => currentNumber.includes(h.number))
     setSign(currentHymn?.sign)
@@ -64,12 +65,10 @@ function AppBarComponent ({
         >
           <MenuIcon sx={{ fontSize: '30px' }} />
         </IconButton>
-        <Box sx={{ fontSize: '20px', cursor: 'default' }}>
-          {title}
-          {sign}
-        </Box>
+        <Box sx={{ fontSize: '20px', cursor: 'default' }}>{title}</Box>
         {location.pathname === '/russian-hymns' ? (
           <>
+            <Box sx={{ marginLeft: '5px', fontSize: '20px' }}>{sign}</Box>
             <Box
               sx={{
                 flexGrow: '1'
