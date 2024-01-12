@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { AppBar, Drawer } from '../view/components'
 import App from '../App'
+import hymns from '../view/services/storage/hymns.json'
 import ScrollToTop from '../view/components/ScrollToTop'
 import Box from '@mui/material/Box'
 
@@ -48,7 +49,12 @@ function Layout () {
   }
   const updateCurrentNumber = number => {
     setCurrentNumber(number)
-    setTitle(`${number.length > 1 ? 'Гимны' : 'Гимн' + ' ' + number}`)
+    const currentHymn = hymns.find(h => currentNumber.includes(h.number))
+    setTitle(
+      `${
+        number.length > 1 ? 'Гимны' : 'Гимн' + ' ' + number + currentHymn.sign
+      }`
+    )
   }
 
   return (

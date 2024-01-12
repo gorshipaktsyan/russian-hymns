@@ -10,7 +10,6 @@ import BookmarkIcon from '@mui/icons-material/Bookmark'
 import persistentStore from '../services/PersistentStore'
 import { useLocation } from 'react-router-dom'
 import SearchBar from './SearchBar'
-import hymns from '../services/storage/hymns.json'
 function AppBarComponent ({
   handleDrawerToggle,
   title,
@@ -31,9 +30,6 @@ function AppBarComponent ({
       setSaved(false)
     }
   }, [currentNumber, SAVED_HYMNS_LIST])
-
-  const currentHymn = hymns.find(h => currentNumber.includes(h.number))
-
   const handleBookmarkClick = () => {
     if (saved) {
       persistentStore.remove('savedHymns', currentNumber[0])
@@ -65,9 +61,6 @@ function AppBarComponent ({
         <Box sx={{ fontSize: '20px', cursor: 'default' }}>{title}</Box>
         {location.pathname === '/russian-hymns' ? (
           <>
-            <Box sx={{ marginLeft: '5px', fontSize: '20px' }}>
-              {currentHymn.sign}
-            </Box>
             <Box
               sx={{
                 flexGrow: '1'
