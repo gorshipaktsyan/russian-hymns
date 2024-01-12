@@ -140,17 +140,22 @@ function Hymn ({ open, currentNumber, setCurrentNumber }) {
     <Box
       className='hymns-page-wrapper'
       sx={{
-        height: '100vh'
-        // display: 'flex',
-        // flexDirection: 'column',
-        // justifyContent: 'center'
+        paddingBottom: '200px'
       }}
       {...handlers}
     >
       {hymn.map((h, index) => {
         return (
           <Box key={index}>
-            <div className='number'>{h.number}</div>
+            <div className='hymnInfo'>
+              {hymn.length > 1 && (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: `Гимн ${h.number}<sup>${h.sign}</sup>`
+                  }}
+                />
+              )}
+            </div>
             <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
             {index !== hymn.length - 1 && <StyledDivider />}
           </Box>

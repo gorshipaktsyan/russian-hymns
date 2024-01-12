@@ -32,7 +32,7 @@ const navItems = [
 function Layout () {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [currentNumber, setCurrentNumber] = useState([1])
-  const [title, setTitle] = useState(`Гимны ${currentNumber}`)
+  const [title, setTitle] = useState(`Гимн ${currentNumber}`)
   const [open, setOpen] = useState(false)
   /*function handlePress() {
    if (deferredPrompt) {
@@ -48,7 +48,7 @@ function Layout () {
   }
   const updateCurrentNumber = number => {
     setCurrentNumber(number)
-    setTitle(`Гимны ${number.join(',')}`)
+    setTitle(`${number.length > 1 ? 'Гимны' : 'Гимн' + ' ' + number}`)
   }
 
   return (

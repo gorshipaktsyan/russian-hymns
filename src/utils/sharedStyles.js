@@ -103,7 +103,7 @@ const StyledComponents = {
   }),
   StyledDivider: styled(Divider)({
     width: '400px',
-    margin: '0 auto'
+    margin: 'auto'
   }),
   StyledModalBox: styled(Box)({
     position: 'absolute',
@@ -158,26 +158,22 @@ const StyledComponents = {
   MobileStyledTextField: styled(TextField)({
     position: 'fixed',
     bottom: '29px',
-    right: '30px',
-    width: '80%',
-    maxWidth: '500px',
+    left: '70px',
+    width: '210px',
+    height: '55px',
+    maxWidth: '250px',
     border: '1px solid black',
     borderRadius: '30px',
     backgroundColor: '#f1f1e0',
     transition: 'width 0.5s',
+
     '& .MuiOutlinedInput-root': {
-      borderRadius: '30px'
+      borderRadius: '30px',
+      fontSize: '1.2em'
     },
     '& .MuiOutlinedInput-notchedOutline': {
-      borderRadius: '30px'
-    },
-    '& input': {
-      '-webkit-appearance': 'none',
-      margin: '0'
-    },
-    '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-      '-webkit-appearance': 'none',
-      margin: '0'
+      borderRadius: '30px',
+      height: '59px'
     }
   }),
   StyledSearchIcon: styled(SearchIcon)({

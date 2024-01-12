@@ -7,7 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import historyStore from '../services/HistoryStore'
 import RightArrow from '@mui/icons-material/East'
 import StyledComponents from '../../utils/sharedStyles'
-
+import CloseIcon from '@mui/icons-material/Close'
 const {
   SearchedBox,
   DesktopStyledTextField,
@@ -21,7 +21,9 @@ const {
 function SearchBar ({ setCurrentNumber, open, setOpen }) {
   const [number, setNumber] = useState('')
   const [errorAlert, setErrorAlert] = useState(false)
+
   const handleClose = () => setErrorAlert(false)
+
   const matches = useMediaQuery('(min-width:600px)')
 
   useEffect(() => {
@@ -47,6 +49,7 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
     e.preventDefault()
     const numbers = number.split(',').map(num => Number(num.trim()))
     const matchingHymns = hymns.filter(h => numbers.includes(h.number))
+    console.log('a')
 
     if (matches && matchingHymns.length) {
       handleResult(matchingHymns)
@@ -54,6 +57,7 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
     }
     if (open && number && matchingHymns.length) {
       handleResult(matchingHymns)
+
       setOpen(!open)
       return
     }
@@ -97,27 +101,35 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
           )}
         </SearchedBox>
       ) : (
-        <Collapse orientation='horizontal' in={open} collapsedSize={40}>
-          {open && (
-            <MobileStyledTextField
-              type='decimal'
-              value={number}
-              inputProps={{
-                inputMode: 'decimal',
-                pattern: '[0-9]*'
-              }}
-              onChange={e => setNumber(e.target.value)}
-              autoFocus
-            />
-          )}
+        <>
+          <Collapse orientation='horizontal' in={open} collapsedSize={40}>
+            {open && (
+              <MobileStyledTextField
+                type='decimal'
+                value={number}
+                inputProps={{
+                  inputMode: 'decimal',
+                  pattern: '[0-9]*'
+                }}
+                onChange={e => setNumber(e.target.value)}
+                autoFocus
+              />
+            )}
+          </Collapse>
           <StyledFab
             color='primary'
             aria-label='add'
             onClick={e => handleClick(e)}
           >
-            {number ? <RightArrow /> : <SearchIcon />}
+            {open && !number ? (
+              <CloseIcon />
+            ) : number ? (
+              <RightArrow />
+            ) : (
+              <SearchIcon />
+            )}
           </StyledFab>
-        </Collapse>
+        </>
       )}
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
