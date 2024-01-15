@@ -9,7 +9,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import BookmarkIcon from '@mui/icons-material/Bookmark'
 import persistentStore from '../services/PersistentStore'
 import { useLocation } from 'react-router-dom'
-import SearchBar from './SearchBar'
+import SearchBar from './searchBar/SearchBar'
 function AppBarComponent ({
   handleDrawerToggle,
   title,

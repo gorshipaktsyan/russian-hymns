@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useMemo } from 'react'
-import HymnTitle from '../../components/HymnTitle'
+import HymnTitle from '../../components/hymnTitle/HymnTitle'
 import persistentStore from '../../services/PersistentStore'
 import hymns from '../../services/storage/hymns.json'
 import { Box, Divider } from '@mui/material'
@@ -9,9 +9,10 @@ import { TransitionGroup } from 'react-transition-group'
 import Collapse from '@mui/material/Collapse'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
+import BookmarksStyledComponents from './styles'
 
-const { StyledBox, StyledList, StyledTypography, StyledOpenButton } =
-  StyledComponents
+const { StyledBox, StyledList } = StyledComponents
+const { StyledTypography, StyledOpenButton } = BookmarksStyledComponents
 
 function Bookmarks ({ setCurrentNumber }) {
   const savedHymnsData = useMemo(() => {

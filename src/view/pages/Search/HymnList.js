@@ -1,14 +1,15 @@
 import React from 'react'
-import HymnTitle from '../../components/HymnTitle'
+import HymnTitle from '../../components/hymnTitle/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Snackbar from '@mui/material/Snackbar'
 import { Divider, Modal } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
+import SearchStyledComponents from './styles'
 
-const { StyledModalBox, StyledModalList, StyledFab, StyledAlert } =
-  StyledComponents
+const { StyledFab, StyledAlert } = StyledComponents
+const { StyledModalBox, StyledModalList } = SearchStyledComponents
 
 function HymnList ({
   openHymnList,

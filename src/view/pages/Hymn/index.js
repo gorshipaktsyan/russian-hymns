@@ -3,7 +3,7 @@ import { useSwipeable } from 'react-swipeable'
 import hymns from '../../services/storage/hymns.json'
 import Box from '@mui/material/Box'
 import './index.scss'
-import StyledComponents from '../../../utils/sharedStyles'
+import HymnStyledComponents from './styles'
 
 const config = {
   delta: 10,
@@ -14,7 +14,7 @@ const config = {
   swipeDuration: Infinity,
   touchEventOptions: { passive: true }
 }
-const { StyledDivider } = StyledComponents
+const { StyledDivider } = HymnStyledComponents
 
 function Hymn ({ open, currentNumber, setCurrentNumber }) {
   const [fontSize, setFontSize] = useState(1)
