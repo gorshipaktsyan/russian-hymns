@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import HymnTitle from '../../components/HymnTitle'
+import HymnTitle from '../../components/hymnTitle/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import Subtitles from '../../services/storage/subtitles.json'
 import { Divider } from '@mui/material'

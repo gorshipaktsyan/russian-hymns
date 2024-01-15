@@ -13,9 +13,7 @@ import {
   Search,
   Settings
 } from '../view/pages'
-import StyledComponents from '../utils/sharedStyles'
-
-const { StyledApp } = StyledComponents
+import StyledApp from './styles'
 
 function App ({ open, currentNumber, setCurrentNumber }) {
   const routes = [

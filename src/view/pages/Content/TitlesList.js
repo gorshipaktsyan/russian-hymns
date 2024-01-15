@@ -1,4 +1,4 @@
-import HymnTitle from '../../components/HymnTitle'
+import HymnTitle from '../../components/hymnTitle/HymnTitle'
 import { Divider } from '@mui/material'
 import titles from '../../services/storage/titles.json'
 import StyledComponents from '../../../utils/sharedStyles'

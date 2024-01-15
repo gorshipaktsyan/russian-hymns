@@ -1,7 +1,8 @@
 import { Box, Checkbox } from '@mui/material'
-import StyledComponents from '../../utils/sharedStyles'
+import HymnTitleStyledComponents from './styles'
 
-const { StyledListItem, StyledDeletedIcon, StyledText } = StyledComponents
+const { StyledListItem, StyledDeletedIcon, StyledText } =
+  HymnTitleStyledComponents
 
 function addDivider (BorderBottom, hymnsList, index) {
   if (BorderBottom && index !== hymnsList.length - 1) {

@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import StyledComponents from '../../../utils/sharedStyles'
+import AlphabeticalStyledComponents from './styles'
 
 const RussianAlphabetCapital = [
   'А',
@@ -28,7 +28,7 @@ const RussianAlphabetCapital = [
   'Э',
   'Я'
 ]
-const { StyledAlphabet, StyledLetter } = StyledComponents
+const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents
 function Alphabet ({ setLetter }) {
   return (
     <Box sx={{ maxWidth: '250px' }}>

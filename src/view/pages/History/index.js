@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import HymnTitle from '../../components/HymnTitle'
+import HymnTitle from '../../components/hymnTitle/HymnTitle'
 import { useNavigate } from 'react-router-dom'
 import { Box, Collapse, Divider } from '@mui/material'
 import { TransitionGroup } from 'react-transition-group'

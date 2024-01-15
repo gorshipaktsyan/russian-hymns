@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react'
-import hymns from '../services/storage/hymns.json'
+import hymns from '../../services/storage/hymns.json'
 import { Collapse } from '@mui/material'
 import Snackbar from '@mui/material/Snackbar'
 import SearchIcon from '@mui/icons-material/Search'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import historyStore from '../services/HistoryStore'
+import historyStore from '../../services/HistoryStore'
 import RightArrow from '@mui/icons-material/East'
-import StyledComponents from '../../utils/sharedStyles'
+import StyledComponents from '../../../utils/sharedStyles'
 import CloseIcon from '@mui/icons-material/Close'
+import SearchBarStyledComponents from './styles'
+const { StyledFab, StyledAlert } = StyledComponents
 const {
   SearchedBox,
   DesktopStyledTextField,
   MobileStyledTextField,
-  StyledFab,
   StyledSearchIcon,
-  StyledRightArrowIcon,
-  StyledAlert
-} = StyledComponents
+  StyledRightArrowIcon
+} = SearchBarStyledComponents
 
 function SearchBar ({ setCurrentNumber, open, setOpen }) {
   const [number, setNumber] = useState('')

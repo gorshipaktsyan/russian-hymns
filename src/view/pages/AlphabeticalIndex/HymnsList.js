@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Divider } from '@mui/material'
-import HymnTitle from '../../components/HymnTitle'
+import HymnTitle from '../../components/hymnTitle/HymnTitle'
 import hymns from '../../services/storage/hymns.json'
 import AddIcon from '@mui/icons-material/ArrowBack'
 import StyledComponents from '../../../utils/sharedStyles'

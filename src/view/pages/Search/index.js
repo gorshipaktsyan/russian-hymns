@@ -5,9 +5,11 @@ import hymns from '../../services/storage/hymns.json'
 import Snackbar from '@mui/material/Snackbar'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
+import SearchStyledComponents from './styles'
 
-const { StyledForm, StyledSearchButton, StyledTextField, StyledAlert } =
-  StyledComponents
+const { StyledAlert } = StyledComponents
+const { StyledForm, StyledSearchButton, StyledTextField } =
+  SearchStyledComponents
 
 function Search ({ setCurrentNumber }) {
   const [rusNumber, setRusNumber] = useState('')
