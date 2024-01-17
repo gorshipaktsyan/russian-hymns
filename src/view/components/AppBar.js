@@ -23,14 +23,15 @@ function AppBarComponent ({
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const savedHymnsList = bookmarksStore.get('savedHymns')
-  const currentHymnNumber = currentNumber[0]
+  const currentHymnNumber = currentNumber.length < 2 ? currentNumber : null
 
   useEffect(() => {
     const isSaved = Object.entries(savedHymnsList).some(([date, hymns]) => {
-      return hymns.some(hymn => hymn.number === currentHymnNumber)
-    })
-    setSaved(isSaved)
-  }, [currentNumber, savedHymnsList])
+      return Array.isArray(hymns) && hymns.some(hymn => hymn.number === currentHymnNumber);
+    });
+  
+    setSaved(isSaved);
+  }, [currentNumber, savedHymnsList]);
 
   const handleBookmarkClick = () => {
     if (saved) {
@@ -72,11 +73,13 @@ function AppBarComponent ({
               />
             </Box>
             <IconButton color='inherit' onClick={handleBookmarkClick}>
-              {saved ? (
-                <BookmarkIcon sx={{ fontSize: '30px' }} />
-              ) : (
-                <BookmarkBorderIcon sx={{ fontSize: '30px' }} />
-              )}
+              {currentHymnNumber ? (
+                saved ? (
+                  <BookmarkIcon sx={{ fontSize: '30px' }} />
+                ) : (
+                  <BookmarkBorderIcon sx={{ fontSize: '30px' }} />
+                )
+              ) : null}
             </IconButton>
           </>
         ) : null}

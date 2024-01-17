@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Box, List, Fab, Alert } from '@mui/material'
+import { Box, List, Fab, Alert,Typography } from '@mui/material'
 
 const StyledComponents = {
   StyledBox: styled(Box)({
@@ -23,7 +23,9 @@ const StyledComponents = {
   StyledAlert: styled(Alert)({
     width: '100%',
     marginTop: '50px'
-  })
-}
+  }),
+  StyledTypography: styled(Typography)({
+    marginTop: '100px'
+  }),}
 
 export default StyledComponents

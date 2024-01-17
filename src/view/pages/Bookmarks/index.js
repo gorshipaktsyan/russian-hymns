@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useMemo } from 'react'
 import HymnTitle from '../../components/hymnTitle/HymnTitle'
-import persistentStore from '../../services/PersistentStore'
 import { Box, Divider } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TransitionGroup } from 'react-transition-group'
@@ -11,15 +10,15 @@ import StyledComponents from '../../../utils/sharedStyles'
 import BookmarksStyledComponents from './styles'
 import bookmarksStore from '../../services/BookmarksStore'
 
-const { StyledBox, StyledList } = StyledComponents
-const { StyledTypography, StyledOpenButton } = BookmarksStyledComponents
+const { StyledBox, StyledList,StyledTypography } = StyledComponents
+// const { StyledOpenButton } = BookmarksStyledComponents
 
 function Bookmarks ({ setCurrentNumber }) {
   const savedHymnsData = useMemo(() => {
     return bookmarksStore.get('savedHymns')
   }, [])
   const [savedHymns, setSavedHymns] = useState(savedHymnsData)
-  const [selectedHymns, setSelectedHymns] = useState([])
+  // const [selectedHymns, setSelectedHymns] = useState([])
   const navigate = useNavigate()
 
   function handleClick (ids) {
@@ -28,33 +27,36 @@ function Bookmarks ({ setCurrentNumber }) {
     navigate('/russian-hymns')
   }
 
-  function handleDelete (id) {
-    bookmarksStore.remove('savedHymns', id)
-
-    setSavedHymns(prevHymns => {
-      const updatedHymns = {}
-
-      for (const date in prevHymns) {
-        updatedHymns[date] = prevHymns[date].filter(h => h._id !== id)
+  function handleDelete(id) {
+    bookmarksStore.remove('savedHymns', id);
+  
+    setSavedHymns((prevHymns) => {
+      const updatedHymns = { ...prevHymns };
+  
+      for (const date in updatedHymns) {
+        if (Array.isArray(updatedHymns[date]?.hymns)) {
+          updatedHymns[date].hymns = updatedHymns[date].hymns.filter((h) => h._id !== id);
+        }
       }
-
-      return updatedHymns
-    })
+  
+      return updatedHymns;
+    });
   }
-  const handleCheckboxChange = id => {
-    setSelectedHymns(prevSelected =>
-      prevSelected.includes(id)
-        ? prevSelected.filter(selectedId => selectedId !== id)
-        : [...prevSelected, id]
-    )
-  }
-
+  console.log(savedHymns)
+  // const handleCheckboxChange = id => {
+  //   setSelectedHymns(prevSelected =>
+  //     prevSelected.includes(id)
+  //       ? prevSelected.filter(selectedId => selectedId !== id)
+  //       : [...prevSelected, id]
+  //   )
+  // }
+console.log(savedHymns)
   return (
     <StyledBox>
-      {!!savedHymns ? (
+      {savedHymns.length > 0 ? (
         <StyledList>
           <TransitionGroup>
-            {Object.entries(savedHymns).map(([date, hymns]) => (
+            {savedHymns.map(({date, hymns}) => (
               <Collapse key={date}>
                 <Box sx={{ paddingBottom: '20px' }}>
                   <Divider>{date}</Divider>
@@ -65,10 +67,10 @@ function Bookmarks ({ setCurrentNumber }) {
                       id={h._id}
                       hymnsList={savedHymns}
                       index={index}
-                      selectedHymns={selectedHymns}
+                      // selectedHymns={selectedHymns}
                       Icon={DeleteIcon}
                       BorderBottom={Divider}
-                      onCheckBoxClick={handleCheckboxChange}
+                      // onCheckBoxClick={handleCheckboxChange}
                       onTitleClick={handleClick}
                       onIconClick={handleDelete}
                     />
@@ -77,13 +79,13 @@ function Bookmarks ({ setCurrentNumber }) {
               </Collapse>
             ))}
           </TransitionGroup>
-          {selectedHymns.length > 0 && (
+          {/* {selectedHymns.length > 0 && (
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <StyledOpenButton onClick={() => handleClick(selectedHymns)}>
                 Открыть
               </StyledOpenButton>
             </Box>
-          )}
+          )} */}
         </StyledList>
       ) : (
         <StyledTypography>Нет данных</StyledTypography>

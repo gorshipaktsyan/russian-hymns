@@ -6,7 +6,7 @@ import { TransitionGroup } from 'react-transition-group'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
 
-const { StyledBox, StyledList } = StyledComponents
+const { StyledBox, StyledList,StyledTypography } = StyledComponents
 
 function History ({ setCurrentNumber }) {
   const navigate = useNavigate()
@@ -21,9 +21,10 @@ function History ({ setCurrentNumber }) {
   }
   return (
     <StyledBox>
-      <StyledList>
+      { groupedHymns.length > 0 ? 
+     ( <StyledList>
         <TransitionGroup>
-          {Object.entries(groupedHymns).map(([date, hymns]) => (
+          {groupedHymns.map(({date, hymns}) => (
             <Collapse key={date}>
               <Box sx={{ paddingBottom: '20px' }}>
                 <Divider>{date}</Divider>
@@ -42,7 +43,10 @@ function History ({ setCurrentNumber }) {
             </Collapse>
           ))}
         </TransitionGroup>
-      </StyledList>
+      </StyledList>)
+       : (
+        <StyledTypography>Нет данных</StyledTypography>
+      )}
     </StyledBox>
   )
 }
