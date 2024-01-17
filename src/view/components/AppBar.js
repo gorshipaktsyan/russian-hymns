@@ -10,6 +10,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark'
 import persistentStore from '../services/PersistentStore'
 import { useLocation } from 'react-router-dom'
 import SearchBar from './searchBar/SearchBar'
+import bookmarksStore from '../services/BookmarksStore'
 function AppBarComponent ({
   handleDrawerToggle,
   title,
@@ -22,24 +23,23 @@ function AppBarComponent ({
   const location = useLocation()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const SAVED_HYMNS_LIST = persistentStore.get('savedHymns') || []
+  const savedHymnsList = bookmarksStore.get('savedHymns')
+  const currentHymnNumber = currentNumber[0]
   useEffect(() => {
-    if (SAVED_HYMNS_LIST.includes(currentNumber[0])) {
-      setSaved(true)
-    } else {
-      setSaved(false)
-    }
-  }, [currentNumber, SAVED_HYMNS_LIST])
+    console.log(currentHymnNumber)
+    const isSaved = Object.entries(savedHymnsList).some(([date, hymns]) => {
+      return hymns.some(hymn => hymn.number === currentHymnNumber)
+    })
+    setSaved(isSaved)
+  }, [currentNumber, savedHymnsList])
+
   const handleBookmarkClick = () => {
     if (saved) {
-      persistentStore.remove('savedHymns', currentNumber[0])
-      setSaved(!saved)
+      bookmarksStore.remove('savedHymns', currentHymnNumber)
+      setSaved(false)
     } else {
-      const SAVED_H_NUMBERS = [
-        ...new Set([currentNumber[0], ...SAVED_HYMNS_LIST])
-      ]
-      persistentStore.set('savedHymns', SAVED_H_NUMBERS)
-      setSaved(!saved)
+      bookmarksStore.set('savedHymns', currentHymnNumber)
+      setSaved(true)
     }
   }
   return (

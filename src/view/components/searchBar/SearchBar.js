@@ -49,8 +49,6 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
     e.preventDefault()
     const numbers = number.split(',').map(num => Number(num.trim()))
     const matchingHymns = hymns.filter(h => numbers.includes(h.number))
-    console.log('a')
-
     if (matches && matchingHymns.length) {
       handleResult(matchingHymns)
       return
