@@ -7,7 +7,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Toolbar from '@mui/material/Toolbar'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import BookmarkIcon from '@mui/icons-material/Bookmark'
-import persistentStore from '../services/PersistentStore'
 import { useLocation } from 'react-router-dom'
 import SearchBar from './searchBar/SearchBar'
 import bookmarksStore from '../services/BookmarksStore'
@@ -25,6 +24,7 @@ function AppBarComponent ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const savedHymnsList = bookmarksStore.get('savedHymns')
   const currentHymnNumber = currentNumber[0]
+
   useEffect(() => {
     console.log(currentHymnNumber)
     const isSaved = Object.entries(savedHymnsList).some(([date, hymns]) => {
