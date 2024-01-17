@@ -22,17 +22,6 @@ class PersistentStore {
       console.error(`Error clearing local storage: ${error.message}`)
     }
   }
-  remove (key, value) {
-    try {
-      const items = this.get(key) || []
-      const updatedItems = items.filter(item => item !== value)
-      this.set(key, updatedItems)
-    } catch (error) {
-      console.error(
-        `Error removing item "${key}" from local storage: ${error.message}`
-      )
-    }
-  }
 }
 const persistentStore = new PersistentStore()
 

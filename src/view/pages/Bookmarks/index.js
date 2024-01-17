@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useMemo } from 'react'
 import HymnTitle from '../../components/hymnTitle/HymnTitle'
 import persistentStore from '../../services/PersistentStore'
-import hymns from '../../services/storage/hymns.json'
 import { Box, Divider } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TransitionGroup } from 'react-transition-group'
@@ -10,16 +9,15 @@ import Collapse from '@mui/material/Collapse'
 import historyStore from '../../services/HistoryStore'
 import StyledComponents from '../../../utils/sharedStyles'
 import BookmarksStyledComponents from './styles'
+import bookmarksStore from '../../services/BookmarksStore'
 
 const { StyledBox, StyledList } = StyledComponents
 const { StyledTypography, StyledOpenButton } = BookmarksStyledComponents
 
 function Bookmarks ({ setCurrentNumber }) {
   const savedHymnsData = useMemo(() => {
-    const saved = persistentStore.get('savedHymns') || []
-    return hymns.filter(h => saved.includes(h._id))
+    return bookmarksStore.get('savedHymns')
   }, [])
-
   const [savedHymns, setSavedHymns] = useState(savedHymnsData)
   const [selectedHymns, setSelectedHymns] = useState([])
   const navigate = useNavigate()
@@ -31,10 +29,17 @@ function Bookmarks ({ setCurrentNumber }) {
   }
 
   function handleDelete (id) {
-    persistentStore.remove('savedHymns', id)
-    const updatedHymns = savedHymns.filter(h => h._id !== id)
-    setSelectedHymns(selectedHymns.filter(n => n !== id))
-    setSavedHymns(updatedHymns)
+    bookmarksStore.remove('savedHymns', id)
+
+    setSavedHymns(prevHymns => {
+      const updatedHymns = {}
+
+      for (const date in prevHymns) {
+        updatedHymns[date] = prevHymns[date].filter(h => h._id !== id)
+      }
+
+      return updatedHymns
+    })
   }
   const handleCheckboxChange = id => {
     setSelectedHymns(prevSelected =>
@@ -43,26 +48,32 @@ function Bookmarks ({ setCurrentNumber }) {
         : [...prevSelected, id]
     )
   }
+
   return (
     <StyledBox>
-      {!!savedHymns.length ? (
+      {!!savedHymns ? (
         <StyledList>
           <TransitionGroup>
-            {savedHymns.map((h, index) => (
-              <Collapse key={h._id || index}>
-                <HymnTitle
-                  title={h?.first_string}
-                  number={h?.number}
-                  id={h._id}
-                  hymnsList={savedHymns}
-                  index={index}
-                  selectedHymns={selectedHymns}
-                  Icon={DeleteIcon}
-                  BorderBottom={Divider}
-                  onCheckBoxClick={handleCheckboxChange}
-                  onTitleClick={handleClick}
-                  onIconClick={handleDelete}
-                />
+            {Object.entries(savedHymns).map(([date, hymns]) => (
+              <Collapse key={date}>
+                <Box sx={{ paddingBottom: '20px' }}>
+                  <Divider>{date}</Divider>
+                  {hymns.map((h, index) => (
+                    <HymnTitle
+                      title={h?.first_string}
+                      number={h?.number}
+                      id={h._id}
+                      hymnsList={savedHymns}
+                      index={index}
+                      selectedHymns={selectedHymns}
+                      Icon={DeleteIcon}
+                      BorderBottom={Divider}
+                      onCheckBoxClick={handleCheckboxChange}
+                      onTitleClick={handleClick}
+                      onIconClick={handleDelete}
+                    />
+                  ))}
+                </Box>
               </Collapse>
             ))}
           </TransitionGroup>
