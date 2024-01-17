@@ -26,7 +26,6 @@ function AppBarComponent ({
   const currentHymnNumber = currentNumber[0]
 
   useEffect(() => {
-    console.log(currentHymnNumber)
     const isSaved = Object.entries(savedHymnsList).some(([date, hymns]) => {
       return hymns.some(hymn => hymn.number === currentHymnNumber)
     })
