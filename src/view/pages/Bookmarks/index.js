@@ -1,48 +1,41 @@
-import { useNavigate } from 'react-router-dom'
-import { useState, useMemo } from 'react'
-import HymnTitle from '../../components/hymnTitle/HymnTitle'
-import { Box, Divider } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { TransitionGroup } from 'react-transition-group'
-import Collapse from '@mui/material/Collapse'
-import historyStore from '../../services/HistoryStore'
-import StyledComponents from '../../../utils/sharedStyles'
-import BookmarksStyledComponents from './styles'
-import bookmarksStore from '../../services/BookmarksStore'
+import { useNavigate } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
+import HymnTitle from "../../components/hymnTitle/HymnTitle";
+import { Box, Divider } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { TransitionGroup } from "react-transition-group";
+import Collapse from "@mui/material/Collapse";
+import historyStore from "../../services/HistoryStore";
+import StyledComponents from "../../../utils/sharedStyles";
+import BookmarksStyledComponents from "./styles";
+import bookmarksStore from "../../services/BookmarksStore";
 
-const { StyledBox, StyledList,StyledTypography } = StyledComponents
+const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 // const { StyledOpenButton } = BookmarksStyledComponents
 
-function Bookmarks ({ setCurrentNumber }) {
+function Bookmarks({ setCurrentNumber }) {
   const savedHymnsData = useMemo(() => {
-    return bookmarksStore.get('savedHymns')
-  }, [])
-  const [savedHymns, setSavedHymns] = useState(savedHymnsData)
+    return bookmarksStore.get("savedHymns");
+  }, []);
+  const [savedHymns, setSavedHymns] = useState(savedHymnsData);
   // const [selectedHymns, setSelectedHymns] = useState([])
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  function handleClick (ids) {
-    const hymnIds = historyStore.set('searchedHymns', ids)
-    setCurrentNumber(hymnIds)
-    navigate('/russian-hymns')
+  function handleClick(ids) {
+    const hymnIds = historyStore.set("searchedHymns", ids);
+    setCurrentNumber(hymnIds);
+    navigate("/russian-hymns");
   }
 
   function handleDelete(id) {
-    bookmarksStore.remove('savedHymns', id);
-  
-    setSavedHymns((prevHymns) => {
-      const updatedHymns = { ...prevHymns };
-  
-      for (const date in updatedHymns) {
-        if (Array.isArray(updatedHymns[date]?.hymns)) {
-          updatedHymns[date].hymns = updatedHymns[date].hymns.filter((h) => h._id !== id);
-        }
-      }
-  
-      return updatedHymns;
-    });
+    const updatedSavedHymns = savedHymns.map((day) => ({
+      date: day.date,
+      hymns: day.hymns.filter((hymn) => hymn.number !== id),
+    }));
+
+    setSavedHymns(updatedSavedHymns);
+    bookmarksStore.remove("savedHymns", id);
   }
-  console.log(savedHymns)
   // const handleCheckboxChange = id => {
   //   setSelectedHymns(prevSelected =>
   //     prevSelected.includes(id)
@@ -50,15 +43,15 @@ function Bookmarks ({ setCurrentNumber }) {
   //       : [...prevSelected, id]
   //   )
   // }
-console.log(savedHymns)
+
   return (
     <StyledBox>
       {savedHymns.length > 0 ? (
         <StyledList>
           <TransitionGroup>
-            {savedHymns.map(({date, hymns}) => (
+            {savedHymns.map(({ date, hymns }) => (
               <Collapse key={date}>
-                <Box sx={{ paddingBottom: '20px' }}>
+                <Box sx={{ paddingBottom: "20px" }}>
                   <Divider>{date}</Divider>
                   {hymns.map((h, index) => (
                     <HymnTitle
@@ -91,7 +84,7 @@ console.log(savedHymns)
         <StyledTypography>Нет данных</StyledTypography>
       )}
     </StyledBox>
-  )
+  );
 }
 
-export default Bookmarks
+export default Bookmarks;
