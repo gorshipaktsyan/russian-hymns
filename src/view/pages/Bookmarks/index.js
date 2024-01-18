@@ -58,7 +58,7 @@ function Bookmarks({ setCurrentNumber }) {
                       title={h?.first_string}
                       number={h?.number}
                       id={h._id}
-                      hymnsList={savedHymns}
+                      hymnsList={hymns}
                       index={index}
                       // selectedHymns={selectedHymns}
                       Icon={DeleteIcon}
