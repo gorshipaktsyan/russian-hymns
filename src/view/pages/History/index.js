@@ -1,24 +1,30 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import { useNavigate } from "react-router-dom";
-import { Box, Collapse, Divider } from "@mui/material";
+import { Box, Collapse, Divider, Fab } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
-import historyStore from "../../services/HistoryStore";
 import StyledComponents from "../../../utils/sharedStyles";
-
-const { StyledBox, StyledList, StyledTypography } = StyledComponents;
+import historyStore from "../../services/HistoryStore";
+import ClearIcon from "../../../assets/icons/Clear.png";
+import persistentStore from "../../services/PersistentStore";
+const { StyledBox, StyledList, StyledTypography, StyledFab } = StyledComponents;
 
 function History({ setCurrentNumber }) {
   const navigate = useNavigate();
-
-  const groupedHymns = useMemo(() => {
+  const groupedHymnsData = useMemo(() => {
     return historyStore.get("searchedHymns");
   }, []);
+  const [groupedHymns, setGroupedHymns] = useState(groupedHymnsData);
 
   function handleClick(id) {
     setCurrentNumber([id]);
     navigate("/russian-hymns");
   }
+  function handleClear() {
+    persistentStore.clear("searchedHymns");
+    setGroupedHymns([]);
+  }
+
   return (
     <StyledBox>
       {groupedHymns.length > 0 ? (
@@ -47,6 +53,13 @@ function History({ setCurrentNumber }) {
       ) : (
         <StyledTypography>Нет данных</StyledTypography>
       )}
+      <StyledFab onClick={handleClear}>
+        <img
+          src={ClearIcon}
+          alt="Clear Icon"
+          style={{ width: "24px", height: "24px" }}
+        ></img>
+      </StyledFab>
     </StyledBox>
   );
 }
