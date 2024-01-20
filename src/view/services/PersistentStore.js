@@ -1,28 +1,30 @@
 class PersistentStore {
-  set (key, value) {
+  set(key, value) {
     try {
-      const currentItems = JSON.stringify(value)
-      localStorage.setItem(key, currentItems)
+      const currentItems = JSON.stringify(value);
+      localStorage.setItem(key, currentItems);
     } catch (error) {
-      console.error(`Error setting item in local storage: ${error.message}`)
+      console.error(`Error setting item in local storage: ${error.message}`);
     }
   }
-  get (key) {
+  get(key) {
     try {
-      const value = localStorage.getItem(key)
-      return JSON.parse(value)
+      const value = localStorage.getItem(key);
+      return JSON.parse(value);
     } catch (error) {
-      console.error(`Error getting item from local storage: ${error.message}`)
+      console.error(`Error getting item from local storage: ${error.message}`);
     }
   }
-  clear () {
+  clear(key) {
     try {
-      localStorage.clear()
+      localStorage.removeItem(key);
     } catch (error) {
-      console.error(`Error clearing local storage: ${error.message}`)
+      console.error(
+        `Error removing Items from local storage: ${error.message}`
+      );
     }
   }
 }
-const persistentStore = new PersistentStore()
+const persistentStore = new PersistentStore();
 
-export default persistentStore
+export default persistentStore;

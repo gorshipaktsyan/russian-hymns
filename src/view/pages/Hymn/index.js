@@ -98,11 +98,11 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
         handleLeftSwipe();
       }
     };
-
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [handleRightSwipe, handleLeftSwipe]);
 
   return (
     <Box

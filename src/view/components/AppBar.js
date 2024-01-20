@@ -10,6 +10,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useLocation } from "react-router-dom";
 import SearchBar from "./searchBar/SearchBar";
 import bookmarksStore from "../services/BookmarksStore";
+
 function AppBarComponent({
   handleDrawerToggle,
   title,
@@ -20,8 +21,6 @@ function AppBarComponent({
 }) {
   const [saved, setSaved] = useState();
   const location = useLocation();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const savedHymnsList = bookmarksStore.get("savedHymns");
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
 
@@ -43,6 +42,7 @@ function AppBarComponent({
       setSaved(true);
     }
   };
+
   return (
     <AppBar
       component="nav"
@@ -60,7 +60,7 @@ function AppBarComponent({
           <MenuIcon sx={{ fontSize: "30px" }} />
         </IconButton>
         <Box sx={{ fontSize: "20px", cursor: "default" }}>{title}</Box>
-        {location.pathname === "/russian-hymns" ? (
+        {location.pathname === "/russian-hymns" && (
           <>
             <Box
               sx={{
@@ -74,16 +74,15 @@ function AppBarComponent({
               />
             </Box>
             <IconButton color="inherit" onClick={handleBookmarkClick}>
-              {currentHymnNumber ? (
-                saved ? (
+              {currentHymnNumber &&
+                (saved ? (
                   <BookmarkIcon sx={{ fontSize: "30px" }} />
                 ) : (
                   <BookmarkBorderIcon sx={{ fontSize: "30px" }} />
-                )
-              ) : null}
+                ))}
             </IconButton>
           </>
-        ) : null}
+        )}
       </Toolbar>
     </AppBar>
   );
