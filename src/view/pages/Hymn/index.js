@@ -4,6 +4,7 @@ import hymns from "../../services/storage/hymns.json";
 import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
+import persistentStore from "../../services/PersistentStore";
 
 const config = {
   delta: 10,
@@ -22,7 +23,8 @@ const doubleTapDelay = 300;
 const clickedPlace = window.innerWidth / 2;
 const minFontSize = 1.0;
 const maxFontSize = 1.8;
-const [fontSize, setFontSize] = useState(1);
+const savedFontSize = persistentStore.get("fontSize")
+const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize :  1);
 const hymn = useMemo(
     () =>
       currentNumber.map((number) =>
@@ -84,6 +86,7 @@ function clickHandler(e) {
     const boxElement = document.querySelector(".hymns-page-wrapper");
     if (boxElement) {
       boxElement.style.fontSize = `${fontSize.toFixed(1)}em`;
+      persistentStore.set('fontSize',Number(fontSize.toFixed(1)))
     }
     return () => {
       if (boxElement) {
