@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSwipeable } from "react-swipeable";
-import { useDoubleTap } from "use-double-tap";
 import hymns from "../../services/storage/hymns.json";
 import Box from "@mui/material/Box";
 import "./index.scss";
@@ -18,8 +17,13 @@ const config = {
 const { StyledDivider } = HymnStyledComponents;
 
 function Hymn({ open, currentNumber, setCurrentNumber }) {
-  const [fontSize, setFontSize] = useState(1);
-  const hymn = useMemo(
+let lastClickTime = 0;
+const doubleTapDelay = 300; 
+const clickedPlace = window.innerWidth / 2;
+const minFontSize = 1.0;
+const maxFontSize = 1.8;
+const [fontSize, setFontSize] = useState(1);
+const hymn = useMemo(
     () =>
       currentNumber.map((number) =>
         hymns.find((h) => Number(h.number) === Number(number))
@@ -27,22 +31,20 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
     [currentNumber]
   );
 
-  const doubleTapLeftHandlers = useDoubleTap(
-    (event) => {
-      // setFontSize((prevSize) => prevSize + 0.1);
-      alert("a");
-    },
-    { maxDelay: 300 }
-  );
+function clickHandler(e) {
+    e.preventDefault();
+    const currentTime = new Date().getTime();
+    const timeDifference = currentTime - lastClickTime;
 
-  const doubleTapRightHandlers = useDoubleTap(
-    (event) => {
-      // setFontSize((prevSize) => prevSize - 0.1);
-      alert("a");
-    },
-    { maxDelay: 300 }
-  );
+    if (timeDifference <= doubleTapDelay) {
+      e.clientX < clickedPlace ? setFontSize((prevSize) => Math.min(prevSize + 0.2, maxFontSize)): setFontSize((prevSize) => Math.max(prevSize - 0.2, minFontSize))
+        lastClickTime = 0;
+    } else {
+        lastClickTime = currentTime;
+    }  
 
+}
+    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe() {
     if (open) {
@@ -78,10 +80,10 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
     config
   );
 
-  useEffect(() => {
+  useEffect(() => {          
     const boxElement = document.querySelector(".hymns-page-wrapper");
     if (boxElement) {
-      boxElement.style.fontSize = `${fontSize}em`;
+      boxElement.style.fontSize = `${fontSize.toFixed(1)}em`;
     }
     return () => {
       if (boxElement) {
@@ -89,6 +91,13 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
       }
     };
   }, [fontSize]);
+
+  useEffect(()=> {
+    document.addEventListener('click', clickHandler);
+return () => {
+        document.removeEventListener('click', clickHandler);
+}
+  },[clickHandler])
 
   useEffect(() => {
     const handleKeyDown = (event) => {
