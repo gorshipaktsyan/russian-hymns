@@ -14,10 +14,9 @@ const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 // const { StyledOpenButton } = BookmarksStyledComponents
 
 function Bookmarks({ setCurrentNumber }) {
-  const savedHymnsData = useMemo(() => {
-    return bookmarksStore.get("savedHymns");
-  }, []);
-  const [savedHymns, setSavedHymns] = useState(savedHymnsData);
+  const [savedHymns, setSavedHymns] = useState(
+    bookmarksStore.get("savedHymns")
+  );
   // const [selectedHymns, setSelectedHymns] = useState([])
   const navigate = useNavigate();
 
@@ -28,13 +27,9 @@ function Bookmarks({ setCurrentNumber }) {
   }
 
   function handleDelete(id) {
-    const updatedSavedHymns = savedHymns.map((day) => ({
-      date: day.date,
-      hymns: day.hymns.filter((hymn) => hymn.number !== id),
-    }));
-
-    setSavedHymns(updatedSavedHymns);
     bookmarksStore.remove("savedHymns", id);
+    const updatedSavedHymns = bookmarksStore.get("savedHymns");
+    setSavedHymns(updatedSavedHymns);
   }
   // const handleCheckboxChange = id => {
   //   setSelectedHymns(prevSelected =>
