@@ -1,41 +1,41 @@
-import React from 'react'
-import HymnTitle from '../../components/hymnTitle/HymnTitle'
-import hymns from '../../services/storage/hymns.json'
-import Snackbar from '@mui/material/Snackbar'
-import { Divider, Modal } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-import historyStore from '../../services/HistoryStore'
-import StyledComponents from '../../../utils/sharedStyles'
-import SearchStyledComponents from './styles'
+import React from "react";
+import HymnTitle from "../../components/hymnTitle/HymnTitle";
+import hymns from "../../services/storage/hymns.json";
+import Snackbar from "@mui/material/Snackbar";
+import { Divider, Modal } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import historyStore from "../../services/HistoryStore";
+import StyledComponents from "../../../utils/sharedStyles";
+import SearchStyledComponents from "./styles";
 
-const { StyledFab, StyledAlert } = StyledComponents
-const { StyledModalBox, StyledModalList } = SearchStyledComponents
+const { StyledFab, StyledAlert } = StyledComponents;
+const { StyledModalBox, StyledModalList } = SearchStyledComponents;
 
-function HymnList ({
+function HymnList({
   openHymnList,
   setOpenHymnList,
   searchedText,
   setCurrentNumber,
-  navigate
+  navigate,
 }) {
-  const hymnsByText = hymns.filter(h => h.text.includes(searchedText))
-  const handleClose = () => setOpenHymnList(false)
+  const hymnsByText = hymns.filter((h) => h.text.includes(searchedText));
+  const handleClose = () => setOpenHymnList(false);
 
-  function handleClick (id) {
-    const hymnIds = historyStore.set('searchedHymns', id)
-    setCurrentNumber(hymnIds)
-    navigate('/russian-hymns')
+  function handleClick(id) {
+    const hymnIds = historyStore.set("searchedHymns", id);
+    setCurrentNumber(hymnIds);
+    navigate("/russian-hymns");
   }
   const handleBackClick = () => {
-    setOpenHymnList(false)
-  }
+    setOpenHymnList(false);
+  };
   return hymnsByText.length > 0 ? (
     <div>
       <Modal
         open={openHymnList}
         onClose={handleClose}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <StyledModalBox>
           <StyledModalList>
@@ -51,8 +51,8 @@ function HymnList ({
               />
             ))}
             <StyledFab
-              color='primary'
-              aria-label='add'
+              color="primary"
+              aria-label="add"
               onClick={handleBackClick}
             >
               <CloseIcon />
@@ -63,19 +63,15 @@ function HymnList ({
     </div>
   ) : (
     <Snackbar
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
       open={openHymnList}
       onClose={handleClose}
       autoHideDuration={2000}
     >
-      <StyledAlert
-        onClose={handleClose}
-        severity='error'
-        sx={{ width: '100%', marginTop: '50px' }}
-      >
+      <StyledAlert onClose={handleClose} severity="error">
         Соответствующие гимны не найдены!
       </StyledAlert>
     </Snackbar>
-  )
+  );
 }
-export default HymnList
+export default HymnList;

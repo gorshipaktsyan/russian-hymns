@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { AppBar, Drawer } from '../view/components'
-import App from '../App'
-import hymns from '../view/services/storage/hymns.json'
-import ScrollToTop from '../view/components/ScrollToTop'
-import Box from '@mui/material/Box'
+import React, { useState } from "react";
+import { AppBar, Drawer } from "../view/components";
+import App from "../App";
+import hymns from "../view/services/storage/hymns.json";
+import ScrollToTop from "../view/components/ScrollToTop";
+import Box from "@mui/material/Box";
 
 //let deferredPrompt;
 
@@ -19,22 +19,22 @@ import Box from '@mui/material/Box'
 });*/
 
 const navItems = [
-  { tittle: 'Расширенный поиск', route: 'search' },
-  { tittle: 'Содержанье', route: 'content' },
-  { tittle: 'Алфавитный указатель', route: 'alphabetical' },
-  { tittle: 'История', route: 'history' },
-  { tittle: 'Закладки', route: 'bookmark' },
-  { tittle: 'Предисловие', route: 'preface' },
-  { tittle: 'Справка', route: 'reference' },
+  { tittle: "Расширенный поиск", route: "search" },
+  { tittle: "Содержанье", route: "content" },
+  { tittle: "Алфавитный указатель", route: "alphabetical" },
+  { tittle: "История", route: "history" },
+  { tittle: "Закладки", route: "bookmark" },
+  { tittle: "Предисловие", route: "preface" },
+  { tittle: "Справка", route: "reference" },
   /*{ tittle: 'Настройки', route: 'settings' },*/
-  { tittle: 'O Программе', route: 'about' }
-]
+  { tittle: "O Программе", route: "about" },
+];
 
-function Layout () {
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [currentNumber, setCurrentNumber] = useState([1])
-  const [title, setTitle] = useState(`Гимн ${currentNumber}`)
-  const [open, setOpen] = useState(false)
+function Layout() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [currentNumber, setCurrentNumber] = useState([1]);
+  const [title, setTitle] = useState(`Гимн ${currentNumber}`);
+  const [open, setOpen] = useState(false);
   /*function handlePress() {
    if (deferredPrompt) {
      alert('not found')
@@ -45,20 +45,20 @@ function Layout () {
  }*/
 
   const handleDrawerToggle = () => {
-    setMobileOpen(prevState => !prevState)
-  }
-  const updateCurrentNumber = number => {
-    setCurrentNumber(number)
-    const currentHymn = hymns.find(h => currentNumber.includes(h.number))
+    setMobileOpen((prevState) => !prevState);
+  };
+  const updateCurrentNumber = (number) => {
+    setCurrentNumber(number);
+    const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
     setTitle(
       `${
-        number.length > 1 ? 'Гимны' : 'Гимн' + ' ' + number + currentHymn.sign
+        number.length > 1 ? "Гимны" : "Гимн" + " " + number + currentHymn.sign
       }`
-    )
-  }
+    );
+  };
 
   return (
-    <Box sx={{ height: '100%' }}>
+    <Box sx={{ height: "100%" }}>
       <ScrollToTop currentNumber={currentNumber} />
       <AppBar
         handleDrawerToggle={handleDrawerToggle}
@@ -80,6 +80,6 @@ function Layout () {
         setTitle={setTitle}
       />
     </Box>
-  )
+  );
 }
-export default Layout
+export default Layout;
