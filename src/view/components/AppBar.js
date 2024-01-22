@@ -20,7 +20,7 @@ function AppBarComponent({
   setOpen,
 }) {
   const [saved, setSaved] = useState();
-  const location = useLocation();
+  const { pathname } = useLocation();
   const savedHymnsList = bookmarksStore.get("savedHymns");
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
 
@@ -42,7 +42,6 @@ function AppBarComponent({
       setSaved(true);
     }
   };
-
   return (
     <AppBar
       component="nav"
@@ -60,7 +59,7 @@ function AppBarComponent({
           <MenuIcon sx={{ fontSize: "30px" }} />
         </IconButton>
         <Box sx={{ fontSize: "20px", cursor: "default" }}>{title}</Box>
-        {location.pathname === "/russian-hymns" && (
+        {pathname === "/russian-hymns" && (
           <>
             <Box
               sx={{

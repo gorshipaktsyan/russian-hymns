@@ -4,6 +4,8 @@ import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
+import { useLocation } from "react-router-dom";
+import findLocation from "../view/services/LayoutService";
 
 //let deferredPrompt;
 
@@ -19,22 +21,24 @@ import Box from "@mui/material/Box";
 });*/
 
 const navItems = [
-  { tittle: "Расширенный поиск", route: "search" },
-  { tittle: "Содержанье", route: "content" },
-  { tittle: "Алфавитный указатель", route: "alphabetical" },
-  { tittle: "История", route: "history" },
-  { tittle: "Закладки", route: "bookmark" },
-  { tittle: "Предисловие", route: "preface" },
-  { tittle: "Справка", route: "reference" },
-  /*{ tittle: 'Настройки', route: 'settings' },*/
-  { tittle: "O Программе", route: "about" },
+  { title: "Расширенный поиск", route: "search" },
+  { title: "Содержанье", route: "content" },
+  { title: "Алфавитный указатель", route: "alphabetical" },
+  { title: "История", route: "history" },
+  { title: "Закладки", route: "bookmark" },
+  { title: "Предисловие", route: "preface" },
+  { title: "Справка", route: "reference" },
+  { title: "O Программе", route: "about" },
 ];
 
 function Layout() {
+  const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentNumber, setCurrentNumber] = useState([1]);
-  const [title, setTitle] = useState(`Гимн ${currentNumber}`);
+  const titleName = findLocation(pathname, currentNumber, navItems);
+  const [title, setTitle] = useState(titleName);
   const [open, setOpen] = useState(false);
+
   /*function handlePress() {
    if (deferredPrompt) {
      alert('not found')
