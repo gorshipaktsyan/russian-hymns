@@ -49,13 +49,14 @@ function Layout() {
    }
  }*/
   useEffect(() => {
-    const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
-
-    setTitle(
-      currentNumber.length > 1
-        ? "Гимны"
-        : `Гимн ${currentNumber}<sup>${currentHymn.sign}</sup>`
-    );
+    if (pathname === "/russian-hymns") {
+      const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
+      setTitle(
+        currentNumber.length > 1
+          ? "Гимны"
+          : `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`
+      );
+    }
   }, [currentNumber]);
 
   const handleDrawerToggle = () => {

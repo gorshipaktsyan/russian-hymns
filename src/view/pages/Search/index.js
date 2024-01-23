@@ -30,7 +30,7 @@ function Search({ setCurrentNumber }) {
     const numbers = input.split(",").map((num) => Number(num.trim()));
     const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
     const resultNumbers = matchingHymns.map((h) => h.number);
-    setCurrentNumber(resultNumbers);
+    resultNumbers.length && setCurrentNumber(resultNumbers);
     return resultNumbers;
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +49,6 @@ function Search({ setCurrentNumber }) {
       setCurrentNumber([randomNumber]);
       number = [randomNumber];
     }
-
     if (number.length) {
       historyStore.set("searchedHymns", number);
       navigate("/russian-hymns");
