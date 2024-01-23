@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Drawer } from "../view/components";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
@@ -6,6 +6,7 @@ import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
 import { useLocation } from "react-router-dom";
 import findLocation from "../view/services/LayoutService";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 
 //let deferredPrompt;
 
@@ -47,18 +48,18 @@ function Layout() {
      alert('not found')
    }
  }*/
+  useEffect(() => {
+    const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
+
+    setTitle(
+      currentNumber.length > 1
+        ? "Гимны"
+        : `Гимн ${currentNumber}<sup>${currentHymn.sign}</sup>`
+    );
+  }, [currentNumber]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
-  };
-  const updateCurrentNumber = (number) => {
-    setCurrentNumber(number);
-    const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
-    setTitle(
-      `${
-        number.length > 1 ? "Гимны" : "Гимн" + " " + number + currentHymn.sign
-      }`
-    );
   };
 
   return (
@@ -68,14 +69,14 @@ function Layout() {
         handleDrawerToggle={handleDrawerToggle}
         title={title}
         currentNumber={currentNumber}
-        setCurrentNumber={updateCurrentNumber}
+        setCurrentNumber={setCurrentNumber}
         open={open}
         setOpen={setOpen}
       />
       <App
         open={open}
         currentNumber={currentNumber}
-        setCurrentNumber={updateCurrentNumber}
+        setCurrentNumber={setCurrentNumber}
       />
       <Drawer
         handleDrawerToggle={handleDrawerToggle}

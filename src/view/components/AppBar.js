@@ -58,7 +58,10 @@ function AppBarComponent({
         >
           <MenuIcon sx={{ fontSize: "30px" }} />
         </IconButton>
-        <Box sx={{ fontSize: "20px", cursor: "default" }}>{title}</Box>
+        <Box
+          sx={{ fontSize: "20px", cursor: "default" }}
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
         {pathname === "/russian-hymns" && (
           <>
             <Box
