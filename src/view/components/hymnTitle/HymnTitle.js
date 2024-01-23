@@ -18,10 +18,10 @@ function HymnTitle ({
   id,
   hymnsList,
   index,
-  selectedHymns,
+  // selectedHymns,
   Icon,
   BorderBottom,
-  onCheckBoxClick,
+  // onCheckBoxClick,
   onIconClick,
   onTitleClick
 }) {
@@ -34,13 +34,13 @@ function HymnTitle ({
           alignItems: 'center'
         }}
       >
-        {onCheckBoxClick && (
+        {/* {onCheckBoxClick && (
           <Checkbox
             onChange={() => onCheckBoxClick(id)}
             checked={selectedHymns.includes(id)}
             color='default'
           />
-        )}
+        )} */}
         <StyledListItem onClick={() => onTitleClick(id)}>
           <StyledText>{title}</StyledText>
           <StyledText>{number}</StyledText>

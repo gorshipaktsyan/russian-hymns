@@ -22,26 +22,44 @@ class HistoryStore {
     persistentStore.set(key, updatedHymns)
     return hymnIds
   }
-  get (key) {
-    const history = persistentStore.get(key) || []
-    const result = []
+  get(key) {
+    const history = persistentStore.get(key) || [];
+    const result = [];
+  
     history.forEach(searched => {
+      const formattedDate = formattingDate(searched.date);
+  
+      const entry = result.find(item => item.date === formattedDate);
+  
+      if (!entry) {
+        result.push({
+          date: formattedDate,
+          hymns: []
+        });
+      }
+  
       searched.number.forEach(number => {
-        const matchingHymn = hymns.find(h => h.number === number)
+        const matchingHymn = hymns.find(h => h.number === number);
+  
         if (matchingHymn) {
-          const formattedDate = formattingDate(searched.date)
-          if (!result[formattedDate]) {
-            result[formattedDate] = []
+          const existingEntry = result.find(item => item.date === formattedDate);
+        
+          if (existingEntry) {
+            if (Array.isArray(existingEntry.hymns)) {
+              existingEntry.hymns.push(matchingHymn);
+            } else {
+              existingEntry.hymns = [matchingHymn];
+            }
+          } else {
+            result.push({
+              date: formattedDate,
+              hymns: [matchingHymn]
+            });
           }
-          result[formattedDate].push({
-            ...matchingHymn,
-            date: searched.date,
-            formattedDate: formattedDate
-          })
         }
-      })
-    })
-    return result
+      });
+    });
+    return result;
   }
 }
 const historyStore = new HistoryStore()

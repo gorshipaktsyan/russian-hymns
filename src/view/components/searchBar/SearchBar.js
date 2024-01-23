@@ -1,125 +1,119 @@
-import { useEffect, useState } from 'react'
-import hymns from '../../services/storage/hymns.json'
-import { Collapse } from '@mui/material'
-import Snackbar from '@mui/material/Snackbar'
-import SearchIcon from '@mui/icons-material/Search'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import historyStore from '../../services/HistoryStore'
-import RightArrow from '@mui/icons-material/East'
-import StyledComponents from '../../../utils/sharedStyles'
-import CloseIcon from '@mui/icons-material/Close'
-import SearchBarStyledComponents from './styles'
-const { StyledFab, StyledAlert } = StyledComponents
+import { useEffect, useState } from "react";
+import hymns from "../../services/storage/hymns.json";
+import { Collapse } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import SearchIcon from "@mui/icons-material/Search";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import historyStore from "../../services/HistoryStore";
+import RightArrow from "@mui/icons-material/East";
+import StyledComponents from "../../../utils/sharedStyles";
+import CloseIcon from "@mui/icons-material/Close";
+import SearchBarStyledComponents from "./styles";
+const { StyledFab, StyledAlert } = StyledComponents;
 const {
   SearchedBox,
   DesktopStyledTextField,
   MobileStyledTextField,
   StyledSearchIcon,
-  StyledRightArrowIcon
-} = SearchBarStyledComponents
+  StyledRightArrowIcon,
+} = SearchBarStyledComponents;
 
-function SearchBar ({ setCurrentNumber, open, setOpen }) {
-  const [number, setNumber] = useState('')
-  const [errorAlert, setErrorAlert] = useState(false)
-
-  const handleClose = () => setErrorAlert(false)
-
-  const matches = useMediaQuery('(min-width:600px)')
-
+function SearchBar({ setCurrentNumber, open, setOpen }) {
+  const [number, setNumber] = useState("");
+  const [errorAlert, setErrorAlert] = useState(false);
+  const isMobile = navigator.maxTouchPoints > 0;
+  const handleClose = () => setErrorAlert(false);
   useEffect(() => {
-    const handleKeyDown = event => {
-      if (number && event.key === 'Enter') {
-        handleClick(event)
+    const handleKeyDown = (event) => {
+      if (number && event.key === "Enter") {
+        handleClick(event);
       }
-    }
-    window.addEventListener('keydown', handleKeyDown)
+    };
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [handleClick, number])
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleClick, number]);
 
   useEffect(() => {
-    if (matches) {
-      setOpen(false)
+    if (isMobile) {
+      setOpen(open);
     }
-  }, [matches, setOpen])
+  }, [isMobile, setOpen]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleClick (e) {
-    e.preventDefault()
-    const numbers = number.split(',').map(num => Number(num.trim()))
-    const matchingHymns = hymns.filter(h => numbers.includes(h.number))
-    console.log('a')
-
-    if (matches && matchingHymns.length) {
-      handleResult(matchingHymns)
-      return
+  function handleClick(e) {
+    e.preventDefault();
+    const numbers = number.split(",").map((num) => Number(num.trim()));
+    const matchingHymns = hymns.filter((h) => numbers.includes(h.number));
+    if (!isMobile && matchingHymns.length) {
+      handleResult(matchingHymns);
+      return;
     }
     if (open && number && matchingHymns.length) {
-      handleResult(matchingHymns)
+      handleResult(matchingHymns);
 
-      setOpen(!open)
-      return
+      setOpen(!open);
+      return;
     }
-    if (!matches && !open) {
-      setOpen(true)
-      return
+    if (isMobile && !open) {
+      setOpen(true);
+      return;
     }
-    if (!matches && open && !number) {
-      setOpen(false)
-      return
+    if (isMobile && open && !number) {
+      setOpen(false);
+      return;
     }
-    setErrorAlert(true)
-    setNumber('')
-    setOpen(false)
+    setErrorAlert(true);
+    setNumber("");
+    setOpen(false);
   }
 
-  function handleResult (matchingHymns) {
-    const resultNumbers = matchingHymns.map(h => h.number)
-    historyStore.set('searchedHymns', resultNumbers)
-    setCurrentNumber(resultNumbers)
-    setNumber('')
+  function handleResult(matchingHymns) {
+    const resultNumbers = matchingHymns.map((h) => h.number);
+    historyStore.set("searchedHymns", resultNumbers);
+    setCurrentNumber(resultNumbers);
+    setNumber("");
   }
-
   return (
     <>
-      {matches ? (
+      {!isMobile ? (
         <SearchedBox>
           <DesktopStyledTextField
-            type='decimal'
+            type="decimal"
             value={number}
             inputProps={{
-              inputMode: 'decimal',
-              pattern: '[0-9]*'
+              inputMode: "decimal",
+              pattern: "[0-9]*",
             }}
-            onChange={e => setNumber(e.target.value)}
+            onChange={(e) => setNumber(e.target.value)}
           />
           {number ? (
-            <StyledRightArrowIcon onClick={e => handleClick(e)} />
+            <StyledRightArrowIcon onClick={(e) => handleClick(e)} />
           ) : (
             <StyledSearchIcon />
           )}
         </SearchedBox>
       ) : (
         <>
-          <Collapse orientation='horizontal' in={open} collapsedSize={40}>
+          <Collapse orientation="horizontal" in={open} collapsedSize={40}>
             {open && (
               <MobileStyledTextField
-                type='decimal'
+                type="decimal"
                 value={number}
                 inputProps={{
-                  inputMode: 'decimal',
-                  pattern: '[0-9]*'
+                  inputMode: "decimal",
+                  pattern: "[0-9]*",
                 }}
-                onChange={e => setNumber(e.target.value)}
+                onChange={(e) => setNumber(e.target.value)}
                 autoFocus
               />
             )}
           </Collapse>
           <StyledFab
-            color='primary'
-            aria-label='add'
-            onClick={e => handleClick(e)}
+            color="primary"
+            aria-label="add"
+            onClick={(e) => handleClick(e)}
           >
             {open && !number ? (
               <CloseIcon />
@@ -132,21 +126,17 @@ function SearchBar ({ setCurrentNumber, open, setOpen }) {
         </>
       )}
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={errorAlert}
         onClose={handleClose}
         autoHideDuration={2000}
       >
-        <StyledAlert
-          onClose={handleClose}
-          severity='error'
-          sx={{ width: '100%', marginTop: '50px' }}
-        >
+        <StyledAlert onClose={handleClose} severity="error">
           Соответствующий гимн не найден!
         </StyledAlert>
       </Snackbar>
     </>
-  )
+  );
 }
 
-export default SearchBar
+export default SearchBar;

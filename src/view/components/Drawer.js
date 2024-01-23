@@ -17,7 +17,7 @@ function DrawerComponent({
   const navigate = useNavigate();
   function handleNavigate(item) {
     navigate(`/russian-hymns/${item.route}`);
-    setTitle(item.tittle);
+    setTitle(item.title);
   }
   return (
     <Drawer
@@ -25,7 +25,7 @@ function DrawerComponent({
       open={mobileOpen}
       onClose={handleDrawerToggle}
       ModalProps={{
-        keepMounted: true, // Better open performance on mobile.
+        keepMounted: true,
       }}
       sx={{
         "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
@@ -40,14 +40,13 @@ function DrawerComponent({
               onClick={() => handleNavigate(item)}
             >
               <ListItemButton>
-                <Box sx={{fontSize: '18px'}}>
-                  {item.tittle}
-                </Box>
+                <Box sx={{ fontSize: "18px" }}>{item.title}</Box>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
       </Box>
+      <Box sx={{ marginLeft: "10px" }}>version 1.4.0</Box>
     </Drawer>
   );
 }
