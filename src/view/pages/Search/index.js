@@ -54,6 +54,9 @@ function Search({ setCurrentNumber }) {
       navigate("/russian-hymns");
     }
     setErrorAlert(true);
+    setRusNumber("");
+    setEngNumber("");
+    setSearchedText("");
   }
   function handleTextChange(e) {
     const inputValue = e.target.value;
