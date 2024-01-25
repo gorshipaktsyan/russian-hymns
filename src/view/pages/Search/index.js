@@ -79,7 +79,7 @@ function Search({ setCurrentNumber }) {
     <StyledForm>
       <StyledTextField
         type="decimal"
-        label="поиск по русскому  номеру"
+        label="Поиск по русскому  номеру"
         value={rusNumber}
         inputProps={{
           inputMode: "decimal",
@@ -93,7 +93,7 @@ function Search({ setCurrentNumber }) {
       />
       <StyledTextField
         type="decimal"
-        label="поиск по английскому номеру"
+        label="Поиск по английскому номеру"
         value={engNumber}
         inputProps={{
           inputMode: "decimal",
@@ -106,7 +106,7 @@ function Search({ setCurrentNumber }) {
         }}
       />
       <StyledTextField
-        label="поиск по тексту"
+        label="Поиск по тексту"
         value={searchedText}
         inputProps={{
           inputMode: "search",

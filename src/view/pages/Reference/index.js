@@ -1,8 +1,10 @@
-import './index.scss'
+import StyledComponents from "../../../utils/sharedStyles";
 
-function Reference () {
+const { InfoBox } = StyledComponents;
+
+function Reference() {
   return (
-    <div className='reference-page'>
+    <InfoBox>
       <h3>Содержание</h3>
       <p>
         Все гимны и песни в этом сборнике разделены на рубрики, которые, в свою
@@ -107,8 +109,8 @@ function Reference () {
         влючённым, пока вы используете приложение "Гимны", включите настройку
         "Держать экран включённым" в разделе "Настройки" нашего приложения.
       </p>
-    </div>
-  )
+    </InfoBox>
+  );
 }
 
-export default Reference
+export default Reference;
