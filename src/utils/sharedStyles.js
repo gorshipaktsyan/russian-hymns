@@ -7,6 +7,16 @@ const StyledComponents = {
     justifyContent: "center",
     width: "100%",
   }),
+  InfoBox: styled(Box)({
+    padding: "0px 20px 20px 20px",
+    textAlign: "justify",
+  }),
+  StyledLink: styled("a")({
+    color: "black",
+    ":hover": {
+      color: "grey",
+    },
+  }),
   StyledList: styled(List)({
     width: "100%",
     paddingBottom: "100px",

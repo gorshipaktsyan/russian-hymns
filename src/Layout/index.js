@@ -23,7 +23,7 @@ import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 
 const navItems = [
   { title: "Расширенный поиск", route: "search" },
-  { title: "Содержанье", route: "content" },
+  { title: "Содержание", route: "content" },
   { title: "Алфавитный указатель", route: "alphabetical" },
   { title: "История", route: "history" },
   { title: "Закладки", route: "bookmark" },
