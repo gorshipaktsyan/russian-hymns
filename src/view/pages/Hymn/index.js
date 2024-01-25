@@ -40,8 +40,8 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
 
     if (timeDifference <= doubleTapDelay) {
       e.clientX < clickedPlace
-        ? setFontSize((prevSize) => Math.min(prevSize + 0.2, maxFontSize))
-        : setFontSize((prevSize) => Math.max(prevSize - 0.2, minFontSize));
+        ? setFontSize((prevSize) => Math.max(prevSize - 0.2, minFontSize))
+        : setFontSize((prevSize) => Math.min(prevSize + 0.2, maxFontSize));
       lastClickTime = 0;
     } else {
       lastClickTime = currentTime;
