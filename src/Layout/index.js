@@ -78,6 +78,7 @@ function Layout() {
         open={open}
         currentNumber={currentNumber}
         setCurrentNumber={setCurrentNumber}
+        setTitle={setTitle}
       />
       <Drawer
         handleDrawerToggle={handleDrawerToggle}
