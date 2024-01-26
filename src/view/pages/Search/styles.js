@@ -27,7 +27,7 @@ const SearchStyledComponents = {
     background: "black",
     marginTop: "20px",
     "&:hover": {
-      background: "grey",
+      background: "black",
     },
   }),
   StyledForm: styled("div")({
