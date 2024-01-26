@@ -29,7 +29,7 @@ const navItems = [
   { title: "Закладки", route: "bookmark" },
   { title: "Предисловие", route: "preface" },
   { title: "Справка", route: "reference" },
-  { title: "O Программе", route: "about" },
+  { title: "O программе", route: "about" },
 ];
 
 function Layout() {
