@@ -36,8 +36,7 @@ function Layout() {
   const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentNumber, setCurrentNumber] = useState([1]);
-  const titleName = findLocation(pathname, currentNumber, navItems);
-  const [title, setTitle] = useState(titleName);
+  const [title, setTitle] = useState(() => findLocation(pathname, currentNumber, navItems));
   const [open, setOpen] = useState(false);
 
   /*function handlePress() {
@@ -58,6 +57,10 @@ function Layout() {
       );
     }
   }, [currentNumber]);
+
+useEffect(()=> {
+setTitle(() => findLocation(pathname, currentNumber, navItems))
+},[pathname])
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
