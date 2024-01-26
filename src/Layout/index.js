@@ -22,9 +22,9 @@ import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 });*/
 
 const navItems = [
-  { title: "Расширенный поиск", route: "search" },
+  { title: "Расширенный поиск", route: "search" }, 
+   { title: "Алфавитный указатель", route: "alphabetical" },
   { title: "Содержание", route: "content" },
-  { title: "Алфавитный указатель", route: "alphabetical" },
   { title: "История", route: "history" },
   { title: "Закладки", route: "bookmark" },
   { title: "Предисловие", route: "preface" },
@@ -36,7 +36,7 @@ function Layout() {
   const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentNumber, setCurrentNumber] = useState([1]);
-  const [title, setTitle] = useState(() => findLocation(pathname, currentNumber, navItems));
+  const [title, setTitle] = useState(`Гимн ${currentNumber}`);
   const [open, setOpen] = useState(false);
 
   /*function handlePress() {
@@ -55,12 +55,11 @@ function Layout() {
           ? "Гимны"
           : `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`
       );
+      return
     }
-  }, [currentNumber]);
+    setTitle(() => findLocation(pathname, currentNumber, navItems))
 
-useEffect(()=> {
-setTitle(() => findLocation(pathname, currentNumber, navItems))
-},[pathname])
+  }, [currentNumber,pathname]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);

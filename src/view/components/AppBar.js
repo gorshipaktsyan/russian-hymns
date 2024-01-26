@@ -42,6 +42,7 @@ function AppBarComponent({
       setSaved(true);
     }
   };
+  console.log(pathname === "/russian-hymns")
   return (
     <AppBar
       component="nav"
@@ -62,7 +63,7 @@ function AppBarComponent({
           sx={{ fontSize: "20px", cursor: "default" }}
           dangerouslySetInnerHTML={{ __html: title }}
         />
-        {pathname === "/russian-hymns" && (
+        {(pathname === "/russian-hymns" || pathname === "/russian-hymns/")    && (
           <>
             <Box
               sx={{

@@ -46,7 +46,7 @@ function DrawerComponent({
           ))}
         </List>
       </Box>
-      <Box sx={{ marginLeft: "10px" }}>version 1.6.0</Box>
+      <Box sx={{ marginLeft: "10px" }}>version 1.7.0</Box>
     </Drawer>
   );
 }

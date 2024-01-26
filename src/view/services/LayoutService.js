@@ -4,9 +4,10 @@ export default function findLocation(pathname, currentNumber, navItems) {
     : pathnamesTitle(pathname);
 
   function pathnamesTitle(pathname) {
-    const selectedItem = navItems.find(
-      (item) => `/russian-hymns/${item.route}` === pathname
-    );
-    return selectedItem && selectedItem.title;
+    const selectedItem = navItems.find
+      ((item) => `/russian-hymns/${item.route}` === pathname)
+   
+  
+    return selectedItem ? selectedItem.title : `Гимн ${currentNumber}`;
   }
 }

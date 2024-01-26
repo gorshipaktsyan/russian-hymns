@@ -17,6 +17,21 @@ body {
   width: 100%;
 }
 
+body::-webkit-scrollbar {
+  width: 5px;
+  background-color: rgb(253, 253, 232);
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+  border-radius: 15px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
