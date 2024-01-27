@@ -89,7 +89,9 @@ function Search({ setCurrentNumber }) {
           setRusNumber(e.target.value);
           setEngNumber("");
           setSearchedText("");
-        }}
+        }}  
+                autoFocus
+
       />
       <StyledTextField
         type="decimal"

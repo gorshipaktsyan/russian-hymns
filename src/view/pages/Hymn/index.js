@@ -15,15 +15,18 @@ const config = {
   swipeDuration: Infinity,
   touchEventOptions: { passive: true },
 };
-const { StyledDivider } = HymnStyledComponents;
+const { StyledDivider, ArrowCircleRightIcon, ArrowCircleLeftIcon } =
+  HymnStyledComponents;
 const minFontSize = 1.0;
 const maxFontSize = 1.8;
 const doubleTapDelay = 300;
+const clickedPlace = window.innerWidth / 2;
+const isMobile = navigator.maxTouchPoints > 0;
 
 function Hymn({ open, currentNumber, setCurrentNumber }) {
   let lastClickTime = 0;
-  const clickedPlace = window.innerWidth / 2;
   const savedFontSize = persistentStore.get("fontSize");
+
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const hymn = useMemo(
     () =>
@@ -138,6 +141,32 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
               )}
             </div>
             <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
+            {!isMobile && (
+              <>
+                <ArrowCircleLeftIcon
+                  sx={{
+                    position: "fixed",
+                    top: "400px",
+                    left: "300px",
+                    width: "40px",
+                    height: "40px",
+                  }}
+                  onClick={() => handleRightSwipe()}
+                />
+                ,
+                <ArrowCircleRightIcon
+                  sx={{
+                    position: "fixed",
+                    top: "400px",
+                    right: "300px",
+                    fontSize: "large",
+                    width: "40px",
+                    height: "40px",
+                  }}
+                  onClick={() => handleLeftSwipe()}
+                />
+              </>
+            )}
             {index !== hymn.length - 1 && <StyledDivider />}
           </Box>
         );
