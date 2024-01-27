@@ -42,7 +42,6 @@ function AppBarComponent({
       setSaved(true);
     }
   };
-  console.log(pathname === "/russian-hymns")
   return (
     <AppBar
       component="nav"
@@ -63,6 +62,7 @@ function AppBarComponent({
           sx={{ fontSize: "20px", cursor: "default" }}
           dangerouslySetInnerHTML={{ __html: title }}
         />
+        {pathname !== '/russian-hymns/search' && (
             <Box
               sx={{
                 flexGrow: "1",
@@ -74,6 +74,7 @@ function AppBarComponent({
                 setOpen={setOpen}
               />
             </Box>
+           )}
              {(pathname === "/russian-hymns" || pathname === "/russian-hymns/")    && (
              <>
             <IconButton color="inherit" onClick={handleBookmarkClick}>
