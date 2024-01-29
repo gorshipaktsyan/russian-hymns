@@ -32,7 +32,7 @@ function AppBarComponent({
       );
       setSaved(isSaved);
     }
-  }, [currentNumber, savedHymnsList]);
+  }, [currentHymnNumber, savedHymnsList]);
 
   const handleBookmarkClick = () => {
     if (saved) {
