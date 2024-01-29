@@ -22,7 +22,7 @@ import findLocation from "../view/services/LayoutService";
 });*/
 
 const navItems = [
-  { title: "Расширенный поиск", route: "search" },
+  { title: "Поиск", route: "search" },
   { title: "Алфавитный указатель", route: "alphabetical" },
   { title: "Содержание", route: "content" },
   { title: "История", route: "history" },

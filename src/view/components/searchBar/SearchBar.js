@@ -1,11 +1,10 @@
-import SearchIcon from "@mui/icons-material/Search";
 import StyledComponents from "../../../utils/sharedStyles";
 import SearchBarStyledComponents from "./styles";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 const { StyledFab } = StyledComponents;
-const { SearchedBox } = SearchBarStyledComponents;
+const { SearchedBox, StyledSearchIcon } = SearchBarStyledComponents;
 
 function SearchBar() {
   const navigate = useNavigate();
@@ -19,9 +18,7 @@ function SearchBar() {
     <>
       {!isMobile ? (
         <SearchedBox>
-          <Button sx={{ color: "white" }} onClick={handleClick}>
-            Поиск
-          </Button>
+          <StyledSearchIcon onClick={handleClick} />
         </SearchedBox>
       ) : (
         <StyledFab color="primary" aria-label="add" onClick={handleClick}>
