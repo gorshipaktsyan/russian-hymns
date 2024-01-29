@@ -20,34 +20,36 @@ function DrawerComponent({
     setTitle(item.title);
   }
   return (
-      <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
-          sx={{
-            "& .MuiDrawer-paper": {boxSizing: "border-box", width: drawerWidth},
-          }}
-      >
-        <Box onClick={handleDrawerToggle} sx={{textAlign: "center"}}>
-          <List>
-            {navItems.slice(1).map((item) => (
-                <ListItem
-                    key={item.tittle}
-                    disablePadding
-                    onClick={() => handleNavigate(item)}
-                >
-                  <ListItemButton>
-                    <Box sx={{fontSize: "18px"}}>{item.title}</Box>
-                  </ListItemButton>
-                </ListItem>
-            ))}
-          </List>
-        </Box>
-        <Box sx={{marginLeft: "10px", position: 'absolute', bottom: 0}}><p>Версия программы: 1.1.1</p></Box>
-      </Drawer>
+    <Drawer
+      variant="temporary"
+      open={mobileOpen}
+      onClose={handleDrawerToggle}
+      ModalProps={{
+        keepMounted: true,
+      }}
+      sx={{
+        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+      }}
+    >
+      <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+        <List>
+          {navItems.slice(1).map((item) => (
+            <ListItem
+              key={item.tittle}
+              disablePadding
+              onClick={() => handleNavigate(item)}
+            >
+              <ListItemButton>
+                <Box sx={{ fontSize: "18px" }}>{item.title}</Box>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+      <Box sx={{ marginLeft: "10px", position: "absolute", bottom: 0 }}>
+        <p>Версия программы: 1.1.2</p>
+      </Box>
+    </Drawer>
   );
 }
 
