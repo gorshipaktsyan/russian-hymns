@@ -20,31 +20,25 @@ const renderHymnTitle = (h, index, titleProperty, onTitleClick) => (
 
 function HymnsList({ handleTitleClick, letter, handleBackClick }) {
   const filteredHymns = useMemo(() => {
-    const hymnsWithFirstLetter = [];
-    const hymnsWithChorusFirstLetter = [];
-    hymns.filter((h) => {
-      if (h.first_letter === letter) {
-        hymnsWithFirstLetter.push(h);
-        return;
-      } else if (h.first_letter_chorus === letter) {
-        hymnsWithChorusFirstLetter.push(h);
-      }
-    });
-    return {
-      firstLetter: hymnsWithFirstLetter,
-      chorusFirstLetter: hymnsWithChorusFirstLetter,
-    };
+    return hymns.filter(
+      (h) => h.first_letter === letter || h.first_letter_chorus === letter
+    );
   }, [letter]);
 
   return (
     <StyledBox>
       <StyledList>
-        {filteredHymns.firstLetter.map((h, index) =>
-          renderHymnTitle(h, index, "first_string", handleTitleClick)
-        )}
-        {filteredHymns.chorusFirstLetter.map((h, index) =>
-          renderHymnTitle(h, index, "chorus_first_string", handleTitleClick)
-        )}
+        {filteredHymns.map((h, index) => (
+          <HymnTitle
+            title={h.chorus_first_string || h.first_string}
+            number={h.number}
+            id={h._id}
+            hymnsList={filteredHymns}
+            index={index}
+            BorderBottom={Divider}
+            onTitleClick={handleTitleClick}
+          />
+        ))}
       </StyledList>
       <StyledFab color="primary" aria-label="add" onClick={handleBackClick}>
         <AddIcon />

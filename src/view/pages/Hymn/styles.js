@@ -10,11 +10,11 @@ const HymnStyledComponents = {
   }),
   ArrowCircleRightIcon: styled(ArrowCircleRightIcon)({
     position: "fixed",
-    top: "400px",
-    right: "300px",
+    top: "55%",
+    right: "10%",
     fontSize: "large",
-    width: "40px",
-    height: "40px",
+    width: "50px",
+    height: "50px",
     cursor: "pointer",
     ":hover": {
       color: "gray",
@@ -22,11 +22,11 @@ const HymnStyledComponents = {
   }),
   ArrowCircleLeftIcon: styled(ArrowCircleLeftIcon)({
     position: "fixed",
-    top: "400px",
-    right: "300px",
+    top: "55%",
+    left: "10%",
     fontSize: "large",
-    width: "40px",
-    height: "40px",
+    width: "50px",
+    height: "50px",
     cursor: "pointer",
     ":hover": {
       color: "gray",
