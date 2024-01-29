@@ -6,19 +6,23 @@ import {
   Button,
 } from "@mui/material";
 
-export default function ConfirmModal({ handleClear, setOpen, open }) {
+export default function ConfirmModal({
+  handleClearHistory,
+  setOpenConfirm,
+  openConfirm,
+}) {
   return (
-    <Dialog open={open} onClose={() => setOpen(false)}>
+    <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
       <DialogContent>
         <DialogContentText>
           вы действительно хотите удалить всю историю?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={() => setOpen(false)}>
+        <Button autoFocus onClick={() => setOpenConfirm(false)}>
           нет
         </Button>
-        <Button onClick={handleClear} autoFocus>
+        <Button onClick={handleClearHistory} autoFocus>
           да
         </Button>
       </DialogActions>

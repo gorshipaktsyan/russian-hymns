@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Drawer } from "../view/components";
+import Drawer from "../view/components/Drawer";
+import AppBar from "../view/components/AppBar/AppBar";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
 import { useLocation } from "react-router-dom";
 import findLocation from "../view/services/LayoutService";
-import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 
 //let deferredPrompt;
 
@@ -22,8 +22,8 @@ import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 });*/
 
 const navItems = [
-  { title: "Расширенный поиск", route: "search" }, 
-   { title: "Алфавитный указатель", route: "alphabetical" },
+  { title: "Расширенный поиск", route: "search" },
+  { title: "Алфавитный указатель", route: "alphabetical" },
   { title: "Содержание", route: "content" },
   { title: "История", route: "history" },
   { title: "Закладки", route: "bookmark" },
@@ -38,7 +38,7 @@ function Layout() {
   const [currentNumber, setCurrentNumber] = useState([1]);
   const [title, setTitle] = useState(`Гимн ${currentNumber}`);
   const [open, setOpen] = useState(false);
-
+  const [historyUpdated, setHistoryUpdated] = useState(false);
   /*function handlePress() {
    if (deferredPrompt) {
      alert('not found')
@@ -55,11 +55,10 @@ function Layout() {
           ? "Гимны"
           : `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`
       );
-      return
+      return;
     }
-    setTitle(() => findLocation(pathname, currentNumber, navItems))
-
-  }, [currentNumber,pathname]);
+    setTitle(() => findLocation(pathname, currentNumber, navItems));
+  }, [currentNumber, pathname]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -72,15 +71,14 @@ function Layout() {
         handleDrawerToggle={handleDrawerToggle}
         title={title}
         currentNumber={currentNumber}
-        setCurrentNumber={setCurrentNumber}
-        open={open}
-        setOpen={setOpen}
+        setHistoryUpdated={setHistoryUpdated}
       />
       <App
         open={open}
         currentNumber={currentNumber}
         setCurrentNumber={setCurrentNumber}
         setTitle={setTitle}
+        historyUpdated={historyUpdated}
       />
       <Drawer
         handleDrawerToggle={handleDrawerToggle}

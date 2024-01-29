@@ -6,17 +6,6 @@ import AddIcon from "@mui/icons-material/ArrowBack";
 import StyledComponents from "../../../utils/sharedStyles";
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
-const renderHymnTitle = (h, index, titleProperty, onTitleClick) => (
-  <HymnTitle
-    title={h[titleProperty]}
-    number={h.number}
-    id={h._id}
-    hymnsList={h}
-    index={index}
-    BorderBottom={Divider}
-    onTitleClick={onTitleClick}
-  />
-);
 
 function HymnsList({ handleTitleClick, letter, handleBackClick }) {
   const filteredHymns = useMemo(() => {

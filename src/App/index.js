@@ -15,7 +15,13 @@ import {
 } from "../view/pages";
 import StyledApp from "./styles";
 
-function App({ open, currentNumber, setCurrentNumber, setTitle }) {
+function App({
+  open,
+  currentNumber,
+  setCurrentNumber,
+  setTitle,
+  historyUpdated,
+}) {
   const routes = [
     {
       path: "/russian-hymns",
@@ -48,7 +54,12 @@ function App({ open, currentNumber, setCurrentNumber, setTitle }) {
     },
     {
       path: "/russian-hymns/history",
-      element: <History setCurrentNumber={setCurrentNumber} />,
+      element: (
+        <History
+          setCurrentNumber={setCurrentNumber}
+          historyUpdated={historyUpdated}
+        />
+      ),
     },
 
     { path: "/russian-hymns/preface", element: <Preface /> },
