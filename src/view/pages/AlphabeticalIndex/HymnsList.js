@@ -9,6 +9,7 @@ const { StyledBox, StyledList, StyledFab } = StyledComponents;
 
 function HymnsList({ handleTitleClick, letter, handleBackClick }) {
   const filteredHymns = useMemo(() => {
+    const removeSymbols = (text) => text.replace(/[^a-zA-Zа-яА-ЯёЁ]/g, "");
     return hymns
       .filter(
         (h) => h.first_letter === letter || h.first_letter_chorus === letter
@@ -18,19 +19,22 @@ function HymnsList({ handleTitleClick, letter, handleBackClick }) {
           return {
             ...hymn,
             filteredByFirstLetter: true,
+            filteredText: removeSymbols(hymn.first_string),
           };
         } else {
-          return hymn;
+          return {
+            ...hymn,
+            filteredText: removeSymbols(hymn.chorus_first_string),
+          };
         }
       })
-      .sort((a, b) =>
-        a.filteredByFirstLetter && !b.filteredByFirstLetter
-          ? -1
-          : b.filteredByFirstLetter && !a.filteredByFirstLetter
-          ? 1
-          : a.first_string_sort.localeCompare(b.first_string_sort, "ru")
-      );
+      .sort((a, b) => {
+        return a.filteredText.localeCompare(b.filteredText, "ru", {
+          sensitivity: "base",
+        });
+      });
   }, [letter]);
+
   return (
     <StyledBox>
       <StyledList>
