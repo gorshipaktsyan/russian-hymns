@@ -16,7 +16,7 @@ function History({ setCurrentNumber, historyUpdated }) {
 
   function handleClick(id) {
     setCurrentNumber([id]);
-    navigate("/russian-hymns");
+    navigate("/");
   }
 
   return (

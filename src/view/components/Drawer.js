@@ -14,7 +14,7 @@ function DrawerComponent({
 }) {
   const navigate = useNavigate();
   function handleNavigate(item) {
-    navigate(`/russian-hymns/${item.route}`);
+    navigate(`/${item.route}`);
     setTitle(item.title);
   }
   return (
@@ -49,7 +49,7 @@ function DrawerComponent({
         </List>
       </Box>
       <Box sx={{ marginLeft: "10px", position: "absolute", bottom: 0 }}>
-        <p>Версия программы: 1.1.7</p>
+        <p>Версия программы: 1.1.8</p>
       </Box>
     </Drawer>
   );

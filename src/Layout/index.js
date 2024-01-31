@@ -50,7 +50,7 @@ function Layout() {
    }
  }*/
   useEffect(() => {
-    if (pathname === "/russian-hymns") {
+    if (pathname === "/") {
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
       setTitle(
         currentNumber.length > 1
@@ -87,9 +87,7 @@ function Layout() {
         mobileOpen={mobileOpen}
         setTitle={setTitle}
       />
-      {pathname !== "/russian-hymns/search" && isMobile && (
-        <SearchBar isMobile={isMobile} />
-      )}
+      {pathname !== "/search" && isMobile && <SearchBar isMobile={isMobile} />}
     </Box>
   );
 }

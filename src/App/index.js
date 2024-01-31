@@ -18,7 +18,7 @@ import StyledApp from "./styles";
 function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
   const routes = [
     {
-      path: "/russian-hymns",
+      path: "/",
       element: (
         <Hymn
           currentNumber={currentNumber}
@@ -26,10 +26,10 @@ function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
         />
       ),
     },
-    { path: "/russian-hymns/settings", element: <Settings /> },
-    { path: "/russian-hymns/about", element: <About /> },
+    { path: "/settings", element: <Settings /> },
+    { path: "/about", element: <About /> },
     {
-      path: "/russian-hymns/alphabetical",
+      path: "/alphabetical",
       element: (
         <AlphabeticalIndex
           setCurrentNumber={setCurrentNumber}
@@ -38,15 +38,15 @@ function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
       ),
     },
     {
-      path: "/russian-hymns/bookmark",
+      path: "/bookmark",
       element: <Bookmarks setCurrentNumber={setCurrentNumber} />,
     },
     {
-      path: "/russian-hymns/content",
+      path: "/content",
       element: <Content setCurrentNumber={setCurrentNumber} />,
     },
     {
-      path: "/russian-hymns/history",
+      path: "/history",
       element: (
         <History
           setCurrentNumber={setCurrentNumber}
@@ -55,10 +55,10 @@ function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
       ),
     },
 
-    { path: "/russian-hymns/preface", element: <Preface /> },
-    { path: "/russian-hymns/reference", element: <Reference /> },
+    { path: "/preface", element: <Preface /> },
+    { path: "/reference", element: <Reference /> },
     {
-      path: "/russian-hymns/search",
+      path: "/search",
       element: <Search setCurrentNumber={setCurrentNumber} />,
     },
   ];

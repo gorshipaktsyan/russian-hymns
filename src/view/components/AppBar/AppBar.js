@@ -97,8 +97,7 @@ function AppBarComponent({
           >
             {!isMobile && pathname !== "/russian-hymns/search" && <SearchBar />}
           </Box>
-          {(pathname === "/russian-hymns" ||
-            pathname === "/russian-hymns/") && (
+          {(pathname === "" || pathname === "/") && (
             <>
               <IconButton color="inherit" onClick={handleBookmarkClick}>
                 {currentHymnNumber &&

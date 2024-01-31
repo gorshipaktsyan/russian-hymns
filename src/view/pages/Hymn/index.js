@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
 import persistentStore from "../../services/PersistentStore";
+import historyStore from "../../services/HistoryStore";
 
 const config = {
   delta: 10,
@@ -17,6 +18,7 @@ const config = {
 };
 const { StyledDivider, ArrowCircleRightIcon, ArrowCircleLeftIcon } =
   HymnStyledComponents;
+
 const minFontSize = 1.0;
 const maxFontSize = 1.8;
 const doubleTapDelay = 300;
@@ -26,8 +28,11 @@ const isMobile = navigator.maxTouchPoints > 0;
 function Hymn({ currentNumber, setCurrentNumber }) {
   let lastClickTime = 0;
   const savedFontSize = persistentStore.get("fontSize");
-
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
+  const [timeOnPage, setTimeOnPage] = useState(0);
+  const [savedToHistory, setSavedToHistory] = useState(false);
+  const [previousHymnNumber, setPreviousHymnNumber] = useState();
+
   const hymn = useMemo(
     () =>
       currentNumber.map((number) =>
@@ -115,6 +120,31 @@ function Hymn({ currentNumber, setCurrentNumber }) {
     };
   }, [handleRightSwipe, handleLeftSwipe]);
 
+  // useEffect for the timer
+  // useEffect(() => {
+  //   let timerInterval;
+
+  //   if (!savedToHistory) {
+  //     timerInterval = setInterval(() => {
+  //       setTimeOnPage((prevTime) => prevTime + 1);
+  //     }, 1000);
+  //     setPreviousHymnNumber(currentNumber);
+  //   }
+  //   if (timeOnPage >= 30 && !savedToHistory) {
+  //     historyStore.set("searchedHymns", currentNumber);
+  //     setSavedToHistory(true);
+  //     setTimeOnPage(0);
+  //   }
+
+  //   if (previousHymnNumber !== currentNumber) {
+  //     setSavedToHistory(false);
+  //   }
+  //   return () => {
+  //     clearInterval(timerInterval);
+  //   };
+  // }, [savedToHistory, currentNumber, timeOnPage]);
+
+  // console.log(timeOnPage);
   return (
     <Box
       className="hymns-page-wrapper"

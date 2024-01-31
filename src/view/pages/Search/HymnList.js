@@ -24,7 +24,7 @@ function HymnList({
   function handleClick(id) {
     const hymnIds = historyStore.set("searchedHymns", id);
     setCurrentNumber(hymnIds);
-    navigate("/russian-hymns");
+    navigate("/");
   }
   const handleBackClick = () => {
     setOpenHymnList(false);

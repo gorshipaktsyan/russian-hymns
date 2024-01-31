@@ -51,7 +51,7 @@ function Search({ setCurrentNumber }) {
     }
     if (number.length) {
       historyStore.set("searchedHymns", number);
-      navigate("/russian-hymns");
+      navigate("/");
     }
     setErrorAlert(true);
     setRusNumber("");
@@ -89,9 +89,8 @@ function Search({ setCurrentNumber }) {
           setRusNumber(e.target.value);
           setEngNumber("");
           setSearchedText("");
-        }}  
-                autoFocus
-
+        }}
+        autoFocus
       />
       <StyledTextField
         type="decimal"
