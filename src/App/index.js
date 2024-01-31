@@ -19,6 +19,10 @@ function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
   const routes = [
     {
       path: "/",
+      element: <Search setCurrentNumber={setCurrentNumber} />,
+    },
+    {
+      path: "/hymns",
       element: (
         <Hymn
           currentNumber={currentNumber}
@@ -54,13 +58,8 @@ function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
         />
       ),
     },
-
     { path: "/preface", element: <Preface /> },
     { path: "/reference", element: <Reference /> },
-    {
-      path: "/search",
-      element: <Search setCurrentNumber={setCurrentNumber} />,
-    },
   ];
 
   return (

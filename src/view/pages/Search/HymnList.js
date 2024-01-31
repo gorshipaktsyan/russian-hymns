@@ -22,7 +22,7 @@ function HymnList({
 
   function handleClick(id) {
     setCurrentNumber([id]);
-    navigate("/");
+    navigate("/hymns");
   }
   const handleBackClick = () => {
     setOpenHymnList(false);

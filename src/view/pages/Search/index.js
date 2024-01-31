@@ -49,7 +49,7 @@ function Search({ setCurrentNumber }) {
       number = [randomNumber];
     }
     if (number.length) {
-      navigate("/");
+      navigate("/hymns");
     }
     setErrorAlert(true);
     setRusNumber("");

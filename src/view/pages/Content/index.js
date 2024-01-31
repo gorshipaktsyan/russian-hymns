@@ -15,7 +15,7 @@ function Content({ setCurrentNumber }) {
 
   function handleHymnClick(id) {
     setCurrentNumber([id]);
-    navigate("/");
+    navigate("/hymns");
   }
 
   return (

@@ -16,7 +16,7 @@ function History({ setCurrentNumber, historyUpdated }) {
 
   function handleClick(id) {
     setCurrentNumber([id]);
-    navigate("/");
+    navigate("/hymns");
   }
 
   return (

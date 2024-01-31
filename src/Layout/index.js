@@ -37,7 +37,7 @@ function Layout() {
   const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [currentNumber, setCurrentNumber] = useState([1]);
-  const [title, setTitle] = useState(`Гимн ${currentNumber}`);
+  const [title, setTitle] = useState("Поиск");
   const [historyUpdated, setHistoryUpdated] = useState(false);
   const isMobile = navigator.maxTouchPoints > 0;
 
@@ -50,7 +50,7 @@ function Layout() {
    }
  }*/
   useEffect(() => {
-    if (pathname === "/") {
+    if (pathname === "/hymns") {
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
       setTitle(
         currentNumber.length > 1
@@ -87,7 +87,7 @@ function Layout() {
         mobileOpen={mobileOpen}
         setTitle={setTitle}
       />
-      {pathname !== "/search" && isMobile && <SearchBar isMobile={isMobile} />}
+      {pathname !== "/" && isMobile && <SearchBar isMobile={isMobile} />}
     </Box>
   );
 }

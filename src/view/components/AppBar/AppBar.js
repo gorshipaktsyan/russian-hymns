@@ -96,9 +96,9 @@ function AppBarComponent({
               flexGrow: "1",
             }}
           >
-            {!isMobile && pathname !== "/search" && <SearchBar />}
+            {!isMobile && pathname !== "/" && <SearchBar />}
           </Box>
-          {(pathname === "" || pathname === "/") && (
+          {(pathname === "/hymns" || pathname === "/hymns/") && (
             <>
               <IconButton color="inherit" onClick={handleBookmarkClick}>
                 {currentHymnNumber &&

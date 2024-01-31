@@ -10,7 +10,7 @@ function SearchBar({ isMobile }) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/search");
+    navigate("/");
   }
 
   return (
