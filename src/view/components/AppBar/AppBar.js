@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import bookmarksStore from "../../services/BookmarksStore";
-import ClearIcon from "../../../assets/icons/Clear.png";
 import ConfirmModal from "./ConfirmationModal";
 import persistentStore from "../../services/PersistentStore";
 import AppBar from "@mui/material/AppBar";
