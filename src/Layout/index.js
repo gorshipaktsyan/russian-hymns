@@ -7,6 +7,7 @@ import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
 import { useLocation } from "react-router-dom";
 import findLocation from "../view/services/LayoutService";
+import SearchBar from "../view/components/searchBar/SearchBar";
 
 //let deferredPrompt;
 
@@ -38,6 +39,8 @@ function Layout() {
   const [currentNumber, setCurrentNumber] = useState([1]);
   const [title, setTitle] = useState(`Гимн ${currentNumber}`);
   const [historyUpdated, setHistoryUpdated] = useState(false);
+  const isMobile = navigator.maxTouchPoints > 0;
+
   /*function handlePress() {
    if (deferredPrompt) {
      alert('not found')
@@ -62,7 +65,6 @@ function Layout() {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
   return (
     <Box sx={{ height: "100%" }}>
       <ScrollToTop currentNumber={currentNumber} />
@@ -71,6 +73,7 @@ function Layout() {
         title={title}
         currentNumber={currentNumber}
         setHistoryUpdated={setHistoryUpdated}
+        isMobile={isMobile}
       />
       <App
         currentNumber={currentNumber}
@@ -84,6 +87,9 @@ function Layout() {
         mobileOpen={mobileOpen}
         setTitle={setTitle}
       />
+      {pathname !== "/russian-hymns/search" && isMobile && (
+        <SearchBar isMobile={isMobile} />
+      )}
     </Box>
   );
 }

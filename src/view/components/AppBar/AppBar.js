@@ -23,6 +23,7 @@ function AppBarComponent({
   title,
   currentNumber,
   setHistoryUpdated,
+  isMobile,
 }) {
   const [saved, setSaved] = useState();
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -89,15 +90,13 @@ function AppBarComponent({
             sx={{ fontSize: "20px", cursor: "default" }}
             dangerouslySetInnerHTML={{ __html: title }}
           />
-          {pathname !== "/russian-hymns/search" && (
-            <Box
-              sx={{
-                flexGrow: "1",
-              }}
-            >
-              <SearchBar />
-            </Box>
-          )}
+          <Box
+            sx={{
+              flexGrow: "1",
+            }}
+          >
+            {!isMobile && pathname !== "/russian-hymns/search" && <SearchBar />}
+          </Box>
           {(pathname === "/russian-hymns" ||
             pathname === "/russian-hymns/") && (
             <>

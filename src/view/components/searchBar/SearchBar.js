@@ -6,9 +6,8 @@ import SearchIcon from "@mui/icons-material/Search";
 const { StyledFab } = StyledComponents;
 const { SearchedBox, StyledSearchIcon } = SearchBarStyledComponents;
 
-function SearchBar() {
+function SearchBar({ isMobile }) {
   const navigate = useNavigate();
-  const isMobile = navigator.maxTouchPoints > 0;
 
   function handleClick() {
     navigate("/russian-hymns/search");
