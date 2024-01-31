@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/russian-hymns/static/css/main.11540b27.css",
-    "main.js": "/russian-hymns/static/js/main.355f6615.js",
+    "main.js": "/russian-hymns/static/js/main.b98361e6.js",
     "static/js/787.06d1fc33.chunk.js": "/russian-hymns/static/js/787.06d1fc33.chunk.js",
     "service-worker.js": "/russian-hymns/service-worker.js",
     "static/media/Clear.png": "/russian-hymns/static/media/Clear.0de61a3afb7c9596e8ef.png",
     "index.html": "/russian-hymns/index.html",
     "main.11540b27.css.map": "/russian-hymns/static/css/main.11540b27.css.map",
-    "main.355f6615.js.map": "/russian-hymns/static/js/main.355f6615.js.map",
+    "main.b98361e6.js.map": "/russian-hymns/static/js/main.b98361e6.js.map",
     "787.06d1fc33.chunk.js.map": "/russian-hymns/static/js/787.06d1fc33.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.11540b27.css",
-    "static/js/main.355f6615.js"
+    "static/js/main.b98361e6.js"
   ]
 }
