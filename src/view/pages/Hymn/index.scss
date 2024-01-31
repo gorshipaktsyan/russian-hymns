@@ -1,76 +1,74 @@
-.hymns-page-wrapper{
-div.hymn {
+.hymns-page-wrapper {
+  div.hymn {
     padding: 8px 4px 16px 0;
     text-align: center;
     background-color: rgb(253, 253, 232);
-}
+  }
 
-div.hymnInfo{
+  div.hymnInfo {
     text-align: center;
     background-color: rgb(253, 253, 232);
     margin-top: 20px;
-
-}
-div.hymn table {
+  }
+  div.hymn table {
     text-align: center;
     margin: 0 auto;
-}
+  }
 
-div.hymn .title {
+  div.hymn .title {
     font-weight: bold;
     font-size: 1.2em;
     margin: 0;
-}
+  }
 
-div.hymn .subtitle {
+  div.hymn .subtitle {
     font-weight: normal;
     font-size: 1em;
     margin: 0;
-}
+  }
 
-div.hymn .meter {
+  div.hymn .meter {
     font-weight: normal;
     font-size: 0.75em;
     padding: 0.25em 0 0 0;
-}
+  }
 
-div.hymn table td {
+  div.hymn table td {
     padding-top: 0.25em;
     vertical-align: top;
     font-size: 1.2em;
-}
+  }
 
-div.hymn table {
+  div.hymn table {
     padding-top: 0.25em;
     padding-left: 0.25em;
     text-align: left;
-}
+  }
 
-div.hymn table td.chorus {
+  div.hymn table td.chorus {
     padding: 0.25em 0 0.25em 1.5em;
-}
+  }
 
-.footnote {
+  .footnote {
     font-size: 0.75em;
-}
+  }
 
-.praise {
+  .praise {
     padding-top: 0.25em;
     font-size: 0.875em;
-}
+  }
 
-.body {
+  .body {
     padding-top: 0.25em;
     font-size: 0.875em;
-}
+  }
 
-.scripture {
+  .scripture {
     padding-top: 0.25em;
     font-size: 0.875em;
-}
+  }
 
-.container {
+  .container {
     overflow: hidden;
-
-}
+  }
 }

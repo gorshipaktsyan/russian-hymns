@@ -23,7 +23,7 @@ const doubleTapDelay = 300;
 const clickedPlace = window.innerWidth / 2;
 const isMobile = navigator.maxTouchPoints > 0;
 
-function Hymn({ open, currentNumber, setCurrentNumber }) {
+function Hymn({ currentNumber, setCurrentNumber }) {
   let lastClickTime = 0;
   const savedFontSize = persistentStore.get("fontSize");
 
@@ -36,6 +36,7 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
     [currentNumber]
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function clickHandler(e) {
     e.preventDefault();
     const currentTime = new Date().getTime();
@@ -43,8 +44,8 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
 
     if (timeDifference <= doubleTapDelay) {
       e.clientX < clickedPlace
-        ? setFontSize((prevSize) => Math.max(prevSize - 0.2, minFontSize))
-        : setFontSize((prevSize) => Math.min(prevSize + 0.2, maxFontSize));
+        ? setFontSize((prevSize) => Math.max(prevSize - 0.1, minFontSize))
+        : setFontSize((prevSize) => Math.min(prevSize + 0.1, maxFontSize));
       lastClickTime = 0;
     } else {
       lastClickTime = currentTime;
@@ -53,9 +54,6 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe() {
-    if (open) {
-      return;
-    }
     const index = hymns.findIndex(
       (el) => Number(el.number) === Number(currentNumber[0] + 1)
     );
@@ -65,9 +63,6 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleRightSwipe() {
-    if (open) {
-      return;
-    }
     const index = hymns.findIndex(
       (el) => Number(el.number) === Number(currentNumber[0] - 1)
     );
@@ -143,28 +138,9 @@ function Hymn({ open, currentNumber, setCurrentNumber }) {
             <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
             {!isMobile && (
               <>
-                <ArrowCircleLeftIcon
-                  sx={{
-                    position: "fixed",
-                    top: "400px",
-                    left: "300px",
-                    width: "40px",
-                    height: "40px",
-                  }}
-                  onClick={() => handleRightSwipe()}
-                />
+                <ArrowCircleLeftIcon onClick={() => handleRightSwipe()} />
                 ,
-                <ArrowCircleRightIcon
-                  sx={{
-                    position: "fixed",
-                    top: "400px",
-                    right: "300px",
-                    fontSize: "large",
-                    width: "40px",
-                    height: "40px",
-                  }}
-                  onClick={() => handleLeftSwipe()}
-                />
+                <ArrowCircleRightIcon onClick={() => handleLeftSwipe()} />
               </>
             )}
             {index !== hymn.length - 1 && <StyledDivider />}

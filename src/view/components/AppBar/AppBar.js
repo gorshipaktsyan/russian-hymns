@@ -7,7 +7,13 @@ import ClearIcon from "../../../assets/icons/Clear.png";
 import ConfirmModal from "./ConfirmationModal";
 import persistentStore from "../../services/PersistentStore";
 import AppBar from "@mui/material/AppBar";
-import { Box, IconButton, Toolbar } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Toolbar,
+  Slide,
+  useScrollTrigger,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -48,66 +54,81 @@ function AppBarComponent({
     setHistoryUpdated("true");
     setOpenConfirm(false);
   }
+  function HideOnScroll(props) {
+    const { children, window } = props;
+    const trigger = useScrollTrigger({
+      target: window ? window() : undefined,
+    });
 
+    return (
+      <Slide appear={false} direction="down" in={!trigger}>
+        {children}
+      </Slide>
+    );
+  }
   return (
-    <AppBar
-      component="nav"
-      sx={{
-        backgroundColor: "black",
-      }}
-    >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-        >
-          <MenuIcon sx={{ fontSize: "30px" }} />
-        </IconButton>
-        <Box
-          sx={{ fontSize: "20px", cursor: "default" }}
-          dangerouslySetInnerHTML={{ __html: title }}
-        />
-        {pathname !== "/russian-hymns/search" && (
-          <Box
-            sx={{
-              flexGrow: "1",
-            }}
+    <HideOnScroll>
+      <AppBar
+        position="fixed"
+        component="nav"
+        sx={{
+          backgroundColor: "black",
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
           >
-            <SearchBar />
-          </Box>
-        )}
-        {(pathname === "/russian-hymns" || pathname === "/russian-hymns/") && (
-          <>
-            <IconButton color="inherit" onClick={handleBookmarkClick}>
-              {currentHymnNumber &&
-                (saved ? (
-                  <BookmarkIcon sx={{ fontSize: "30px" }} />
-                ) : (
-                  <BookmarkBorderIcon sx={{ fontSize: "30px" }} />
-                ))}
-            </IconButton>
-          </>
-        )}
-        {pathname === "/russian-hymns/history" && (
-          <IconButton onClick={() => setOpenConfirm(true)}>
-            <img
-              src={ClearIcon}
-              alt="Clear Icon"
-              style={{ width: "24px", height: "24px" }}
-            ></img>
+            <MenuIcon sx={{ fontSize: "30px" }} />
           </IconButton>
-        )}
-        {openConfirm && (
-          <ConfirmModal
-            handleClearHistory={handleClearHistory}
-            setOpenConfirm={setOpenConfirm}
-            openConfirm={openConfirm}
+          <Box
+            sx={{ fontSize: "20px", cursor: "default" }}
+            dangerouslySetInnerHTML={{ __html: title }}
           />
-        )}
-      </Toolbar>
-    </AppBar>
+          {pathname !== "/russian-hymns/search" && (
+            <Box
+              sx={{
+                flexGrow: "1",
+              }}
+            >
+              <SearchBar />
+            </Box>
+          )}
+          {(pathname === "/russian-hymns" ||
+            pathname === "/russian-hymns/") && (
+            <>
+              <IconButton color="inherit" onClick={handleBookmarkClick}>
+                {currentHymnNumber &&
+                  (saved ? (
+                    <BookmarkIcon sx={{ fontSize: "30px" }} />
+                  ) : (
+                    <BookmarkBorderIcon sx={{ fontSize: "30px" }} />
+                  ))}
+              </IconButton>
+            </>
+          )}
+          {pathname === "/russian-hymns/history" && (
+            <IconButton onClick={() => setOpenConfirm(true)}>
+              <img
+                src={ClearIcon}
+                alt="Clear Icon"
+                style={{ width: "24px", height: "24px" }}
+              ></img>
+            </IconButton>
+          )}
+          {openConfirm && (
+            <ConfirmModal
+              handleClearHistory={handleClearHistory}
+              setOpenConfirm={setOpenConfirm}
+              openConfirm={openConfirm}
+            />
+          )}
+        </Toolbar>
+      </AppBar>
+    </HideOnScroll>
   );
 }
 

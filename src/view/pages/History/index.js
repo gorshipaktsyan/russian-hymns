@@ -11,6 +11,7 @@ function History({ setCurrentNumber, historyUpdated }) {
   const navigate = useNavigate();
   const groupedHymnsData = useMemo(() => {
     return historyStore.get("searchedHymns");
+    // eslint-disable-next-line
   }, [historyUpdated]);
 
   function handleClick(id) {

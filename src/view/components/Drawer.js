@@ -6,8 +6,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 
-const drawerWidth = 240;
-
 function DrawerComponent({
   navItems,
   mobileOpen,
@@ -28,7 +26,11 @@ function DrawerComponent({
         keepMounted: true,
       }}
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+        "& .MuiDrawer-paper": {
+          boxSizing: "border-box",
+          width: "240px",
+          marginTop: "64px",
+        },
       }}
     >
       <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -47,7 +49,7 @@ function DrawerComponent({
         </List>
       </Box>
       <Box sx={{ marginLeft: "10px", position: "absolute", bottom: 0 }}>
-        <p>Версия программы: 1.1.5</p>
+        <p>Версия программы: 1.1.6</p>
       </Box>
     </Drawer>
   );
