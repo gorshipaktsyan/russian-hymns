@@ -11,16 +11,16 @@ function formattingDate(date) {
   const dateFormatter = new Intl.DateTimeFormat("ru", options);
   return dateFormatter.format(new Date(date));
 }
-
+const key = "savedHymns";
 class BookmarksStore {
-  set(key, value) {
+  set(value) {
     const currentDate = new Date();
     const savedHymnsList = persistentStore.get(key) || [];
     const hymnObject = { date: currentDate, number: value };
     const updatedHymns = [...new Set([hymnObject, ...savedHymnsList])];
     persistentStore.set(key, updatedHymns);
   }
-  get(key) {
+  get() {
     const savedHymns = persistentStore.get(key) || [];
     const result = [];
     savedHymns.forEach((saved) => {
@@ -53,14 +53,14 @@ class BookmarksStore {
     });
     return result;
   }
-  remove(key, id) {
+  remove(id) {
     try {
       const hymns = persistentStore.get(key) || [];
       const updatedHymns = hymns.filter((hymn) => hymn.number !== id);
       persistentStore.set(key, updatedHymns);
     } catch (error) {
       console.error(
-        `Error removing item "${key}" from local storage: ${error.message}`
+        `Error removing item ${id} from local storage: ${error.message}`
       );
     }
   }

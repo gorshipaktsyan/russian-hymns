@@ -17,6 +17,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function AppBarComponent({
   handleDrawerToggle,
@@ -29,7 +30,7 @@ function AppBarComponent({
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const { pathname } = useLocation();
-  const savedHymnsList = bookmarksStore.get("savedHymns");
+  const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
 
   useEffect(() => {
@@ -43,10 +44,10 @@ function AppBarComponent({
 
   const handleBookmarkClick = () => {
     if (saved) {
-      bookmarksStore.remove("savedHymns", currentHymnNumber);
+      bookmarksStore.remove(currentHymnNumber);
       setSaved(false);
     } else {
-      bookmarksStore.set("savedHymns", currentHymnNumber);
+      bookmarksStore.set(currentHymnNumber);
       setSaved(true);
     }
   };
@@ -95,7 +96,7 @@ function AppBarComponent({
               flexGrow: "1",
             }}
           >
-            {!isMobile && pathname !== "/russian-hymns/search" && <SearchBar />}
+            {!isMobile && pathname !== "/search" && <SearchBar />}
           </Box>
           {(pathname === "" || pathname === "/") && (
             <>
@@ -109,14 +110,11 @@ function AppBarComponent({
               </IconButton>
             </>
           )}
-          {pathname === "/russian-hymns/history" && (
-            <IconButton onClick={() => setOpenConfirm(true)}>
-              <img
-                src={ClearIcon}
-                alt="Clear Icon"
-                style={{ width: "24px", height: "24px" }}
-              ></img>
-            </IconButton>
+          {pathname === "/history" && (
+            <DeleteIcon
+              sx={{ "&:hover": { color: "grey", cursor: "pointer" } }}
+              onClick={() => setOpenConfirm(true)}
+            />
           )}
           {openConfirm && (
             <ConfirmModal

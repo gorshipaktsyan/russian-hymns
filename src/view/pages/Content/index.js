@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TitlesList from "./TitlesList";
 import SubTitlesList from "./SubTitlesList";
-import historyStore from "../../services/HistoryStore";
 import StyledComponents from "../../../utils/sharedStyles";
 
 const { StyledBox } = StyledComponents;
@@ -15,8 +14,7 @@ function Content({ setCurrentNumber }) {
   }
 
   function handleHymnClick(id) {
-    const hymnIds = historyStore.set("searchedHymns", id);
-    setCurrentNumber(hymnIds);
+    setCurrentNumber([id]);
     navigate("/");
   }
 

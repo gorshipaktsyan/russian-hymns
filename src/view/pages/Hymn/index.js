@@ -30,9 +30,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
   const savedFontSize = persistentStore.get("fontSize");
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const [timeOnPage, setTimeOnPage] = useState(0);
-  const [savedToHistory, setSavedToHistory] = useState(false);
-  const [previousHymnNumber, setPreviousHymnNumber] = useState();
-
+  const [prevNumber, setPrevNumber] = useState();
   const hymn = useMemo(
     () =>
       currentNumber.map((number) =>
@@ -120,31 +118,25 @@ function Hymn({ currentNumber, setCurrentNumber }) {
     };
   }, [handleRightSwipe, handleLeftSwipe]);
 
-  // useEffect for the timer
-  // useEffect(() => {
-  //   let timerInterval;
+  useEffect(() => {
+    let timerInterval;
+    const hasNumber = historyStore.find(currentNumber);
+    setPrevNumber(currentNumber);
+    if (!hasNumber) {
+      timerInterval = setInterval(() => {
+        setTimeOnPage((prevTime) => prevTime + 1);
+      }, 1000);
+    }
+    if (timeOnPage >= 30 && !hasNumber) {
+      historyStore.set(currentNumber);
+      setTimeOnPage(0);
+    }
+    currentNumber !== prevNumber && setTimeOnPage(0);
+    return () => {
+      clearInterval(timerInterval);
+    };
+  }, [currentNumber, timeOnPage]);
 
-  //   if (!savedToHistory) {
-  //     timerInterval = setInterval(() => {
-  //       setTimeOnPage((prevTime) => prevTime + 1);
-  //     }, 1000);
-  //     setPreviousHymnNumber(currentNumber);
-  //   }
-  //   if (timeOnPage >= 30 && !savedToHistory) {
-  //     historyStore.set("searchedHymns", currentNumber);
-  //     setSavedToHistory(true);
-  //     setTimeOnPage(0);
-  //   }
-
-  //   if (previousHymnNumber !== currentNumber) {
-  //     setSavedToHistory(false);
-  //   }
-  //   return () => {
-  //     clearInterval(timerInterval);
-  //   };
-  // }, [savedToHistory, currentNumber, timeOnPage]);
-
-  // console.log(timeOnPage);
   return (
     <Box
       className="hymns-page-wrapper"

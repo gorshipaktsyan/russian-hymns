@@ -5,27 +5,23 @@ import { Box, Divider } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TransitionGroup } from "react-transition-group";
 import Collapse from "@mui/material/Collapse";
-import historyStore from "../../services/HistoryStore";
 import StyledComponents from "../../../utils/sharedStyles";
 import bookmarksStore from "../../services/BookmarksStore";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
 function Bookmarks({ setCurrentNumber }) {
-  const [savedHymns, setSavedHymns] = useState(
-    bookmarksStore.get("savedHymns")
-  );
+  const [savedHymns, setSavedHymns] = useState(bookmarksStore.get());
   const navigate = useNavigate();
 
-  function handleClick(ids) {
-    const hymnIds = historyStore.set("searchedHymns", ids);
-    setCurrentNumber(hymnIds);
+  function handleClick(id) {
+    setCurrentNumber([id]);
     navigate("/");
   }
 
   function handleDelete(id) {
-    bookmarksStore.remove("savedHymns", id);
-    const updatedSavedHymns = bookmarksStore.get("savedHymns");
+    bookmarksStore.remove(id);
+    const updatedSavedHymns = bookmarksStore.get();
     setSavedHymns(updatedSavedHymns);
   }
   return (

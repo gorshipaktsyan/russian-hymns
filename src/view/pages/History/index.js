@@ -10,7 +10,7 @@ const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 function History({ setCurrentNumber, historyUpdated }) {
   const navigate = useNavigate();
   const groupedHymnsData = useMemo(() => {
-    return historyStore.get("searchedHymns");
+    return historyStore.get();
     // eslint-disable-next-line
   }, [historyUpdated]);
 

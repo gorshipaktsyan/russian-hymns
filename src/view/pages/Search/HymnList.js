@@ -4,7 +4,6 @@ import hymns from "../../services/storage/hymns.json";
 import Snackbar from "@mui/material/Snackbar";
 import { Divider, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import historyStore from "../../services/HistoryStore";
 import StyledComponents from "../../../utils/sharedStyles";
 import SearchStyledComponents from "./styles";
 
@@ -22,8 +21,7 @@ function HymnList({
   const handleClose = () => setOpenHymnList(false);
 
   function handleClick(id) {
-    const hymnIds = historyStore.set("searchedHymns", id);
-    setCurrentNumber(hymnIds);
+    setCurrentNumber([id]);
     navigate("/");
   }
   const handleBackClick = () => {

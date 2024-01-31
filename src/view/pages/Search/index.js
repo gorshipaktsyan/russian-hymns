@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import HymnList from "./HymnList";
 import hymns from "../../services/storage/hymns.json";
 import Snackbar from "@mui/material/Snackbar";
-import historyStore from "../../services/HistoryStore";
 import StyledComponents from "../../../utils/sharedStyles";
 import SearchStyledComponents from "./styles";
 
@@ -50,7 +49,6 @@ function Search({ setCurrentNumber }) {
       number = [randomNumber];
     }
     if (number.length) {
-      historyStore.set("searchedHymns", number);
       navigate("/");
     }
     setErrorAlert(true);

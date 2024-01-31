@@ -6,7 +6,7 @@ const SearchBarStyledComponents = {
   StyledSearchIcon: styled(SearchIcon)({
     fontSize: "30px",
     marginRight: "10px",
-    cursor: "pointer",
+    "&:hover": { color: "grey", cursor: "pointer" },
   }),
   SearchedBox: styled(Box)({
     display: "flex",
