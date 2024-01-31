@@ -16,8 +16,7 @@ const config = {
   swipeDuration: Infinity,
   touchEventOptions: { passive: true },
 };
-const { StyledDivider, ArrowCircleRightIcon, ArrowCircleLeftIcon } =
-  HymnStyledComponents;
+const { StyledDivider, ArrowRightIcon, ArrowLeftIcon } = HymnStyledComponents;
 
 const minFontSize = 1.0;
 const maxFontSize = 1.8;
@@ -160,9 +159,9 @@ function Hymn({ currentNumber, setCurrentNumber }) {
             <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
             {!isMobile && (
               <>
-                <ArrowCircleLeftIcon onClick={() => handleRightSwipe()} />
+                <ArrowLeftIcon onClick={() => handleRightSwipe()} />
                 ,
-                <ArrowCircleRightIcon onClick={() => handleLeftSwipe()} />
+                <ArrowRightIcon onClick={() => handleLeftSwipe()} />
               </>
             )}
             {index !== hymn.length - 1 && <StyledDivider />}
