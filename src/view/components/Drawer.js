@@ -29,7 +29,7 @@ function DrawerComponent({
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
           width: "240px",
-          marginTop: "64px",
+          paddingTop: "64px",
         },
       }}
     >
@@ -49,7 +49,7 @@ function DrawerComponent({
         </List>
       </Box>
       <Box sx={{ marginLeft: "10px", position: "absolute", bottom: 0 }}>
-        <p>Версия программы: 1.1.6</p>
+        <p>Версия программы: 1.1.7</p>
       </Box>
     </Drawer>
   );

@@ -73,6 +73,7 @@ function AppBarComponent({
         component="nav"
         sx={{
           backgroundColor: "black",
+          zIndex: 1500,
         }}
       >
         <Toolbar>
