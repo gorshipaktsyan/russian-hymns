@@ -63,11 +63,11 @@ function registerValidSW(swUrl, config) {
     .then((registration) => {
       // Check for updates at start.
       registration.update();
-      // Check for updates every 5 min.
+      // Check for updates every 2 min.
       setInterval(() => {
         registration.update();
         console.debug("Checked for update...");
-      }, 1000 * 60 * 5);
+      }, 1000 * 60 * 2);
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
