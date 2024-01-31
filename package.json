@@ -1,6 +1,6 @@
 {
-  "homepage": "https://gorshipaktsyan.github.io/russian-hymns",
-  "name": "russian-hymns",
+  "homepage": "https://ruhymns.com",
+  "name": "ruhymns",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
