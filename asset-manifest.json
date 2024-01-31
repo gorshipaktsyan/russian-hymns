@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/russian-hymns/static/css/main.5054c5c3.css",
-    "main.js": "/russian-hymns/static/js/main.983685f6.js",
-    "static/js/787.06d1fc33.chunk.js": "/russian-hymns/static/js/787.06d1fc33.chunk.js",
-    "service-worker.js": "/russian-hymns/service-worker.js",
-    "static/media/Clear.png": "/russian-hymns/static/media/Clear.0de61a3afb7c9596e8ef.png",
-    "index.html": "/russian-hymns/index.html",
-    "main.5054c5c3.css.map": "/russian-hymns/static/css/main.5054c5c3.css.map",
-    "main.983685f6.js.map": "/russian-hymns/static/js/main.983685f6.js.map",
-    "787.06d1fc33.chunk.js.map": "/russian-hymns/static/js/787.06d1fc33.chunk.js.map"
+    "main.css": "/static/css/main.5054c5c3.css",
+    "main.js": "/static/js/main.531c9e23.js",
+    "static/js/787.f2b47adf.chunk.js": "/static/js/787.f2b47adf.chunk.js",
+    "service-worker.js": "/service-worker.js",
+    "static/media/Clear.png": "/static/media/Clear.0de61a3afb7c9596e8ef.png",
+    "index.html": "/index.html",
+    "main.5054c5c3.css.map": "/static/css/main.5054c5c3.css.map",
+    "main.531c9e23.js.map": "/static/js/main.531c9e23.js.map",
+    "787.f2b47adf.chunk.js.map": "/static/js/787.f2b47adf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5054c5c3.css",
-    "static/js/main.983685f6.js"
+    "static/js/main.531c9e23.js"
   ]
 }
