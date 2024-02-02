@@ -6,7 +6,8 @@ import "./index.scss";
 import HymnStyledComponents from "./styles";
 import persistentStore from "../../services/PersistentStore";
 import historyStore from "../../services/HistoryStore";
-
+import changeFontSize from "../../../utils/changeFontSize";
+import { useDoubleTap } from "../../../utils/DoubleTap";
 const config = {
   delta: 10,
   preventScrollOnSwipe: false,
@@ -18,14 +19,9 @@ const config = {
 };
 const { StyledDivider, ArrowRightIcon, ArrowLeftIcon } = HymnStyledComponents;
 
-const minFontSize = 1.0;
-const maxFontSize = 1.8;
-const doubleTapDelay = 300;
-const clickedPlace = window.innerWidth / 2;
 const isMobile = navigator.maxTouchPoints > 0;
 
 function Hymn({ currentNumber, setCurrentNumber }) {
-  let lastClickTime = 0;
   const savedFontSize = persistentStore.get("fontSize");
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const [timeOnPage, setTimeOnPage] = useState(0);
@@ -38,22 +34,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
     [currentNumber]
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function clickHandler(e) {
-    e.preventDefault();
-    const currentTime = new Date().getTime();
-    const timeDifference = currentTime - lastClickTime;
-
-    if (timeDifference <= doubleTapDelay) {
-      e.clientX < clickedPlace
-        ? setFontSize((prevSize) => Math.max(prevSize - 0.1, minFontSize))
-        : setFontSize((prevSize) => Math.min(prevSize + 0.1, maxFontSize));
-      lastClickTime = 0;
-    } else {
-      lastClickTime = currentTime;
-    }
-  }
-
+  useDoubleTap(setFontSize);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe() {
     const index = hymns.findIndex(
@@ -84,24 +65,9 @@ function Hymn({ currentNumber, setCurrentNumber }) {
   );
 
   useEffect(() => {
-    const boxElement = document.querySelector(".hymns-page-wrapper");
-    if (boxElement) {
-      boxElement.style.fontSize = `${fontSize.toFixed(1)}em`;
-      persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
-    }
-    return () => {
-      if (boxElement) {
-        boxElement.style.fontSize = "";
-      }
-    };
+    changeFontSize(".hymns-page-wrapper", fontSize);
+    persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
   }, [fontSize]);
-
-  useEffect(() => {
-    document.addEventListener("click", clickHandler);
-    return () => {
-      document.removeEventListener("click", clickHandler);
-    };
-  }, [clickHandler]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -121,6 +87,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
     let timerInterval;
     const hasNumber = historyStore.find(currentNumber);
     setPrevNumber(currentNumber);
+
     if (!hasNumber) {
       timerInterval = setInterval(() => {
         setTimeOnPage((prevTime) => prevTime + 1);
@@ -131,6 +98,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
       setTimeOnPage(0);
     }
     currentNumber !== prevNumber && setTimeOnPage(0);
+
     return () => {
       clearInterval(timerInterval);
     };
