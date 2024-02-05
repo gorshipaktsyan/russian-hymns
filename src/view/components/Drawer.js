@@ -49,7 +49,7 @@ function DrawerComponent({
         </List>
       </Box>
       <Box sx={{ marginLeft: "10px", position: "absolute", bottom: 0 }}>
-        <p>Версия программы: 1.2.3</p>
+        <p>Версия программы: 1.2.4</p>
       </Box>
     </Drawer>
   );
