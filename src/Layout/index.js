@@ -10,6 +10,9 @@ import findLocation, {
   currentNumberStore,
 } from "../view/services/LayoutService";
 import SearchBar from "../view/components/searchBar/SearchBar";
+import persistentStore from "../view/services/PersistentStore";
+import { useDoubleTap } from "../utils/DoubleTap";
+import changeFontSize from "../utils/changeFontSize";
 
 //let deferredPrompt;
 
@@ -34,6 +37,7 @@ const navItems = [
   { title: "Справка", route: "reference" },
   { title: "O программе", route: "about" },
 ];
+const isMobile = navigator.maxTouchPoints > 0;
 
 function Layout() {
   const { pathname } = useLocation();
@@ -43,16 +47,14 @@ function Layout() {
   );
   const [title, setTitle] = useState("Поиск");
   const [historyUpdated, setHistoryUpdated] = useState(false);
-  const isMobile = navigator.maxTouchPoints > 0;
+  const savedFontSize = persistentStore.get("fontSize");
+  const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
+  useDoubleTap(setFontSize);
 
-  /*function handlePress() {
-   if (deferredPrompt) {
-     alert('not found')
-     deferredPrompt.prompt()
-   } else {
-     alert('not found')
-   }
- }*/
+  useEffect(() => {
+    changeFontSize(fontSize);
+    persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
+  }, [fontSize]);
   useEffect(() => {
     if (pathname === "/hymns") {
       currentNumberStore.set(currentNumber);
@@ -80,12 +82,14 @@ function Layout() {
         setHistoryUpdated={setHistoryUpdated}
         isMobile={isMobile}
       />
-      <App
-        currentNumber={currentNumber}
-        setCurrentNumber={setCurrentNumber}
-        setTitle={setTitle}
-        historyUpdated={historyUpdated}
-      />
+      <Box className="container">
+        <App
+          currentNumber={currentNumber}
+          setCurrentNumber={setCurrentNumber}
+          setTitle={setTitle}
+          historyUpdated={historyUpdated}
+        />
+      </Box>
       <Drawer
         handleDrawerToggle={handleDrawerToggle}
         navItems={navItems}
