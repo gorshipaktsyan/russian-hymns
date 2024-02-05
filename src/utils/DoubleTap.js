@@ -5,6 +5,7 @@ const maxFontSize = 1.8;
 const doubleTapDelay = 300;
 const clickedPlace = window.innerWidth / 2;
 let lastClickTime = 0;
+const isMobile = navigator.maxTouchPoints > 0;
 
 export default function doubleTap(e, setFontSize) {
   e.preventDefault();
@@ -24,6 +25,7 @@ export function useDoubleTap(setFontSize) {
   useEffect(() => {
     const handleClick = (e) => doubleTap(e, setFontSize);
 
+    // isMobile &&
     document.addEventListener("click", handleClick);
 
     return () => {

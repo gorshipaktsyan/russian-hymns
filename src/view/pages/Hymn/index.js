@@ -6,8 +6,7 @@ import "./index.scss";
 import HymnStyledComponents from "./styles";
 import persistentStore from "../../services/PersistentStore";
 import historyStore from "../../services/HistoryStore";
-import changeFontSize from "../../../utils/changeFontSize";
-import { useDoubleTap } from "../../../utils/DoubleTap";
+
 const config = {
   delta: 10,
   preventScrollOnSwipe: false,
@@ -22,8 +21,6 @@ const { StyledDivider, ArrowRightIcon, ArrowLeftIcon } = HymnStyledComponents;
 const isMobile = navigator.maxTouchPoints > 0;
 
 function Hymn({ currentNumber, setCurrentNumber }) {
-  const savedFontSize = persistentStore.get("fontSize");
-  const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const hymn = useMemo(
@@ -33,8 +30,6 @@ function Hymn({ currentNumber, setCurrentNumber }) {
       ),
     [currentNumber]
   );
-
-  useDoubleTap(setFontSize);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe() {
     const index = hymns.findIndex(
@@ -63,18 +58,6 @@ function Hymn({ currentNumber, setCurrentNumber }) {
     },
     config
   );
-
-  useEffect(() => {
-    changeFontSize(".hymns-page-wrapper", fontSize);
-    persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
-  }, [fontSize]);
-
-  useEffect(() => {
-    isMobile && document.addEventListener("click", clickHandler);
-    return () => {
-      document.removeEventListener("click", clickHandler);
-    };
-  }, [clickHandler]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
