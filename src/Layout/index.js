@@ -6,7 +6,9 @@ import hymns from "../view/services/storage/hymns.json";
 import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
 import { useLocation } from "react-router-dom";
-import findLocation from "../view/services/LayoutService";
+import findLocation, {
+  currentNumberStore,
+} from "../view/services/LayoutService";
 import SearchBar from "../view/components/searchBar/SearchBar";
 
 //let deferredPrompt;
@@ -36,7 +38,9 @@ const navItems = [
 function Layout() {
   const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [currentNumber, setCurrentNumber] = useState([1]);
+  const [currentNumber, setCurrentNumber] = useState(() =>
+    currentNumberStore.get()
+  );
   const [title, setTitle] = useState("Поиск");
   const [historyUpdated, setHistoryUpdated] = useState(false);
   const isMobile = navigator.maxTouchPoints > 0;
@@ -51,6 +55,7 @@ function Layout() {
  }*/
   useEffect(() => {
     if (pathname === "/hymns") {
+      currentNumberStore.set(currentNumber);
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
       setTitle(
         currentNumber.length > 1
