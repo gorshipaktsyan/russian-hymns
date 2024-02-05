@@ -97,7 +97,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
   }, [fontSize]);
 
   useEffect(() => {
-    document.addEventListener("click", clickHandler);
+    isMobile && document.addEventListener("click", clickHandler);
     return () => {
       document.removeEventListener("click", clickHandler);
     };

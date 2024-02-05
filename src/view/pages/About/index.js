@@ -2,7 +2,7 @@ import StyledComponents from "../../../utils/sharedStyles";
 
 const { InfoBox, StyledLink } = StyledComponents;
 
-function About({ version = "1.0.0" }) {
+function About() {
   return (
     <InfoBox>
       <p>
@@ -18,7 +18,7 @@ function About({ version = "1.0.0" }) {
         {`Официальный сайт «Коллектора библейской книги» — `}
         <StyledLink href="http://kbk.ru">kbk.ru</StyledLink>.
       </p>
-      <p>&copy;{` «Коллектор библейской книги», 2015. Все права защищены.`}</p>
+      <p>&copy;{` «Коллектор библейской книги», 2024. Все права защищены.`}</p>
     </InfoBox>
   );
 }

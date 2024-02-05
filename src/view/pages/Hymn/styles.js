@@ -16,8 +16,9 @@ const HymnStyledComponents = {
     width: "50px",
     height: "50px",
     cursor: "pointer",
+    color: "grey",
     ":hover": {
-      color: "gray",
+      color: "black",
     },
   }),
   ArrowLeftIcon: styled(ArrowBackIosIcon)({
@@ -28,8 +29,10 @@ const HymnStyledComponents = {
     width: "50px",
     height: "50px",
     cursor: "pointer",
+    color: "grey",
+
     ":hover": {
-      color: "gray",
+      color: "black",
     },
   }),
 };
