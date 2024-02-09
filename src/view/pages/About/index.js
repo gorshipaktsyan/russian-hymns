@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from "react";
-import persistentStore from "../../services/PersistentStore";
+import React from "react";
 import StyledComponents from "../../../utils/sharedStyles";
-import { useDoubleTap } from "../../../utils/DoubleTap";
-import changeFontSize from "../../../utils/changeFontSize";
 
 const { InfoBox, StyledLink } = StyledComponents;
 
 function About() {
-  const savedFontSize = persistentStore.get("fontSize");
-  const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
-  useDoubleTap(setFontSize);
-  useEffect(() => {
-    changeFontSize(".infoBox", fontSize);
-    persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
-  }, [fontSize]);
-
   return (
     <InfoBox className="infoBox">
       <p>
