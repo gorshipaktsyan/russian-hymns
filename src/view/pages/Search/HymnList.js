@@ -1,6 +1,5 @@
 import React from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
-import hymns from "../../services/storage/hymns.json";
 import Snackbar from "@mui/material/Snackbar";
 import { Divider, Modal } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -13,11 +12,10 @@ const { StyledModalBox, StyledModalList } = SearchStyledComponents;
 function HymnList({
   openHymnList,
   setOpenHymnList,
-  searchedText,
+  findedHymns,
   setCurrentNumber,
   navigate,
 }) {
-  const hymnsByText = hymns.filter((h) => h.text.includes(searchedText));
   const handleClose = () => setOpenHymnList(false);
 
   function handleClick(id) {
@@ -27,7 +25,7 @@ function HymnList({
   const handleBackClick = () => {
     setOpenHymnList(false);
   };
-  return hymnsByText.length > 0 ? (
+  return findedHymns.length > 0 ? (
     <div>
       <Modal
         open={openHymnList}
@@ -37,12 +35,12 @@ function HymnList({
       >
         <StyledModalBox>
           <StyledModalList>
-            {hymnsByText.map((h, index) => (
+            {findedHymns.map((h, index) => (
               <HymnTitle
                 title={h?.first_string}
                 number={h.number}
                 id={h.number}
-                hymnsList={hymnsByText}
+                hymnsList={findedHymns}
                 index={index}
                 BorderBottom={Divider}
                 onTitleClick={handleClick}

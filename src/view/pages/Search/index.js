@@ -5,6 +5,7 @@ import hymns from "../../services/storage/hymns.json";
 import Snackbar from "@mui/material/Snackbar";
 import StyledComponents from "../../../utils/sharedStyles";
 import SearchStyledComponents from "./styles";
+import findText from "../../../utils/findText";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
@@ -14,6 +15,7 @@ function Search({ setCurrentNumber }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
+  const [findedHymns, setFindedHymns] = useState("");
   const [openHymnList, setOpenHymnList] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const handleClose = () => setErrorAlert(false);
@@ -41,6 +43,7 @@ function Search({ setCurrentNumber }) {
     } else if (engNumber) {
       number = searchEnglishNumber();
     } else if (searchedText) {
+      setFindedHymns(findText(searchedText));
       setOpenHymnList(true);
       return;
     } else {
@@ -58,8 +61,7 @@ function Search({ setCurrentNumber }) {
   }
   function handleTextChange(e) {
     const inputValue = e.target.value;
-    const inputValueLowerCase = inputValue.toLowerCase();
-    setSearchedText(inputValueLowerCase);
+    setSearchedText(inputValue);
   }
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -126,7 +128,7 @@ function Search({ setCurrentNumber }) {
       <HymnList
         openHymnList={openHymnList}
         setOpenHymnList={setOpenHymnList}
-        searchedText={searchedText}
+        findedHymns={findedHymns}
         setCurrentNumber={setCurrentNumber}
         navigate={navigate}
       />

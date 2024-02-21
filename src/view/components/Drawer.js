@@ -37,7 +37,7 @@ function DrawerComponent({
         <List>
           {navItems.slice(1).map((item) => (
             <ListItem
-              key={item.tittle}
+              key={item.title}
               disablePadding
               onClick={() => handleNavigate(item)}
             >
