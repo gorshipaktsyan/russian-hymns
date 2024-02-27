@@ -26,7 +26,7 @@ function HymnTitle({
   return (
     <>
       <Box
-        key={id}
+        key={index}
         sx={{
           display: "flex",
           alignItems: "center",

@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TitlesList from "./TitlesList";
+import { Box, Divider } from "@mui/material";
 import SubTitlesList from "./SubTitlesList";
 import StyledComponents from "../../../utils/sharedStyles";
+import HymnTitle from "../../components/hymnTitle/HymnTitle";
+import titles from "../../services/storage/titles.json";
 
-const { StyledBox } = StyledComponents;
-function Content({ setCurrentNumber }) {
+const { StyledList, StyledBox } = StyledComponents;
+function TitlesList({ setCurrentNumber }) {
   const [selectedTitle, setSelectedTitle] = useState(null);
   const navigate = useNavigate();
 
   function handleTitleClick(id) {
-    setSelectedTitle(id);
+    setSelectedTitle((prevTitleId) => (prevTitleId === id ? null : id));
   }
 
   function handleHymnClick(id) {
@@ -20,17 +22,28 @@ function Content({ setCurrentNumber }) {
 
   return (
     <StyledBox>
-      {selectedTitle ? (
-        <SubTitlesList
-          selectedTitle={selectedTitle}
-          setSelectedTitle={setSelectedTitle}
-          handleHymnClick={handleHymnClick}
-        />
-      ) : (
-        <TitlesList handleTitleClick={handleTitleClick} />
-      )}
+      <StyledList>
+        {titles.map((title, index) => (
+          <Box key={index}>
+            <HymnTitle
+              title={title?.name}
+              id={title._id}
+              hymnsList={titles}
+              index={index}
+              BorderBottom={Divider}
+              onTitleClick={handleTitleClick}
+            />
+            {selectedTitle === title._id && (
+              <SubTitlesList
+                selectedTitle={selectedTitle}
+                handleHymnClick={handleHymnClick}
+              />
+            )}
+          </Box>
+        ))}
+      </StyledList>
     </StyledBox>
   );
 }
 
-export default Content;
+export default TitlesList;

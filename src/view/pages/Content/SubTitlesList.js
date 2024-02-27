@@ -1,72 +1,65 @@
-import { useState, useMemo } from 'react'
-import HymnTitle from '../../components/hymnTitle/HymnTitle'
-import hymns from '../../services/storage/hymns.json'
-import Subtitles from '../../services/storage/subtitles.json'
-import { Divider } from '@mui/material'
-import Accordion from '@mui/material/Accordion'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import Typography from '@mui/material/Typography'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import AddIcon from '@mui/icons-material/ArrowBack'
-import StyledComponents from '../../../utils/sharedStyles'
+import { useState, useMemo, useEffect } from "react";
+import HymnTitle from "../../components/hymnTitle/HymnTitle";
+import hymns from "../../services/storage/hymns.json";
+import Subtitles from "../../services/storage/subtitles.json";
+import { Box, Divider } from "@mui/material";
+import StyledContentComponents from "./styles";
 
-const { StyledList, StyledFab } = StyledComponents
+const { StyledSubList, StyledSubHymnsList } = StyledContentComponents;
 
-function SubTitlesList ({ selectedTitle, setSelectedTitle, handleHymnClick }) {
-  const [expanded, setExpanded] = useState(false)
+function SubTitlesList({ selectedTitle, handleHymnClick }) {
+  const [expandedSub, setExpandedSub] = useState(null);
   const grouped = useMemo(() => {
-    return hymns.filter(hymn => hymn.title === selectedTitle)
-  }, [selectedTitle])
+    return hymns.filter((hymn) => hymn.title === selectedTitle);
+  }, [selectedTitle]);
   const subtitles = useMemo(() => {
-    return Subtitles.filter(sub => sub.title === selectedTitle)
-  }, [selectedTitle])
+    return Subtitles.filter((sub) => sub.title === selectedTitle);
+  }, [selectedTitle]);
 
-  const handleChange = panel => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false)
+  function handleSubTitleClick(subtitleId) {
+    setExpandedSub((prevSubtitleId) =>
+      prevSubtitleId === subtitleId ? null : subtitleId
+    );
   }
-  const handleBackClick = () => {
-    setExpanded(false)
-    setSelectedTitle(null)
-  }
+
+  useEffect(() => {
+    setExpandedSub(false);
+  }, [selectedTitle]);
 
   return (
-    <StyledList>
-      {subtitles.map(subtitle => {
-        const hymns = grouped.filter(h => h.subtitle === subtitle._id)
+    <StyledSubList>
+      {subtitles.map((sub, index) => {
+        const hymns = grouped.filter((h) => h.subtitle === sub._id);
         return (
-          <Accordion
-            key={subtitle._id}
-            expanded={expanded === subtitle._id}
-            onChange={handleChange(subtitle._id)}
-          >
-            <AccordionSummary
-              sx={{ marginBottom: '0px' }}
-              expandIcon={<ExpandMoreIcon />}
-            >
-              <Typography key={subtitle._id}>{subtitle.name_upper}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {hymns.map((h, index) => (
-                <HymnTitle
-                  title={h.first_string}
-                  number={h.number}
-                  id={h._id}
-                  hymnsList={hymns}
-                  index={index}
-                  BorderBottom={Divider}
-                  onTitleClick={handleHymnClick}
-                />
-              ))}
-            </AccordionDetails>
-          </Accordion>
-        )
+          <Box key={index}>
+            <HymnTitle
+              title={sub.name_upper}
+              id={sub._id}
+              hymnsList={subtitles}
+              index={index}
+              BorderBottom={Divider}
+              onTitleClick={handleSubTitleClick}
+            />
+            {!!expandedSub && expandedSub === sub._id && (
+              <StyledSubHymnsList>
+                {hymns.map((h, index) => (
+                  <HymnTitle
+                    title={h.first_string}
+                    number={h.number}
+                    id={h._id}
+                    hymnsList={hymns}
+                    index={index}
+                    BorderBottom={Divider}
+                    onTitleClick={handleHymnClick}
+                  />
+                ))}
+              </StyledSubHymnsList>
+            )}
+          </Box>
+        );
       })}
-      <StyledFab color='primary' aria-label='add' onClick={handleBackClick}>
-        <AddIcon />
-      </StyledFab>
-    </StyledList>
-  )
+    </StyledSubList>
+  );
 }
 
-export default SubTitlesList
+export default SubTitlesList;
