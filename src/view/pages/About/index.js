@@ -15,7 +15,7 @@ function About() {
       </p>
       <p>
         По всем вопросам, связанным с программой, пожалуйста, пишите по адресу{" "}
-        <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.
+        <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{" "}
         {`Официальный сайт «Коллектора библейской книги» — `}
         <StyledLink href="http://kbk.ru">kbk.ru</StyledLink>.
       </p>

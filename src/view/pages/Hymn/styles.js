@@ -10,7 +10,7 @@ const HymnStyledComponents = {
   }),
   ArrowRightIcon: styled(ArrowForwardIosIcon)({
     position: "fixed",
-    top: "55%",
+    top: "50%",
     right: "2%",
     fontSize: "large",
     width: "50px",
@@ -23,7 +23,7 @@ const HymnStyledComponents = {
   }),
   ArrowLeftIcon: styled(ArrowBackIosIcon)({
     position: "fixed",
-    top: "55%",
+    top: "50%",
     left: "2%",
     fontSize: "large",
     width: "50px",

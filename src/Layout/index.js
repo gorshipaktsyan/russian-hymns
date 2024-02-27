@@ -55,6 +55,7 @@ function Layout() {
     changeFontSize(fontSize);
     persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
   }, [fontSize]);
+
   useEffect(() => {
     if (pathname === "/hymns") {
       currentNumberStore.set(currentNumber);
