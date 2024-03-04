@@ -32,6 +32,7 @@ function TitlesList({ setCurrentNumber }) {
               index={index}
               BorderBottom={Divider}
               onTitleClick={handleTitleClick}
+              style={{ fontWeight: selectedTitle === title._id && "bold" }}
             />
             {selectedTitle === title._id && (
               <SubTitlesList

@@ -39,6 +39,7 @@ function SubTitlesList({ selectedTitle, handleHymnClick }) {
               index={index}
               BorderBottom={Divider}
               onTitleClick={handleSubTitleClick}
+              style={{ fontWeight: expandedSub === sub._id && "bold" }}
             />
             {!!expandedSub && expandedSub === sub._id && (
               <StyledSubHymnsList>

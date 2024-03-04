@@ -22,6 +22,7 @@ function HymnTitle({
   BorderBottom,
   onIconClick,
   onTitleClick,
+  style,
 }) {
   return (
     <>
@@ -33,7 +34,7 @@ function HymnTitle({
         }}
       >
         <StyledListItem onClick={() => onTitleClick(id)}>
-          <StyledText>{title}</StyledText>
+          <StyledText style={style}>{title}</StyledText>
           <StyledText>{number}</StyledText>
         </StyledListItem>
         {Icon && (

@@ -6,14 +6,14 @@ const StyledContentComponents = {
     width: "100%",
     paddingBottom: "30px",
     maxWidth: "400px",
-    marginLeft: "50px",
-    backgroundColor: "#FDFDF1",
+    marginLeft: "25px",
+    // backgroundColor: "#FDFDF1",
   }),
   StyledSubHymnsList: styled(Box)({
     width: "100%",
     maxWidth: "400px",
-    marginLeft: "50px",
-    backgroundColor: "#FDFDF4",
+    marginLeft: "25px",
+    // backgroundColor: "#FDFDF4",
   }),
 };
 
