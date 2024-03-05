@@ -15,7 +15,7 @@ function Search({ setCurrentNumber }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
-  const [findedHymns, setFindedHymns] = useState("");
+  const [findedHymns, setFindedHymns] = useState([]);
   const [openHymnList, setOpenHymnList] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const handleClose = () => setErrorAlert(false);
@@ -44,7 +44,6 @@ function Search({ setCurrentNumber }) {
       number = searchEnglishNumber();
     } else if (searchedText) {
       setFindedHymns(findText(searchedText));
-      setOpenHymnList(true);
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
@@ -63,6 +62,7 @@ function Search({ setCurrentNumber }) {
     const inputValue = e.target.value;
     setSearchedText(inputValue);
   }
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Enter") {
@@ -74,64 +74,76 @@ function Search({ setCurrentNumber }) {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleSubmit]);
+  useEffect(() => {
+    if (findedHymns.length > 0) {
+      setOpenHymnList(true);
+      return;
+    } else if (searchedText) {
+      setErrorAlert(true);
+    }
+  }, [findedHymns]);
 
   return (
-    <StyledForm>
-      <StyledTextField
-        type="decimal"
-        label="Поиск по русскому  номеру"
-        value={rusNumber}
-        inputProps={{
-          inputMode: "decimal",
-          pattern: "[0-9]*",
-        }}
-        onChange={(e) => {
-          setRusNumber(e.target.value);
-          setEngNumber("");
-          setSearchedText("");
-        }}
-        autoFocus
-      />
-      <StyledTextField
-        type="decimal"
-        label="Поиск по английскому номеру"
-        value={engNumber}
-        inputProps={{
-          inputMode: "decimal",
-          pattern: "[0-9]*",
-        }}
-        onChange={(e) => {
-          setEngNumber(e.target.value);
-          setRusNumber("");
-          setSearchedText("");
-        }}
-      />
-      <StyledTextField
-        label="Поиск по тексту"
-        value={searchedText}
-        inputProps={{
-          inputMode: "search",
-        }}
-        onChange={(e) => {
-          handleTextChange(e);
-          setRusNumber("");
-          setEngNumber("");
-        }}
-      />
-      <StyledSearchButton
-        type="submit"
-        variant="contained"
-        onClick={handleSubmit}
-      >
-        Поиск
-      </StyledSearchButton>
-      <HymnList
-        openHymnList={openHymnList}
-        setOpenHymnList={setOpenHymnList}
-        findedHymns={findedHymns}
-        setCurrentNumber={setCurrentNumber}
-        navigate={navigate}
-      />
+    <>
+      {openHymnList ? (
+        <HymnList
+          setOpenHymnList={setOpenHymnList}
+          findedHymns={findedHymns}
+          setCurrentNumber={setCurrentNumber}
+          navigate={navigate}
+        />
+      ) : (
+        <StyledForm>
+          <StyledTextField
+            type="decimal"
+            label="Поиск по русскому  номеру"
+            value={rusNumber}
+            inputProps={{
+              inputMode: "decimal",
+              pattern: "[0-9]*",
+            }}
+            onChange={(e) => {
+              setRusNumber(e.target.value);
+              setEngNumber("");
+              setSearchedText("");
+            }}
+            autoFocus
+          />
+          <StyledTextField
+            type="decimal"
+            label="Поиск по английскому номеру"
+            value={engNumber}
+            inputProps={{
+              inputMode: "decimal",
+              pattern: "[0-9]*",
+            }}
+            onChange={(e) => {
+              setEngNumber(e.target.value);
+              setRusNumber("");
+              setSearchedText("");
+            }}
+          />
+          <StyledTextField
+            label="Поиск по тексту"
+            value={searchedText}
+            inputProps={{
+              inputMode: "search",
+            }}
+            onChange={(e) => {
+              handleTextChange(e);
+              setRusNumber("");
+              setEngNumber("");
+            }}
+          />
+          <StyledSearchButton
+            type="submit"
+            variant="contained"
+            onClick={handleSubmit}
+          >
+            Поиск
+          </StyledSearchButton>
+        </StyledForm>
+      )}
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={errorAlert}
@@ -142,7 +154,7 @@ function Search({ setCurrentNumber }) {
           Соответствующий гимн не найден!
         </StyledAlert>
       </Snackbar>
-    </StyledForm>
+    </>
   );
 }
 
