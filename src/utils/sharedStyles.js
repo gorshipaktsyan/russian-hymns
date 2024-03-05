@@ -8,6 +8,8 @@ const StyledComponents = {
     width: "100%",
   }),
   InfoBox: styled(Box)({
+    margin: "auto",
+    maxWidth: "650px",
     padding: "0px 20px 20px 20px",
     textAlign: "justify",
   }),
