@@ -14,7 +14,7 @@ export default function ConfirmModal({
   return (
     <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText sx={{ color: "black" }}>
           вы действительно хотите удалить всю историю?
         </DialogContentText>
       </DialogContent>

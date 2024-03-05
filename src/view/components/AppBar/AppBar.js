@@ -3,25 +3,19 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import bookmarksStore from "../../services/BookmarksStore";
-import ConfirmModal from "./ConfirmationModal";
-import persistentStore from "../../services/PersistentStore";
 import AppBar from "@mui/material/AppBar";
 import { Box, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 function AppBarComponent({
   handleDrawerToggle,
   title,
   currentNumber,
-  setHistoryUpdated,
   isMobile,
 }) {
   const [saved, setSaved] = useState();
-  const [openConfirm, setOpenConfirm] = useState(false);
-
   const { pathname } = useLocation();
   const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
@@ -44,11 +38,6 @@ function AppBarComponent({
       setSaved(true);
     }
   };
-  function handleClearHistory() {
-    persistentStore.clear("searchedHymns");
-    setHistoryUpdated("true");
-    setOpenConfirm(false);
-  }
 
   return (
     <AppBar
@@ -90,19 +79,6 @@ function AppBarComponent({
                 ))}
             </IconButton>
           </>
-        )}
-        {pathname === "/history" && (
-          <DeleteIcon
-            sx={{ "&:hover": { color: "grey", cursor: "pointer" } }}
-            onClick={() => setOpenConfirm(true)}
-          />
-        )}
-        {openConfirm && (
-          <ConfirmModal
-            handleClearHistory={handleClearHistory}
-            setOpenConfirm={setOpenConfirm}
-            openConfirm={openConfirm}
-          />
         )}
       </Toolbar>
     </AppBar>

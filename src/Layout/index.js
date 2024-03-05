@@ -46,7 +46,6 @@ function Layout() {
     currentNumberStore.get()
   );
   const [title, setTitle] = useState("Поиск");
-  const [historyUpdated, setHistoryUpdated] = useState(false);
   const savedFontSize = persistentStore.get("fontSize");
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   useDoubleTap(setFontSize);
@@ -80,7 +79,6 @@ function Layout() {
         handleDrawerToggle={handleDrawerToggle}
         title={title}
         currentNumber={currentNumber}
-        setHistoryUpdated={setHistoryUpdated}
         isMobile={isMobile}
       />
       <Box className="container">
@@ -88,7 +86,6 @@ function Layout() {
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
           setTitle={setTitle}
-          historyUpdated={historyUpdated}
         />
       </Box>
       <Drawer

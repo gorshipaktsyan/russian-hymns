@@ -20,6 +20,7 @@ const StyledComponents = {
     },
   }),
   StyledList: styled(List)({
+    display: "grid",
     width: "100%",
     paddingBottom: "100px",
     maxWidth: "650px",
