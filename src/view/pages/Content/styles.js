@@ -3,16 +3,17 @@ import { Box } from "@mui/material";
 
 const StyledContentComponents = {
   StyledSubList: styled(Box)({
-    width: "100%",
-    paddingBottom: "30px",
-    maxWidth: "400px",
-    marginLeft: "25px",
+    maxWidth: "630px",
+    marginLeft: "20px",
+    marginTop: "30px",
+    marginBottom: "30px",
     // backgroundColor: "#FDFDF1",
   }),
   StyledSubHymnsList: styled(Box)({
-    width: "100%",
-    maxWidth: "400px",
-    marginLeft: "25px",
+    maxWidth: "610px",
+    marginTop: "20px",
+    marginBottom: "20px",
+    marginLeft: "20px",
     // backgroundColor: "#FDFDF4",
   }),
 };

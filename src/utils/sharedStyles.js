@@ -20,7 +20,7 @@ const StyledComponents = {
   StyledList: styled(List)({
     width: "100%",
     paddingBottom: "100px",
-    maxWidth: "400px",
+    maxWidth: "650px",
   }),
   StyledFab: styled(Fab)({
     zIndex: 1000,
