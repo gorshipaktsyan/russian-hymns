@@ -17,7 +17,7 @@ function TitlesList({ setCurrentNumber }) {
 
   function handleHymnClick(id) {
     setCurrentNumber([id]);
-    navigate("/hymns");
+    // navigate("/hymns");
   }
 
   return (

@@ -50,9 +50,9 @@ function Search({ setCurrentNumber }) {
       setCurrentNumber([randomNumber]);
       number = [randomNumber];
     }
-    if (number.length) {
-      navigate("/hymns");
-    }
+    // if (number.length) {
+    //   navigate("/hymns");
+    // }
     setErrorAlert(true);
     setRusNumber("");
     setEngNumber("");

@@ -14,7 +14,7 @@ function HymnList({
 }) {
   function handleClick(id) {
     setCurrentNumber([id]);
-    navigate("/hymns");
+    // navigate("/hymns");
   }
   const handleBackClick = () => {
     setOpenHymnList(false);

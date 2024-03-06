@@ -5,30 +5,14 @@ import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
-import { useLocation } from "react-router-dom";
-import findLocation, {
-  currentNumberStore,
-} from "../view/services/LayoutService";
+import { useLocation, useNavigate } from "react-router-dom";
+import findLocation from "../view/services/LayoutService";
 import SearchBar from "../view/components/searchBar/SearchBar";
 import persistentStore from "../view/services/PersistentStore";
 import { useDoubleTap } from "../utils/DoubleTap";
 import changeFontSize from "../utils/changeFontSize";
 
-//let deferredPrompt;
-
-/*window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  // Update UI notify the user they can install the PWA
-  // showInstallPromotion();
-  // Optionally, send analytics event that PWA install promo was shown.
-  alert(`'beforeinstallprompt' event was fired.`);
-});*/
-
 const navItems = [
-  { title: "Поиск", route: "search" },
   { title: "Алфавитный указатель", route: "alphabetical" },
   { title: "Содержание", route: "content" },
   { title: "История", route: "history" },
@@ -42,32 +26,36 @@ const isMobile = navigator.maxTouchPoints > 0;
 function Layout() {
   const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [currentNumber, setCurrentNumber] = useState(() =>
-    currentNumberStore.get()
-  );
-  const [title, setTitle] = useState("Поиск");
+  const [title, setTitle] = useState("");
   const savedFontSize = persistentStore.get("fontSize");
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
+  const [currentNumber, setCurrentNumber] = useState([]);
+  const navigate = useNavigate();
   useDoubleTap(setFontSize);
 
+  // useEffect(() => {
+  //   navigate(`/hymns/${currentNumber}`);
+  // }, [currentNumber]);
   useEffect(() => {
     changeFontSize(fontSize);
     persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
   }, [fontSize]);
 
   useEffect(() => {
-    if (pathname === "/hymns") {
-      currentNumberStore.set(currentNumber);
+    console.log(currentNumber);
+    navigate(`/hymns/${currentNumber}`);
+
+    if (pathname === `/hymns/${currentNumber}`) {
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
       setTitle(
         currentNumber.length > 1
           ? "Гимны"
           : `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`
       );
-      return;
+    } else {
+      setTitle(() => findLocation(pathname, navItems));
     }
-    setTitle(() => findLocation(pathname, currentNumber, navItems));
-  }, [currentNumber, pathname]);
+  }, [currentNumber]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);

@@ -4,8 +4,8 @@ import hymns from "../../services/storage/hymns.json";
 import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
-import persistentStore from "../../services/PersistentStore";
 import historyStore from "../../services/HistoryStore";
+import { useParams } from "react-router-dom";
 
 const config = {
   delta: 10,
@@ -20,9 +20,14 @@ const { StyledDivider, ArrowRightIcon, ArrowLeftIcon } = HymnStyledComponents;
 
 const isMobile = navigator.maxTouchPoints > 0;
 
-function Hymn({ currentNumber, setCurrentNumber }) {
+function Hymn({ setCurrentNumber, currentNumber }) {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
+  const { number } = useParams();
+  useEffect(() => {
+    number && setCurrentNumber(number.split(",").map(Number));
+  }, [number]);
+
   const hymn = useMemo(
     () =>
       currentNumber.map((number) =>
@@ -30,6 +35,7 @@ function Hymn({ currentNumber, setCurrentNumber }) {
       ),
     [currentNumber]
   );
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe() {
     const index = hymns.findIndex(

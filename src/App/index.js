@@ -22,7 +22,7 @@ function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
       element: <Search setCurrentNumber={setCurrentNumber} />,
     },
     {
-      path: "/hymns",
+      path: "/hymns/:number",
       element: (
         <Hymn
           currentNumber={currentNumber}

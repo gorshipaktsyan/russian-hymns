@@ -12,7 +12,7 @@ function AlphabeticalIndex({ setCurrentNumber, setTitle }) {
 
   function handleTitleClick(id) {
     setCurrentNumber([id]);
-    navigate("/hymns");
+    // navigate("/hymns");
   }
   function handleBackClick() {
     setLetter("");
