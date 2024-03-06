@@ -21,7 +21,7 @@ function History({ setCurrentNumber }) {
 
   function handleClick(id) {
     setCurrentNumber([id]);
-    // navigate("/hymns");
+    navigate(`/hymns/${[id]}`);
   }
   function handleClearHistory() {
     persistentStore.clear("searchedHymns");

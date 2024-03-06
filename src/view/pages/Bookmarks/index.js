@@ -16,7 +16,7 @@ function Bookmarks({ setCurrentNumber }) {
 
   function handleClick(id) {
     setCurrentNumber([id]);
-    // navigate("/hymns");
+    navigate(`/hymns/${[id]}`);
   }
 
   function handleDelete(id) {

@@ -33,25 +33,22 @@ function Layout() {
   const navigate = useNavigate();
   useDoubleTap(setFontSize);
 
-  // useEffect(() => {
-  //   navigate(`/hymns/${currentNumber}`);
-  // }, [currentNumber]);
   useEffect(() => {
     changeFontSize(fontSize);
     persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
   }, [fontSize]);
 
   useEffect(() => {
-    console.log(currentNumber);
-    navigate(`/hymns/${currentNumber}`);
-
-    if (pathname === `/hymns/${currentNumber}`) {
+    if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
       setTitle(
         currentNumber.length > 1
           ? "Гимны"
           : `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`
       );
+    } else if (pathname === "/hymns/" || pathname === "/hymns") {
+      navigate("/");
+      setTitle(() => "Гимны 1-800");
     } else {
       setTitle(() => findLocation(pathname, navItems));
     }

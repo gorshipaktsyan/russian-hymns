@@ -58,7 +58,7 @@ function AppBarComponent({
           <MenuIcon sx={{ fontSize: "30px" }} />
         </IconButton>
         <Box
-          sx={{ fontSize: "20px", cursor: "default" }}
+          sx={{ fontSize: "20px", cursor: "default", paddingBottom: "4px" }}
           dangerouslySetInnerHTML={{ __html: title }}
         />
         <Box
