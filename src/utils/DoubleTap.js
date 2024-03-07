@@ -25,7 +25,7 @@ export function useDoubleTap(setFontSize) {
   useEffect(() => {
     const handleClick = (e) => doubleTap(e, setFontSize);
 
-    isMobile && document.addEventListener("click", handleClick);
+    document.addEventListener("click", handleClick);
 
     return () => {
       document.removeEventListener("click", handleClick);

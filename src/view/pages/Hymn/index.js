@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
 import historyStore from "../../services/HistoryStore";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const config = {
   delta: 10,
@@ -16,7 +16,7 @@ const config = {
   swipeDuration: Infinity,
   touchEventOptions: { passive: true },
 };
-const { StyledDivider, ArrowRightIcon, ArrowLeftIcon } = HymnStyledComponents;
+const { StyledDivider, ArrowRightIcon, ArrowLeftIcon, ArrowLeftWrapper, ArrowRightWrapper } = HymnStyledComponents;
 
 const isMobile = navigator.maxTouchPoints > 0;
 
@@ -24,6 +24,8 @@ function Hymn({ setCurrentNumber, currentNumber }) {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
+  const navigate = useNavigate();
+
   useEffect(() => {
     number && setCurrentNumber(number.split(",").map(Number));
   }, [number]);
@@ -37,21 +39,25 @@ function Hymn({ setCurrentNumber, currentNumber }) {
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleLeftSwipe() {
+  function handleLeftSwipe(e) {
+    e && e.stopPropagation();
     const index = hymns.findIndex(
       (el) => Number(el.number) === Number(currentNumber[0] + 1)
     );
     if (index !== -1) {
-      setCurrentNumber([currentNumber[0] + 1]);
+      //setCurrentNumber([currentNumber[0] + 1]);
+      navigate(`/hymns/${currentNumber[0] + 1}`);
     }
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleRightSwipe() {
+  function handleRightSwipe(e) {
+    e && e.stopPropagation();
     const index = hymns.findIndex(
       (el) => Number(el.number) === Number(currentNumber[0] - 1)
     );
     if (index !== -1) {
-      setCurrentNumber([currentNumber[0] - 1]);
+      //setCurrentNumber([currentNumber[0] - 1]);
+      navigate(`/hymns/${currentNumber[0] - 1}`);
     }
   }
   const handlers = useSwipeable(
@@ -123,9 +129,12 @@ function Hymn({ setCurrentNumber, currentNumber }) {
             <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
             {!isMobile && (
               <>
-                <ArrowLeftIcon onClick={() => handleRightSwipe()} />
-                ,
-                <ArrowRightIcon onClick={() => handleLeftSwipe()} />
+                <ArrowLeftWrapper onClick={handleRightSwipe}>
+                  <ArrowLeftIcon />
+                </ArrowLeftWrapper>
+                <ArrowRightWrapper onClick={handleLeftSwipe}>
+                  <ArrowRightIcon />
+                </ArrowRightWrapper>
               </>
             )}
             {index !== hymn.length - 1 && <StyledDivider />}

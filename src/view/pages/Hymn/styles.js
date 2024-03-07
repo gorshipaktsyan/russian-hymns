@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Divider } from "@mui/material";
+import { Divider, Box } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
@@ -8,11 +8,30 @@ const HymnStyledComponents = {
     width: "400px",
     margin: "auto",
   }),
-  ArrowRightIcon: styled(ArrowForwardIosIcon)({
+  ArrowRightWrapper: styled(Box)({
     position: "fixed",
     top: "50%",
-    right: "2%",
+    right: "20px",
+    width: "100px",
+    height: "100px",
+    cursor: "pointer",
+    color: "grey",
+    display: 'flex',
+    justifyContent: 'center',
+  }),
+  ArrowLeftWrapper: styled(Box)({
+    position: "fixed",
+    top: "50%",
+    left: "20px",
     fontSize: "large",
+    width: "100px",
+    height: "100px",
+    cursor: "pointer",
+    color: "grey",
+    display: 'flex',
+    justifyContent: 'center',
+  }),
+  ArrowRightIcon: styled(ArrowForwardIosIcon)({
     width: "50px",
     height: "50px",
     cursor: "pointer",
@@ -22,15 +41,10 @@ const HymnStyledComponents = {
     },
   }),
   ArrowLeftIcon: styled(ArrowBackIosIcon)({
-    position: "fixed",
-    top: "50%",
-    left: "2%",
-    fontSize: "large",
     width: "50px",
     height: "50px",
     cursor: "pointer",
     color: "grey",
-
     ":hover": {
       color: "black",
     },
