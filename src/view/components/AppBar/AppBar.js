@@ -8,6 +8,7 @@ import { Box, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import copyToClipboard from "../../../utils/copyToClipboard";
 
 function AppBarComponent({
   handleDrawerToggle,
@@ -15,7 +16,7 @@ function AppBarComponent({
   currentNumber,
   isMobile,
 }) {
-  const [saved, setSaved] = useState();
+  const [saved, setSaved] = useState(false);
   const { pathname } = useLocation();
   const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
@@ -39,6 +40,10 @@ function AppBarComponent({
     }
   };
 
+  const handleTitleClick = async () => {
+    await copyToClipboard(window.location.href)
+  }
+
   return (
     <AppBar
       position="fixed"
@@ -58,8 +63,9 @@ function AppBarComponent({
           <MenuIcon sx={{ fontSize: "30px" }} />
         </IconButton>
         <Box
-          sx={{ fontSize: "20px", cursor: "default", paddingBottom: "4px" }}
+          sx={{ fontSize: "20px", cursor: "pointer"}}
           dangerouslySetInnerHTML={{ __html: title }}
+          onClick={handleTitleClick}
         />
         <Box
           sx={{
