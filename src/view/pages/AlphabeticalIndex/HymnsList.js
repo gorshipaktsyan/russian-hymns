@@ -2,10 +2,11 @@ import { useMemo } from "react";
 import { Divider } from "@mui/material";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import hymns from "../../services/storage/hymns.json";
-import AddIcon from "@mui/icons-material/ArrowBack";
+import SearchIcon from "@mui/icons-material/Search";
 import StyledComponents from "../../../utils/sharedStyles";
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
+const isMobile = navigator.maxTouchPoints > 0;
 
 function HymnsList({ handleTitleClick, letter, handleBackClick }) {
   const filteredHymns = useMemo(() => {
@@ -52,9 +53,11 @@ function HymnsList({ handleTitleClick, letter, handleBackClick }) {
           />
         ))}
       </StyledList>
-      <StyledFab color="primary" aria-label="add" onClick={handleBackClick}>
-        <AddIcon />
-      </StyledFab>
+      {isMobile && (
+        <StyledFab color="primary" aria-label="add" onClick={handleBackClick}>
+          <SearchIcon />
+        </StyledFab>
+      )}
     </StyledBox>
   );
 }

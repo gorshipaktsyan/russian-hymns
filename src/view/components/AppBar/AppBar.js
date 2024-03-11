@@ -46,6 +46,9 @@ function AppBarComponent({
   };
 
   const handleTitleClick = async () => {
+    if (!currentNumber.length) {
+      return
+    }
     await copyToClipboard(window.location.href);
     setCopyAlert(true);
   };
@@ -72,13 +75,10 @@ function AppBarComponent({
           <Box
             sx={{
               fontSize: "20px",
-              cursor:
-                pathname === `/hymns/${currentNumber}` ? "pointer" : "default",
+              cursor: pathname === `/hymns/${currentNumber}` ? "pointer" : "default",
             }}
             dangerouslySetInnerHTML={{ __html: title }}
-            onClick={
-              pathname === `/hymns/${currentNumber}` ? handleTitleClick : null
-            }
+            onClick={handleTitleClick}
           />
           <Box
             sx={{
@@ -87,7 +87,7 @@ function AppBarComponent({
           >
             {!isMobile && pathname !== "/" && <SearchBar />}
           </Box>
-          {pathname === `/hymns/${currentNumber}` && (
+          {pathname.includes(`/hymns`) && (
             <>
               <IconButton color="inherit" onClick={handleBookmarkClick}>
                 {currentHymnNumber &&
@@ -108,7 +108,7 @@ function AppBarComponent({
           onClose={handleClose}
           autoHideDuration={2000}
         >
-          <StyledAlert>ссылка скопирована</StyledAlert>
+          <StyledAlert>Ссылка на этот гимн скопирована.</StyledAlert>
         </Snackbar>
       )}
     </>
