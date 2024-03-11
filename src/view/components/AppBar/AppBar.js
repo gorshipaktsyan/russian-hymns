@@ -70,9 +70,15 @@ function AppBarComponent({
             <MenuIcon sx={{ fontSize: "30px" }} />
           </IconButton>
           <Box
-            sx={{ fontSize: "20px", cursor: "pointer" }}
+            sx={{
+              fontSize: "20px",
+              cursor:
+                pathname === `/hymns/${currentNumber}` ? "pointer" : "default",
+            }}
             dangerouslySetInnerHTML={{ __html: title }}
-            onClick={handleTitleClick}
+            onClick={
+              pathname === `/hymns/${currentNumber}` ? handleTitleClick : null
+            }
           />
           <Box
             sx={{
