@@ -48,8 +48,15 @@ function DrawerComponent({
           ))}
         </List>
       </Box>
-      <Box sx={{ marginLeft: "10px", position: "absolute", bottom: 10, fontSize: '13px' }}>
-        <p>Версия: 1.3.0</p>
+      <Box
+        sx={{
+          marginLeft: "10px",
+          position: "absolute",
+          bottom: 10,
+          fontSize: "13px",
+        }}
+      >
+        <p>Версия: 1.3.1</p>
       </Box>
     </Drawer>
   );

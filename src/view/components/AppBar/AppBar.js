@@ -4,11 +4,14 @@ import { useLocation } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import bookmarksStore from "../../services/BookmarksStore";
 import AppBar from "@mui/material/AppBar";
-import { Box, IconButton, Toolbar } from "@mui/material";
+import { Box, IconButton, Snackbar, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import copyToClipboard from "../../../utils/copyToClipboard";
+import StyledComponents from "../../../utils/sharedStyles";
+
+const { StyledAlert } = StyledComponents;
 
 function AppBarComponent({
   handleDrawerToggle,
@@ -17,9 +20,11 @@ function AppBarComponent({
   isMobile,
 }) {
   const [saved, setSaved] = useState(false);
+  const [copyAlert, setCopyAlert] = useState(false);
   const { pathname } = useLocation();
   const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
+  const handleClose = () => setCopyAlert(false);
 
   useEffect(() => {
     if (currentHymnNumber && savedHymnsList) {
@@ -41,53 +46,66 @@ function AppBarComponent({
   };
 
   const handleTitleClick = async () => {
-    await copyToClipboard(window.location.href)
-  }
+    await copyToClipboard(window.location.href);
+    setCopyAlert(true);
+  };
 
   return (
-    <AppBar
-      position="fixed"
-      component="nav"
-      sx={{
-        backgroundColor: "black",
-        zIndex: 1300,
-      }}
-    >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
+    <>
+      <AppBar
+        position="fixed"
+        component="nav"
+        sx={{
+          backgroundColor: "black",
+          zIndex: 1300,
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+          >
+            <MenuIcon sx={{ fontSize: "30px" }} />
+          </IconButton>
+          <Box
+            sx={{ fontSize: "20px", cursor: "pointer" }}
+            dangerouslySetInnerHTML={{ __html: title }}
+            onClick={handleTitleClick}
+          />
+          <Box
+            sx={{
+              flexGrow: "1",
+            }}
+          >
+            {!isMobile && pathname !== "/" && <SearchBar />}
+          </Box>
+          {pathname === `/hymns/${currentNumber}` && (
+            <>
+              <IconButton color="inherit" onClick={handleBookmarkClick}>
+                {currentHymnNumber &&
+                  (saved ? (
+                    <BookmarkIcon sx={{ fontSize: "30px" }} />
+                  ) : (
+                    <BookmarkBorderIcon sx={{ fontSize: "30px" }} />
+                  ))}
+              </IconButton>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+      {copyAlert && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={copyAlert}
+          onClose={handleClose}
+          autoHideDuration={2000}
         >
-          <MenuIcon sx={{ fontSize: "30px" }} />
-        </IconButton>
-        <Box
-          sx={{ fontSize: "20px", cursor: "pointer"}}
-          dangerouslySetInnerHTML={{ __html: title }}
-          onClick={handleTitleClick}
-        />
-        <Box
-          sx={{
-            flexGrow: "1",
-          }}
-        >
-          {!isMobile && pathname !== "/" && <SearchBar />}
-        </Box>
-        {(pathname === "/hymns" || pathname === "/hymns/") && (
-          <>
-            <IconButton color="inherit" onClick={handleBookmarkClick}>
-              {currentHymnNumber &&
-                (saved ? (
-                  <BookmarkIcon sx={{ fontSize: "30px" }} />
-                ) : (
-                  <BookmarkBorderIcon sx={{ fontSize: "30px" }} />
-                ))}
-            </IconButton>
-          </>
-        )}
-      </Toolbar>
-    </AppBar>
+          <StyledAlert>ссылка скопирована</StyledAlert>
+        </Snackbar>
+      )}
+    </>
   );
 }
 

@@ -43,7 +43,9 @@ function Layout() {
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
       setTitle(
         currentNumber.length > 1
-          ? "Гимны"
+          ? currentNumber.length > 3
+            ? `Гимны ${currentNumber.slice(0, 3)} ...`
+            : `Гимны ${currentNumber}`
           : `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`
       );
     } else if (pathname === "/hymns/" || pathname === "/hymns") {
@@ -52,7 +54,7 @@ function Layout() {
     } else {
       setTitle(() => findLocation(pathname, navItems));
     }
-  }, [currentNumber]);
+  }, [currentNumber, pathname]);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
