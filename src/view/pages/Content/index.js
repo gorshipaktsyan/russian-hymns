@@ -13,10 +13,14 @@ function TitlesList({ setCurrentNumber }) {
 
   function ScrollToTittle(id) {
     const element = document.getElementById(id);
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
+    setTimeout(
+      () =>
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        }),
+      100
+    );
   }
   function handleTitleClick(id) {
     setSelectedTitle((prevTitleId) => (prevTitleId === id ? null : id));
