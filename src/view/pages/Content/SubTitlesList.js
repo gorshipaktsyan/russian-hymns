@@ -7,7 +7,7 @@ import StyledContentComponents from "./styles";
 
 const { StyledSubList, StyledSubHymnsList } = StyledContentComponents;
 
-function SubTitlesList({ selectedTitle, handleHymnClick }) {
+function SubTitlesList({ selectedTitle, handleHymnClick, ScrollToTittle }) {
   const [expandedSub, setExpandedSub] = useState(null);
   const grouped = useMemo(() => {
     return hymns.filter((hymn) => hymn.title === selectedTitle);
@@ -20,6 +20,7 @@ function SubTitlesList({ selectedTitle, handleHymnClick }) {
     setExpandedSub((prevSubtitleId) =>
       prevSubtitleId === subtitleId ? null : subtitleId
     );
+    ScrollToTittle(subtitleId);
   }
 
   useEffect(() => {
@@ -39,7 +40,10 @@ function SubTitlesList({ selectedTitle, handleHymnClick }) {
               index={index}
               BorderBottom={Divider}
               onTitleClick={handleSubTitleClick}
-              style={{ fontWeight: expandedSub === sub._id && "bold", fontSize: '14px' }}
+              style={{
+                fontWeight: expandedSub === sub._id && "bold",
+                fontSize: "14px",
+              }}
             />
             {!!expandedSub && expandedSub === sub._id && (
               <StyledSubHymnsList>

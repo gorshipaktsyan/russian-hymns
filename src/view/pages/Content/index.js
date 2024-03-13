@@ -11,8 +11,16 @@ function TitlesList({ setCurrentNumber }) {
   const [selectedTitle, setSelectedTitle] = useState(null);
   const navigate = useNavigate();
 
+  function ScrollToTittle(id) {
+    const element = document.getElementById(id);
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
   function handleTitleClick(id) {
     setSelectedTitle((prevTitleId) => (prevTitleId === id ? null : id));
+    ScrollToTittle(id);
   }
 
   function handleHymnClick(id) {
@@ -38,6 +46,7 @@ function TitlesList({ setCurrentNumber }) {
               <SubTitlesList
                 selectedTitle={selectedTitle}
                 handleHymnClick={handleHymnClick}
+                ScrollToTittle={ScrollToTittle}
               />
             )}
           </Box>
