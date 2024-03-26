@@ -56,7 +56,7 @@ function DrawerComponent({
           fontSize: "13px",
         }}
       >
-        <p>Версия: 1.3.3</p>
+        <p>Версия: 1.3.4</p>
       </Box>
     </Drawer>
   );

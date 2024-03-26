@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
 import historyStore from "../../services/HistoryStore";
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const config = {
   delta: 10,
@@ -16,11 +16,19 @@ const config = {
   swipeDuration: Infinity,
   touchEventOptions: { passive: true },
 };
-const { StyledDivider, ArrowRightIcon, ArrowLeftIcon, ArrowLeftWrapper, ArrowRightWrapper } = HymnStyledComponents;
+const {
+  StyledDivider,
+  ArrowRightIcon,
+  ArrowLeftIcon,
+  ArrowLeftWrapper,
+  ArrowRightWrapper,
+  ArrowLeftWrapperMobile,
+  ArrowRightWrapperMobile,
+} = HymnStyledComponents;
 
 const isMobile = navigator.maxTouchPoints > 0;
 
-function Hymn({ setCurrentNumber, currentNumber }) {
+function Hymn({ setCurrentNumber, currentNumber, useArrows }) {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
@@ -45,7 +53,6 @@ function Hymn({ setCurrentNumber, currentNumber }) {
       (el) => Number(el.number) === Number(currentNumber[0] + 1)
     );
     if (index !== -1) {
-      //setCurrentNumber([currentNumber[0] + 1]);
       navigate(`/hymns/${currentNumber[0] + 1}`);
     }
   }
@@ -56,7 +63,6 @@ function Hymn({ setCurrentNumber, currentNumber }) {
       (el) => Number(el.number) === Number(currentNumber[0] - 1)
     );
     if (index !== -1) {
-      //setCurrentNumber([currentNumber[0] - 1]);
       navigate(`/hymns/${currentNumber[0] - 1}`);
     }
   }
@@ -127,14 +133,27 @@ function Hymn({ setCurrentNumber, currentNumber }) {
               )}
             </div>
             <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
-            {!isMobile && (
+            {useArrows && (
               <>
-                <ArrowLeftWrapper onClick={handleRightSwipe}>
-                  <ArrowLeftIcon />
-                </ArrowLeftWrapper>
-                <ArrowRightWrapper onClick={handleLeftSwipe}>
-                  <ArrowRightIcon />
-                </ArrowRightWrapper>
+                {!isMobile ? (
+                  <>
+                    <ArrowLeftWrapper onClick={handleRightSwipe}>
+                      <ArrowLeftIcon />
+                    </ArrowLeftWrapper>
+                    <ArrowRightWrapper onClick={handleLeftSwipe}>
+                      <ArrowRightIcon />
+                    </ArrowRightWrapper>
+                  </>
+                ) : (
+                  <>
+                    <ArrowLeftWrapperMobile onClick={handleRightSwipe}>
+                      <ArrowLeftIcon />
+                    </ArrowLeftWrapperMobile>
+                    <ArrowRightWrapperMobile onClick={handleLeftSwipe}>
+                      <ArrowRightIcon />
+                    </ArrowRightWrapperMobile>
+                  </>
+                )}
               </>
             )}
             {index !== hymn.length - 1 && <StyledDivider />}

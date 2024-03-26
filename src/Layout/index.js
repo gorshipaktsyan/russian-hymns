@@ -20,6 +20,7 @@ const navItems = [
   { title: "Предисловие", route: "preface" },
   { title: "Справка", route: "reference" },
   { title: "O программе", route: "about" },
+  { title: "Настройки", route: "settings" },
 ];
 const isMobile = navigator.maxTouchPoints > 0;
 
@@ -30,6 +31,7 @@ function Layout() {
   const savedFontSize = persistentStore.get("fontSize");
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const [currentNumber, setCurrentNumber] = useState([]);
+  const [useArrows, setUseArrows] = useState(false);
   const navigate = useNavigate();
   useDoubleTap(setFontSize);
 
@@ -73,6 +75,10 @@ function Layout() {
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
           setTitle={setTitle}
+          fontSize={fontSize}
+          setFontSize={setFontSize}
+          useArrows={useArrows}
+          setUseArrows={setUseArrows}
         />
       </Box>
       <Drawer

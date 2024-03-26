@@ -15,7 +15,15 @@ import {
 } from "../view/pages";
 import StyledApp from "./styles";
 
-function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
+function App({
+  currentNumber,
+  setCurrentNumber,
+  setTitle,
+  fontSize,
+  setFontSize,
+  useArrows,
+  setUseArrows,
+}) {
   const routes = [
     {
       path: "/",
@@ -27,10 +35,21 @@ function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
         <Hymn
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
+          useArrows={useArrows}
         />
       ),
     },
-    { path: "/settings", element: <Settings /> },
+    {
+      path: "/settings",
+      element: (
+        <Settings
+          fontSize={fontSize}
+          setFontSize={setFontSize}
+          useArrows={useArrows}
+          setUseArrows={setUseArrows}
+        />
+      ),
+    },
     { path: "/about", element: <About /> },
     {
       path: "/alphabetical",
@@ -51,12 +70,7 @@ function App({ currentNumber, setCurrentNumber, setTitle, historyUpdated }) {
     },
     {
       path: "/history",
-      element: (
-        <History
-          setCurrentNumber={setCurrentNumber}
-          historyUpdated={historyUpdated}
-        />
-      ),
+      element: <History setCurrentNumber={setCurrentNumber} />,
     },
     { path: "/preface", element: <Preface /> },
     { path: "/reference", element: <Reference /> },
