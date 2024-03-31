@@ -1,22 +1,15 @@
-import { Divider, Switch, Typography } from "@mui/material";
+import { Box, Divider, Slider, Switch, Typography } from "@mui/material";
 import StyledComponents from "../../../utils/sharedStyles";
 import SettingsStyledComponents from "./styles";
 
 const { StyledBox } = StyledComponents;
-const {
-  StyledSettingsList,
-  StyledSettingsListItem,
-  StyledOpButton,
-  StyledSettingsTpg,
-} = SettingsStyledComponents;
-const minFontSize = 1.0;
-const maxFontSize = 1.8;
+const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
+  SettingsStyledComponents;
 
 function Settings({ fontSize, setFontSize, useArrows, setUseArrows }) {
-  function handleClick(op) {
-    op === "-"
-      ? setFontSize((prevSize) => Math.max(prevSize - 0.1, minFontSize))
-      : setFontSize((prevSize) => Math.min(prevSize + 0.1, maxFontSize));
+  function handleChangeFtSz(e) {
+    const newValue = parseFloat(e.target.value);
+    setFontSize(newValue);
   }
 
   function handleChange(e) {
@@ -24,26 +17,30 @@ function Settings({ fontSize, setFontSize, useArrows, setUseArrows }) {
   }
 
   return (
-    <StyledBox>
-      <StyledSettingsList>
-        <StyledSettingsListItem>
-          <StyledSettingsTpg>Шрифт</StyledSettingsTpg>
-          <StyledOpButton onClick={() => handleClick("-")}>-</StyledOpButton>
-          <StyledSettingsTpg>{Number(fontSize.toFixed(1))}</StyledSettingsTpg>
-          <StyledOpButton onClick={() => handleClick("+")}>+</StyledOpButton>
-        </StyledSettingsListItem>
+    <StyledBox onTouchStart={(e) => e.stopPropagation()}>
+      <StyledSetList>
+        <StyledSetListItem>
+          <StyledSetTpg>Размер шрифта</StyledSetTpg>
+          <Slider
+            aria-label="Font size"
+            value={fontSize && fontSize}
+            onChange={handleChangeFtSz}
+            step={0.1}
+            marks
+            min={1}
+            max={1.8}
+          />
+        </StyledSetListItem>
         <Divider />
-        <StyledSettingsListItem>
-          <StyledSettingsTpg>Стрелки</StyledSettingsTpg>
-          <StyledSettingsTpg>Выкл</StyledSettingsTpg>
-          <Switch
-            checked={useArrows}
-            onChange={handleChange}
-            inputProps={{ "aria-label": "controlled" }}
-          ></Switch>
-          <StyledSettingsTpg>Вкл</StyledSettingsTpg>
-        </StyledSettingsListItem>
-      </StyledSettingsList>
+        <StyledSetListItem>
+          <StyledSetTpg>Стрелки</StyledSetTpg>
+          <ArrowSetBox>
+            <StyledSetTpg>Выкл</StyledSetTpg>
+            <Switch checked={useArrows} onChange={handleChange}></Switch>
+            <StyledSetTpg>Вкл</StyledSetTpg>
+          </ArrowSetBox>
+        </StyledSetListItem>
+      </StyledSetList>
     </StyledBox>
   );
 }

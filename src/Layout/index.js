@@ -33,7 +33,10 @@ function Layout() {
   const [currentNumber, setCurrentNumber] = useState([]);
   const [useArrows, setUseArrows] = useState(false);
   const navigate = useNavigate();
-  useDoubleTap(setFontSize);
+  const doubleTap = useDoubleTap;
+  useEffect(() => {
+    pathname !== "/settings" && doubleTap(setFontSize);
+  }, [pathname, setFontSize]);
 
   useEffect(() => {
     changeFontSize(fontSize);
