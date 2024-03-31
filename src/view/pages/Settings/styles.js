@@ -15,19 +15,9 @@ const SettingsStyledComponents = {
     width: "250px",
     padding: "5px 5px",
   }),
-  StyledOpButton: styled(Box)({
-    color: "black",
-    margin: "0px 5px",
-    "&:hover": { cursor: "pointer" },
-  }),
   StyledSetTpg: styled(Box)({
     "&:hover": { cursor: "default" },
     margin: "0px 5px",
-  }),
-  ArrowSetBox: styled(Box)({
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
   }),
 };
 

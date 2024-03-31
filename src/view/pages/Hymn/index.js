@@ -6,6 +6,7 @@ import "./index.scss";
 import HymnStyledComponents from "./styles";
 import historyStore from "../../services/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 const config = {
   delta: 10,
@@ -22,13 +23,13 @@ const {
   ArrowLeftIcon,
   ArrowLeftWrapper,
   ArrowRightWrapper,
-  ArrowLeftWrapperMobile,
-  ArrowRightWrapperMobile,
+  ArrowMobileRightIcon,
+  ArrowMobileLeftIcon,
 } = HymnStyledComponents;
 
 const isMobile = navigator.maxTouchPoints > 0;
 
-function Hymn({ setCurrentNumber, currentNumber, useArrows }) {
+function Hymn({ setCurrentNumber, currentNumber }) {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
@@ -113,27 +114,27 @@ function Hymn({ setCurrentNumber, currentNumber, useArrows }) {
   }, [currentNumber, timeOnPage]);
 
   return (
-    <Box
-      className="hymns-page-wrapper"
-      sx={{
-        paddingBottom: "200px",
-      }}
-      {...handlers}
-    >
-      {hymn.map((h, index) => {
-        return (
-          <Box key={index}>
-            <div className="hymnInfo">
-              {hymn.length > 1 && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: `Гимн ${h.number}<sup>${h.sign}</sup>`,
-                  }}
-                />
-              )}
-            </div>
-            <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
-            {useArrows && (
+    <>
+      <Box
+        className="hymns-page-wrapper"
+        sx={{
+          paddingBottom: "200px",
+        }}
+        {...handlers}
+      >
+        {hymn.map((h, index) => {
+          return (
+            <Box key={index}>
+              <div className="hymnInfo">
+                {hymn.length > 1 && (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `Гимн ${h.number}<sup>${h.sign}</sup>`,
+                    }}
+                  />
+                )}
+              </div>
+              <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
               <>
                 {!isMobile ? (
                   <>
@@ -145,22 +146,20 @@ function Hymn({ setCurrentNumber, currentNumber, useArrows }) {
                     </ArrowRightWrapper>
                   </>
                 ) : (
-                  <>
-                    <ArrowLeftWrapperMobile onClick={handleRightSwipe}>
-                      <ArrowLeftIcon />
-                    </ArrowLeftWrapperMobile>
-                    <ArrowRightWrapperMobile onClick={handleLeftSwipe}>
-                      <ArrowRightIcon />
-                    </ArrowRightWrapperMobile>
-                  </>
+                  <Footer
+                    handleRightSwipe={handleRightSwipe}
+                    handleLeftSwipe={handleLeftSwipe}
+                    ArrowMobileRightIcon={ArrowMobileRightIcon}
+                    ArrowMobileLeftIcon={ArrowMobileLeftIcon}
+                  />
                 )}
               </>
-            )}
-            {index !== hymn.length - 1 && <StyledDivider />}
-          </Box>
-        );
-      })}
-    </Box>
+              {index !== hymn.length - 1 && <StyledDivider />}
+            </Box>
+          );
+        })}
+      </Box>
+    </>
   );
 }
 

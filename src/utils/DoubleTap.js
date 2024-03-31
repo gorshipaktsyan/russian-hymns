@@ -22,6 +22,9 @@ export default function doubleTap(e, setFontSize) {
 }
 export function useDoubleTap(setFontSize) {
   useEffect(() => {
+    if (!setFontSize) {
+      return;
+    }
     const handleClick = (e) => doubleTap(e, setFontSize);
 
     document.addEventListener("click", handleClick);

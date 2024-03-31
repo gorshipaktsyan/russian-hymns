@@ -31,12 +31,8 @@ function Layout() {
   const savedFontSize = persistentStore.get("fontSize");
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const [currentNumber, setCurrentNumber] = useState([]);
-  const [useArrows, setUseArrows] = useState(false);
   const navigate = useNavigate();
-  const doubleTap = useDoubleTap;
-  useEffect(() => {
-    pathname !== "/settings" && doubleTap(setFontSize);
-  }, [pathname, setFontSize]);
+  useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
 
   useEffect(() => {
     changeFontSize(fontSize);
@@ -80,8 +76,6 @@ function Layout() {
           setTitle={setTitle}
           fontSize={fontSize}
           setFontSize={setFontSize}
-          useArrows={useArrows}
-          setUseArrows={setUseArrows}
         />
       </Box>
       <Drawer

@@ -1,21 +1,16 @@
-import { Box, Divider, Slider, Switch, Typography } from "@mui/material";
+import { Divider, Slider } from "@mui/material";
 import StyledComponents from "../../../utils/sharedStyles";
 import SettingsStyledComponents from "./styles";
 
 const { StyledBox } = StyledComponents;
-const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
+const { StyledSetList, StyledSetListItem, StyledSetTpg } =
   SettingsStyledComponents;
 
-function Settings({ fontSize, setFontSize, useArrows, setUseArrows }) {
+function Settings({ fontSize, setFontSize }) {
   function handleChangeFtSz(e) {
     const newValue = parseFloat(e.target.value);
     setFontSize(newValue);
   }
-
-  function handleChange(e) {
-    setUseArrows(e.target.checked);
-  }
-
   return (
     <StyledBox onTouchStart={(e) => e.stopPropagation()}>
       <StyledSetList>
@@ -32,14 +27,6 @@ function Settings({ fontSize, setFontSize, useArrows, setUseArrows }) {
           />
         </StyledSetListItem>
         <Divider />
-        <StyledSetListItem>
-          <StyledSetTpg>Стрелки</StyledSetTpg>
-          <ArrowSetBox>
-            <StyledSetTpg>Выкл</StyledSetTpg>
-            <Switch checked={useArrows} onChange={handleChange}></Switch>
-            <StyledSetTpg>Вкл</StyledSetTpg>
-          </ArrowSetBox>
-        </StyledSetListItem>
       </StyledSetList>
     </StyledBox>
   );

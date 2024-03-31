@@ -21,8 +21,6 @@ function App({
   setTitle,
   fontSize,
   setFontSize,
-  useArrows,
-  setUseArrows,
 }) {
   const routes = [
     {
@@ -35,20 +33,12 @@ function App({
         <Hymn
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
-          useArrows={useArrows}
         />
       ),
     },
     {
       path: "/settings",
-      element: (
-        <Settings
-          fontSize={fontSize}
-          setFontSize={setFontSize}
-          useArrows={useArrows}
-          setUseArrows={setUseArrows}
-        />
-      ),
+      element: <Settings fontSize={fontSize} setFontSize={setFontSize} />,
     },
     { path: "/about", element: <About /> },
     {
