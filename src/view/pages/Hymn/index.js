@@ -27,9 +27,7 @@ const {
   ArrowMobileLeftIcon,
 } = HymnStyledComponents;
 
-const isMobile = navigator.maxTouchPoints > 0;
-
-function Hymn({ setCurrentNumber, currentNumber }) {
+function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
@@ -37,7 +35,7 @@ function Hymn({ setCurrentNumber, currentNumber }) {
 
   useEffect(() => {
     number && setCurrentNumber(number.split(",").map(Number));
-  }, [number]);
+  }, [number, setCurrentNumber]);
 
   const hymn = useMemo(
     () =>
@@ -111,7 +109,7 @@ function Hymn({ setCurrentNumber, currentNumber }) {
     return () => {
       clearInterval(timerInterval);
     };
-  }, [currentNumber, timeOnPage]);
+  }, [currentNumber, timeOnPage, prevNumber]);
 
   return (
     <>
@@ -146,12 +144,14 @@ function Hymn({ setCurrentNumber, currentNumber }) {
                     </ArrowRightWrapper>
                   </>
                 ) : (
-                  <Footer
-                    handleRightSwipe={handleRightSwipe}
-                    handleLeftSwipe={handleLeftSwipe}
-                    ArrowMobileRightIcon={ArrowMobileRightIcon}
-                    ArrowMobileLeftIcon={ArrowMobileLeftIcon}
-                  />
+                  useArrows && (
+                    <Footer
+                      handleRightSwipe={handleRightSwipe}
+                      handleLeftSwipe={handleLeftSwipe}
+                      ArrowMobileRightIcon={ArrowMobileRightIcon}
+                      ArrowMobileLeftIcon={ArrowMobileLeftIcon}
+                    />
+                  )
                 )}
               </>
               {index !== hymn.length - 1 && <StyledDivider />}

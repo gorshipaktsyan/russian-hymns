@@ -1,5 +1,7 @@
-import { Box } from "@mui/material";
+import HymnStyledComponents from "../pages/Hymn/styles";
 
+const { StyledFooter, ArrowLeftMobWrapper, ArrowRightMobWrapper } =
+  HymnStyledComponents;
 function Footer({
   handleRightSwipe,
   handleLeftSwipe,
@@ -7,24 +9,16 @@ function Footer({
   ArrowMobileRightIcon,
 }) {
   return (
-    <Box
-      sx={{
-        backgroundColor: "grey",
-        height: "50px",
-        display: "flex",
-        justifyContent: "space-between",
-        position: "fixed",
-        bottom: "0px",
-        width: "100%",
-        opacity: "0.5",
-        alignItems: "center",
-      }}
-    >
+    <StyledFooter>
       <>
-        <ArrowMobileLeftIcon onClick={handleRightSwipe} />
-        <ArrowMobileRightIcon onClick={handleLeftSwipe} />
+        <ArrowLeftMobWrapper onClick={handleRightSwipe}>
+          <ArrowMobileLeftIcon />
+        </ArrowLeftMobWrapper>
+        <ArrowRightMobWrapper onClick={handleLeftSwipe}>
+          <ArrowMobileRightIcon />
+        </ArrowRightMobWrapper>
       </>
-    </Box>
+    </StyledFooter>
   );
 }
 export default Footer;

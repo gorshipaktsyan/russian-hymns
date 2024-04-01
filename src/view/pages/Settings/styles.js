@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box, List, ListItem, Typography } from "@mui/material";
+import { Box, List, ListItem } from "@mui/material";
 
 const SettingsStyledComponents = {
   StyledSetList: styled(List)({
@@ -18,6 +18,11 @@ const SettingsStyledComponents = {
   StyledSetTpg: styled(Box)({
     "&:hover": { cursor: "default" },
     margin: "0px 5px",
+  }),
+  ArrowSetBox: styled(Box)({
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   }),
 };
 

@@ -6,7 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 const { StyledFab } = StyledComponents;
 const { SearchedBox, StyledSearchIcon } = SearchBarStyledComponents;
 
-function SearchBar({ isMobile }) {
+function SearchBar({ isMobile, useArrows }) {
   const navigate = useNavigate();
 
   function handleClick() {
@@ -20,7 +20,12 @@ function SearchBar({ isMobile }) {
           <StyledSearchIcon onClick={handleClick} />
         </SearchedBox>
       ) : (
-        <StyledFab color="primary" aria-label="add" onClick={handleClick}>
+        <StyledFab
+          color="primary"
+          aria-label="add"
+          onClick={handleClick}
+          sx={useArrows && { bottom: "55px !important" }}
+        >
           <SearchIcon />
         </StyledFab>
       )}

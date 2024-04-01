@@ -25,19 +25,37 @@ const navItems = [
 const isMobile = navigator.maxTouchPoints > 0;
 
 function Layout() {
-  const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [title, setTitle] = useState("");
-  const savedFontSize = persistentStore.get("fontSize");
+  const savedFontSize = persistentStore.get("settings").fontSize;
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const [currentNumber, setCurrentNumber] = useState([]);
+  const [useArrows, setUseArrows] = useState(
+    persistentStore.get("settings").useArrows
+  );
+  const [settings, setSettings] = useState({});
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
 
   useEffect(() => {
     changeFontSize(fontSize);
-    persistentStore.set("fontSize", Number(fontSize.toFixed(1)));
+    setSettings((prev) => ({
+      ...prev,
+      fontSize: Number(fontSize.toFixed(1)),
+    }));
   }, [fontSize]);
+
+  useEffect(() => {
+    setSettings((prev) => ({
+      ...prev,
+      useArrows,
+    }));
+  }, [useArrows]);
+
+  useEffect(() => {
+    persistentStore.set("settings", settings);
+  }, [settings]);
 
   useEffect(() => {
     if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
@@ -76,6 +94,9 @@ function Layout() {
           setTitle={setTitle}
           fontSize={fontSize}
           setFontSize={setFontSize}
+          useArrows={useArrows}
+          setUseArrows={setUseArrows}
+          isMobile={isMobile}
         />
       </Box>
       <Drawer
@@ -84,7 +105,9 @@ function Layout() {
         mobileOpen={mobileOpen}
         setTitle={setTitle}
       />
-      {pathname !== "/" && isMobile && <SearchBar isMobile={isMobile} />}
+      {pathname !== "/" && (
+        <SearchBar isMobile={isMobile} useArrows={useArrows} />
+      )}
     </Box>
   );
 }

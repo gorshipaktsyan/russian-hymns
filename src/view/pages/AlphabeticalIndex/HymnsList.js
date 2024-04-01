@@ -6,9 +6,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import StyledComponents from "../../../utils/sharedStyles";
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
-const isMobile = navigator.maxTouchPoints > 0;
 
-function HymnsList({ handleTitleClick, letter, handleBackClick }) {
+function HymnsList({ handleTitleClick, letter, handleBackClick, isMobile }) {
   const filteredHymns = useMemo(() => {
     const removeSymbols = (text) => text.replace(/[^a-zA-Zа-яА-ЯёЁ]/g, "");
     return hymns

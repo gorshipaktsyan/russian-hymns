@@ -21,6 +21,9 @@ function App({
   setTitle,
   fontSize,
   setFontSize,
+  useArrows,
+  setUseArrows,
+  isMobile,
 }) {
   const routes = [
     {
@@ -33,12 +36,22 @@ function App({
         <Hymn
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
+          useArrows={useArrows}
+          isMobile={isMobile}
         />
       ),
     },
     {
       path: "/settings",
-      element: <Settings fontSize={fontSize} setFontSize={setFontSize} />,
+      element: (
+        <Settings
+          fontSize={fontSize}
+          setFontSize={setFontSize}
+          useArrows={useArrows}
+          setUseArrows={setUseArrows}
+          isMobile={isMobile}
+        />
+      ),
     },
     { path: "/about", element: <About /> },
     {
@@ -47,6 +60,7 @@ function App({
         <AlphabeticalIndex
           setCurrentNumber={setCurrentNumber}
           setTitle={setTitle}
+          isMobile={isMobile}
         />
       ),
     },
