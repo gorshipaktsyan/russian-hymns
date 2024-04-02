@@ -63,8 +63,10 @@ function Layout() {
       setTitle(
         currentNumber.length > 1
           ? currentNumber.length > 3
-            ? `Гимны ${currentNumber.slice(0, 3)} ...`
-            : `Гимны ${currentNumber}`
+            ? `Гимны ${currentNumber
+                .slice(0, 3)
+                .map((number) => " " + number)} ...`
+            : `Гимны ${currentNumber.map((number) => " " + number)}`
           : `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`
       );
     } else if (pathname === "/hymns/" || pathname === "/hymns") {

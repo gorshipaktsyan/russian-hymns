@@ -11,6 +11,7 @@ const SearchStyledComponents = {
     "&:hover": {
       background: "black",
     },
+    fontSize: "1em",
   }),
   StyledForm: styled("div")({
     display: "flex",
