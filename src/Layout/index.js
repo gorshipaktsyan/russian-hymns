@@ -27,12 +27,11 @@ const isMobile = navigator.maxTouchPoints > 0;
 function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [title, setTitle] = useState("");
-  const savedFontSize = persistentStore.get("settings").fontSize;
+  const savedFontSize = persistentStore.get("settings")?.fontSize;
+  const arrows = persistentStore.get("settings")?.useArrows;
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const [currentNumber, setCurrentNumber] = useState([]);
-  const [useArrows, setUseArrows] = useState(
-    persistentStore.get("settings").useArrows
-  );
+  const [useArrows, setUseArrows] = useState(arrows || false);
   const [settings, setSettings] = useState({});
   const navigate = useNavigate();
   const { pathname } = useLocation();
