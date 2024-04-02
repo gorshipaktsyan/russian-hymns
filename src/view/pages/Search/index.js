@@ -11,12 +11,15 @@ const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
-function Search({ setCurrentNumber }) {
+function Search({
+  setCurrentNumber,
+  openSearchedHymnList,
+  setOpenSearchedHymnList,
+}) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
   const [findedHymns, setFindedHymns] = useState([]);
-  const [openHymnList, setOpenHymnList] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
   const handleClose = () => setErrorAlert(false);
   const navigate = useNavigate();
@@ -76,7 +79,7 @@ function Search({ setCurrentNumber }) {
   }, [handleSubmit]);
   useEffect(() => {
     if (findedHymns.length > 0) {
-      setOpenHymnList(true);
+      setOpenSearchedHymnList(true);
       return;
     } else if (searchedText) {
       setErrorAlert(true);
@@ -85,9 +88,8 @@ function Search({ setCurrentNumber }) {
 
   return (
     <>
-      {openHymnList ? (
+      {openSearchedHymnList ? (
         <HymnList
-          setOpenHymnList={setOpenHymnList}
           findedHymns={findedHymns}
           setCurrentNumber={setCurrentNumber}
           navigate={navigate}

@@ -1,24 +1,15 @@
 import React from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import { Divider } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import StyledComponents from "../../../utils/sharedStyles";
 
-const { StyledFab, StyledList, StyledBox } = StyledComponents;
+const { StyledList, StyledBox } = StyledComponents;
 
-function HymnList({
-  setOpenHymnList,
-  findedHymns,
-  setCurrentNumber,
-  navigate,
-}) {
+function HymnList({ findedHymns, setCurrentNumber, navigate }) {
   function handleClick(id) {
     setCurrentNumber([id]);
     navigate(`/hymns/${[id]}`);
   }
-  const handleBackClick = () => {
-    setOpenHymnList(false);
-  };
   return (
     <StyledBox>
       <StyledList>
@@ -33,9 +24,6 @@ function HymnList({
             onTitleClick={handleClick}
           />
         ))}
-        <StyledFab color="primary" aria-label="add" onClick={handleBackClick}>
-          <CloseIcon />
-        </StyledFab>
       </StyledList>
     </StyledBox>
   );

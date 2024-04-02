@@ -18,6 +18,8 @@ function AppBarComponent({
   title,
   currentNumber,
   isMobile,
+  openSearchedHymnList,
+  setOpenSearchedHymnList,
 }) {
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
@@ -47,7 +49,7 @@ function AppBarComponent({
 
   const handleTitleClick = async () => {
     if (!currentNumber.length) {
-      return
+      return;
     }
     await copyToClipboard(window.location.href);
     setCopyAlert(true);
@@ -75,7 +77,8 @@ function AppBarComponent({
           <Box
             sx={{
               fontSize: "20px",
-              cursor: pathname === `/hymns/${currentNumber}` ? "pointer" : "default",
+              cursor:
+                pathname === `/hymns/${currentNumber}` ? "pointer" : "default",
             }}
             dangerouslySetInnerHTML={{ __html: title }}
             onClick={handleTitleClick}
@@ -85,7 +88,13 @@ function AppBarComponent({
               flexGrow: "1",
             }}
           >
-            {!isMobile && pathname !== "/" && <SearchBar />}
+            {(pathname !== "/" || openSearchedHymnList) && (
+              <SearchBar
+                isMobile={isMobile}
+                openSearchedHymnList={openSearchedHymnList}
+                setOpenSearchedHymnList={setOpenSearchedHymnList}
+              />
+            )}
           </Box>
           {pathname.includes(`/hymns`) && (
             <>

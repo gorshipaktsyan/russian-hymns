@@ -19,7 +19,7 @@ const navItems = [
   { title: "Закладки", route: "bookmark" },
   { title: "Предисловие", route: "preface" },
   { title: "Справка", route: "reference" },
-  { title: "O программе", route: "about" },
+  { title: "O приложении", route: "about" },
   { title: "Настройки", route: "settings" },
 ];
 const isMobile = navigator.maxTouchPoints > 0;
@@ -33,6 +33,7 @@ function Layout() {
   const [currentNumber, setCurrentNumber] = useState([]);
   const [useArrows, setUseArrows] = useState(arrows || false);
   const [settings, setSettings] = useState({});
+  const [openSearchedHymnList, setOpenSearchedHymnList] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
@@ -85,6 +86,8 @@ function Layout() {
         title={title}
         currentNumber={currentNumber}
         isMobile={isMobile}
+        openSearchedHymnList={openSearchedHymnList}
+        setOpenSearchedHymnList={setOpenSearchedHymnList}
       />
       <Box className="container">
         <App
@@ -96,6 +99,8 @@ function Layout() {
           useArrows={useArrows}
           setUseArrows={setUseArrows}
           isMobile={isMobile}
+          openSearchedHymnList={openSearchedHymnList}
+          setOpenSearchedHymnList={setOpenSearchedHymnList}
         />
       </Box>
       <Drawer
@@ -104,9 +109,6 @@ function Layout() {
         mobileOpen={mobileOpen}
         setTitle={setTitle}
       />
-      {pathname !== "/" && (
-        <SearchBar isMobile={isMobile} useArrows={useArrows} />
-      )}
     </Box>
   );
 }

@@ -24,11 +24,19 @@ function App({
   useArrows,
   setUseArrows,
   isMobile,
+  openSearchedHymnList,
+  setOpenSearchedHymnList,
 }) {
   const routes = [
     {
       path: "/",
-      element: <Search setCurrentNumber={setCurrentNumber} />,
+      element: (
+        <Search
+          setCurrentNumber={setCurrentNumber}
+          openSearchedHymnList={openSearchedHymnList}
+          setOpenSearchedHymnList={setOpenSearchedHymnList}
+        />
+      ),
     },
     {
       path: "/hymns/:number",
