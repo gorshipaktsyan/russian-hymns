@@ -6,7 +6,6 @@ import "./index.scss";
 import HymnStyledComponents from "./styles";
 import historyStore from "../../services/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
-import Footer from "../../components/Footer";
 
 const config = {
   delta: 10,
@@ -23,8 +22,8 @@ const {
   ArrowLeftIcon,
   ArrowLeftWrapper,
   ArrowRightWrapper,
-  ArrowMobileRightIcon,
-  ArrowMobileLeftIcon,
+  MobArrowRightIcon,
+  MobArrowLeftIcon,
 } = HymnStyledComponents;
 
 function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
@@ -145,12 +144,10 @@ function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
                   </>
                 ) : (
                   useArrows && (
-                    <Footer
-                      handleRightSwipe={handleRightSwipe}
-                      handleLeftSwipe={handleLeftSwipe}
-                      ArrowMobileRightIcon={ArrowMobileRightIcon}
-                      ArrowMobileLeftIcon={ArrowMobileLeftIcon}
-                    />
+                    <>
+                      <MobArrowLeftIcon onClick={handleRightSwipe} />
+                      <MobArrowRightIcon onClick={handleLeftSwipe} />
+                    </>
                   )
                 )}
               </>

@@ -37,45 +37,41 @@ const HymnStyledComponents = {
     ":hover": {
       color: "black",
     },
+    ":focus-visible": {
+      outline: "none",
+    },
   }),
   ArrowRightIcon: styled(ArrowForwardIosIcon)({
     width: "50px",
     height: "50px",
-    cursor: "pointer",
+    ":focus": {
+      outline: "none",
+    },
   }),
   ArrowLeftIcon: styled(ArrowBackIosIcon)({
     width: "50px",
     height: "50px",
-    cursor: "pointer",
+    ":focus": {
+      outline: "none",
+    },
   }),
-  ArrowMobileRightIcon: styled(ArrowForwardIosIcon)({
-    width: "30px",
-    height: "40px",
-  }),
-  ArrowMobileLeftIcon: styled(ArrowBackIosIcon)({
-    width: "30px",
-    height: "40px",
-  }),
-  StyledFooter: styled(Box)({
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
+  MobArrowRightIcon: styled(ArrowForwardIosIcon)({
     position: "fixed",
-    bottom: "0px",
-    height: "50px",
-    width: "100%",
-    backgroundColor: "grey",
-    opacity: "0.5",
-  }),
-  ArrowLeftMobWrapper: styled(Box)({
-    display: "flex",
-    justifyContent: "flex-end",
+    top: "50%",
+    right: "20px",
     width: "50px",
+    height: "50px",
+    color: "grey",
+    opacity: "0.2",
   }),
-  ArrowRightMobWrapper: styled(Box)({
-    display: "flex",
-    justifyContent: "flex-start",
-    width: "40px",
+  MobArrowLeftIcon: styled(ArrowBackIosIcon)({
+    position: "fixed",
+    top: "50%",
+    left: "20px",
+    width: "50px",
+    height: "50px",
+    color: "grey",
+    opacity: "0.2",
   }),
 };
 
