@@ -29,15 +29,16 @@ function Layout() {
   const [title, setTitle] = useState("");
   const savedFontSize = persistentStore.get("settings")?.fontSize;
   const arrows = persistentStore.get("settings")?.useArrows;
+  const engSearch = persistentStore.get("settings")?.englishSearch;
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
   const [currentNumber, setCurrentNumber] = useState([]);
   const [useArrows, setUseArrows] = useState(arrows || false);
+  const [englishSearch, setEnglishSearch] = useState(engSearch || false);
   const [settings, setSettings] = useState({});
   const [openSearchedHymnList, setOpenSearchedHymnList] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
-
   useEffect(() => {
     changeFontSize(fontSize);
     setSettings((prev) => ({
@@ -52,6 +53,13 @@ function Layout() {
       useArrows,
     }));
   }, [useArrows]);
+
+  useEffect(() => {
+    setSettings((prev) => ({
+      ...prev,
+      englishSearch,
+    }));
+  }, [englishSearch]);
 
   useEffect(() => {
     persistentStore.set("settings", settings);
@@ -103,6 +111,8 @@ function Layout() {
           isMobile={isMobile}
           openSearchedHymnList={openSearchedHymnList}
           setOpenSearchedHymnList={setOpenSearchedHymnList}
+          englishSearch={englishSearch}
+          setEnglishSearch={setEnglishSearch}
         />
       </Box>
       <Drawer

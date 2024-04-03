@@ -15,6 +15,7 @@ function Search({
   setCurrentNumber,
   openSearchedHymnList,
   setOpenSearchedHymnList,
+  englishSearch,
 }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
@@ -111,20 +112,22 @@ function Search({
             }}
             autoFocus
           />
-          <StyledTextField
-            type="decimal"
-            label="Поиск по английскому номеру"
-            value={engNumber}
-            inputProps={{
-              inputMode: "decimal",
-              pattern: "[0-9]*",
-            }}
-            onChange={(e) => {
-              setEngNumber(e.target.value);
-              setRusNumber("");
-              setSearchedText("");
-            }}
-          />
+          {englishSearch && (
+            <StyledTextField
+              type="decimal"
+              label="Поиск по английскому номеру"
+              value={engNumber}
+              inputProps={{
+                inputMode: "decimal",
+                pattern: "[0-9]*",
+              }}
+              onChange={(e) => {
+                setEngNumber(e.target.value);
+                setRusNumber("");
+                setSearchedText("");
+              }}
+            />
+          )}
           <StyledTextField
             label="Поиск по тексту"
             value={searchedText}

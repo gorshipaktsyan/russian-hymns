@@ -26,6 +26,8 @@ function App({
   isMobile,
   openSearchedHymnList,
   setOpenSearchedHymnList,
+  englishSearch,
+  setEnglishSearch,
 }) {
   const routes = [
     {
@@ -35,6 +37,7 @@ function App({
           setCurrentNumber={setCurrentNumber}
           openSearchedHymnList={openSearchedHymnList}
           setOpenSearchedHymnList={setOpenSearchedHymnList}
+          englishSearch={englishSearch}
         />
       ),
     },
@@ -58,6 +61,8 @@ function App({
           useArrows={useArrows}
           setUseArrows={setUseArrows}
           isMobile={isMobile}
+          englishSearch={englishSearch}
+          setEnglishSearch={setEnglishSearch}
         />
       ),
     },
