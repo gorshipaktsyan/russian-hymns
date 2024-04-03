@@ -42,7 +42,6 @@ function SubTitlesList({ selectedTitle, handleHymnClick, ScrollToTittle }) {
               onTitleClick={handleSubTitleClick}
               style={{
                 fontWeight: expandedSub === sub._id && "bold",
-                // fontSize: "14px",
               }}
             />
             {!!expandedSub && expandedSub === sub._id && (

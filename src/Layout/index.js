@@ -120,6 +120,7 @@ function Layout() {
         navItems={navItems}
         mobileOpen={mobileOpen}
         setTitle={setTitle}
+        fontSize={fontSize}
       />
     </Box>
   );

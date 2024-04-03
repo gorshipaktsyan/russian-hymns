@@ -11,6 +11,7 @@ function DrawerComponent({
   mobileOpen,
   handleDrawerToggle,
   setTitle,
+  fontSize,
 }) {
   const navigate = useNavigate();
   function handleNavigate(item) {
@@ -42,7 +43,7 @@ function DrawerComponent({
               onClick={() => handleNavigate(item)}
             >
               <ListItemButton>
-                <Box sx={{ fontSize: "18px" }}>{item.title}</Box>
+                <Box sx={{ fontSize: `${fontSize}em` }}>{item.title}</Box>
               </ListItemButton>
             </ListItem>
           ))}
