@@ -7,7 +7,7 @@ import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import titles from "../../services/storage/titles.json";
 
 const { StyledList, StyledBox } = StyledComponents;
-function TitlesList({ setCurrentNumber }) {
+function TitlesList({ setCurrentNumber, fontSize }) {
   const [selectedTitle, setSelectedTitle] = useState(null);
   const navigate = useNavigate();
 
@@ -44,13 +44,16 @@ function TitlesList({ setCurrentNumber }) {
               index={index}
               BorderBottom={Divider}
               onTitleClick={handleTitleClick}
-              style={{ fontWeight: selectedTitle === title._id && "bold" }}
+              style={{
+                fontWeight: selectedTitle === title._id && "bold",
+              }}
             />
             {selectedTitle === title._id && (
               <SubTitlesList
                 selectedTitle={selectedTitle}
                 handleHymnClick={handleHymnClick}
                 ScrollToTittle={ScrollToTittle}
+                fontSize={fontSize}
               />
             )}
           </Box>
