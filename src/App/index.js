@@ -83,7 +83,9 @@ function App({
     },
     {
       path: "/content",
-      element: <Content setCurrentNumber={setCurrentNumber} />,
+      element: (
+        <Content setCurrentNumber={setCurrentNumber} fontSize={fontSize} />
+      ),
     },
     {
       path: "/history",

@@ -7,7 +7,12 @@ import StyledContentComponents from "./styles";
 
 const { StyledSubList, StyledSubHymnsList } = StyledContentComponents;
 
-function SubTitlesList({ selectedTitle, handleHymnClick, ScrollToTittle }) {
+function SubTitlesList({
+  selectedTitle,
+  handleHymnClick,
+  ScrollToTittle,
+  fontSize,
+}) {
   const [expandedSub, setExpandedSub] = useState(null);
   const grouped = useMemo(() => {
     return hymns.filter((hymn) => hymn.title === selectedTitle);
@@ -42,6 +47,7 @@ function SubTitlesList({ selectedTitle, handleHymnClick, ScrollToTittle }) {
               onTitleClick={handleSubTitleClick}
               style={{
                 fontWeight: expandedSub === sub._id && "bold",
+                fontSize: "15px",
               }}
             />
             {!!expandedSub && expandedSub === sub._id && (

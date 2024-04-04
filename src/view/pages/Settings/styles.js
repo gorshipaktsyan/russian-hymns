@@ -8,12 +8,12 @@ const SettingsStyledComponents = {
     flexDirection: "column",
     width: "100%",
     paddingBottom: "100px",
-    maxWidth: "450px",
+    maxWidth: "650px",
+    padding: "10px 10px",
   }),
   StyledSetListItem: styled(ListItem)({
     flexDirection: "column",
-    width: "250px",
-    padding: "5px 5px",
+    width: "100%",
   }),
   StyledSetTpg: styled(Box)({
     "&:hover": { cursor: "default" },

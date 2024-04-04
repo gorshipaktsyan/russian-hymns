@@ -57,6 +57,7 @@ function Settings({
             </StyledSetListItem>
           </>
         )}
+        <Divider sx={{ width: "300px" }} />
         <StyledSetListItem>
           <StyledSetTpg>Поиск по английскому номеру </StyledSetTpg>
           <ArrowSetBox>
