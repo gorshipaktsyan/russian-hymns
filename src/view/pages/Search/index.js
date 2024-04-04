@@ -6,7 +6,6 @@ import Snackbar from "@mui/material/Snackbar";
 import StyledComponents from "../../../utils/sharedStyles";
 import SearchStyledComponents from "./styles";
 import findText from "../../../utils/findText";
-import { TextField } from "@mui/material";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
@@ -146,7 +145,7 @@ function Search({
             variant="contained"
             onClick={handleSubmit}
           >
-            <span style={{ fontSize: "20px" }}>Поиск</span>
+            <span style={{ fontSize: "16px" }}>Поиск</span>
           </StyledSearchButton>
         </StyledForm>
       )}

@@ -16,7 +16,7 @@ const SearchStyledComponents = {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    marginTop: "5%",
+    marginTop: "50px",
   }),
   StyledTextField: styled(TextField)({
     width: "100%",
