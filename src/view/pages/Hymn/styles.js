@@ -32,7 +32,7 @@ const HymnStyledComponents = {
     cursor: "pointer",
     color: "grey",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
     ":hover": {
       color: "black",

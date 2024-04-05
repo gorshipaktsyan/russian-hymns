@@ -7,12 +7,12 @@ import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
 import { useLocation, useNavigate } from "react-router-dom";
 import findLocation from "../view/services/LayoutService";
-import SearchBar from "../view/components/searchBar/SearchBar";
 import persistentStore from "../view/services/PersistentStore";
 import { useDoubleTap } from "../utils/DoubleTap";
 import changeFontSize from "../utils/changeFontSize";
 
 const navItems = [
+  { title: "Гимны 1-800", route: "" },
   { title: "Алфавитный указатель", route: "alphabetical" },
   { title: "Содержание", route: "content" },
   { title: "История", route: "history" },
@@ -79,7 +79,6 @@ function Layout() {
       );
     } else if (pathname === "/hymns/" || pathname === "/hymns") {
       navigate("/");
-      setTitle(() => "Гимны 1-800");
     } else {
       setTitle(() => findLocation(pathname, navItems));
     }
