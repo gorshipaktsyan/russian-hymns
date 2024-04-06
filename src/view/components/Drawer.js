@@ -36,7 +36,7 @@ function DrawerComponent({
     >
       <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
         <List>
-          {navItems.map((item) => (
+          {navItems.slice(1).map((item) => (
             <ListItem
               key={item.title}
               disablePadding
