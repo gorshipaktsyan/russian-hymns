@@ -43,7 +43,7 @@ function Settings({
         </StyledSetListItem>
         {isMobile && (
           <>
-            <Divider sx={{ width: "300px" }} />
+            <Divider sx={{ width: "350px", marginTop: '15px' }} />
             <StyledSetListItem>
               <StyledSetTpg>Стрелки</StyledSetTpg>
               <ArrowSetBox>
@@ -57,7 +57,7 @@ function Settings({
             </StyledSetListItem>
           </>
         )}
-        <Divider sx={{ width: "300px" }} />
+        <Divider sx={{ width: "350px", marginTop: '15px' }} />
         <StyledSetListItem>
           <StyledSetTpg>Поиск по английскому номеру </StyledSetTpg>
           <ArrowSetBox>

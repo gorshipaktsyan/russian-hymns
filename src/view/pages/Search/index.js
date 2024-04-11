@@ -81,7 +81,6 @@ function Search({
   useEffect(() => {
     if (findedHymns.length > 0) {
       setOpenSearchedHymnList(true);
-      return;
     } else if (searchedText) {
       setErrorAlert(true);
     }

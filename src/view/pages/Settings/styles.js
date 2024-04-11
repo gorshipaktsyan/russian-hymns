@@ -8,7 +8,7 @@ const SettingsStyledComponents = {
     flexDirection: "column",
     width: "100%",
     paddingBottom: "100px",
-    maxWidth: "650px",
+    maxWidth: "400px",
     padding: "10px 10px",
   }),
   StyledSetListItem: styled(ListItem)({

@@ -68,19 +68,18 @@ function Layout() {
   useEffect(() => {
     if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
-      setTitle(
-        currentNumber.length > 1
-          ? currentNumber.length > 3
-            ? `Гимны ${currentNumber
-                .slice(0, 3)
-                .map((number) => " " + number)} ...`
-            : `Гимны ${currentNumber.map((number) => " " + number)}`
-          : `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`
-      );
+      if (currentNumber.length > 1) {
+        setTitle(`Гимны ${currentNumber.slice(0, 3).map((number) => " " + number)}${currentNumber.length > 3 ? " ..." : ""}`);
+      } else {
+        setTitle(`Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`);
+      }
     } else if (pathname === "/hymns/" || pathname === "/hymns") {
       navigate("/");
     } else {
-      setTitle(() => findLocation(pathname, navItems));
+      const title = findLocation(pathname, navItems)
+      if (title) {
+        title && setTitle(title);
+      }
     }
   }, [currentNumber, pathname]);
 
