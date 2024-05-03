@@ -6,13 +6,14 @@ import Snackbar from "@mui/material/Snackbar";
 import StyledComponents from "../../../utils/sharedStyles";
 import SearchStyledComponents from "./styles";
 import findText from "../../../utils/findText";
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../../../redux/actions/actions";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
 function Search({
-  setCurrentNumber,
   openSearchedHymnList,
   setOpenSearchedHymnList,
   englishSearch,
@@ -24,6 +25,7 @@ function Search({
   const [errorAlert, setErrorAlert] = useState(false);
   const handleClose = () => setErrorAlert(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function searchRussianNumber() {
     return findSearchedNumbers(rusNumber, "number");
@@ -35,7 +37,8 @@ function Search({
     const numbers = input.split(",").map((num) => Number(num.trim()));
     const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
     const resultNumbers = matchingHymns.map((h) => h.number);
-    resultNumbers.length && setCurrentNumber(resultNumbers);
+    resultNumbers.length &&
+      dispatch({ type: actions.SET_CURRENT_NUMBER, payload: resultNumbers });
     return resultNumbers;
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +54,8 @@ function Search({
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
-      setCurrentNumber([randomNumber]);
+      dispatch({ type: actions.SET_CURRENT_NUMBER, payload: randomNumber });
+
       number = [randomNumber];
     }
     if (number.length) {
@@ -89,11 +93,7 @@ function Search({
   return (
     <>
       {openSearchedHymnList ? (
-        <HymnList
-          findedHymns={findedHymns}
-          setCurrentNumber={setCurrentNumber}
-          navigate={navigate}
-        />
+        <HymnList findedHymns={findedHymns} navigate={navigate} />
       ) : (
         <StyledForm>
           <StyledTextField

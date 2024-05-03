@@ -1,0 +1,8 @@
+const actions = {
+  SET_CURRENT_NUMBER: "SET_CURRENT_NUMBER",
+  SET_TITLE: "SET_TITLE",
+  SET_OPEN_MODAL: " SET_OPEN_MODAL",
+  SET_DRAWER_OPEN: "SET_DRAWER_OPEN",
+};
+
+export default actions;

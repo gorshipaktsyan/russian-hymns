@@ -7,15 +7,18 @@ import { TransitionGroup } from "react-transition-group";
 import Collapse from "@mui/material/Collapse";
 import StyledComponents from "../../../utils/sharedStyles";
 import bookmarksStore from "../../services/BookmarksStore";
+import actions from "../../../redux/actions/actions";
+import { useDispatch } from "react-redux";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function Bookmarks({ setCurrentNumber }) {
+function Bookmarks() {
   const [savedHymns, setSavedHymns] = useState(bookmarksStore.get());
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleClick(id) {
-    setCurrentNumber([id]);
+    dispatch({ type: actions.SET_CURRENT_NUMBER, payload: id });
     navigate(`/hymns/${[id]}`);
   }
 

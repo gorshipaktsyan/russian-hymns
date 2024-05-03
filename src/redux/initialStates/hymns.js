@@ -1,10 +1,10 @@
 const hymnsInitState = {
-  hymns: [],
-  currentNumbers: [],
-  savedHymns: [],
-  searchedHymns: [],
-  visible: false,
+  currentNumber: [],
+  title: "",
+  modalOpen: false,
   confirmLoading: false,
+  drawerOpen: false,
+  isMobile: navigator.maxTouchPoints > 0,
 };
 
 export default hymnsInitState;

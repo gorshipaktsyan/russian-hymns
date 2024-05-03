@@ -3,15 +3,19 @@ import { useNavigate } from "react-router-dom";
 import Alphabet from "./Alphabet";
 import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
+import actions from "../../../redux/actions/actions";
+import { useDispatch } from "react-redux";
 
 const { StyledBox } = StyledComponents;
 
-function AlphabeticalIndex({ setCurrentNumber, setTitle }) {
+function AlphabeticalIndex({ setTitle }) {
   const [letter, setLetter] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleTitleClick(id) {
-    setCurrentNumber([id]);
+    dispatch({ type: actions.SET_CURRENT_NUMBER, payload: id });
+
     navigate(`/hymns/${[id]}`);
   }
   function handleBackClick() {

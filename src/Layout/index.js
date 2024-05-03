@@ -5,11 +5,12 @@ import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import findLocation from "../view/services/LayoutService";
 import persistentStore from "../view/services/PersistentStore";
 import { useDoubleTap } from "../utils/DoubleTap";
 import changeFontSize from "../utils/changeFontSize";
+import { useSelector } from "react-redux";
 
 const navItems = [
   { title: "Гимны 1-800", route: "" },
@@ -31,7 +32,7 @@ function Layout() {
   const arrows = persistentStore.get("settings")?.useArrows;
   const engSearch = persistentStore.get("settings")?.englishSearch;
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
-  const [currentNumber, setCurrentNumber] = useState([]);
+  const currentNumber = useSelector((state) => state.hymns?.currentNumber);
   const [useArrows, setUseArrows] = useState(arrows || false);
   const [englishSearch, setEnglishSearch] = useState(engSearch || false);
   const [settings, setSettings] = useState({});
@@ -69,14 +70,18 @@ function Layout() {
     if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
       if (currentNumber.length > 1) {
-        setTitle(`Гимны ${currentNumber.slice(0, 3).map((number) => " " + number)}${currentNumber.length > 3 ? " ..." : ""}`);
+        setTitle(
+          `Гимны ${currentNumber.slice(0, 3).map((number) => " " + number)}${
+            currentNumber.length > 3 ? " ..." : ""
+          }`
+        );
       } else {
         setTitle(`Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`);
       }
     } else if (pathname === "/hymns/" || pathname === "/hymns") {
       navigate("/");
     } else {
-      const title = findLocation(pathname, navItems)
+      const title = findLocation(pathname, navItems);
       if (title) {
         title && setTitle(title);
       }
@@ -99,8 +104,6 @@ function Layout() {
       />
       <Box className="container">
         <App
-          currentNumber={currentNumber}
-          setCurrentNumber={setCurrentNumber}
           setTitle={setTitle}
           fontSize={fontSize}
           setFontSize={setFontSize}

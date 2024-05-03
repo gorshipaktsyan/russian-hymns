@@ -21,13 +21,14 @@ function AppBarComponent({
   openSearchedHymnList,
   setOpenSearchedHymnList,
 }) {
+  console.log(currentNumber);
+
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
   const { pathname } = useLocation();
   const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
   const handleClose = () => setCopyAlert(false);
-
   useEffect(() => {
     if (currentHymnNumber && savedHymnsList) {
       const isSaved = savedHymnsList.some((day) =>

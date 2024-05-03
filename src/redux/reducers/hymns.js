@@ -1,39 +1,27 @@
+import actions from "../actions/actions";
 import hymnsInitState from "../initialStates/hymns";
-import {
-  GET_HYMNS_SUCCESS_ACTION,
-  SET_HYMNS_SUCCESS_ACTION,
-  SAVE_HYMN_SUCCESS_ACTION,
-  DELETE_HYMN_SUCCESS_ACTION,
-  ADD_HYMN_TO_HISTORY_SUCCESS_ACTION,
-} from "../constants/hymns.js";
 
 const reducer = (state = hymnsInitState, action) => {
   switch (action.type) {
-    case GET_HYMNS_SUCCESS_ACTION:
+    case actions.SET_CURRENT_NUMBER:
       return {
         ...state,
-        hymns: action.payload,
+        currentNumber: [action.payload],
       };
-    case SET_HYMNS_SUCCESS_ACTION:
+    case actions.SET_TITLE:
       return {
         ...state,
-        selectedHymns: action.payload,
-        visible: false,
+        title: action.payload,
       };
-    case SAVE_HYMN_SUCCESS_ACTION:
+    case actions.SET_OPEN_MODAL:
       return {
         ...state,
-        savedHymns: action.payload,
+        modalOpen: action.payload,
       };
-    case ADD_HYMN_TO_HISTORY_SUCCESS_ACTION:
+    case actions.SET_DRAWER_OPEN:
       return {
         ...state,
-        searchedHymns: action.payload,
-      };
-    case DELETE_HYMN_SUCCESS_ACTION:
-      return {
-        ...state,
-        hymns: state.hymns.filter((el) => el.id !== action.payload),
+        drawerOpen: true,
       };
     default:
       return state;

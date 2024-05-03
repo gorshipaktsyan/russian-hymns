@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import hymnsInitState from "./initialStates/hymns";
-import settingsInitState from "./initialStates/settings";
+import hymnsReducer from "./reducers/hymns";
+import settingsReducer from "./initialStates/settings";
 
 export default combineReducers({
-  hymnsInitState,
-  settingsInitState,
+  hymns: hymnsReducer,
+  settings: settingsReducer,
 });
