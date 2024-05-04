@@ -5,12 +5,13 @@ import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import findLocation from "../view/services/LayoutService";
 import persistentStore from "../view/services/PersistentStore";
 import { useDoubleTap } from "../utils/DoubleTap";
 import changeFontSize from "../utils/changeFontSize";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import actions from "../redux/actions/actions";
 
 const navItems = [
   { title: "Гимны 1-800", route: "" },
@@ -23,22 +24,21 @@ const navItems = [
   { title: "O приложении", route: "about" },
   { title: "Настройки", route: "settings" },
 ];
-const isMobile = navigator.maxTouchPoints > 0;
 
 function Layout() {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [title, setTitle] = useState("");
   const savedFontSize = persistentStore.get("settings")?.fontSize;
   const arrows = persistentStore.get("settings")?.useArrows;
   const engSearch = persistentStore.get("settings")?.englishSearch;
   const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
-  const currentNumber = useSelector((state) => state.hymns?.currentNumber);
   const [useArrows, setUseArrows] = useState(arrows || false);
   const [englishSearch, setEnglishSearch] = useState(engSearch || false);
   const [settings, setSettings] = useState({});
-  const [openSearchedHymnList, setOpenSearchedHymnList] = useState(false);
+  const [currentNumber, setCurrentNumber] = useState([]);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
   useEffect(() => {
     changeFontSize(fontSize);
@@ -88,8 +88,8 @@ function Layout() {
     }
   }, [currentNumber, pathname]);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+  const handleDrawerToggle = (isOpen) => {
+    dispatch({ type: actions.SET_DRAWER_OPEN, payload: isOpen });
   };
   return (
     <Box sx={{ height: "100%" }}>
@@ -98,20 +98,16 @@ function Layout() {
         handleDrawerToggle={handleDrawerToggle}
         title={title}
         currentNumber={currentNumber}
-        isMobile={isMobile}
-        openSearchedHymnList={openSearchedHymnList}
-        setOpenSearchedHymnList={setOpenSearchedHymnList}
       />
       <Box className="container">
         <App
+          currentNumber={currentNumber}
+          setCurrentNumber={setCurrentNumber}
           setTitle={setTitle}
           fontSize={fontSize}
           setFontSize={setFontSize}
           useArrows={useArrows}
           setUseArrows={setUseArrows}
-          isMobile={isMobile}
-          openSearchedHymnList={openSearchedHymnList}
-          setOpenSearchedHymnList={setOpenSearchedHymnList}
           englishSearch={englishSearch}
           setEnglishSearch={setEnglishSearch}
         />
@@ -119,7 +115,6 @@ function Layout() {
       <Drawer
         handleDrawerToggle={handleDrawerToggle}
         navItems={navItems}
-        mobileOpen={mobileOpen}
         setTitle={setTitle}
         fontSize={fontSize}
       />

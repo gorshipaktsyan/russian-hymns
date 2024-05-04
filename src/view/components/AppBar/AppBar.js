@@ -10,21 +10,18 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import copyToClipboard from "../../../utils/copyToClipboard";
 import StyledComponents from "../../../utils/sharedStyles";
+import { useDispatch, useSelector } from "react-redux";
 
 const { StyledAlert } = StyledComponents;
 
-function AppBarComponent({
-  handleDrawerToggle,
-  title,
-  currentNumber,
-  isMobile,
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
-}) {
-  console.log(currentNumber);
-
+function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
+  const dispatch = useDispatch();
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
+  const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
+  const searchedHymnsListOpen = useSelector(
+    (store) => store.hymns.searchedHymnsListOpen
+  );
   const { pathname } = useLocation();
   const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
@@ -71,7 +68,7 @@ function AppBarComponent({
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleDrawerToggle}
+            onClick={() => handleDrawerToggle(!drawerOpen)}
           >
             <MenuIcon sx={{ fontSize: "30px" }} />
           </IconButton>
@@ -89,11 +86,10 @@ function AppBarComponent({
               flexGrow: "1",
             }}
           >
-            {(pathname !== "/" || openSearchedHymnList) && (
+            {(pathname !== "/" || searchedHymnsListOpen) && (
               <SearchBar
-                isMobile={isMobile}
-                openSearchedHymnList={openSearchedHymnList}
-                setOpenSearchedHymnList={setOpenSearchedHymnList}
+                searchedHymnsListOpen={searchedHymnsListOpen}
+                dispatch={dispatch}
               />
             )}
           </Box>

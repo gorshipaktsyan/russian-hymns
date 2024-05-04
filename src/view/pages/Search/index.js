@@ -13,16 +13,15 @@ const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
-function Search({
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
-  englishSearch,
-}) {
+function Search({ setCurrentNumber, englishSearch }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
   const [findedHymns, setFindedHymns] = useState([]);
   const [errorAlert, setErrorAlert] = useState(false);
+  const searchedHymnsListOpen = useSelector(
+    (store) => store.hymns.searchedHymnsListOpen
+  );
   const handleClose = () => setErrorAlert(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,7 +37,8 @@ function Search({
     const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
     const resultNumbers = matchingHymns.map((h) => h.number);
     resultNumbers.length &&
-      dispatch({ type: actions.SET_CURRENT_NUMBER, payload: resultNumbers });
+      resultNumbers.length &&
+      setCurrentNumber(resultNumbers);
     return resultNumbers;
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,7 +54,7 @@ function Search({
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
-      dispatch({ type: actions.SET_CURRENT_NUMBER, payload: randomNumber });
+      setCurrentNumber([randomNumber]);
 
       number = [randomNumber];
     }
@@ -84,7 +84,7 @@ function Search({
   }, [handleSubmit]);
   useEffect(() => {
     if (findedHymns.length > 0) {
-      setOpenSearchedHymnList(true);
+      dispatch({ type: actions.SET_SEARCHED_HYMNS_LIST_OPEN, payload: true });
     } else if (searchedText) {
       setErrorAlert(true);
     }
@@ -92,8 +92,12 @@ function Search({
 
   return (
     <>
-      {openSearchedHymnList ? (
-        <HymnList findedHymns={findedHymns} navigate={navigate} />
+      {searchedHymnsListOpen ? (
+        <HymnList
+          findedHymns={findedHymns}
+          setCurrentNumber={setCurrentNumber}
+          navigate={navigate}
+        />
       ) : (
         <StyledForm>
           <StyledTextField

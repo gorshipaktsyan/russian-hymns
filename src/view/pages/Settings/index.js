@@ -1,6 +1,7 @@
 import { Divider, Slider, Switch } from "@mui/material";
 import StyledComponents from "../../../utils/sharedStyles";
 import SettingsStyledComponents from "./styles";
+import { useSelector } from "react-redux";
 
 const { StyledBox } = StyledComponents;
 const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
@@ -11,10 +12,11 @@ function Settings({
   setFontSize,
   useArrows,
   setUseArrows,
-  isMobile,
   englishSearch,
   setEnglishSearch,
 }) {
+  const isMobile = useSelector((state) => state.hymns.isMobile);
+
   function handleChangeFtSz(e) {
     const newValue = parseFloat(e.target.value);
 
@@ -43,7 +45,7 @@ function Settings({
         </StyledSetListItem>
         {isMobile && (
           <>
-            <Divider sx={{ width: "350px", marginTop: '15px' }} />
+            <Divider sx={{ width: "350px", marginTop: "15px" }} />
             <StyledSetListItem>
               <StyledSetTpg>Стрелки</StyledSetTpg>
               <ArrowSetBox>
@@ -57,7 +59,7 @@ function Settings({
             </StyledSetListItem>
           </>
         )}
-        <Divider sx={{ width: "350px", marginTop: '15px' }} />
+        <Divider sx={{ width: "350px", marginTop: "15px" }} />
         <StyledSetListItem>
           <StyledSetTpg>Поиск по английскому номеру </StyledSetTpg>
           <ArrowSetBox>

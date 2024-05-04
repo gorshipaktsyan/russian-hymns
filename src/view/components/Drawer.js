@@ -5,14 +5,10 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import { useSelector } from "react-redux";
 
-function DrawerComponent({
-  navItems,
-  mobileOpen,
-  handleDrawerToggle,
-  setTitle,
-  fontSize,
-}) {
+function DrawerComponent({ navItems, handleDrawerToggle, setTitle, fontSize }) {
+  const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
   const navigate = useNavigate();
   function handleNavigate(item) {
     navigate(`/${item.route}`);
@@ -21,8 +17,8 @@ function DrawerComponent({
   return (
     <Drawer
       variant="temporary"
-      open={mobileOpen}
-      onClose={handleDrawerToggle}
+      open={drawerOpen}
+      onClose={() => handleDrawerToggle(false)}
       ModalProps={{
         keepMounted: true,
       }}
@@ -34,7 +30,10 @@ function DrawerComponent({
         },
       }}
     >
-      <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+      <Box
+        onClick={() => handleDrawerToggle(!drawerOpen)}
+        sx={{ textAlign: "center" }}
+      >
         <List>
           {navItems.slice(1).map((item) => (
             <ListItem

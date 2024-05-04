@@ -7,16 +7,12 @@ import StyledComponents from "../../../utils/sharedStyles";
 import historyStore from "../../services/HistoryStore";
 import persistentStore from "../../services/PersistentStore";
 import ConfirmModal from "./ConfirmationModal";
-import { useDispatch } from "react-redux";
-import actions from "../../../redux/actions/actions";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function History() {
+function History({ setCurrentNumber }) {
   const navigate = useNavigate();
   const [openConfirm, setOpenConfirm] = useState(false);
-  const dispatch = useDispatch();
-
   const [historyUpdated, setHistoryUpdated] = useState(false);
   const groupedHymnsData = useMemo(() => {
     return historyStore.get();
@@ -24,7 +20,7 @@ function History() {
   }, [historyUpdated]);
 
   function handleClick(id) {
-    dispatch({ type: actions.SET_CURRENT_NUMBER, payload: id });
+    setCurrentNumber([id]);
     navigate(`/hymns/${[id]}`);
   }
   function handleClearHistory() {

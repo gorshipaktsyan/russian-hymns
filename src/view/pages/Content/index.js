@@ -5,14 +5,11 @@ import SubTitlesList from "./SubTitlesList";
 import StyledComponents from "../../../utils/sharedStyles";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import titles from "../../services/storage/titles.json";
-import actions from "../../../redux/actions/actions";
-import { useDispatch } from "react-redux";
 
 const { StyledList, StyledBox } = StyledComponents;
-function TitlesList({ fontSize }) {
+function TitlesList({ fontSize, setCurrentNumber }) {
   const [selectedTitle, setSelectedTitle] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   function ScrollToTittle(id) {
     const element = document.getElementById(id);
     setTimeout(
@@ -30,7 +27,7 @@ function TitlesList({ fontSize }) {
   }
 
   function handleHymnClick(id) {
-    dispatch({ type: actions.SET_CURRENT_NUMBER, payload: id });
+    setCurrentNumber([id]);
     navigate(`/hymns/${[id]}`);
   }
 
