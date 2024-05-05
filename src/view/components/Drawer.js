@@ -6,13 +6,15 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import { useSelector } from "react-redux";
+import navItems from "../../utils/navItems";
+import { setTitle } from "../../redux/actions/actions";
 
-function DrawerComponent({ navItems, handleDrawerToggle, setTitle, fontSize }) {
+function DrawerComponent({ handleDrawerToggle, fontSize, dispatch }) {
   const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
   const navigate = useNavigate();
   function handleNavigate(item) {
     navigate(`/${item.route}`);
-    setTitle(item.title);
+    dispatch(setTitle(item.title));
   }
   return (
     <Drawer

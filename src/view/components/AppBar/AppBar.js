@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const { StyledAlert } = StyledComponents;
 
-function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
+function AppBarComponent({ handleDrawerToggle, currentNumber, pathname }) {
   const dispatch = useDispatch();
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
@@ -22,7 +22,7 @@ function AppBarComponent({ handleDrawerToggle, title, currentNumber }) {
   const searchedHymnsListOpen = useSelector(
     (store) => store.hymns.searchedHymnsListOpen
   );
-  const { pathname } = useLocation();
+  const title = useSelector((state) => state.hymns.title);
   const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
   const handleClose = () => setCopyAlert(false);

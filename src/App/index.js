@@ -18,12 +18,10 @@ import StyledApp from "./styles";
 function App({
   currentNumber,
   setCurrentNumber,
-  setTitle,
   fontSize,
   setFontSize,
   useArrows,
   setUseArrows,
-  isMobile,
   openSearchedHymnList,
   setOpenSearchedHymnList,
   englishSearch,
@@ -67,12 +65,7 @@ function App({
     { path: "/about", element: <About /> },
     {
       path: "/alphabetical",
-      element: (
-        <AlphabeticalIndex
-          setCurrentNumber={setCurrentNumber}
-          setTitle={setTitle}
-        />
-      ),
+      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber} />,
     },
     {
       path: "/bookmark",

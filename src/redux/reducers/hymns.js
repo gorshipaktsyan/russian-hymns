@@ -13,6 +13,11 @@ const reducer = (state = hymnsInitState, action) => {
         ...state,
         searchedHymnsListOpen: action.payload,
       };
+    case actions.SET_TITLE:
+      return {
+        ...state,
+        title: action.payload,
+      };
     default:
       return state;
   }

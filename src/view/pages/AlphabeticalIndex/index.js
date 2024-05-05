@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Alphabet from "./Alphabet";
 import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
+import { useDispatch } from "react-redux";
+import { setTitle } from "../../../redux/actions/actions";
 
 const { StyledBox } = StyledComponents;
 
-function AlphabeticalIndex({ setTitle, setCurrentNumber }) {
+function AlphabeticalIndex({ setCurrentNumber }) {
   const [letter, setLetter] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleTitleClick(id) {
@@ -16,7 +19,7 @@ function AlphabeticalIndex({ setTitle, setCurrentNumber }) {
   }
   function handleBackClick() {
     setLetter("");
-    setTitle("Алфавитный указатель");
+    dispatch(setTitle("Алфавитный указатель"));
   }
   return (
     <StyledBox>
@@ -27,7 +30,7 @@ function AlphabeticalIndex({ setTitle, setCurrentNumber }) {
           handleBackClick={() => handleBackClick()}
         />
       ) : (
-        <Alphabet setLetter={setLetter} setTitle={setTitle} />
+        <Alphabet setLetter={setLetter} dispatch={dispatch} />
       )}
     </StyledBox>
   );

@@ -6,35 +6,24 @@ import hymns from "../view/services/storage/hymns.json";
 import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
 import { useLocation, useNavigate } from "react-router-dom";
-import findLocation from "../view/services/LayoutService";
 import persistentStore from "../view/services/PersistentStore";
 import { useDoubleTap } from "../utils/DoubleTap";
 import changeFontSize from "../utils/changeFontSize";
 import { useDispatch } from "react-redux";
 import actions from "../redux/actions/actions";
-
-const navItems = [
-  { title: "Гимны 1-800", route: "" },
-  { title: "Алфавитный указатель", route: "alphabetical" },
-  { title: "Содержание", route: "content" },
-  { title: "История", route: "history" },
-  { title: "Закладки", route: "bookmark" },
-  { title: "Предисловие", route: "preface" },
-  { title: "Справка", route: "reference" },
-  { title: "O приложении", route: "about" },
-  { title: "Настройки", route: "settings" },
-];
+import setTitleBy from "../utils/setTitleBy";
 
 function Layout() {
-  const [title, setTitle] = useState("");
-  const savedFontSize = persistentStore.get("settings")?.fontSize;
-  const arrows = persistentStore.get("settings")?.useArrows;
-  const engSearch = persistentStore.get("settings")?.englishSearch;
-  const [fontSize, setFontSize] = useState(savedFontSize ? savedFontSize : 1);
-  const [useArrows, setUseArrows] = useState(arrows || false);
-  const [englishSearch, setEnglishSearch] = useState(engSearch || false);
-  const [settings, setSettings] = useState({});
   const [currentNumber, setCurrentNumber] = useState([]);
+  const [fontSize, setFontSize] = useState(
+    persistentStore.get("settings")?.fontSize || 1
+  );
+  const [useArrows, setUseArrows] = useState(
+    persistentStore.get("settings")?.useArrows || false
+  );
+  const [englishSearch, setEnglishSearch] = useState(
+    persistentStore.get("settings")?.englishSearch || false
+  );
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -42,50 +31,16 @@ function Layout() {
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
   useEffect(() => {
     changeFontSize(fontSize);
-    setSettings((prev) => ({
-      ...prev,
+    const settings = {
       fontSize: Number(fontSize.toFixed(1)),
-    }));
-  }, [fontSize]);
-
-  useEffect(() => {
-    setSettings((prev) => ({
-      ...prev,
       useArrows,
-    }));
-  }, [useArrows]);
-
-  useEffect(() => {
-    setSettings((prev) => ({
-      ...prev,
       englishSearch,
-    }));
-  }, [englishSearch]);
-
-  useEffect(() => {
+    };
     persistentStore.set("settings", settings);
-  }, [settings]);
+  }, [fontSize, useArrows, englishSearch]);
 
   useEffect(() => {
-    if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
-      const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
-      if (currentNumber.length > 1) {
-        setTitle(
-          `Гимны ${currentNumber.slice(0, 3).map((number) => " " + number)}${
-            currentNumber.length > 3 ? " ..." : ""
-          }`
-        );
-      } else {
-        setTitle(`Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`);
-      }
-    } else if (pathname === "/hymns/" || pathname === "/hymns") {
-      navigate("/");
-    } else {
-      const title = findLocation(pathname, navItems);
-      if (title) {
-        title && setTitle(title);
-      }
-    }
+    setTitleBy(currentNumber, pathname, navigate, hymns, dispatch);
   }, [currentNumber, pathname]);
 
   const handleDrawerToggle = (isOpen) => {
@@ -93,17 +48,16 @@ function Layout() {
   };
   return (
     <Box sx={{ height: "100%" }}>
-      <ScrollToTop currentNumber={currentNumber} />
+      <ScrollToTop currentNumber={currentNumber} pathname={pathname} />
       <AppBar
         handleDrawerToggle={handleDrawerToggle}
-        title={title}
         currentNumber={currentNumber}
+        pathname={pathname}
       />
       <Box className="container">
         <App
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
-          setTitle={setTitle}
           fontSize={fontSize}
           setFontSize={setFontSize}
           useArrows={useArrows}
@@ -114,8 +68,7 @@ function Layout() {
       </Box>
       <Drawer
         handleDrawerToggle={handleDrawerToggle}
-        navItems={navItems}
-        setTitle={setTitle}
+        dispatch={dispatch}
         fontSize={fontSize}
       />
     </Box>
