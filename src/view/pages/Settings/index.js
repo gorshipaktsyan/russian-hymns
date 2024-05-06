@@ -7,6 +7,7 @@ const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
   SettingsStyledComponents;
 
 function Settings({
+  language,
   fontSize,
   setFontSize,
   useArrows,
@@ -30,7 +31,7 @@ function Settings({
     <StyledBox onTouchStart={(e) => e.stopPropagation()}>
       <StyledSetList>
         <StyledSetListItem>
-          <StyledSetTpg>Размер шрифта</StyledSetTpg>
+          <StyledSetTpg>{language.settings.fontSize}</StyledSetTpg>
           <Slider
             aria-label="Font size"
             value={fontSize && fontSize}
@@ -43,30 +44,30 @@ function Settings({
         </StyledSetListItem>
         {isMobile && (
           <>
-            <Divider sx={{ width: "350px", marginTop: '15px' }} />
+            <Divider sx={{ width: "350px", marginTop: "15px" }} />
             <StyledSetListItem>
-              <StyledSetTpg>Стрелки</StyledSetTpg>
+              <StyledSetTpg>{language.settings.arrows}</StyledSetTpg>
               <ArrowSetBox>
-                <StyledSetTpg>Выкл</StyledSetTpg>
+                <StyledSetTpg>{language.settings.off}</StyledSetTpg>
                 <Switch
                   checked={useArrows}
                   onChange={handleChangeArrows}
                 ></Switch>
-                <StyledSetTpg>Вкл</StyledSetTpg>
+                <StyledSetTpg>{language.settings.on}</StyledSetTpg>
               </ArrowSetBox>
             </StyledSetListItem>
           </>
         )}
-        <Divider sx={{ width: "350px", marginTop: '15px' }} />
+        <Divider sx={{ width: "350px", marginTop: "15px" }} />
         <StyledSetListItem>
           <StyledSetTpg>Поиск по английскому номеру </StyledSetTpg>
           <ArrowSetBox>
-            <StyledSetTpg>Выкл</StyledSetTpg>
+            <StyledSetTpg>{language.settings.off}</StyledSetTpg>
             <Switch
               checked={englishSearch}
               onChange={handleChangeEngSearch}
             ></Switch>
-            <StyledSetTpg>Вкл</StyledSetTpg>
+            <StyledSetTpg>{language.settings.on}</StyledSetTpg>
           </ArrowSetBox>
         </StyledSetListItem>
       </StyledSetList>

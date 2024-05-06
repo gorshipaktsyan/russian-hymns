@@ -16,6 +16,7 @@ import {
 import StyledApp from "./styles";
 
 function App({
+  language,
   currentNumber,
   setCurrentNumber,
   setTitle,
@@ -34,6 +35,7 @@ function App({
       path: "/",
       element: (
         <Search
+          language={language}
           setCurrentNumber={setCurrentNumber}
           openSearchedHymnList={openSearchedHymnList}
           setOpenSearchedHymnList={setOpenSearchedHymnList}
@@ -45,6 +47,7 @@ function App({
       path: "/hymns/:number",
       element: (
         <Hymn
+          language={language}
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
           useArrows={useArrows}
@@ -56,6 +59,7 @@ function App({
       path: "/settings",
       element: (
         <Settings
+          language={language}
           fontSize={fontSize}
           setFontSize={setFontSize}
           useArrows={useArrows}
@@ -66,11 +70,12 @@ function App({
         />
       ),
     },
-    { path: "/about", element: <About /> },
+    { path: "/about", element: <About language={language} /> },
     {
       path: "/alphabetical",
       element: (
         <AlphabeticalIndex
+          language={language}
           setCurrentNumber={setCurrentNumber}
           setTitle={setTitle}
           isMobile={isMobile}
@@ -79,7 +84,9 @@ function App({
     },
     {
       path: "/bookmark",
-      element: <Bookmarks setCurrentNumber={setCurrentNumber} />,
+      element: (
+        <Bookmarks setCurrentNumber={setCurrentNumber} language={language} />
+      ),
     },
     {
       path: "/content",
@@ -89,10 +96,12 @@ function App({
     },
     {
       path: "/history",
-      element: <History setCurrentNumber={setCurrentNumber} />,
+      element: (
+        <History setCurrentNumber={setCurrentNumber} language={language} />
+      ),
     },
-    { path: "/preface", element: <Preface /> },
-    { path: "/reference", element: <Reference /> },
+    { path: "/preface", element: <Preface language={language} /> },
+    { path: "/reference", element: <Reference language={language} /> },
   ];
 
   return (

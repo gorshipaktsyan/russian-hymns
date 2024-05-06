@@ -7,9 +7,15 @@ import StyledComponents from "../../../utils/sharedStyles";
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
 
-function HymnsList({ handleTitleClick, letter, handleBackClick, isMobile }) {
+function HymnsList({
+  handleTitleClick,
+  letter,
+  handleBackClick,
+  isMobile,
+  language,
+}) {
   const filteredHymns = useMemo(() => {
-    const removeSymbols = (text) => text.replace(/[^a-zA-Zа-яА-ЯёЁ]/g, "");
+    const removeSymbols = (text) => text.replace(language.regExp, "");
     return hymns
       .filter(
         (h) => h.first_letter === letter || h.first_letter_chorus === letter
@@ -29,7 +35,7 @@ function HymnsList({ handleTitleClick, letter, handleBackClick, isMobile }) {
         }
       })
       .sort((a, b) => {
-        return a.filteredText.localeCompare(b.filteredText, "ru", {
+        return a.filteredText.localeCompare(b.filteredText, language.language, {
           sensitivity: "base",
         });
       });

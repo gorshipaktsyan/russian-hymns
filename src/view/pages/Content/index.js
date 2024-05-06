@@ -8,7 +8,7 @@ import titles from "../../services/storage/titles.json";
 
 const { StyledList, StyledBox } = StyledComponents;
 function TitlesList({ setCurrentNumber, fontSize }) {
-  const [selectedTitle, setSelectedTitle] = useState(null);
+  const [selectedTitle, setSelectedTitle] = useState("");
   const navigate = useNavigate();
 
   function ScrollToTittle(id) {
@@ -23,7 +23,7 @@ function TitlesList({ setCurrentNumber, fontSize }) {
     );
   }
   function handleTitleClick(id) {
-    setSelectedTitle((prevTitleId) => (prevTitleId === id ? null : id));
+    setSelectedTitle((prevTitleId) => (prevTitleId === id ? "" : id));
     ScrollToTittle(id);
   }
 

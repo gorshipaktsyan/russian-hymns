@@ -12,6 +12,7 @@ const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
 function Search({
+  language,
   setCurrentNumber,
   openSearchedHymnList,
   setOpenSearchedHymnList,
@@ -98,7 +99,7 @@ function Search({
         <StyledForm>
           <StyledTextField
             type="decimal"
-            label="Поиск по русскому  номеру"
+            label={language.search.searchByRussianNumber}
             value={rusNumber}
             inputProps={{
               inputMode: "decimal",
@@ -114,7 +115,7 @@ function Search({
           {englishSearch && (
             <StyledTextField
               type="decimal"
-              label="Поиск по английскому номеру"
+              label={language.search.searchByEnglishNumber}
               value={engNumber}
               inputProps={{
                 inputMode: "decimal",
@@ -128,7 +129,7 @@ function Search({
             />
           )}
           <StyledTextField
-            label="Поиск по тексту"
+            label={language.search.searchByText}
             value={searchedText}
             inputProps={{
               inputMode: "search",
@@ -144,7 +145,7 @@ function Search({
             variant="contained"
             onClick={handleSubmit}
           >
-            <span style={{ fontSize: "16px" }}>Поиск</span>
+            <span style={{ fontSize: "16px" }}>{language.search.search}</span>
           </StyledSearchButton>
         </StyledForm>
       )}
@@ -155,7 +156,7 @@ function Search({
         autoHideDuration={2000}
       >
         <StyledAlert onClose={handleClose} severity="error">
-          Соответствующий гимн не найден!
+          {language.search.errorAlert}
         </StyledAlert>
       </Snackbar>
     </>

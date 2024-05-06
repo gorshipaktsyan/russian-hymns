@@ -1,6 +1,6 @@
 import hymns from "../view/services/storage/hymns.json";
 
-export default function findText(text) {
+export default function findText(text, language) {
   const lowerCaseText = text.toLowerCase();
   const textWithoutSpaces = lowerCaseText.replace(/\s/g, "");
   const textWithoutSpandSymbols = lowerCaseText.replace(/[^а-яА-Я]/g, "");

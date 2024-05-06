@@ -7,6 +7,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 
 function DrawerComponent({
+  language,
   navItems,
   mobileOpen,
   handleDrawerToggle,
@@ -57,7 +58,7 @@ function DrawerComponent({
           fontSize: "13px",
         }}
       >
-        <p>Версия: 1.3.7</p>
+        <p>{language.version}: 1.3.7</p>
       </Box>
     </Drawer>
   );

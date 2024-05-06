@@ -6,7 +6,7 @@ import StyledComponents from "../../../utils/sharedStyles";
 
 const { StyledBox } = StyledComponents;
 
-function AlphabeticalIndex({ setCurrentNumber, setTitle }) {
+function AlphabeticalIndex({ setCurrentNumber, setTitle, language }) {
   const [letter, setLetter] = useState("");
   const navigate = useNavigate();
 
@@ -16,18 +16,23 @@ function AlphabeticalIndex({ setCurrentNumber, setTitle }) {
   }
   function handleBackClick() {
     setLetter("");
-    setTitle("Алфавитный указатель");
+    setTitle(language.alphabeticalIndex.alphabeticalIndex);
   }
   return (
     <StyledBox>
       {letter ? (
         <HymnsList
+          language={language}
           letter={letter}
           handleTitleClick={handleTitleClick}
           handleBackClick={() => handleBackClick()}
         />
       ) : (
-        <Alphabet setLetter={setLetter} setTitle={setTitle} />
+        <Alphabet
+          setLetter={setLetter}
+          setTitle={setTitle}
+          language={language}
+        />
       )}
     </StyledBox>
   );

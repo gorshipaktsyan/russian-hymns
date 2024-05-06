@@ -10,6 +10,7 @@ import findLocation from "../view/services/LayoutService";
 import persistentStore from "../view/services/PersistentStore";
 import { useDoubleTap } from "../utils/DoubleTap";
 import changeFontSize from "../utils/changeFontSize";
+import russian from "../config/constants/russian";
 
 const navItems = [
   { title: "Гимны 1-800", route: "" },
@@ -38,6 +39,7 @@ function Layout() {
   const [openSearchedHymnList, setOpenSearchedHymnList] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [language, setLanguage] = useState(russian);
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
   useEffect(() => {
     changeFontSize(fontSize);
@@ -69,14 +71,22 @@ function Layout() {
     if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
       const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
       if (currentNumber.length > 1) {
-        setTitle(`Гимны ${currentNumber.slice(0, 3).map((number) => " " + number)}${currentNumber.length > 3 ? " ..." : ""}`);
+        setTitle(
+          `${language.hymns} ${currentNumber
+            .slice(0, 3)
+            .map((number) => " " + number)}${
+            currentNumber.length > 3 ? " ..." : ""
+          }`
+        );
       } else {
-        setTitle(`Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`);
+        setTitle(
+          `${language.hymn} ${currentNumber}<sup>${currentHymn?.sign}</sup>`
+        );
       }
     } else if (pathname === "/hymns/" || pathname === "/hymns") {
       navigate("/");
     } else {
-      const title = findLocation(pathname, navItems)
+      const title = findLocation(pathname, navItems);
       if (title) {
         title && setTitle(title);
       }
@@ -90,6 +100,7 @@ function Layout() {
     <Box sx={{ height: "100%" }}>
       <ScrollToTop currentNumber={currentNumber} />
       <AppBar
+        language={language}
         handleDrawerToggle={handleDrawerToggle}
         title={title}
         currentNumber={currentNumber}
@@ -99,6 +110,7 @@ function Layout() {
       />
       <Box className="container">
         <App
+          language={language}
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
           setTitle={setTitle}
@@ -114,6 +126,7 @@ function Layout() {
         />
       </Box>
       <Drawer
+        language={language}
         handleDrawerToggle={handleDrawerToggle}
         navItems={navItems}
         mobileOpen={mobileOpen}

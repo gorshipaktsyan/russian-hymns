@@ -14,6 +14,7 @@ import StyledComponents from "../../../utils/sharedStyles";
 const { StyledAlert } = StyledComponents;
 
 function AppBarComponent({
+  language,
   handleDrawerToggle,
   title,
   currentNumber,
@@ -117,7 +118,7 @@ function AppBarComponent({
           onClose={handleClose}
           autoHideDuration={2000}
         >
-          <StyledAlert>Ссылка на этот гимн скопирована.</StyledAlert>
+          <StyledAlert>{language.appBar.copyAlert}</StyledAlert>
         </Snackbar>
       )}
     </>

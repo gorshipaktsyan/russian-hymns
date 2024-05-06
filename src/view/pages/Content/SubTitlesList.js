@@ -13,7 +13,7 @@ function SubTitlesList({
   ScrollToTittle,
   fontSize,
 }) {
-  const [expandedSub, setExpandedSub] = useState(null);
+  const [expandedSub, setExpandedSub] = useState("");
   const grouped = useMemo(() => {
     return hymns.filter((hymn) => hymn.title === selectedTitle);
   }, [selectedTitle]);
@@ -23,13 +23,13 @@ function SubTitlesList({
 
   function handleSubTitleClick(subtitleId) {
     setExpandedSub((prevSubtitleId) =>
-      prevSubtitleId === subtitleId ? null : subtitleId
+      prevSubtitleId === subtitleId ? "" : subtitleId
     );
     ScrollToTittle(subtitleId);
   }
 
   useEffect(() => {
-    setExpandedSub(false);
+    setExpandedSub("");
   }, [selectedTitle]);
 
   return (
@@ -50,7 +50,7 @@ function SubTitlesList({
                 fontSize: "15px",
               }}
             />
-            {!!expandedSub && expandedSub === sub._id && (
+            {expandedSub === sub._id && (
               <StyledSubHymnsList>
                 {hymns.map((h, index) => (
                   <HymnTitle

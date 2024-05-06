@@ -26,7 +26,13 @@ const {
   MobArrowLeftIcon,
 } = HymnStyledComponents;
 
-function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
+function Hymn({
+  language,
+  setCurrentNumber,
+  currentNumber,
+  useArrows,
+  isMobile,
+}) {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
@@ -126,7 +132,7 @@ function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
                 {hymn.length > 1 && (
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: `Гимн ${h.number}<sup>${h.sign}</sup>`,
+                      __html: `${language.hymn} ${h.number}<sup>${h.sign}</sup>`,
                     }}
                   />
                 )}

@@ -10,7 +10,7 @@ import ConfirmModal from "./ConfirmationModal";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function History({ setCurrentNumber }) {
+function History({ setCurrentNumber, language }) {
   const navigate = useNavigate();
   const [openConfirm, setOpenConfirm] = useState(false);
   const [historyUpdated, setHistoryUpdated] = useState(false);
@@ -42,7 +42,7 @@ function History({ setCurrentNumber }) {
               }}
               onClick={() => setOpenConfirm(true)}
             >
-              Удалить историю
+              {language.history.deleteHistory}
             </Box>
             <TransitionGroup>
               {groupedHymnsData.map(({ date, hymns }) => (
@@ -66,11 +66,12 @@ function History({ setCurrentNumber }) {
             </TransitionGroup>
           </StyledList>
         ) : (
-          <StyledTypography>Нет данных</StyledTypography>
+          <StyledTypography>{language.noData}</StyledTypography>
         )}
       </StyledBox>
       {openConfirm && (
         <ConfirmModal
+          language={language}
           handleClearHistory={handleClearHistory}
           setOpenConfirm={setOpenConfirm}
           openConfirm={openConfirm}
