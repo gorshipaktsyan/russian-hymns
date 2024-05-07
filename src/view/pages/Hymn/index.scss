@@ -8,11 +8,11 @@
   div.hymnInfo {
     text-align: center;
     background-color: rgb(253, 253, 232);
-    margin-top: 20px;
   }
   div.hymn table {
     text-align: center;
     margin: 0 auto;
+    line-height: 1.2;
   }
 
   div.hymn .title {
@@ -34,7 +34,6 @@
   }
 
   div.hymn table td {
-    padding-top: 0.25em;
     vertical-align: top;
     font-size: 1.2em;
   }

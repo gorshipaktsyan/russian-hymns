@@ -5,7 +5,7 @@ const { InfoBox, StyledLink } = StyledComponents;
 
 function About() {
   return (
-    <InfoBox className="infoBox">
+    <InfoBox>
       <p>
         Это приложение представляет собой официальную электронную версию
         сборника гимнов, опубликованного «Коллектором библейской книги» в 2014
