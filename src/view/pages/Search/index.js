@@ -48,7 +48,7 @@ function Search({
     } else if (engNumber) {
       number = searchEnglishNumber();
     } else if (searchedText) {
-      setFindedHymns(findText(searchedText));
+      setFindedHymns(findText(searchedText, language));
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);

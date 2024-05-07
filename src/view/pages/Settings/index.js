@@ -60,7 +60,7 @@ function Settings({
         )}
         <Divider sx={{ width: "350px", marginTop: "15px" }} />
         <StyledSetListItem>
-          <StyledSetTpg>Поиск по английскому номеру </StyledSetTpg>
+          <StyledSetTpg>{language.settings.searchByEnglishNumber}</StyledSetTpg>
           <ArrowSetBox>
             <StyledSetTpg>{language.settings.off}</StyledSetTpg>
             <Switch

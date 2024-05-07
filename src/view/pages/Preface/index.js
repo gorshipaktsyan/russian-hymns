@@ -29,10 +29,15 @@ function Preface({ language }) {
       <p>{language.preface.forSatisfaction}</p>
 
       <p>{language.preface.hymnDivisions}</p>
+
       <p>{language.preface.index}</p>
+
       <p>{language.preface.melodies}</p>
+
       <p>{language.preface.attention}</p>
+
       <p>{language.preface.continuousFlow}</p>
+
       <p>{language.preface.distractions}</p>
 
       <p>{language.preface.gratitudeToPublishers}</p>

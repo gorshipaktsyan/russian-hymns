@@ -15,7 +15,8 @@ function HymnsList({
   language,
 }) {
   const filteredHymns = useMemo(() => {
-    const removeSymbols = (text) => text.replace(language.regExp, "");
+    const removeSymbols = (text) =>
+      text.replace(language.regExp.onlyLetters, "");
     return hymns
       .filter(
         (h) => h.first_letter === letter || h.first_letter_chorus === letter
