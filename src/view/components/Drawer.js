@@ -7,15 +7,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import { useSelector } from "react-redux";
 import navItems from "../../utils/navItems";
-import { setTitle } from "../../redux/actions/actions";
+import actions, { setTitle } from "../../redux/actions/actions";
 
-function DrawerComponent({ handleDrawerToggle, fontSize, dispatch,  language,
- }) {
+function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, language }) {
   const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
   const navigate = useNavigate();
   function handleNavigate(item) {
     navigate(`/${item.route}`);
-    dispatch(setTitle(item.title));
+    dispatch({ type: actions.SET_TITLE, payload: item.title });
   }
   return (
     <Drawer

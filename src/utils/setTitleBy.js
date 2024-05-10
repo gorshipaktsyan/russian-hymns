@@ -1,6 +1,6 @@
-import { setTitle } from "../redux/actions/actions";
+import { useSelector } from "react-redux";
+import actions from "../redux/actions/actions";
 import findLocation from "../view/services/LayoutService";
-
 export default function setTitleBy(
   currentNumber,
   pathname,
@@ -8,6 +8,7 @@ export default function setTitleBy(
   hymns,
   dispatch
 ) {
+  // const lg = (useSelector = (state) => state.hymns.language);
   if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
     const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
     let newTitle;
@@ -20,13 +21,13 @@ export default function setTitleBy(
     } else {
       newTitle = `Гимн ${currentNumber}<sup>${currentHymn?.sign}</sup>`;
     }
-    dispatch(setTitle(newTitle));
+    dispatch({ type: actions.SET_TITLE, payload: newTitle });
   } else if (pathname === "/hymns/" || pathname === "/hymns") {
     navigate("/");
   } else {
     const title = findLocation(pathname);
     if (title) {
-      dispatch(setTitle(title));
+      dispatch({ type: actions.SET_TITLE, payload: title });
     }
   }
 }

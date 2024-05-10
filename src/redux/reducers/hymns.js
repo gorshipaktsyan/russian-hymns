@@ -18,6 +18,11 @@ const reducer = (state = hymnsInitState, action) => {
         ...state,
         title: action.payload,
       };
+    case actions.SET_LANGUAGE:
+      return {
+        ...state,
+        language: action.payload,
+      };
     default:
       return state;
   }

@@ -4,13 +4,11 @@ import Alphabet from "./Alphabet";
 import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
 import { useDispatch } from "react-redux";
-import { setTitle } from "../../../redux/actions/actions";
+import actions from "../../../redux/actions/actions";
 
 const { StyledBox } = StyledComponents;
 
-function AlphabeticalIndex({ setCurrentNumber, setTitle, language }) {
-function AlphabeticalIndex({  language,
- setCurrentNumber }) {
+function AlphabeticalIndex({ language, setCurrentNumber }) {
   const [letter, setLetter] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +19,10 @@ function AlphabeticalIndex({  language,
   }
   function handleBackClick() {
     setLetter("");
-    dispatch(setTitle("Алфавитный указатель"));
+    dispatch({
+      type: actions.SET_TITLE,
+      payload: language.alphabeticalIndex.alphabeticalIndex,
+    });
   }
   return (
     <StyledBox>
@@ -33,9 +34,11 @@ function AlphabeticalIndex({  language,
           handleBackClick={() => handleBackClick()}
         />
       ) : (
-
-        <Alphabet setLetter={setLetter} dispatch={dispatch}           language={language}
-/>
+        <Alphabet
+          setLetter={setLetter}
+          dispatch={dispatch}
+          language={language}
+        />
       )}
     </StyledBox>
   );

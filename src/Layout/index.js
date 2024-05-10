@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Drawer from "../view/components/Drawer";
-import AppBar from "../view/components/AppBar/AppBar";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Drawer, AppBar } from "../view/components/index";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
-import { useLocation, useNavigate } from "react-router-dom";
 import persistentStore from "../view/services/PersistentStore";
-import { useDoubleTap } from "../utils/DoubleTap";
-import changeFontSize from "../utils/changeFontSize";
+import { useDoubleTap, setTitleBy, changeFontSize } from "../utils/index";
 import russian from "../config/constants/russian";
 import { useDispatch } from "react-redux";
 import actions from "../redux/actions/actions";
-import setTitleBy from "../utils/setTitleBy";
 
 function Layout() {
   const [currentNumber, setCurrentNumber] = useState([]);
@@ -29,7 +26,7 @@ function Layout() {
   const { pathname } = useLocation();
   const [language, setLanguage] = useState(russian);
   const dispatch = useDispatch();
-  
+
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
   useEffect(() => {
     changeFontSize(fontSize);
@@ -42,7 +39,7 @@ function Layout() {
   }, [fontSize, useArrows, englishSearch]);
 
   useEffect(() => {
-    setTitleBy(currentNumber, pathname, navigate, hymns, dispatch,language);
+    setTitleBy(currentNumber, pathname, navigate, hymns, dispatch, language);
   }, [currentNumber, pathname]);
 
   const handleDrawerToggle = (isOpen) => {

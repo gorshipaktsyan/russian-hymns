@@ -1,4 +1,4 @@
-import AppBar from './AppBar'
-import Drawer from './Drawer'
+import AppBar from "./appBar/AppBar";
+import Drawer from "./Drawer";
 
-export { AppBar, Drawer }
+export { AppBar, Drawer };
