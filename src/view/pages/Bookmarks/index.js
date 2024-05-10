@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
-import { Box, Divider } from "@mui/material";
+import { Box, Divider, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TransitionGroup } from "react-transition-group";
-import Collapse from "@mui/material/Collapse";
 import StyledComponents from "../../../utils/sharedStyles";
 import bookmarksStore from "../../services/BookmarksStore";
+import { useSelector } from "react-redux";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function Bookmarks({ setCurrentNumber, language }) {
+function Bookmarks({ setCurrentNumber }) {
   const [savedHymns, setSavedHymns] = useState(bookmarksStore.get());
+  const lg = useSelector((state) => state.hymns.language);
+
   const navigate = useNavigate();
 
   function handleClick(id) {
@@ -52,7 +54,7 @@ function Bookmarks({ setCurrentNumber, language }) {
           </TransitionGroup>
         </StyledList>
       ) : (
-        <StyledTypography>{language.noData}</StyledTypography>
+        <StyledTypography>{lg.noData}</StyledTypography>
       )}
     </StyledBox>
   );

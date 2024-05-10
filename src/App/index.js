@@ -16,15 +16,12 @@ import {
 import StyledApp from "./styles";
 
 function App({
-  language,
   currentNumber,
   setCurrentNumber,
   fontSize,
   setFontSize,
   useArrows,
   setUseArrows,
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
   englishSearch,
   setEnglishSearch,
 }) {
@@ -33,10 +30,7 @@ function App({
       path: "/",
       element: (
         <Search
-          language={language}
           setCurrentNumber={setCurrentNumber}
-          openSearchedHymnList={openSearchedHymnList}
-          setOpenSearchedHymnList={setOpenSearchedHymnList}
           englishSearch={englishSearch}
         />
       ),
@@ -45,7 +39,6 @@ function App({
       path: "/hymns/:number",
       element: (
         <Hymn
-          language={language}
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
           useArrows={useArrows}
@@ -56,7 +49,6 @@ function App({
       path: "/settings",
       element: (
         <Settings
-          language={language}
           fontSize={fontSize}
           setFontSize={setFontSize}
           useArrows={useArrows}
@@ -66,16 +58,14 @@ function App({
         />
       ),
     },
-    { path: "/about", element: <About language={language} /> },
+    { path: "/about", element: <About /> },
     {
       path: "/alphabetical",
-      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber}   language={language} />,
+      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber} />,
     },
     {
       path: "/bookmark",
-      element: (
-        <Bookmarks setCurrentNumber={setCurrentNumber} language={language} />
-      ),
+      element: <Bookmarks setCurrentNumber={setCurrentNumber} />,
     },
     {
       path: "/content",
@@ -85,12 +75,10 @@ function App({
     },
     {
       path: "/history",
-      element: (
-        <History setCurrentNumber={setCurrentNumber} language={language} />
-      ),
+      element: <History setCurrentNumber={setCurrentNumber} />,
     },
-    { path: "/preface", element: <Preface language={language} /> },
-    { path: "/reference", element: <Reference language={language} /> },
+    { path: "/preface", element: <Preface /> },
+    { path: "/reference", element: <Reference /> },
   ];
 
   return (

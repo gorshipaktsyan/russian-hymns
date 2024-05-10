@@ -1,16 +1,13 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
+import { Box, Drawer, List, ListItem, ListItemButton } from "@mui/material";
 import { useSelector } from "react-redux";
-import navItems from "../../utils/navItems";
-import actions, { setTitle } from "../../redux/actions/actions";
+import createNavItems from "../../utils/createNavItems";
+import actions from "../../redux/actions/actions";
 
-function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, language }) {
+function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
   const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
+  const navItems = createNavItems(lg);
   const navigate = useNavigate();
   function handleNavigate(item) {
     navigate(`/${item.route}`);
@@ -58,7 +55,7 @@ function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, language }) {
           fontSize: "13px",
         }}
       >
-        <p>{language.version}: 1.3.7</p>
+        <p>{lg.version}: 1.3.7</p>
       </Box>
     </Drawer>
   );

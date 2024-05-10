@@ -8,7 +8,6 @@ const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
   SettingsStyledComponents;
 
 function Settings({
-  language,
   fontSize,
   setFontSize,
   useArrows,
@@ -17,6 +16,7 @@ function Settings({
   setEnglishSearch,
 }) {
   const isMobile = useSelector((state) => state.hymns.isMobile);
+  const lg = useSelector((state) => state.hymns.language);
 
   function handleChangeFtSz(e) {
     const newValue = parseFloat(e.target.value);
@@ -33,7 +33,7 @@ function Settings({
     <StyledBox onTouchStart={(e) => e.stopPropagation()}>
       <StyledSetList>
         <StyledSetListItem>
-          <StyledSetTpg>{language.settings.fontSize}</StyledSetTpg>
+          <StyledSetTpg>{lg.settings.fontSize}</StyledSetTpg>
           <Slider
             aria-label="Font size"
             value={fontSize && fontSize}
@@ -48,28 +48,28 @@ function Settings({
           <>
             <Divider sx={{ width: "350px", marginTop: "15px" }} />
             <StyledSetListItem>
-              <StyledSetTpg>{language.settings.arrows}</StyledSetTpg>
+              <StyledSetTpg>{lg.settings.arrows}</StyledSetTpg>
               <ArrowSetBox>
-                <StyledSetTpg>{language.settings.off}</StyledSetTpg>
+                <StyledSetTpg>{lg.settings.off}</StyledSetTpg>
                 <Switch
                   checked={useArrows}
                   onChange={handleChangeArrows}
                 ></Switch>
-                <StyledSetTpg>{language.settings.on}</StyledSetTpg>
+                <StyledSetTpg>{lg.settings.on}</StyledSetTpg>
               </ArrowSetBox>
             </StyledSetListItem>
           </>
         )}
         <Divider sx={{ width: "350px", marginTop: "15px" }} />
         <StyledSetListItem>
-          <StyledSetTpg>{language.settings.searchByEnglishNumber}</StyledSetTpg>
+          <StyledSetTpg>{lg.settings.searchByEnglishNumber}</StyledSetTpg>
           <ArrowSetBox>
-            <StyledSetTpg>{language.settings.off}</StyledSetTpg>
+            <StyledSetTpg>{lg.settings.off}</StyledSetTpg>
             <Switch
               checked={englishSearch}
               onChange={handleChangeEngSearch}
             ></Switch>
-            <StyledSetTpg>{language.settings.on}</StyledSetTpg>
+            <StyledSetTpg>{lg.settings.on}</StyledSetTpg>
           </ArrowSetBox>
         </StyledSetListItem>
       </StyledSetList>

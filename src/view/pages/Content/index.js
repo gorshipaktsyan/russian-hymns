@@ -10,6 +10,7 @@ const { StyledList, StyledBox } = StyledComponents;
 
 function TitlesList({ fontSize, setCurrentNumber }) {
   const [selectedTitle, setSelectedTitle] = useState(null);
+
   const navigate = useNavigate();
   function ScrollToTittle(id) {
     const element = document.getElementById(id);

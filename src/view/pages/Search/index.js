@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import HymnList from "./HymnList";
 import hymns from "../../services/storage/hymns.json";
 import Snackbar from "@mui/material/Snackbar";
-import StyledComponents from "../../../utils/sharedStyles";
+import { StyledComponents, findText } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
-import findText from "../../../utils/findText";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../../redux/actions/actions";
 
@@ -13,8 +12,7 @@ const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
-function Search({   language,
-setCurrentNumber, englishSearch }) {
+function Search({ setCurrentNumber, englishSearch }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
@@ -23,6 +21,7 @@ setCurrentNumber, englishSearch }) {
   const searchedHymnsListOpen = useSelector(
     (store) => store.hymns.searchedHymnsListOpen
   );
+  const lg = useSelector((state) => state.hymns.language);
   const handleClose = () => setErrorAlert(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -51,7 +50,7 @@ setCurrentNumber, englishSearch }) {
     } else if (engNumber) {
       number = searchEnglishNumber();
     } else if (searchedText) {
-      setFindedHymns(findText(searchedText, language));
+      setFindedHymns(findText(searchedText, lg));
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
@@ -103,7 +102,7 @@ setCurrentNumber, englishSearch }) {
         <StyledForm>
           <StyledTextField
             type="decimal"
-            label={language.search.searchByRussianNumber}
+            label={lg.search.searchByRussianNumber}
             value={rusNumber}
             inputProps={{
               inputMode: "decimal",
@@ -119,7 +118,7 @@ setCurrentNumber, englishSearch }) {
           {englishSearch && (
             <StyledTextField
               type="decimal"
-              label={language.search.searchByEnglishNumber}
+              label={lg.search.searchByEnglishNumber}
               value={engNumber}
               inputProps={{
                 inputMode: "decimal",
@@ -133,7 +132,7 @@ setCurrentNumber, englishSearch }) {
             />
           )}
           <StyledTextField
-            label={language.search.searchByText}
+            label={lg.search.searchByText}
             value={searchedText}
             inputProps={{
               inputMode: "search",
@@ -149,7 +148,7 @@ setCurrentNumber, englishSearch }) {
             variant="contained"
             onClick={handleSubmit}
           >
-            <span style={{ fontSize: "16px" }}>{language.search.search}</span>
+            <span style={{ fontSize: "16px" }}>{lg.search.search}</span>
           </StyledSearchButton>
         </StyledForm>
       )}
@@ -160,7 +159,7 @@ setCurrentNumber, englishSearch }) {
         autoHideDuration={2000}
       >
         <StyledAlert onClose={handleClose} severity="error">
-          {language.search.errorAlert}
+          {lg.search.errorAlert}
         </StyledAlert>
       </Snackbar>
     </>

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../redux/actions/actions";
 import { Drawer, AppBar } from "../view/components/index";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
-import ScrollToTop from "../view/components/ScrollToTop";
 import Box from "@mui/material/Box";
 import persistentStore from "../view/services/PersistentStore";
-import { useDoubleTap, setTitleBy, changeFontSize } from "../utils/index";
-import russian from "../config/constants/russian";
-import { useDispatch } from "react-redux";
-import actions from "../redux/actions/actions";
+import {
+  useDoubleTap,
+  setTitleBy,
+  changeFontSize,
+  ScrollToTop,
+} from "../utils/index";
 
 function Layout() {
   const [currentNumber, setCurrentNumber] = useState([]);
@@ -22,12 +25,12 @@ function Layout() {
   const [englishSearch, setEnglishSearch] = useState(
     persistentStore.get("settings")?.englishSearch || false
   );
+  const lg = useSelector((state) => state.hymns.language);
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const [language, setLanguage] = useState(russian);
   const dispatch = useDispatch();
-
+  const { pathname } = useLocation();
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
+
   useEffect(() => {
     changeFontSize(fontSize);
     const settings = {
@@ -39,24 +42,30 @@ function Layout() {
   }, [fontSize, useArrows, englishSearch]);
 
   useEffect(() => {
-    setTitleBy(currentNumber, pathname, navigate, hymns, dispatch, language);
+    setTitleBy(currentNumber, pathname, navigate, hymns, dispatch, lg);
   }, [currentNumber, pathname]);
 
   const handleDrawerToggle = (isOpen) => {
     dispatch({ type: actions.SET_DRAWER_OPEN, payload: isOpen });
   };
+
   return (
     <Box sx={{ height: "100%" }}>
       <ScrollToTop currentNumber={currentNumber} pathname={pathname} />
       <AppBar
-        language={language}
+        lg={lg}
         handleDrawerToggle={handleDrawerToggle}
         currentNumber={currentNumber}
         pathname={pathname}
       />
+      <Drawer
+        lg={lg}
+        handleDrawerToggle={handleDrawerToggle}
+        dispatch={dispatch}
+        fontSize={fontSize}
+      />
       <Box className="container">
         <App
-          language={language}
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
           fontSize={fontSize}
@@ -67,12 +76,6 @@ function Layout() {
           setEnglishSearch={setEnglishSearch}
         />
       </Box>
-      <Drawer
-        language={language}
-        handleDrawerToggle={handleDrawerToggle}
-        dispatch={dispatch}
-        fontSize={fontSize}
-      />
     </Box>
   );
 }

@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { Box, Collapse, Divider } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
 import StyledComponents from "../../../utils/sharedStyles";
-import historyStore from "../../services/HistoryStore";
-import persistentStore from "../../services/PersistentStore";
+import { persistentStore, historyStore } from "../../services/index";
 import ConfirmModal from "./ConfirmationModal";
+import { useSelector } from "react-redux";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function History({ setCurrentNumber, language }) {
+function History({ setCurrentNumber }) {
+  const lg = useSelector((state) => state.hymns.language);
   const navigate = useNavigate();
   const [openConfirm, setOpenConfirm] = useState(false);
   const [historyUpdated, setHistoryUpdated] = useState(false);
@@ -42,7 +43,7 @@ function History({ setCurrentNumber, language }) {
               }}
               onClick={() => setOpenConfirm(true)}
             >
-              {language.history.deleteHistory}
+              {lg.history.deleteHistory}
             </Box>
             <TransitionGroup>
               {groupedHymnsData.map(({ date, hymns }) => (
@@ -66,12 +67,12 @@ function History({ setCurrentNumber, language }) {
             </TransitionGroup>
           </StyledList>
         ) : (
-          <StyledTypography>{language.noData}</StyledTypography>
+          <StyledTypography>{lg.noData}</StyledTypography>
         )}
       </StyledBox>
       {openConfirm && (
         <ConfirmModal
-          language={language}
+          lg={lg}
           handleClearHistory={handleClearHistory}
           setOpenConfirm={setOpenConfirm}
           openConfirm={openConfirm}

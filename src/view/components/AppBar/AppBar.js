@@ -1,21 +1,15 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import bookmarksStore from "../../services/BookmarksStore";
-import AppBar from "@mui/material/AppBar";
-import { Box, IconButton, Snackbar, Toolbar } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import copyToClipboard from "../../../utils/copyToClipboard";
-import StyledComponents from "../../../utils/sharedStyles";
+import { Box, IconButton, Snackbar, Toolbar, AppBar } from "@mui/material";
+import { Menu, BookmarkBorder, Bookmark } from "@mui/icons-material/";
+import { copyToClipboard, StyledComponents } from "../../../utils/index";
 import { useDispatch, useSelector } from "react-redux";
 
 const { StyledAlert } = StyledComponents;
 
-
-function AppBarComponent({ handleDrawerToggle, currentNumber, pathname,language }) {
+function AppBarComponent({ handleDrawerToggle, currentNumber, pathname, lg }) {
   const dispatch = useDispatch();
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
@@ -71,7 +65,7 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname,language 
             edge="start"
             onClick={() => handleDrawerToggle(!drawerOpen)}
           >
-            <MenuIcon sx={{ fontSize: "30px" }} />
+            <Menu sx={{ fontSize: "30px" }} />
           </IconButton>
           <Box
             sx={{
@@ -99,9 +93,9 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname,language 
               <IconButton color="inherit" onClick={handleBookmarkClick}>
                 {currentHymnNumber &&
                   (saved ? (
-                    <BookmarkIcon sx={{ fontSize: "30px" }} />
+                    <Bookmark sx={{ fontSize: "30px" }} />
                   ) : (
-                    <BookmarkBorderIcon sx={{ fontSize: "30px" }} />
+                    <BookmarkBorder sx={{ fontSize: "30px" }} />
                   ))}
               </IconButton>
             </>
@@ -115,7 +109,7 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname,language 
           onClose={handleClose}
           autoHideDuration={2000}
         >
-          <StyledAlert>{language.appBar.copyAlert}</StyledAlert>
+          <StyledAlert>{lg.appBar.copyAlert}</StyledAlert>
         </Snackbar>
       )}
     </>

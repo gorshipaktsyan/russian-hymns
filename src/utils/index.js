@@ -1,8 +1,9 @@
 import { useDoubleTap } from "./DoubleTap";
+import ScrollToTop from "./ScrollToTop";
 import changeFontSize from "./changeFontSize";
 import copyToClipboard from "./copyToClipboard";
 import findText from "./findText";
-import navItems from "./navItems";
+import createNavItems from "./createNavItems";
 import setTitleBy from "./setTitleBy";
 import StyledComponents from "./sharedStyles";
 
@@ -11,7 +12,8 @@ export {
   changeFontSize,
   useDoubleTap,
   findText,
-  navItems,
+  createNavItems,
   setTitleBy,
   StyledComponents,
+  ScrollToTop,
 };

@@ -10,21 +10,21 @@ export default function ConfirmModal({
   handleClearHistory,
   setOpenConfirm,
   openConfirm,
-  language,
+  lg,
 }) {
   return (
     <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
       <DialogContent>
         <DialogContentText sx={{ color: "black" }}>
-          {language.history.dialog}
+          {lg.history.dialog}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={() => setOpenConfirm(false)}>
-          {language.history.no}
+          {lg.history.no}
         </Button>
         <Button onClick={handleClearHistory} autoFocus>
-          {language.history.yes}
+          {lg.history.yes}
         </Button>
       </DialogActions>
     </Dialog>

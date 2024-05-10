@@ -12,11 +12,10 @@ function HymnsList({
   letter,
   handleBackClick,
   isMobile,
-  language,
+  lg,
 }) {
   const filteredHymns = useMemo(() => {
-    const removeSymbols = (text) =>
-      text.replace(language.regExp.onlyLetters, "");
+    const removeSymbols = (text) => text.replace(lg.regExp.onlyLetters, "");
     return hymns
       .filter(
         (h) => h.first_letter === letter || h.first_letter_chorus === letter
@@ -36,7 +35,7 @@ function HymnsList({
         }
       })
       .sort((a, b) => {
-        return a.filteredText.localeCompare(b.filteredText, language.language, {
+        return a.filteredText.localeCompare(b.filteredText, lg.language, {
           sensitivity: "base",
         });
       });

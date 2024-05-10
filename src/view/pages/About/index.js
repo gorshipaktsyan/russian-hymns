@@ -1,24 +1,26 @@
 import React from "react";
 import StyledComponents from "../../../utils/sharedStyles";
+import { useSelector } from "react-redux";
 
 const { InfoBox, StyledLink } = StyledComponents;
 
-function About({ language }) {
+function About() {
+  const lg = useSelector((state) => state.hymns.language);
+
   return (
     <InfoBox className="infoBox">
-      <p>{language.about.overview}</p>
-      <p>{language.about.asteriskNote}</p>
-      <p>{language.about.crossNote}</p>
-      <p>{language.about.numbering}</p>
+      <p>{lg.about.overview}</p>
+      <p>{lg.about.asteriskNote}</p>
+      <p>{lg.about.crossNote}</p>
+      <p>{lg.about.numbering}</p>
       <p>
-        {language.about.contact}{" "}
+        {lg.about.contact}{" "}
         <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{" "}
-        {language.about.officialSite + " " + language.about.collectorBook} —{" "}
+        {lg.about.officialSite + " " + lg.about.collectorBook} —{" "}
         <StyledLink href="http://kbk.ru">kbk.ru</StyledLink>.
       </p>
       <p>
-        &copy; {language.about.collectorBook}, 2024.{" "}
-        {language.about.rightsReserved}
+        &copy; {lg.about.collectorBook}, 2024. {lg.about.rightsReserved}
       </p>
     </InfoBox>
   );

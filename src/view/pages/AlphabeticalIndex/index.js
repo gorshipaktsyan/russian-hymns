@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Alphabet from "./Alphabet";
 import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import actions from "../../../redux/actions/actions";
 
 const { StyledBox } = StyledComponents;
 
-function AlphabeticalIndex({ language, setCurrentNumber }) {
+function AlphabeticalIndex({ setCurrentNumber }) {
+  const lg = useSelector((state) => state.hymns.language);
   const [letter, setLetter] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,24 +22,20 @@ function AlphabeticalIndex({ language, setCurrentNumber }) {
     setLetter("");
     dispatch({
       type: actions.SET_TITLE,
-      payload: language.alphabeticalIndex.alphabeticalIndex,
+      payload: lg.alphabeticalIndex.alphabeticalIndex,
     });
   }
   return (
     <StyledBox>
       {letter ? (
         <HymnsList
-          language={language}
+          lg={lg}
           letter={letter}
           handleTitleClick={handleTitleClick}
           handleBackClick={() => handleBackClick()}
         />
       ) : (
-        <Alphabet
-          setLetter={setLetter}
-          dispatch={dispatch}
-          language={language}
-        />
+        <Alphabet setLetter={setLetter} dispatch={dispatch} lg={lg} />
       )}
     </StyledBox>
   );
