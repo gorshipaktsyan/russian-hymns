@@ -16,8 +16,6 @@ import {
 import StyledApp from "./styles";
 
 function App({
-  currentNumber,
-  setCurrentNumber,
   fontSize,
   setFontSize,
   useArrows,
@@ -28,22 +26,11 @@ function App({
   const routes = [
     {
       path: "/",
-      element: (
-        <Search
-          setCurrentNumber={setCurrentNumber}
-          englishSearch={englishSearch}
-        />
-      ),
+      element: <Search englishSearch={englishSearch} />,
     },
     {
       path: "/hymns/:number",
-      element: (
-        <Hymn
-          currentNumber={currentNumber}
-          setCurrentNumber={setCurrentNumber}
-          useArrows={useArrows}
-        />
-      ),
+      element: <Hymn useArrows={useArrows} />,
     },
     {
       path: "/settings",
@@ -61,21 +48,19 @@ function App({
     { path: "/about", element: <About /> },
     {
       path: "/alphabetical",
-      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber} />,
+      element: <AlphabeticalIndex />,
     },
     {
       path: "/bookmark",
-      element: <Bookmarks setCurrentNumber={setCurrentNumber} />,
+      element: <Bookmarks />,
     },
     {
       path: "/content",
-      element: (
-        <Content setCurrentNumber={setCurrentNumber} fontSize={fontSize} />
-      ),
+      element: <Content fontSize={fontSize} />,
     },
     {
       path: "/history",
-      element: <History setCurrentNumber={setCurrentNumber} />,
+      element: <History />,
     },
     { path: "/preface", element: <Preface /> },
     { path: "/reference", element: <Reference /> },

@@ -41,11 +41,10 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname, lg }) {
   };
 
   const handleTitleClick = async () => {
-    if (!currentNumber.length) {
-      return;
+    if (pathname === `/hymns/${currentNumber}`) {
+      await copyToClipboard(window.location.href);
+      setCopyAlert(true);
     }
-    await copyToClipboard(window.location.href);
-    setCopyAlert(true);
   };
 
   return (

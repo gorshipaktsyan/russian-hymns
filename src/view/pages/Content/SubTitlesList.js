@@ -1,36 +1,45 @@
-import { useState, useMemo, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import hymns from "../../services/storage/hymns.json";
 import Subtitles from "../../services/storage/subtitles.json";
 import { Box, Divider } from "@mui/material";
 import StyledContentComponents from "./styles";
+import actions from "../../../redux/actions/actions";
 
 const { StyledSubList, StyledSubHymnsList } = StyledContentComponents;
 
 function SubTitlesList({
-  selectedTitle,
+  expandedList,
   handleHymnClick,
   ScrollToTittle,
-  fontSize,
+  dispatch,
 }) {
-  const [expandedSub, setExpandedSub] = useState("");
   const grouped = useMemo(() => {
-    return hymns.filter((hymn) => hymn.title === selectedTitle);
-  }, [selectedTitle]);
+    return hymns.filter((hymn) => hymn.title === expandedList.selectedTitleId);
+  }, [expandedList.selectedTitleId]);
   const subtitles = useMemo(() => {
-    return Subtitles.filter((sub) => sub.title === selectedTitle);
-  }, [selectedTitle]);
+    return Subtitles.filter(
+      (sub) => sub.title === expandedList.selectedSubtitleId
+    );
+  }, [expandedList.selectedSubtitleId]);
 
   function handleSubTitleClick(subtitleId) {
-    setExpandedSub((prevSubtitleId) =>
-      prevSubtitleId === subtitleId ? "" : subtitleId
-    );
+    dispatch({
+      type: actions.SET_CONTENT_EXPANDED_LIST,
+      payload: {
+        selectedSubtitleId:
+          expandedList.selectedSubtitleId === subtitleId ? "" : subtitleId,
+      },
+    });
     ScrollToTittle(subtitleId);
   }
 
   useEffect(() => {
-    setExpandedSub("");
-  }, [selectedTitle]);
+    dispatch({
+      type: actions.SET_CONTENT_EXPANDED_LIST,
+      payload: null,
+    });
+  }, [expanded.selectedTitleId]);
 
   return (
     <StyledSubList>
@@ -46,11 +55,11 @@ function SubTitlesList({
               BorderBottom={Divider}
               onTitleClick={handleSubTitleClick}
               style={{
-                fontWeight: expandedSub === sub._id && "bold",
+                fontWeight: selectedSubtitleId === sub._id && "bold",
                 fontSize: "15px",
               }}
             />
-            {expandedSub === sub._id && (
+            {selectedSubtitleId === sub._id && (
               <StyledSubHymnsList>
                 {hymns.map((h, index) => (
                   <HymnTitle

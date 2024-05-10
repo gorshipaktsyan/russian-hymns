@@ -12,7 +12,7 @@ const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
-function Search({ setCurrentNumber, englishSearch }) {
+function Search({ englishSearch }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
@@ -37,8 +37,7 @@ function Search({ setCurrentNumber, englishSearch }) {
     const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
     const resultNumbers = matchingHymns.map((h) => h.number);
     resultNumbers.length &&
-      resultNumbers.length &&
-      setCurrentNumber(resultNumbers);
+      dispatch({ type: actions.SET_CURRENT_NUMBER, payload: resultNumbers });
     return resultNumbers;
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,12 +53,11 @@ function Search({ setCurrentNumber, englishSearch }) {
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
-      setCurrentNumber([randomNumber]);
-
+      dispatch({ type: actions.SET_CURRENT_NUMBER, payload: [randomNumber] });
       number = [randomNumber];
     }
     if (number.length) {
-      navigate(`/hymns/${[number]}`);
+      navigate(`/hymns/${number}`);
     }
     setErrorAlert(true);
     setRusNumber("");
@@ -82,21 +80,23 @@ function Search({ setCurrentNumber, englishSearch }) {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleSubmit]);
+
   useEffect(() => {
     if (findedHymns.length > 0) {
       dispatch({ type: actions.SET_SEARCHED_HYMNS_LIST_OPEN, payload: true });
     } else if (searchedText) {
       setErrorAlert(true);
     }
-  }, [findedHymns]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, findedHymns]);
 
   return (
     <>
       {searchedHymnsListOpen ? (
         <HymnList
           findedHymns={findedHymns}
-          setCurrentNumber={setCurrentNumber}
           navigate={navigate}
+          dispatch={dispatch}
         />
       ) : (
         <StyledForm>

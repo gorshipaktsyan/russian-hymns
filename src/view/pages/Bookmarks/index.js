@@ -6,19 +6,23 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { TransitionGroup } from "react-transition-group";
 import StyledComponents from "../../../utils/sharedStyles";
 import bookmarksStore from "../../services/BookmarksStore";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../../../redux/actions/actions";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function Bookmarks({ setCurrentNumber }) {
+function Bookmarks() {
   const [savedHymns, setSavedHymns] = useState(bookmarksStore.get());
   const lg = useSelector((state) => state.hymns.language);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleClick(id) {
-    setCurrentNumber([id]);
-    navigate(`/hymns/${[id]}`);
+    dispatch({
+      type: actions.SET_CURRENT_NUMBER,
+      payload: [id],
+    });
+    navigate(`/hymns/${id}`);
   }
 
   function handleDelete(id) {

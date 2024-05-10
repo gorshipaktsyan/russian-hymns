@@ -8,15 +8,18 @@ import actions from "../../../redux/actions/actions";
 
 const { StyledBox } = StyledComponents;
 
-function AlphabeticalIndex({ setCurrentNumber }) {
+function AlphabeticalIndex() {
   const lg = useSelector((state) => state.hymns.language);
   const [letter, setLetter] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleTitleClick(id) {
-    setCurrentNumber([id]);
-    navigate(`/hymns/${[id]}`);
+    dispatch({
+      type: actions.SET_CURRENT_NUMBER,
+      payload: [id],
+    });
+    navigate(`/hymns/${id}`);
   }
   function handleBackClick() {
     setLetter("");

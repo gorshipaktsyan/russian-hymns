@@ -6,12 +6,14 @@ import { TransitionGroup } from "react-transition-group";
 import StyledComponents from "../../../utils/sharedStyles";
 import { persistentStore, historyStore } from "../../services/index";
 import ConfirmModal from "./ConfirmationModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../../../redux/actions/actions";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function History({ setCurrentNumber }) {
+function History() {
   const lg = useSelector((state) => state.hymns.language);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openConfirm, setOpenConfirm] = useState(false);
   const [historyUpdated, setHistoryUpdated] = useState(false);
@@ -21,8 +23,11 @@ function History({ setCurrentNumber }) {
   }, [historyUpdated]);
 
   function handleClick(id) {
-    setCurrentNumber([id]);
-    navigate(`/hymns/${[id]}`);
+    dispatch({
+      type: actions.SET_CURRENT_NUMBER,
+      payload: [id],
+    });
+    navigate(`/hymns/${id}`);
   }
   function handleClearHistory() {
     persistentStore.clear("searchedHymns");

@@ -23,6 +23,27 @@ const reducer = (state = hymnsInitState, action) => {
         ...state,
         language: action.payload,
       };
+    case actions.SET_CURRENT_NUMBER: {
+      return {
+        ...state,
+        currentNumber: action.payload,
+      };
+    }
+    case actions.SET_CONTENT_SELECTED_TITLE_ID: {
+      return {
+        ...state,
+        contentSelectedTitleId: action.payload,
+      };
+    }
+    case actions.SET_CONTENT_EXPANDED_LIST: {
+      return {
+        ...state,
+        contentExpandedList: {
+          ...state.contentExpandedList,
+          ...action.payload,
+        },
+      };
+    }
     default:
       return state;
   }

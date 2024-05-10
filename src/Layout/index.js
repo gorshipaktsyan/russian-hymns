@@ -15,7 +15,6 @@ import {
 } from "../utils/index";
 
 function Layout() {
-  const [currentNumber, setCurrentNumber] = useState([]);
   const [fontSize, setFontSize] = useState(
     persistentStore.get("settings")?.fontSize || 1
   );
@@ -26,9 +25,11 @@ function Layout() {
     persistentStore.get("settings")?.englishSearch || false
   );
   const lg = useSelector((state) => state.hymns.language);
+  const currentNumber = useSelector((state) => state.hymns.currentNumber);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ function Layout() {
 
   useEffect(() => {
     setTitleBy(currentNumber, pathname, navigate, hymns, dispatch, lg);
-  }, [currentNumber, pathname]);
+  }, [currentNumber, pathname, dispatch, lg, navigate]);
 
   const handleDrawerToggle = (isOpen) => {
     dispatch({ type: actions.SET_DRAWER_OPEN, payload: isOpen });
@@ -66,8 +67,6 @@ function Layout() {
       />
       <Box className="container">
         <App
-          currentNumber={currentNumber}
-          setCurrentNumber={setCurrentNumber}
           fontSize={fontSize}
           setFontSize={setFontSize}
           useArrows={useArrows}

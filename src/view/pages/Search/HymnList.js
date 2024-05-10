@@ -2,13 +2,14 @@ import React from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import { Divider } from "@mui/material";
 import StyledComponents from "../../../utils/sharedStyles";
+import actions from "../../../redux/actions/actions";
 
 const { StyledList, StyledBox } = StyledComponents;
 
-function HymnList({ findedHymns, navigate, setCurrentNumber }) {
+function HymnList({ findedHymns, navigate, dispatch }) {
   function handleClick(id) {
-    setCurrentNumber([id]);
-    navigate(`/hymns/${[id]}`);
+    dispatch({ typr: actions.SET_CURRENT_NUMBER, payload: [id] });
+    navigate(`/hymns/${id}`);
   }
   return (
     <StyledBox>

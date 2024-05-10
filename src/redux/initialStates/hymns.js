@@ -6,6 +6,11 @@ const hymnsInitState = {
   isMobile: navigator.maxTouchPoints > 0,
   title: "",
   language: russian,
+  currentNumber: [],
+  contentExpandedList: {
+    ContentSelectedTitleId: "",
+    ContentSelectedSubtitleId: "",
+  },
 };
 
 export default hymnsInitState;
