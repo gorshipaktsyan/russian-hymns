@@ -1,11 +1,14 @@
 import { Box } from "@mui/material";
 import AlphabeticalStyledComponents from "./styles";
+import { setTitle } from "../../../redux/actions/actions";
 
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;
-function Alphabet({ setLetter, setTitle, language }) {
+
+function Alphabet({ setLetter, dispatch,  language,
+ }) {
   function handleClick(letter) {
     setLetter(letter);
-    setTitle(`${language.alphabeticalIndex.alphabeticalIndex} (${letter})`);
+    dispatch(setTitle(`Алфавитный указатель (${letter})`));
   }
   return (
     <Box sx={{ maxWidth: "250px" }}>

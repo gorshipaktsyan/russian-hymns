@@ -7,10 +7,10 @@ import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import titles from "../../services/storage/titles.json";
 
 const { StyledList, StyledBox } = StyledComponents;
-function TitlesList({ setCurrentNumber, fontSize }) {
-  const [selectedTitle, setSelectedTitle] = useState("");
-  const navigate = useNavigate();
 
+function TitlesList({ fontSize, setCurrentNumber }) {
+  const [selectedTitle, setSelectedTitle] = useState(null);
+  const navigate = useNavigate();
   function ScrollToTittle(id) {
     const element = document.getElementById(id);
     setTimeout(

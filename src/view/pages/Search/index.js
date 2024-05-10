@@ -6,25 +6,26 @@ import Snackbar from "@mui/material/Snackbar";
 import StyledComponents from "../../../utils/sharedStyles";
 import SearchStyledComponents from "./styles";
 import findText from "../../../utils/findText";
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../../../redux/actions/actions";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
-function Search({
-  language,
-  setCurrentNumber,
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
-  englishSearch,
-}) {
+function Search({   language,
+setCurrentNumber, englishSearch }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
   const [findedHymns, setFindedHymns] = useState([]);
   const [errorAlert, setErrorAlert] = useState(false);
+  const searchedHymnsListOpen = useSelector(
+    (store) => store.hymns.searchedHymnsListOpen
+  );
   const handleClose = () => setErrorAlert(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function searchRussianNumber() {
     return findSearchedNumbers(rusNumber, "number");
@@ -36,7 +37,9 @@ function Search({
     const numbers = input.split(",").map((num) => Number(num.trim()));
     const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
     const resultNumbers = matchingHymns.map((h) => h.number);
-    resultNumbers.length && setCurrentNumber(resultNumbers);
+    resultNumbers.length &&
+      resultNumbers.length &&
+      setCurrentNumber(resultNumbers);
     return resultNumbers;
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,6 +56,7 @@ function Search({
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
       setCurrentNumber([randomNumber]);
+
       number = [randomNumber];
     }
     if (number.length) {
@@ -81,7 +85,7 @@ function Search({
   }, [handleSubmit]);
   useEffect(() => {
     if (findedHymns.length > 0) {
-      setOpenSearchedHymnList(true);
+      dispatch({ type: actions.SET_SEARCHED_HYMNS_LIST_OPEN, payload: true });
     } else if (searchedText) {
       setErrorAlert(true);
     }
@@ -89,7 +93,7 @@ function Search({
 
   return (
     <>
-      {openSearchedHymnList ? (
+      {searchedHymnsListOpen ? (
         <HymnList
           findedHymns={findedHymns}
           setCurrentNumber={setCurrentNumber}

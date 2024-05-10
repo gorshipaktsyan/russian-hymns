@@ -6,6 +6,7 @@ import "./index.scss";
 import HymnStyledComponents from "./styles";
 import historyStore from "../../services/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const config = {
   delta: 10,
@@ -26,22 +27,18 @@ const {
   MobArrowLeftIcon,
 } = HymnStyledComponents;
 
-function Hymn({
-  language,
-  setCurrentNumber,
-  currentNumber,
-  useArrows,
-  isMobile,
-}) {
+function Hymn({   language,
+setCurrentNumber, currentNumber, useArrows }) {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
+  const isMobile = useSelector((state) => state.hymns.isMobile);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     number && setCurrentNumber(number.split(",").map(Number));
-  }, [number, setCurrentNumber]);
-
+  }, [number]);
   const hymn = useMemo(
     () =>
       currentNumber.map((number) =>

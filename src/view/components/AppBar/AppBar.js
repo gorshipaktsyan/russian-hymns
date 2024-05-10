@@ -10,25 +10,23 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import copyToClipboard from "../../../utils/copyToClipboard";
 import StyledComponents from "../../../utils/sharedStyles";
+import { useDispatch, useSelector } from "react-redux";
 
 const { StyledAlert } = StyledComponents;
 
-function AppBarComponent({
-  language,
-  handleDrawerToggle,
-  title,
-  currentNumber,
-  isMobile,
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
-}) {
+
+function AppBarComponent({ handleDrawerToggle, currentNumber, pathname,language }) {
+  const dispatch = useDispatch();
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
-  const { pathname } = useLocation();
+  const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
+  const searchedHymnsListOpen = useSelector(
+    (store) => store.hymns.searchedHymnsListOpen
+  );
+  const title = useSelector((state) => state.hymns.title);
   const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
   const handleClose = () => setCopyAlert(false);
-
   useEffect(() => {
     if (currentHymnNumber && savedHymnsList) {
       const isSaved = savedHymnsList.some((day) =>
@@ -71,7 +69,7 @@ function AppBarComponent({
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleDrawerToggle}
+            onClick={() => handleDrawerToggle(!drawerOpen)}
           >
             <MenuIcon sx={{ fontSize: "30px" }} />
           </IconButton>
@@ -89,11 +87,10 @@ function AppBarComponent({
               flexGrow: "1",
             }}
           >
-            {(pathname !== "/" || openSearchedHymnList) && (
+            {(pathname !== "/" || searchedHymnsListOpen) && (
               <SearchBar
-                isMobile={isMobile}
-                openSearchedHymnList={openSearchedHymnList}
-                setOpenSearchedHymnList={setOpenSearchedHymnList}
+                searchedHymnsListOpen={searchedHymnsListOpen}
+                dispatch={dispatch}
               />
             )}
           </Box>

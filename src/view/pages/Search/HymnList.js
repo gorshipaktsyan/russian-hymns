@@ -5,7 +5,7 @@ import StyledComponents from "../../../utils/sharedStyles";
 
 const { StyledList, StyledBox } = StyledComponents;
 
-function HymnList({ findedHymns, setCurrentNumber, navigate }) {
+function HymnList({ findedHymns, navigate, setCurrentNumber }) {
   function handleClick(id) {
     setCurrentNumber([id]);
     navigate(`/hymns/${[id]}`);

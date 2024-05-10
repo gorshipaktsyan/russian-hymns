@@ -2,22 +2,15 @@ import hymns from "../view/services/storage/hymns.json";
 
 export default function findText(text, language) {
   const lowerCaseText = text.toLowerCase();
-  const textWithoutSpacesAndSymbols = lowerCaseText.replace(
-    language.regExp.onlyLetters,
-    ""
-  );
-
+  const textWithoutSpacesAndSymbols = lowerCaseText.replace( language.regExp.onlyLetters,"");
+  if (textWithoutSpacesAndSymbols === "") {
+    return [];
+  }
   const findedHymns = hymns.filter((h) => {
-    const hymn = h.text.replace(/\n/g, "");
-    const hymnWithoutSpAndSymbols = hymn.replace(
-      language.regExp.onlyLetters,
-      ""
-    );
-
-    return (
-      hymn.includes(lowerCaseText) ||
-      hymnWithoutSpAndSymbols.includes(textWithoutSpacesAndSymbols)
-    );
+    const hymnWithoutSpacesAndSymbols = h.text
+      .toLowerCase()
+      .replace( language.regExp.onlyLetters, "");
+    return hymnWithoutSpacesAndSymbols.includes(textWithoutSpacesAndSymbols);
   });
   return findedHymns;
 }

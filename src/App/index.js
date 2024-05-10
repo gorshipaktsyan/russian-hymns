@@ -19,12 +19,10 @@ function App({
   language,
   currentNumber,
   setCurrentNumber,
-  setTitle,
   fontSize,
   setFontSize,
   useArrows,
   setUseArrows,
-  isMobile,
   openSearchedHymnList,
   setOpenSearchedHymnList,
   englishSearch,
@@ -51,7 +49,6 @@ function App({
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
           useArrows={useArrows}
-          isMobile={isMobile}
         />
       ),
     },
@@ -64,7 +61,6 @@ function App({
           setFontSize={setFontSize}
           useArrows={useArrows}
           setUseArrows={setUseArrows}
-          isMobile={isMobile}
           englishSearch={englishSearch}
           setEnglishSearch={setEnglishSearch}
         />
@@ -73,14 +69,7 @@ function App({
     { path: "/about", element: <About language={language} /> },
     {
       path: "/alphabetical",
-      element: (
-        <AlphabeticalIndex
-          language={language}
-          setCurrentNumber={setCurrentNumber}
-          setTitle={setTitle}
-          isMobile={isMobile}
-        />
-      ),
+      element: <AlphabeticalIndex setCurrentNumber={setCurrentNumber}   language={language} />,
     },
     {
       path: "/bookmark",
