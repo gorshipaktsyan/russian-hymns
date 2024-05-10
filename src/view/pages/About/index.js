@@ -3,38 +3,23 @@ import StyledComponents from "../../../utils/sharedStyles";
 
 const { InfoBox, StyledLink } = StyledComponents;
 
-function About() {
+function About({ language }) {
   return (
     <InfoBox className="infoBox">
+      <p>{language.about.overview}</p>
+      <p>{language.about.asteriskNote}</p>
+      <p>{language.about.crossNote}</p>
+      <p>{language.about.numbering}</p>
       <p>
-        Это приложение представляет собой официальную электронную версию
-        сборника гимнов, опубликованного «Коллектором библейской книги» в 2014
-        году. Гимны, включённые в настоящий сборник, отобраны из нескольких
-        сборников гимнов и других книг, выпущенных служением «Живой поток»
-        (Анахайм, США), и переведены с английского языка.
-      </p>
-      <p>
-        * Все гимны, помеченные звёздочкой, были первоначально написаны на
-        английском языке Уитнессом Ли и редакционным отделом служения «Живой
-        поток» (США).
-      </p>
-      <p>
-        † Все гимны, помеченные крестиком, представляют собой сочинения
-        различных авторов, переведённые на английский язык Уитнессом Ли и
-        редакционным отделом служения «Живой поток» (США).
-      </p>
-      <p>
-        Перед текстом каждого гимна указана размерность гимна и номер
-        соответствующего гимна в английском сборнике, опубликованном служением
-        «Живой поток» (номер указан в скобках).
-      </p>
-      <p>
-        По всем вопросам, связанным с этим приложением, пожалуйста, пишите по
-        адресу <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{" "}
-        Официальный сайт «Коллектора библейской книги» —{" "}
+        {language.about.contact}{" "}
+        <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{" "}
+        {language.about.officialSite + " " + language.about.collectorBook} —{" "}
         <StyledLink href="http://kbk.ru">kbk.ru</StyledLink>.
       </p>
-      <p>&copy; «Коллектор библейской книги», 2024. Все права защищены.</p>
+      <p>
+        &copy; {language.about.collectorBook}, 2024.{" "}
+        {language.about.rightsReserved}
+      </p>
     </InfoBox>
   );
 }

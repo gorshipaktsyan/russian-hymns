@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 import navItems from "../../utils/navItems";
 import { setTitle } from "../../redux/actions/actions";
 
-function DrawerComponent({ handleDrawerToggle, fontSize, dispatch }) {
+function DrawerComponent({ handleDrawerToggle, fontSize, dispatch,  language,
+ }) {
   const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
   const navigate = useNavigate();
   function handleNavigate(item) {
@@ -58,7 +59,7 @@ function DrawerComponent({ handleDrawerToggle, fontSize, dispatch }) {
           fontSize: "13px",
         }}
       >
-        <p>Версия: 1.3.7</p>
+        <p>{language.version}: 1.3.7</p>
       </Box>
     </Drawer>
   );

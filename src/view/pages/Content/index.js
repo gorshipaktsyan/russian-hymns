@@ -7,6 +7,7 @@ import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import titles from "../../services/storage/titles.json";
 
 const { StyledList, StyledBox } = StyledComponents;
+
 function TitlesList({ fontSize, setCurrentNumber }) {
   const [selectedTitle, setSelectedTitle] = useState(null);
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function TitlesList({ fontSize, setCurrentNumber }) {
     );
   }
   function handleTitleClick(id) {
-    setSelectedTitle((prevTitleId) => (prevTitleId === id ? null : id));
+    setSelectedTitle((prevTitleId) => (prevTitleId === id ? "" : id));
     ScrollToTittle(id);
   }
 

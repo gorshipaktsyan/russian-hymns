@@ -13,7 +13,8 @@ const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
-function Search({ setCurrentNumber, englishSearch }) {
+function Search({   language,
+setCurrentNumber, englishSearch }) {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
@@ -50,7 +51,7 @@ function Search({ setCurrentNumber, englishSearch }) {
     } else if (engNumber) {
       number = searchEnglishNumber();
     } else if (searchedText) {
-      setFindedHymns(findText(searchedText));
+      setFindedHymns(findText(searchedText, language));
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
@@ -102,7 +103,7 @@ function Search({ setCurrentNumber, englishSearch }) {
         <StyledForm>
           <StyledTextField
             type="decimal"
-            label="Поиск по русскому  номеру"
+            label={language.search.searchByRussianNumber}
             value={rusNumber}
             inputProps={{
               inputMode: "decimal",
@@ -118,7 +119,7 @@ function Search({ setCurrentNumber, englishSearch }) {
           {englishSearch && (
             <StyledTextField
               type="decimal"
-              label="Поиск по английскому номеру"
+              label={language.search.searchByEnglishNumber}
               value={engNumber}
               inputProps={{
                 inputMode: "decimal",
@@ -132,7 +133,7 @@ function Search({ setCurrentNumber, englishSearch }) {
             />
           )}
           <StyledTextField
-            label="Поиск по тексту"
+            label={language.search.searchByText}
             value={searchedText}
             inputProps={{
               inputMode: "search",
@@ -148,7 +149,7 @@ function Search({ setCurrentNumber, englishSearch }) {
             variant="contained"
             onClick={handleSubmit}
           >
-            <span style={{ fontSize: "16px" }}>Поиск</span>
+            <span style={{ fontSize: "16px" }}>{language.search.search}</span>
           </StyledSearchButton>
         </StyledForm>
       )}
@@ -159,7 +160,7 @@ function Search({ setCurrentNumber, englishSearch }) {
         autoHideDuration={2000}
       >
         <StyledAlert onClose={handleClose} severity="error">
-          Соответствующий гимн не найден!
+          {language.search.errorAlert}
         </StyledAlert>
       </Snackbar>
     </>

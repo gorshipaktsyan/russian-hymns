@@ -2,35 +2,10 @@ import { Box } from "@mui/material";
 import AlphabeticalStyledComponents from "./styles";
 import { setTitle } from "../../../redux/actions/actions";
 
-const RussianAlphabetCapital = [
-  "А",
-  "Б",
-  "В",
-  "Г",
-  "Д",
-  "Е",
-  "Ж",
-  "З",
-  "И",
-  "К",
-  "Л",
-  "М",
-  "Н",
-  "О",
-  "П",
-  "Р",
-  "С",
-  "Т",
-  "У",
-  "Х",
-  "Ц",
-  "Ч",
-  "Ш",
-  "Э",
-  "Я",
-];
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;
-function Alphabet({ setLetter, dispatch }) {
+
+function Alphabet({ setLetter, dispatch,  language,
+ }) {
   function handleClick(letter) {
     setLetter(letter);
     dispatch(setTitle(`Алфавитный указатель (${letter})`));
@@ -38,7 +13,7 @@ function Alphabet({ setLetter, dispatch }) {
   return (
     <Box sx={{ maxWidth: "250px" }}>
       <StyledAlphabet>
-        {RussianAlphabetCapital.map((letter, index) => (
+        {language.alphabeticalIndex.alphabet.map((letter, index) => (
           <StyledLetter key={index} onClick={() => handleClick(letter)}>
             {letter}
           </StyledLetter>

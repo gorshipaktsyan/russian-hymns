@@ -8,7 +8,9 @@ import { setTitle } from "../../../redux/actions/actions";
 
 const { StyledBox } = StyledComponents;
 
-function AlphabeticalIndex({ setCurrentNumber }) {
+function AlphabeticalIndex({ setCurrentNumber, setTitle, language }) {
+function AlphabeticalIndex({  language,
+ setCurrentNumber }) {
   const [letter, setLetter] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,12 +27,15 @@ function AlphabeticalIndex({ setCurrentNumber }) {
     <StyledBox>
       {letter ? (
         <HymnsList
+          language={language}
           letter={letter}
           handleTitleClick={handleTitleClick}
           handleBackClick={() => handleBackClick()}
         />
       ) : (
-        <Alphabet setLetter={setLetter} dispatch={dispatch} />
+
+        <Alphabet setLetter={setLetter} dispatch={dispatch}           language={language}
+/>
       )}
     </StyledBox>
   );

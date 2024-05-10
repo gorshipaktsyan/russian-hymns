@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import persistentStore from "../view/services/PersistentStore";
 import { useDoubleTap } from "../utils/DoubleTap";
 import changeFontSize from "../utils/changeFontSize";
+import russian from "../config/constants/russian";
 import { useDispatch } from "react-redux";
 import actions from "../redux/actions/actions";
 import setTitleBy from "../utils/setTitleBy";
@@ -26,8 +27,9 @@ function Layout() {
   );
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [language, setLanguage] = useState(russian);
   const dispatch = useDispatch();
-
+  
   useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
   useEffect(() => {
     changeFontSize(fontSize);
@@ -40,7 +42,7 @@ function Layout() {
   }, [fontSize, useArrows, englishSearch]);
 
   useEffect(() => {
-    setTitleBy(currentNumber, pathname, navigate, hymns, dispatch);
+    setTitleBy(currentNumber, pathname, navigate, hymns, dispatch,language);
   }, [currentNumber, pathname]);
 
   const handleDrawerToggle = (isOpen) => {
@@ -50,12 +52,14 @@ function Layout() {
     <Box sx={{ height: "100%" }}>
       <ScrollToTop currentNumber={currentNumber} pathname={pathname} />
       <AppBar
+        language={language}
         handleDrawerToggle={handleDrawerToggle}
         currentNumber={currentNumber}
         pathname={pathname}
       />
       <Box className="container">
         <App
+          language={language}
           currentNumber={currentNumber}
           setCurrentNumber={setCurrentNumber}
           fontSize={fontSize}
@@ -67,6 +71,7 @@ function Layout() {
         />
       </Box>
       <Drawer
+        language={language}
         handleDrawerToggle={handleDrawerToggle}
         dispatch={dispatch}
         fontSize={fontSize}

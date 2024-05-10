@@ -14,7 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const { StyledAlert } = StyledComponents;
 
-function AppBarComponent({ handleDrawerToggle, currentNumber, pathname }) {
+
+function AppBarComponent({ handleDrawerToggle, currentNumber, pathname,language }) {
   const dispatch = useDispatch();
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
@@ -114,7 +115,7 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname }) {
           onClose={handleClose}
           autoHideDuration={2000}
         >
-          <StyledAlert>Ссылка на этот гимн скопирована.</StyledAlert>
+          <StyledAlert>{language.appBar.copyAlert}</StyledAlert>
         </Snackbar>
       )}
     </>

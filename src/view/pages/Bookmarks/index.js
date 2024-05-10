@@ -10,7 +10,7 @@ import bookmarksStore from "../../services/BookmarksStore";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function Bookmarks({ setCurrentNumber }) {
+function Bookmarks({ setCurrentNumber, language }) {
   const [savedHymns, setSavedHymns] = useState(bookmarksStore.get());
   const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ function Bookmarks({ setCurrentNumber }) {
           </TransitionGroup>
         </StyledList>
       ) : (
-        <StyledTypography>Нет данных</StyledTypography>
+        <StyledTypography>{language.noData}</StyledTypography>
       )}
     </StyledBox>
   );
