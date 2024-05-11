@@ -1,4 +1,4 @@
-import AppBar from "./appBar/AppBar";
+import AppBar from "./AppBar/AppBar";
 import Drawer from "./Drawer";
 import HymnTitle from "./hymnTitle/HymnTitle";
 import SearchBar from "./searchBar/SearchBar";

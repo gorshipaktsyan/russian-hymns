@@ -12,6 +12,13 @@ function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
   function handleNavigate(item) {
     navigate(`/${item.route}`);
     dispatch({ type: actions.SET_TITLE, payload: item.title });
+    dispatch({
+      type: actions.SET_CONTENT_EXPANDED_LIST,
+      payload: {
+        contentSelectedTitleId: "",
+        contentSelectedSubtitleId: "",
+      },
+    });
   }
   return (
     <Drawer

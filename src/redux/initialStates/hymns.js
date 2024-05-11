@@ -8,8 +8,8 @@ const hymnsInitState = {
   language: russian,
   currentNumber: [],
   contentExpandedList: {
-    ContentSelectedTitleId: "",
-    ContentSelectedSubtitleId: "",
+    contentSelectedTitleId: "",
+    contentSelectedSubtitleId: "",
   },
 };
 

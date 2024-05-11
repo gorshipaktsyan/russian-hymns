@@ -29,7 +29,8 @@ function TitlesList({ fontSize }) {
     dispatch({
       type: actions.SET_CONTENT_EXPANDED_LIST,
       payload: {
-        selectedTitleId: expandedList.selectedTitleId === id ? "" : id,
+        contentSelectedTitleId:
+          expandedList.contentSelectedTitleId === id ? "" : id,
       },
     });
     ScrollToTittle(id);
@@ -57,10 +58,10 @@ function TitlesList({ fontSize }) {
               onTitleClick={handleTitleClick}
               style={{
                 fontWeight:
-                  expandedList.selectedTitleId === title._id && "bold",
+                  expandedList.contentSelectedTitleId === title._id && "bold",
               }}
             />
-            {expandedList.selectedTitleId === title._id && (
+            {expandedList.contentSelectedTitleId === title._id && (
               <SubTitlesList
                 expandedList={expandedList}
                 handleHymnClick={handleHymnClick}

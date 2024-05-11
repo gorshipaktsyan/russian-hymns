@@ -15,20 +15,25 @@ function SubTitlesList({
   dispatch,
 }) {
   const grouped = useMemo(() => {
-    return hymns.filter((hymn) => hymn.title === expandedList.selectedTitleId);
-  }, [expandedList.selectedTitleId]);
+    return hymns.filter(
+      (hymn) => hymn.title === expandedList.contentSelectedTitleId
+    );
+  }, [expandedList.contentSelectedTitleId]);
+
   const subtitles = useMemo(() => {
     return Subtitles.filter(
-      (sub) => sub.title === expandedList.selectedSubtitleId
+      (sub) => sub.title === expandedList.contentSelectedTitleId
     );
-  }, [expandedList.selectedSubtitleId]);
+  }, [expandedList.contentSelectedTitleId]);
 
   function handleSubTitleClick(subtitleId) {
     dispatch({
       type: actions.SET_CONTENT_EXPANDED_LIST,
       payload: {
-        selectedSubtitleId:
-          expandedList.selectedSubtitleId === subtitleId ? "" : subtitleId,
+        contentSelectedSubtitleId:
+          expandedList.contentSelectedSubtitleId === subtitleId
+            ? ""
+            : subtitleId,
       },
     });
     ScrollToTittle(subtitleId);
@@ -39,7 +44,7 @@ function SubTitlesList({
       type: actions.SET_CONTENT_EXPANDED_LIST,
       payload: null,
     });
-  }, [expanded.selectedTitleId]);
+  }, [expandedList.contentSelectedTitleId]);
 
   return (
     <StyledSubList>
@@ -55,11 +60,12 @@ function SubTitlesList({
               BorderBottom={Divider}
               onTitleClick={handleSubTitleClick}
               style={{
-                fontWeight: selectedSubtitleId === sub._id && "bold",
+                fontWeight:
+                  expandedList.contentSelectedSubtitleId === sub._id && "bold",
                 fontSize: "15px",
               }}
             />
-            {selectedSubtitleId === sub._id && (
+            {expandedList.contentSelectedSubtitleId === sub._id && (
               <StyledSubHymnsList>
                 {hymns.map((h, index) => (
                   <HymnTitle
