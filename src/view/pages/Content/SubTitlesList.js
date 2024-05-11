@@ -44,7 +44,7 @@ function SubTitlesList({
       type: actions.SET_CONTENT_EXPANDED_LIST,
       payload: null,
     });
-  }, [expandedList.contentSelectedTitleId]);
+  }, [expandedList.contentSelectedTitleId, dispatch]);
 
   return (
     <StyledSubList>
