@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import SearchBar from "../searchBar/SearchBar";
-import bookmarksStore from "../../services/BookmarksStore";
+import bookmarksStore from "../../services/stores/BookmarksStore";
 import { Box, IconButton, Snackbar, Toolbar, AppBar } from "@mui/material";
 import { Menu, BookmarkBorder, Bookmark } from "@mui/icons-material/";
 import { copyToClipboard, StyledComponents } from "../../../utils/index";

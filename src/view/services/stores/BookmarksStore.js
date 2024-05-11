@@ -1,4 +1,4 @@
-import hymns from "./storage/hymns.json";
+import hymns from "../storage/hymns.json";
 import persistentStore from "./PersistentStore";
 
 function formattingDate(date) {

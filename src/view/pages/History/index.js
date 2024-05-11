@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Collapse, Divider } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
 import StyledComponents from "../../../utils/sharedStyles";
-import { persistentStore, historyStore } from "../../services/index";
+import { persistentStore, historyStore } from "../../services/stores/index";
 import ConfirmModal from "./ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../../redux/actions/actions";

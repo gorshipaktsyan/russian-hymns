@@ -6,7 +6,7 @@ import { Drawer, AppBar } from "../view/components/index";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import Box from "@mui/material/Box";
-import persistentStore from "../view/services/PersistentStore";
+import persistentStore from "../view/services/stores/PersistentStore";
 import {
   useDoubleTap,
   setTitleBy,

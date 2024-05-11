@@ -4,7 +4,7 @@ import hymns from "../../services/storage/hymns.json";
 import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
-import historyStore from "../../services/HistoryStore";
+import historyStore from "../../services/stores/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../../redux/actions/actions";

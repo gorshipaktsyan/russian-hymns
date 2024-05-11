@@ -5,7 +5,7 @@ import { Box, Divider, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TransitionGroup } from "react-transition-group";
 import StyledComponents from "../../../utils/sharedStyles";
-import bookmarksStore from "../../services/BookmarksStore";
+import bookmarksStore from "../../services/stores/BookmarksStore";
 import { useDispatch, useSelector } from "react-redux";
 import actions from "../../../redux/actions/actions";
 
