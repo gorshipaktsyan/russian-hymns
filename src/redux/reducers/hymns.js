@@ -1,7 +1,7 @@
 import actions from "../actions/actions";
 import hymnsInitState from "../initialStates/hymns";
 
-const reducer = (state = hymnsInitState, action) => {
+const Hymnsreducer = (state = hymnsInitState, action) => {
   switch (action.type) {
     case actions.SET_DRAWER_OPEN:
       return {
@@ -49,4 +49,4 @@ const reducer = (state = hymnsInitState, action) => {
   }
 };
 
-export default reducer;
+export default Hymnsreducer;
