@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Drawer, List, ListItem, ListItemButton } from "@mui/material";
 import { useSelector } from "react-redux";
 import createNavItems from "../../utils/createNavItems";
-import actions from "../../redux/actions/actions";
+import HymnActions from "../../redux/actions/HymnActions";
 
 function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
   const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
@@ -11,9 +11,9 @@ function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
   const navigate = useNavigate();
   function handleNavigate(item) {
     navigate(`/${item.route}`);
-    dispatch({ type: actions.SET_TITLE, payload: item.title });
+    dispatch({ type: HymnActions.SET_TITLE, payload: item.title });
     dispatch({
-      type: actions.SET_CONTENT_EXPANDED_LIST,
+      type: HymnActions.SET_CONTENT_EXPANDED_LIST,
       payload: {
         contentSelectedTitleId: "",
         contentSelectedSubtitleId: "",

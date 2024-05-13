@@ -2,7 +2,7 @@ import StyledComponents from "../../../utils/sharedStyles";
 import SearchBarStyledComponents from "./styles";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import actions from "../../../redux/actions/actions";
+import HymnActions from "../../../redux/actions/HymnActions";
 import { useSelector } from "react-redux";
 
 const { StyledFab } = StyledComponents;
@@ -14,7 +14,10 @@ function SearchBar({ searchedHymnsListOpen, dispatch }) {
 
   function handleClick() {
     searchedHymnsListOpen &&
-      dispatch({ type: actions.SET_SEARCHED_HYMNS_LIST_OPEN, payload: false });
+      dispatch({
+        type: HymnActions.SET_SEARCHED_HYMNS_LIST_OPEN,
+        payload: false,
+      });
     navigate("/");
   }
   return (

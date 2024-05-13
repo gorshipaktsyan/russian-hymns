@@ -1,4 +1,4 @@
-import actions from "../redux/actions/actions";
+import HymnActions from "../redux/actions/HymnActions";
 import findLocation from "./findLocation";
 
 export default function setTitleBy(
@@ -21,13 +21,13 @@ export default function setTitleBy(
     } else {
       newTitle = `${lg.hymn} ${currentNumber}<sup>${currentHymn?.sign}</sup>`;
     }
-    dispatch({ type: actions.SET_TITLE, payload: newTitle });
+    dispatch({ type: HymnActions.SET_TITLE, payload: newTitle });
   } else if (pathname === "/hymns/" || pathname === "/hymns") {
     navigate("/");
   } else {
     const title = findLocation(pathname, lg);
     if (title) {
-      dispatch({ type: actions.SET_TITLE, payload: title });
+      dispatch({ type: HymnActions.SET_TITLE, payload: title });
     }
   }
 }

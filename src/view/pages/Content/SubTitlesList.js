@@ -4,7 +4,7 @@ import hymns from "../../services/storage/hymns.json";
 import Subtitles from "../../services/storage/subtitles.json";
 import { Box, Divider } from "@mui/material";
 import StyledContentComponents from "./styles";
-import actions from "../../../redux/actions/actions";
+import HymnActions from "../../../redux/actions/HymnActions";
 
 const { StyledSubList, StyledSubHymnsList } = StyledContentComponents;
 
@@ -28,7 +28,7 @@ function SubTitlesList({
 
   function handleSubTitleClick(subtitleId) {
     dispatch({
-      type: actions.SET_CONTENT_EXPANDED_LIST,
+      type: HymnActions.SET_CONTENT_EXPANDED_LIST,
       payload: {
         contentSelectedSubtitleId:
           expandedList.contentSelectedSubtitleId === subtitleId
@@ -41,7 +41,7 @@ function SubTitlesList({
 
   useEffect(() => {
     dispatch({
-      type: actions.SET_CONTENT_EXPANDED_LIST,
+      type: HymnActions.SET_CONTENT_EXPANDED_LIST,
       payload: null,
     });
   }, [expandedList.contentSelectedTitleId, dispatch]);

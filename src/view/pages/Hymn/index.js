@@ -7,7 +7,7 @@ import HymnStyledComponents from "./styles";
 import historyStore from "../../services/stores/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../../redux/actions/actions";
+import HymnActions from "../../../redux/actions/HymnActions";
 
 const config = {
   delta: 10,
@@ -40,7 +40,7 @@ function Hymn({ useArrows }) {
   useEffect(() => {
     number &&
       dispatch({
-        type: actions.SET_CURRENT_NUMBER,
+        type: HymnActions.SET_CURRENT_NUMBER,
         payload: number.split(",").map(Number),
       });
   }, [number, dispatch]);

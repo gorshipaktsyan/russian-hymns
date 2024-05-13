@@ -1,41 +1,41 @@
-import actions from "../actions/actions";
+import HymnActions from "../actions/HymnActions";
 import hymnsInitState from "../initialStates/hymns";
 
 const Hymnsreducer = (state = hymnsInitState, action) => {
   switch (action.type) {
-    case actions.SET_DRAWER_OPEN:
+    case HymnActions.SET_DRAWER_OPEN:
       return {
         ...state,
         drawerOpen: action.payload,
       };
-    case actions.SET_SEARCHED_HYMNS_LIST_OPEN:
+    case HymnActions.SET_SEARCHED_HYMNS_LIST_OPEN:
       return {
         ...state,
         searchedHymnsListOpen: action.payload,
       };
-    case actions.SET_TITLE:
+    case HymnActions.SET_TITLE:
       return {
         ...state,
         title: action.payload,
       };
-    case actions.SET_LANGUAGE:
+    case HymnActions.SET_LANGUAGE:
       return {
         ...state,
         language: action.payload,
       };
-    case actions.SET_CURRENT_NUMBER: {
+    case HymnActions.SET_CURRENT_NUMBER: {
       return {
         ...state,
         currentNumber: action.payload,
       };
     }
-    case actions.SET_CONTENT_SELECTED_TITLE_ID: {
+    case HymnActions.SET_CONTENT_SELECTED_TITLE_ID: {
       return {
         ...state,
         contentSelectedTitleId: action.payload,
       };
     }
-    case actions.SET_CONTENT_EXPANDED_LIST: {
+    case HymnActions.SET_CONTENT_EXPANDED_LIST: {
       return {
         ...state,
         contentExpandedList: {

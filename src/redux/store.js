@@ -2,16 +2,29 @@ import { configureStore, applyMiddleware } from "@reduxjs/toolkit";
 import { logger } from "redux-logger";
 import { thunk } from "redux-thunk";
 import rootReducer from "./rootReducer";
+import savedHymnsActions from "./actions/savedhymnsActions";
 
 const localStorageMiddleware = (store) => (next) => (action) => {
   const result = next(action);
-  const stateToSave = {
-    searchedHymns: store.getState().searchedHymns,
-    savedHymns: store.getState().savedHymns,
-    settings: store.getState().settings,
-  };
 
-  localStorage.setItem("reduxState", JSON.stringify(stateToSave));
+  if (action.type === savedHymnsActions.REMOVE_SAVED_HYMNS) {
+    const savedHymns = JSON.parse(localStorage.getItem("savedHymns")) || [];
+    const updatedHymns = savedHymns.filter(
+      (hymn) => hymn.number !== action.payload
+    );
+    localStorage.setItem("savedHymns", JSON.stringify(updatedHymns));
+  } else if (action.type === savedHymnsActions.ADD_SAVED_HYMNS) {
+    const currentDate = new Date();
+    const savedHymns = JSON.parse(localStorage.getItem("savedHymns")) || [];
+    const updatedHymns = [
+      ...new Set([
+        { date: currentDate, number: action.payload },
+        ...savedHymns,
+      ]),
+    ];
+    localStorage.setItem("savedHymns", JSON.stringify(updatedHymns));
+  }
+
   return result;
 };
 

@@ -7,7 +7,7 @@ import StyledComponents from "../../../utils/sharedStyles";
 import { persistentStore, historyStore } from "../../services/stores/index";
 import ConfirmModal from "./ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../../redux/actions/actions";
+import HymnActions from "../../../redux/actions/HymnActions";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
@@ -24,7 +24,7 @@ function History() {
 
   function handleClick(id) {
     dispatch({
-      type: actions.SET_CURRENT_NUMBER,
+      type: HymnActions.SET_CURRENT_NUMBER,
       payload: [id],
     });
     navigate(`/hymns/${id}`);

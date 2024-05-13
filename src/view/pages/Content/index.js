@@ -5,7 +5,7 @@ import StyledComponents from "../../../utils/sharedStyles";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import titles from "../../services/storage/titles.json";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../../redux/actions/actions";
+import HymnActions from "../../../redux/actions/HymnActions";
 
 const { StyledList, StyledBox } = StyledComponents;
 
@@ -27,7 +27,7 @@ function TitlesList({ fontSize }) {
   }
   function handleTitleClick(id) {
     dispatch({
-      type: actions.SET_CONTENT_EXPANDED_LIST,
+      type: HymnActions.SET_CONTENT_EXPANDED_LIST,
       payload: {
         contentSelectedTitleId:
           expandedList.contentSelectedTitleId === id ? "" : id,
@@ -38,7 +38,7 @@ function TitlesList({ fontSize }) {
 
   function handleHymnClick(id) {
     dispatch({
-      type: actions.SET_CURRENT_NUMBER,
+      type: HymnActions.SET_CURRENT_NUMBER,
       payload: [id],
     });
     navigate(`/hymns/${id}`);

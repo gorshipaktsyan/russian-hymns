@@ -1,13 +1,4 @@
-const actions = {
-  SET_SEARCHED_HYMNS_LIST_OPEN: "SET_SEARCHED_HYMNS_LIST_OPEN",
-  SET_DRAWER_OPEN: "SET_DRAWER_OPEN",
-  SET_TITLE: "SET_TITLE",
-  SET_LANGUAGE: "SET_LANGUAGE",
-  SET_CURRENT_NUMBER: "SET_CURRENT_NUMBER",
-  SET_CONTENT_EXPANDED_LIST: "SET_CONTENT_EXPANDED_LIST",
-  UPDATE_SAVED_HYMNS: "UPDATE_SAVED_HYMNS ",
-  UPDATE_SEARCHED_HYMNS: "UPDATE_SEARCHED_HYMNS ",
-  UPDATE_SETTINGS: "UPDATE_SETTINGS ",
-};
+import HymnActions from "./HymnActions";
+import savedHymnsActions from "./savedhymnsActions";
 
-export default actions;
+export default { HymnActions, savedHymnsActions };

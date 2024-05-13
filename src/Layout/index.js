@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../redux/actions/actions";
+import HymnActions from "../redux/actions/HymnActions";
 import { Drawer, AppBar } from "../view/components/index";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
@@ -47,7 +47,7 @@ function Layout() {
   }, [currentNumber, pathname, dispatch, lg, navigate]);
 
   const handleDrawerToggle = (isOpen) => {
-    dispatch({ type: actions.SET_DRAWER_OPEN, payload: isOpen });
+    dispatch({ type: HymnActions.SET_DRAWER_OPEN, payload: isOpen });
   };
 
   return (

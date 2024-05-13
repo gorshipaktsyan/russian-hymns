@@ -6,6 +6,7 @@ import { Box, IconButton, Snackbar, Toolbar, AppBar } from "@mui/material";
 import { Menu, BookmarkBorder, Bookmark } from "@mui/icons-material/";
 import { copyToClipboard, StyledComponents } from "../../../utils/index";
 import { useDispatch, useSelector } from "react-redux";
+import savedHymnsActions from "../../../redux/actions/savedhymnsActions";
 
 const { StyledAlert } = StyledComponents;
 
@@ -32,10 +33,16 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname, lg }) {
 
   const handleBookmarkClick = () => {
     if (saved) {
-      bookmarksStore.remove(currentHymnNumber);
+      dispatch({
+        type: savedHymnsActions.REMOVE_SAVED_HYMNS,
+        payload: currentHymnNumber,
+      });
       setSaved(false);
     } else {
-      bookmarksStore.set(currentHymnNumber);
+      dispatch({
+        type: savedHymnsActions.ADD_SAVED_HYMNS,
+        payload: currentHymnNumber,
+      });
       setSaved(true);
     }
   };

@@ -4,7 +4,7 @@ import Alphabet from "./Alphabet";
 import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../../redux/actions/actions";
+import HymnActions from "../../../redux/actions/HymnActions";
 
 const { StyledBox } = StyledComponents;
 
@@ -16,7 +16,7 @@ function AlphabeticalIndex() {
 
   function handleTitleClick(id) {
     dispatch({
-      type: actions.SET_CURRENT_NUMBER,
+      type: HymnActions.SET_CURRENT_NUMBER,
       payload: [id],
     });
     navigate(`/hymns/${id}`);
@@ -24,7 +24,7 @@ function AlphabeticalIndex() {
   function handleBackClick() {
     setLetter("");
     dispatch({
-      type: actions.SET_TITLE,
+      type: HymnActions.SET_TITLE,
       payload: lg.alphabeticalIndex.alphabeticalIndex,
     });
   }

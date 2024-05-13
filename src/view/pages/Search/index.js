@@ -6,7 +6,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { StyledComponents, findText } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../../redux/actions/actions";
+import HymnActions from "../../../redux/actions/HymnActions";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
@@ -37,7 +37,10 @@ function Search({ englishSearch }) {
     const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
     const resultNumbers = matchingHymns.map((h) => h.number);
     resultNumbers.length &&
-      dispatch({ type: actions.SET_CURRENT_NUMBER, payload: resultNumbers });
+      dispatch({
+        type: HymnActions.SET_CURRENT_NUMBER,
+        payload: resultNumbers,
+      });
     return resultNumbers;
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,7 +56,10 @@ function Search({ englishSearch }) {
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
-      dispatch({ type: actions.SET_CURRENT_NUMBER, payload: [randomNumber] });
+      dispatch({
+        type: HymnActions.SET_CURRENT_NUMBER,
+        payload: [randomNumber],
+      });
       number = [randomNumber];
     }
     if (number.length) {
@@ -83,7 +89,10 @@ function Search({ englishSearch }) {
 
   useEffect(() => {
     if (findedHymns.length > 0) {
-      dispatch({ type: actions.SET_SEARCHED_HYMNS_LIST_OPEN, payload: true });
+      dispatch({
+        type: HymnActions.SET_SEARCHED_HYMNS_LIST_OPEN,
+        payload: true,
+      });
     } else if (searchedText) {
       setErrorAlert(true);
     }
