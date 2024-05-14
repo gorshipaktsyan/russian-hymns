@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import HymnActions from "../redux/actions/HymnActions";
+import { setOpenDrawer } from "../redux/slice/drawerSlice";
 import { Drawer, AppBar } from "../view/components/index";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
@@ -24,8 +24,10 @@ function Layout() {
   const [englishSearch, setEnglishSearch] = useState(
     persistentStore.get("settings")?.englishSearch || false
   );
-  const lg = useSelector((state) => state.hymns.language);
-  const currentNumber = useSelector((state) => state.hymns.currentNumber);
+  const settings = useSelector((state) => state.settings);
+  const currentNumber = useSelector(
+    (state) => state.currentNumber.currentNumber
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -43,24 +45,29 @@ function Layout() {
   }, [fontSize, useArrows, englishSearch]);
 
   useEffect(() => {
-    setTitleBy(currentNumber, pathname, navigate, hymns, dispatch, lg);
-  }, [currentNumber, pathname, dispatch, lg, navigate]);
-
+    setTitleBy(
+      currentNumber,
+      pathname,
+      navigate,
+      hymns,
+      dispatch,
+      settings.language
+    );
+  }, [currentNumber, pathname, dispatch, settings.language, navigate]);
   const handleDrawerToggle = (isOpen) => {
-    dispatch({ type: HymnActions.SET_DRAWER_OPEN, payload: isOpen });
+    dispatch(setOpenDrawer(isOpen));
   };
-
   return (
     <Box sx={{ height: "100%" }}>
       <ScrollToTop currentNumber={currentNumber} pathname={pathname} />
       <AppBar
-        lg={lg}
+        lg={settings.language}
         handleDrawerToggle={handleDrawerToggle}
         currentNumber={currentNumber}
         pathname={pathname}
       />
       <Drawer
-        lg={lg}
+        lg={settings.language}
         handleDrawerToggle={handleDrawerToggle}
         dispatch={dispatch}
         fontSize={fontSize}

@@ -15,8 +15,8 @@ function Settings({
   englishSearch,
   setEnglishSearch,
 }) {
-  const isMobile = useSelector((state) => state.hymns.isMobile);
-  const lg = useSelector((state) => state.hymns.language);
+  const isMobile = useSelector((state) => state.settings.isMobile);
+  const lg = useSelector((state) => state.settings.language);
 
   function handleChangeFtSz(e) {
     const newValue = parseFloat(e.target.value);

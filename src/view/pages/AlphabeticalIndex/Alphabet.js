@@ -1,16 +1,14 @@
 import { Box } from "@mui/material";
 import AlphabeticalStyledComponents from "./styles";
 import HymnActions from "../../../redux/actions/HymnActions";
+import { setTitle } from "../../../redux/slice/titleSlice";
 
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;
 
-function Alphabet({ setLetter, dispatch, lg }) {
+function Alphabet({ setLetter, dispatch, lg, setTitle }) {
   function handleClick(letter) {
     setLetter(letter);
-    dispatch({
-      type: HymnActions.SET_TITLE,
-      payload: `${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`,
-    });
+    dispatch(setTitle(`${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`));
   }
   return (
     <Box sx={{ maxWidth: "250px" }}>

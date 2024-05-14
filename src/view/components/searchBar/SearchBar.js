@@ -4,20 +4,17 @@ import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import HymnActions from "../../../redux/actions/HymnActions";
 import { useSelector } from "react-redux";
+import { setOpenSearchedHymnList } from "../../../redux/slice/searchSlice";
 
 const { StyledFab } = StyledComponents;
 const { SearchedBox, StyledSearchIcon } = SearchBarStyledComponents;
 
-function SearchBar({ searchedHymnsListOpen, dispatch }) {
+function SearchBar({ dispatch }) {
   const navigate = useNavigate();
-  const isMobile = useSelector((state) => state.hymns.isMobile);
+  const isMobile = useSelector((state) => state.settings.isMobile);
 
   function handleClick() {
-    searchedHymnsListOpen &&
-      dispatch({
-        type: HymnActions.SET_SEARCHED_HYMNS_LIST_OPEN,
-        payload: false,
-      });
+    dispatch(setOpenSearchedHymnList(false));
     navigate("/");
   }
   return (

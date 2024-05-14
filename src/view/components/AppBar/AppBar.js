@@ -1,12 +1,11 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import SearchBar from "../searchBar/SearchBar";
-import bookmarksStore from "../../services/stores/BookmarksStore";
 import { Box, IconButton, Snackbar, Toolbar, AppBar } from "@mui/material";
 import { Menu, BookmarkBorder, Bookmark } from "@mui/icons-material/";
 import { copyToClipboard, StyledComponents } from "../../../utils/index";
 import { useDispatch, useSelector } from "react-redux";
-import savedHymnsActions from "../../../redux/actions/savedhymnsActions";
+import { saveHymn, removeHymn } from "../../../redux/slice/bookmarksSlice";
 
 const { StyledAlert } = StyledComponents;
 
@@ -14,14 +13,15 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname, lg }) {
   const dispatch = useDispatch();
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
-  const drawerOpen = useSelector((state) => state.hymns.drawerOpen);
-  const searchedHymnsListOpen = useSelector(
-    (store) => store.hymns.searchedHymnsListOpen
-  );
-  const title = useSelector((state) => state.hymns.title);
-  const savedHymnsList = bookmarksStore.get();
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
   const handleClose = () => setCopyAlert(false);
+  const drawerOpen = useSelector((state) => state.drawer.drawerOpen);
+  const searchedHymnsListOpen = useSelector(
+    (store) => store.search.searchedHymnsListOpen
+  );
+  const title = useSelector((state) => state.title.title);
+  const savedHymnsList = useSelector((state) => state.bookmarks.savedHymns);
+
   useEffect(() => {
     if (currentHymnNumber && savedHymnsList) {
       const isSaved = savedHymnsList.some((day) =>
@@ -33,16 +33,10 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname, lg }) {
 
   const handleBookmarkClick = () => {
     if (saved) {
-      dispatch({
-        type: savedHymnsActions.REMOVE_SAVED_HYMNS,
-        payload: currentHymnNumber,
-      });
+      dispatch(removeHymn(currentHymnNumber));
       setSaved(false);
     } else {
-      dispatch({
-        type: savedHymnsActions.ADD_SAVED_HYMNS,
-        payload: currentHymnNumber,
-      });
+      dispatch(saveHymn(currentHymnNumber));
       setSaved(true);
     }
   };
@@ -88,10 +82,7 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname, lg }) {
             }}
           >
             {(pathname !== "/" || searchedHymnsListOpen) && (
-              <SearchBar
-                searchedHymnsListOpen={searchedHymnsListOpen}
-                dispatch={dispatch}
-              />
+              <SearchBar dispatch={dispatch} />
             )}
           </Box>
           {pathname.includes(`/hymns`) && (

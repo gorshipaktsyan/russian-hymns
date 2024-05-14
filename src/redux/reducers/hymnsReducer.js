@@ -1,5 +1,5 @@
 import HymnActions from "../actions/HymnActions";
-import hymnsInitState from "../initialStates/hymns";
+import hymnsInitState from "../initialStates/hymnsInitState";
 
 const Hymnsreducer = (state = hymnsInitState, action) => {
   switch (action.type) {

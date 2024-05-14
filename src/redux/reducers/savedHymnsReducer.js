@@ -1,7 +1,7 @@
 import savedHymnsActions from "../actions/savedhymnsActions";
-import savedHymnsInitState from "../initialStates/savedHymns";
+import savedHymnsInitState from "../initialStates/savedHymnsInitState";
 
-const savedHymnsReducer = (state = savedHymnsInitState, action) => {
+const savedHymnsReducer = (state, action) => {
   switch (action.type) {
     case savedHymnsActions.ADD_SAVED_HYMNS:
       return [...state, action.payload];
@@ -10,8 +10,7 @@ const savedHymnsReducer = (state = savedHymnsInitState, action) => {
       const idToRemove = action.payload;
       const updatedHymns = state.filter((hymn) => hymn.number !== idToRemove);
       return updatedHymns;
-    case savedHymnsActions.UPDATE_SAVED_HYMNS:
-      return action.payload;
+
     default:
       return state;
   }

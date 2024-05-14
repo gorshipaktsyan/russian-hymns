@@ -8,11 +8,12 @@ import { persistentStore, historyStore } from "../../services/stores/index";
 import ConfirmModal from "./ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
 import HymnActions from "../../../redux/actions/HymnActions";
+import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
 function History() {
-  const lg = useSelector((state) => state.hymns.language);
+  const lg = useSelector((state) => state.settings.language);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -23,10 +24,7 @@ function History() {
   }, [historyUpdated]);
 
   function handleClick(id) {
-    dispatch({
-      type: HymnActions.SET_CURRENT_NUMBER,
-      payload: [id],
-    });
+    dispatch(setCurrentNumber([id]));
     navigate(`/hymns/${id}`);
   }
   function handleClearHistory() {

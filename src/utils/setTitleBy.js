@@ -1,5 +1,6 @@
 import HymnActions from "../redux/actions/HymnActions";
 import findLocation from "./findLocation";
+import { setTitle } from "../redux/slice/titleSlice";
 
 export default function setTitleBy(
   currentNumber,
@@ -19,15 +20,17 @@ export default function setTitleBy(
         currentNumber.length > 3 ? " ..." : ""
       }`;
     } else {
-      newTitle = `${lg.hymn} ${currentNumber}<sup>${currentHymn?.sign}</sup>`;
+      newTitle = `${lg.hymn} ${currentNumber}<sup>${
+        currentHymn?.sign || ""
+      }</sup>`;
     }
-    dispatch({ type: HymnActions.SET_TITLE, payload: newTitle });
+    dispatch(setTitle(newTitle));
   } else if (pathname === "/hymns/" || pathname === "/hymns") {
     navigate("/");
   } else {
     const title = findLocation(pathname, lg);
     if (title) {
-      dispatch({ type: HymnActions.SET_TITLE, payload: title });
+      dispatch(setTitle(title));
     }
   }
 }

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const { InfoBox, StyledLink } = StyledComponents;
 
 function About() {
-  const lg = useSelector((state) => state.hymns.language);
+  const lg = useSelector((state) => state.settings.language);
 
   return (
     <InfoBox className="infoBox">

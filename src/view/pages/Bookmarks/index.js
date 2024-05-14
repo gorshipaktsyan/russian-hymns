@@ -5,36 +5,24 @@ import { Box, Divider, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TransitionGroup } from "react-transition-group";
 import StyledComponents from "../../../utils/sharedStyles";
-import bookmarksStore from "../../services/stores/BookmarksStore";
 import { useDispatch, useSelector } from "react-redux";
-import actions from "../../../redux/actions/actions";
-import { fetchSavedHymns } from "../../../redux/thunks/savedHymnsThunks";
+import { removeHymn } from "../../../redux/slice/bookmarksSlice";
+import russian from "../../../config/constants/russian";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
 function Bookmarks() {
-  let savedHymns = useSelector((state) => state.savedHymns);
-  const lg = useSelector((state) => state.hymns.language);
+  const savedHymns = useSelector((state) => state.bookmarks.savedHymns);
+  const lg = russian;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(fetchSavedHymns());
-  }, [dispatch]);
-
   function handleClick(id) {
-    dispatch({
-      type: actions.HymnActions.SET_CURRENT_NUMBER,
-      payload: [id],
-    });
     navigate(`/hymns/${id}`);
   }
 
   function handleDelete(id) {
-    dispatch({
-      type: actions.savedHymnsActions.REMOVE_SAVED_HYMNS,
-      payload: id,
-    });
+    dispatch(removeHymn(id));
   }
   return (
     <StyledBox>

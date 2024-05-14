@@ -5,28 +5,24 @@ import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
 import { useDispatch, useSelector } from "react-redux";
 import HymnActions from "../../../redux/actions/HymnActions";
+import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
+import { setTitle } from "../../../redux/slice/titleSlice";
 
 const { StyledBox } = StyledComponents;
 
 function AlphabeticalIndex() {
-  const lg = useSelector((state) => state.hymns.language);
+  const lg = useSelector((state) => state.settings.language);
   const [letter, setLetter] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleTitleClick(id) {
-    dispatch({
-      type: HymnActions.SET_CURRENT_NUMBER,
-      payload: [id],
-    });
+    dispatch(setCurrentNumber([id]));
     navigate(`/hymns/${id}`);
   }
   function handleBackClick() {
     setLetter("");
-    dispatch({
-      type: HymnActions.SET_TITLE,
-      payload: lg.alphabeticalIndex.alphabeticalIndex,
-    });
+    dispatch(setTitle(lg.alphabeticalIndex.alphabeticalIndex));
   }
   return (
     <StyledBox>
@@ -38,7 +34,12 @@ function AlphabeticalIndex() {
           handleBackClick={() => handleBackClick()}
         />
       ) : (
-        <Alphabet setLetter={setLetter} dispatch={dispatch} lg={lg} />
+        <Alphabet
+          setLetter={setLetter}
+          dispatch={dispatch}
+          lg={lg}
+          setTitle={setTitle}
+        />
       )}
     </StyledBox>
   );

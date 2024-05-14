@@ -5,13 +5,15 @@ import StyledComponents from "../../../utils/sharedStyles";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import titles from "../../services/storage/titles.json";
 import { useDispatch, useSelector } from "react-redux";
-import HymnActions from "../../../redux/actions/HymnActions";
+import { setTitleId } from "../../../redux/slice/contentSlice";
+import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 
 const { StyledList, StyledBox } = StyledComponents;
 
 function TitlesList({ fontSize }) {
-  const expandedList = useSelector((state) => state.hymns.contentExpandedList);
-  console.log(expandedList);
+  const expandedList = useSelector(
+    (state) => state.content.contentExpandedList
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function ScrollToTittle(id) {
@@ -26,21 +28,12 @@ function TitlesList({ fontSize }) {
     );
   }
   function handleTitleClick(id) {
-    dispatch({
-      type: HymnActions.SET_CONTENT_EXPANDED_LIST,
-      payload: {
-        contentSelectedTitleId:
-          expandedList.contentSelectedTitleId === id ? "" : id,
-      },
-    });
+    dispatch(setTitleId(expandedList.titleId === id ? "" : id));
     ScrollToTittle(id);
   }
 
   function handleHymnClick(id) {
-    dispatch({
-      type: HymnActions.SET_CURRENT_NUMBER,
-      payload: [id],
-    });
+    dispatch(setCurrentNumber([id]));
     navigate(`/hymns/${id}`);
   }
 
@@ -57,11 +50,10 @@ function TitlesList({ fontSize }) {
               BorderBottom={Divider}
               onTitleClick={handleTitleClick}
               style={{
-                fontWeight:
-                  expandedList.contentSelectedTitleId === title._id && "bold",
+                fontWeight: expandedList.titleId === title._id && "bold",
               }}
             />
-            {expandedList.contentSelectedTitleId === title._id && (
+            {expandedList.titleId === title._id && (
               <SubTitlesList
                 expandedList={expandedList}
                 handleHymnClick={handleHymnClick}

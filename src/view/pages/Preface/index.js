@@ -3,7 +3,7 @@ import StyledComponents from "../../../utils/sharedStyles";
 
 const { InfoBox } = StyledComponents;
 function Preface() {
-  const lg = useSelector((state) => state.hymns.language);
+  const lg = useSelector((state) => state.settings.language);
 
   return (
     <InfoBox>

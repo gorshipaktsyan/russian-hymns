@@ -7,7 +7,7 @@ import HymnStyledComponents from "./styles";
 import historyStore from "../../services/stores/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import HymnActions from "../../../redux/actions/HymnActions";
+import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 
 const config = {
   delta: 10,
@@ -32,17 +32,15 @@ function Hymn({ useArrows }) {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
-  const isMobile = useSelector((state) => state.hymns.isMobile);
-  const lg = useSelector((state) => state.hymns.language);
-  const currentNumber = useSelector((state) => state.hymns.currentNumber);
+  const isMobile = useSelector((state) => state.settings.isMobile);
+  const lg = useSelector((state) => state.settings.language);
+  const currentNumber = useSelector(
+    (state) => state.currentNumber.currentNumber
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    number &&
-      dispatch({
-        type: HymnActions.SET_CURRENT_NUMBER,
-        payload: number.split(",").map(Number),
-      });
+    number && dispatch(setCurrentNumber(number.split(",").map(Number)));
   }, [number, dispatch]);
   const hymn = useMemo(
     () =>
@@ -58,6 +56,7 @@ function Hymn({ useArrows }) {
     const index = hymns.findIndex(
       (el) => Number(el.number) === Number(currentNumber[0] + 1)
     );
+    console.log(typeof currentNumber[0]);
     if (index !== -1) {
       navigate(`/hymns/${currentNumber[0] + 1}`);
     }

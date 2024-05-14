@@ -2,13 +2,13 @@ import React from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import { Divider } from "@mui/material";
 import StyledComponents from "../../../utils/sharedStyles";
-import HymnActions from "../../../redux/actions/HymnActions";
+import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 
 const { StyledList, StyledBox } = StyledComponents;
 
 function HymnList({ findedHymns, navigate, dispatch }) {
   function handleClick(id) {
-    dispatch({ typr: HymnActions.SET_CURRENT_NUMBER, payload: [id] });
+    dispatch(setCurrentNumber([id]));
     navigate(`/hymns/${id}`);
   }
   return (

@@ -7,6 +7,8 @@ import { StyledComponents, findText } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import HymnActions from "../../../redux/actions/HymnActions";
+import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
+import { setOpenSearchedHymnList } from "../../../redux/slice/searchSlice";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
@@ -19,9 +21,9 @@ function Search({ englishSearch }) {
   const [findedHymns, setFindedHymns] = useState([]);
   const [errorAlert, setErrorAlert] = useState(false);
   const searchedHymnsListOpen = useSelector(
-    (store) => store.hymns.searchedHymnsListOpen
+    (store) => store.search.searchedHymnsListOpen
   );
-  const lg = useSelector((state) => state.hymns.language);
+  const lg = useSelector((state) => state.settings.language);
   const handleClose = () => setErrorAlert(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,11 +38,8 @@ function Search({ englishSearch }) {
     const numbers = input.split(",").map((num) => Number(num.trim()));
     const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
     const resultNumbers = matchingHymns.map((h) => h.number);
-    resultNumbers.length &&
-      dispatch({
-        type: HymnActions.SET_CURRENT_NUMBER,
-        payload: resultNumbers,
-      });
+    resultNumbers.length && dispatch(setCurrentNumber(resultNumbers));
+
     return resultNumbers;
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,10 +55,8 @@ function Search({ englishSearch }) {
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
-      dispatch({
-        type: HymnActions.SET_CURRENT_NUMBER,
-        payload: [randomNumber],
-      });
+      dispatch(setCurrentNumber(randomNumber));
+
       number = [randomNumber];
     }
     if (number.length) {
@@ -89,10 +86,7 @@ function Search({ englishSearch }) {
 
   useEffect(() => {
     if (findedHymns.length > 0) {
-      dispatch({
-        type: HymnActions.SET_SEARCHED_HYMNS_LIST_OPEN,
-        payload: true,
-      });
+      dispatch(setOpenSearchedHymnList(true));
     } else if (searchedText) {
       setErrorAlert(true);
     }
