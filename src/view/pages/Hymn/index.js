@@ -8,6 +8,7 @@ import historyStore from "../../services/stores/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
+import { addHymn } from "../../../redux/slice/historySlice";
 
 const config = {
   delta: 10,
@@ -28,7 +29,7 @@ const {
   MobArrowLeftIcon,
 } = HymnStyledComponents;
 
-function Hymn({ useArrows }) {
+function Hymn() {
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
@@ -37,6 +38,7 @@ function Hymn({ useArrows }) {
   const currentNumber = useSelector(
     (state) => state.currentNumber.currentNumber
   );
+  const useArrows = useSelector((state) => state.settings.useArrows);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -56,7 +58,6 @@ function Hymn({ useArrows }) {
     const index = hymns.findIndex(
       (el) => Number(el.number) === Number(currentNumber[0] + 1)
     );
-    console.log(typeof currentNumber[0]);
     if (index !== -1) {
       navigate(`/hymns/${currentNumber[0] + 1}`);
     }
@@ -106,8 +107,8 @@ function Hymn({ useArrows }) {
         setTimeOnPage((prevTime) => prevTime + 1);
       }, 1000);
     }
-    if (timeOnPage >= 30 && !hasNumber) {
-      historyStore.set(currentNumber);
+    if (timeOnPage >= 5 && !hasNumber) {
+      dispatch(addHymn(currentNumber));
       setTimeOnPage(0);
     }
     currentNumber !== prevNumber && setTimeOnPage(0);

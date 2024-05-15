@@ -6,7 +6,6 @@ import Snackbar from "@mui/material/Snackbar";
 import { StyledComponents, findText } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import HymnActions from "../../../redux/actions/HymnActions";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 import { setOpenSearchedHymnList } from "../../../redux/slice/searchSlice";
 
@@ -14,7 +13,8 @@ const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
-function Search({ englishSearch }) {
+function Search() {
+  const englishSearch = useSelector((state) => state.settings.englishSearch);
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
@@ -55,7 +55,7 @@ function Search({ englishSearch }) {
       return;
     } else {
       const randomNumber = Math.floor(Math.random() * 800);
-      dispatch(setCurrentNumber(randomNumber));
+      dispatch(setCurrentNumber([randomNumber]));
 
       number = [randomNumber];
     }

@@ -20,7 +20,7 @@ class HistoryStore {
     const hymnObject = { date: currentDate, number: hymnIds };
     const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])];
     persistentStore.set(key, updatedHymns);
-    return hymnIds;
+    return this.get();
   }
   get() {
     const history = persistentStore.get(key) || [];
@@ -71,6 +71,10 @@ class HistoryStore {
       return hasNumber;
     }
     return false;
+  }
+  clear() {
+    persistentStore.clear(key);
+    return [];
   }
 }
 const historyStore = new HistoryStore();

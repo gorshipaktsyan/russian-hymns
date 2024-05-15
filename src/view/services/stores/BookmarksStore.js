@@ -19,6 +19,7 @@ class BookmarksStore {
     const hymnObject = { date: currentDate, number: value };
     const updatedHymns = [...new Set([hymnObject, ...savedHymnsList])];
     persistentStore.set(key, updatedHymns);
+    return this.get();
   }
   get() {
     const savedHymns = persistentStore.get(key) || [];
@@ -63,6 +64,7 @@ class BookmarksStore {
         `Error removing item ${id} from local storage: ${error.message}`
       );
     }
+    return this.get();
   }
 }
 const bookmarksStore = new BookmarksStore();

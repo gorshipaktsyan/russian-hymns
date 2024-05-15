@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+import historyStore from "../../view/services/stores/HistoryStore";
 
 export const historySlice = createSlice({
   name: "history",
   initialState: {
-    searchedHymns: [],
+    searchedHymns: historyStore.get(),
   },
   reducers: {
     clearHistory: (state) => {
-      state.searchedHymns = [];
+      state.searchedHymns = historyStore.clear();
     },
     addHymn: (state, action) => {
-      state.searchedHymns.push(action.payload);
+      state.searchedHymns = historyStore.set(action.payload);
     },
   },
 });

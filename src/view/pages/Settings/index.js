@@ -1,33 +1,34 @@
 import { Divider, Slider, Switch } from "@mui/material";
 import StyledComponents from "../../../utils/sharedStyles";
 import SettingsStyledComponents from "./styles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  changeFontSize,
+  setEnglishSearch,
+  setUseArrow,
+} from "../../../redux/slice/settingsSlice";
 
 const { StyledBox } = StyledComponents;
 const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
   SettingsStyledComponents;
 
-function Settings({
-  fontSize,
-  setFontSize,
-  useArrows,
-  setUseArrows,
-  englishSearch,
-  setEnglishSearch,
-}) {
+function Settings() {
+  const fontSize = useSelector((state) => state.settings.fontSize);
+  const useArrows = useSelector((state) => state.settings.useArrows);
+  const englishSearch = useSelector((state) => state.settings.englishSearch);
   const isMobile = useSelector((state) => state.settings.isMobile);
   const lg = useSelector((state) => state.settings.language);
+  const dispatch = useDispatch();
 
   function handleChangeFtSz(e) {
     const newValue = parseFloat(e.target.value);
-
-    setFontSize(newValue);
+    dispatch(changeFontSize(newValue));
   }
   function handleChangeArrows(e) {
-    setUseArrows(e.target.checked);
+    dispatch(setUseArrow(e.target.checked));
   }
   function handleChangeEngSearch(e) {
-    setEnglishSearch(e.target.checked);
+    dispatch(setEnglishSearch(e.target.checked));
   }
   return (
     <StyledBox onTouchStart={(e) => e.stopPropagation()}>

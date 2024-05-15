@@ -4,7 +4,6 @@ import Alphabet from "./Alphabet";
 import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
 import { useDispatch, useSelector } from "react-redux";
-import HymnActions from "../../../redux/actions/HymnActions";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 import { setTitle } from "../../../redux/slice/titleSlice";
 

@@ -3,16 +3,14 @@ import bookmarksStore from "../../../src/view/services/stores/BookmarksStore";
 export const bookmarksSlice = createSlice({
   name: "bookmarks",
   initialState: {
-    savedHymns: bookmarksStore.get(),
+    savedHymns: bookmarksStore.get() || [],
   },
   reducers: {
     removeHymn: (state, action) => {
-      state.savedHymns = state.savedHymns.filter(
-        (hymn) => hymn !== action.payload
-      );
+      state.savedHymns = bookmarksStore.remove(action.payload);
     },
     saveHymn: (state, action) => {
-      state.savedHymns.push(action.payload);
+      state.savedHymns = bookmarksStore.set(action.payload);
     },
   },
 });

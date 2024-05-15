@@ -6,24 +6,9 @@ import { Drawer, AppBar } from "../view/components/index";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import Box from "@mui/material/Box";
-import persistentStore from "../view/services/stores/PersistentStore";
-import {
-  useDoubleTap,
-  setTitleBy,
-  changeFontSize,
-  ScrollToTop,
-} from "../utils/index";
+import { useDoubleTap, setTitleBy, ScrollToTop } from "../utils/index";
 
 function Layout() {
-  const [fontSize, setFontSize] = useState(
-    persistentStore.get("settings")?.fontSize || 1
-  );
-  const [useArrows, setUseArrows] = useState(
-    persistentStore.get("settings")?.useArrows || false
-  );
-  const [englishSearch, setEnglishSearch] = useState(
-    persistentStore.get("settings")?.englishSearch || false
-  );
   const settings = useSelector((state) => state.settings);
   const currentNumber = useSelector(
     (state) => state.currentNumber.currentNumber
@@ -32,17 +17,7 @@ function Layout() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  useDoubleTap(pathname !== "/settings" ? setFontSize : undefined);
-
-  useEffect(() => {
-    changeFontSize(fontSize);
-    const settings = {
-      fontSize: Number(fontSize.toFixed(1)),
-      useArrows,
-      englishSearch,
-    };
-    persistentStore.set("settings", settings);
-  }, [fontSize, useArrows, englishSearch]);
+  useDoubleTap(pathname !== "/settings" ? dispatch : undefined);
 
   useEffect(() => {
     setTitleBy(
@@ -70,17 +45,10 @@ function Layout() {
         lg={settings.language}
         handleDrawerToggle={handleDrawerToggle}
         dispatch={dispatch}
-        fontSize={fontSize}
+        fontSize={settings.fontSize}
       />
       <Box className="container">
-        <App
-          fontSize={fontSize}
-          setFontSize={setFontSize}
-          useArrows={useArrows}
-          setUseArrows={setUseArrows}
-          englishSearch={englishSearch}
-          setEnglishSearch={setEnglishSearch}
-        />
+        <App />
       </Box>
     </Box>
   );

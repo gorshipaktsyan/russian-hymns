@@ -15,35 +15,19 @@ import {
 } from "../view/pages";
 import StyledApp from "./styles";
 
-function App({
-  fontSize,
-  setFontSize,
-  useArrows,
-  setUseArrows,
-  englishSearch,
-  setEnglishSearch,
-}) {
+function App() {
   const routes = [
     {
       path: "/",
-      element: <Search englishSearch={englishSearch} />,
+      element: <Search />,
     },
     {
       path: "/hymns/:number",
-      element: <Hymn useArrows={useArrows} />,
+      element: <Hymn />,
     },
     {
       path: "/settings",
-      element: (
-        <Settings
-          fontSize={fontSize}
-          setFontSize={setFontSize}
-          useArrows={useArrows}
-          setUseArrows={setUseArrows}
-          englishSearch={englishSearch}
-          setEnglishSearch={setEnglishSearch}
-        />
-      ),
+      element: <Settings />,
     },
     { path: "/about", element: <About /> },
     {
@@ -56,7 +40,7 @@ function App({
     },
     {
       path: "/content",
-      element: <Content fontSize={fontSize} />,
+      element: <Content />,
     },
     {
       path: "/history",

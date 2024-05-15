@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { Box, Collapse, Divider } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
 import StyledComponents from "../../../utils/sharedStyles";
-import { persistentStore, historyStore } from "../../services/stores/index";
 import ConfirmModal from "./ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
-import HymnActions from "../../../redux/actions/HymnActions";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
+import { clearHistory } from "../../../redux/slice/historySlice";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
@@ -17,26 +16,21 @@ function History() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openConfirm, setOpenConfirm] = useState(false);
-  const [historyUpdated, setHistoryUpdated] = useState(false);
-  const groupedHymnsData = useMemo(() => {
-    return historyStore.get();
-    // eslint-disable-next-line
-  }, [historyUpdated]);
+  const history = useSelector((state) => state.history.searchedHymns);
 
   function handleClick(id) {
     dispatch(setCurrentNumber([id]));
     navigate(`/hymns/${id}`);
   }
   function handleClearHistory() {
-    persistentStore.clear("searchedHymns");
-    setHistoryUpdated(true);
+    dispatch(clearHistory());
     setOpenConfirm(false);
   }
 
   return (
     <>
       <StyledBox>
-        {groupedHymnsData.length > 0 ? (
+        {history.length > 0 ? (
           <StyledList>
             <Box
               sx={{
@@ -49,7 +43,7 @@ function History() {
               {lg.history.deleteHistory}
             </Box>
             <TransitionGroup>
-              {groupedHymnsData.map(({ date, hymns }) => (
+              {history.map(({ date, hymns }) => (
                 <Collapse key={date}>
                   <Box sx={{ paddingBottom: "20px" }}>
                     <Divider>{date}</Divider>

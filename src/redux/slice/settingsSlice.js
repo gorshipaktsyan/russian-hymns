@@ -1,33 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 import russian from "../../config/constants/russian";
+import settingsStore from "../../view/services/stores/SettingsStore";
+
+const initialSettings = settingsStore.get();
 
 export const settingsSlice = createSlice({
   name: "settings",
   initialState: {
-    fontSize: 1,
-    englishSearch: false,
-    useArrows: false,
+    fontSize: initialSettings.fontSize || 1,
+    englishSearch: initialSettings.englishSearch || false,
+    useArrows: initialSettings.useArrows || false,
     isMobile: navigator.maxTouchPoints > 0,
-    language: russian,
+    language: initialSettings.language || russian,
   },
   reducers: {
     changeFontSize: (state, action) => {
-      state.settings = {
-        ...state.settings,
-        fontSize: action.payload,
-      };
+      state.fontSize = action.payload;
+      settingsStore.set("fontSize", action.payload);
     },
     setEnglishSearch: (state, action) => {
-      state.settings = {
-        ...state.settings,
-        englishSearch: action.payload,
-      };
+      state.englishSearch = action.payload;
+      settingsStore.set("englishSearch", action.payload);
     },
     setUseArrow: (state, action) => {
-      state.settings = {
-        ...state.settings,
-        useArrows: action.payload,
-      };
+      state.useArrows = action.payload;
+      settingsStore.set("useArrows", action.payload);
     },
   },
 });

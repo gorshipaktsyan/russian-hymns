@@ -10,12 +10,14 @@ import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 
 const { StyledList, StyledBox } = StyledComponents;
 
-function TitlesList({ fontSize }) {
+function TitlesList() {
   const expandedList = useSelector(
     (state) => state.content.contentExpandedList
   );
+  const fontSize = useSelector((state) => state.settings.fontSize);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   function ScrollToTittle(id) {
     const element = document.getElementById(id);
     setTimeout(
