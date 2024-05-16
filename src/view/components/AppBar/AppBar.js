@@ -14,13 +14,14 @@ function AppBarComponent({ handleDrawerToggle, currentNumber, pathname, lg }) {
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
-  const handleClose = () => setCopyAlert(false);
   const drawerOpen = useSelector((state) => state.drawer.drawerOpen);
   const searchedHymnsListOpen = useSelector(
     (store) => store.search.searchedHymnsListOpen
   );
   const title = useSelector((state) => state.title.title);
   const savedHymnsList = useSelector((state) => state.bookmarks.savedHymns);
+
+  const handleClose = () => setCopyAlert(false);
 
   useEffect(() => {
     if (currentHymnNumber && savedHymnsList) {

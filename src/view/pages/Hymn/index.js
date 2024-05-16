@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 import useAddToHistory from "../../../utils/hooks/useAddToHistory";
+import { useKeyboardNavigation } from "../../../utils/hooks/useKeyboardClick";
 
 const config = {
   delta: 10,
@@ -38,10 +39,6 @@ function Hymn() {
   const useArrows = useSelector((state) => state.settings.useArrows);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    number && dispatch(setCurrentNumber(number.split(",").map(Number)));
-  }, [number, dispatch]);
   const hymn = useMemo(
     () =>
       currentNumber.map((number) =>
@@ -49,6 +46,10 @@ function Hymn() {
       ),
     [currentNumber]
   );
+
+  useEffect(() => {
+    number && dispatch(setCurrentNumber(number.split(",").map(Number)));
+  }, [number, dispatch]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleLeftSwipe(e) {
@@ -81,20 +82,7 @@ function Hymn() {
     config
   );
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "ArrowLeft") {
-        handleRightSwipe();
-      } else if (event.key === "ArrowRight") {
-        handleLeftSwipe();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleRightSwipe, handleLeftSwipe]);
-
+  useKeyboardNavigation(handleLeftSwipe, handleRightSwipe);
   useAddToHistory(currentNumber);
   return (
     <>

@@ -1,3 +1,4 @@
+import { setCurrentNumber } from "../redux/slice/currentNumberSlice";
 import hymns from "../view/services/storage/hymns.json";
 
 export default function searchTextAndSubmit(
@@ -7,7 +8,6 @@ export default function searchTextAndSubmit(
   setRusNumber,
   setEngNumber,
   setSearchedText,
-  setCurrentNumber,
   setFindedHymns,
   lg,
   dispatch,

@@ -1,4 +1,3 @@
-import ScrollToTop from "./ScrollToTop";
 import setFontSize from "./setFontSize";
 import copyToClipboard from "./copyToClipboard";
 import searchTextAndSubmit from "./searchTextAndSubmit";
@@ -13,5 +12,4 @@ export {
   createNavItems,
   setTitleBy,
   StyledComponents,
-  ScrollToTop,
 };

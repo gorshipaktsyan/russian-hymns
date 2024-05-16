@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setOpenDrawer } from "../redux/slice/drawerSlice";
-import { Drawer, AppBar } from "../view/components/index";
+import { Drawer, AppBar, ScrollToTop } from "../view/components/index";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import Box from "@mui/material/Box";
-import { setTitleBy, ScrollToTop, setFontSize } from "../utils/index";
+import { setTitleBy, setFontSize } from "../utils/index";
 import useDoubleTap from "../utils/hooks/useDoubleTap";
 
 function Layout() {

@@ -1,7 +1,5 @@
 import { Box } from "@mui/material";
 import AlphabeticalStyledComponents from "./styles";
-import HymnActions from "../../../redux/actions/HymnActions";
-import { setTitle } from "../../../redux/slice/titleSlice";
 
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;
 

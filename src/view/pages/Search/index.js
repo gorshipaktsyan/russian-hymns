@@ -5,9 +5,9 @@ import Snackbar from "@mui/material/Snackbar";
 import { StyledComponents } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 import { setOpenSearchedHymnList } from "../../../redux/slice/searchSlice";
 import searchTextAndSubmit from "../../../utils/searchTextAndSubmit";
+import { useEnterKeySubmit } from "../../../utils/hooks/useKeyboardClick";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
@@ -40,7 +40,6 @@ function Search() {
       setRusNumber,
       setEngNumber,
       setSearchedText,
-      setCurrentNumber,
       setFindedHymns,
       lg,
       dispatch,
@@ -54,18 +53,6 @@ function Search() {
   }
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Enter") {
-        handleSubmit(event);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleSubmit]);
-
-  useEffect(() => {
     if (findedHymns.length > 0) {
       dispatch(setOpenSearchedHymnList(true));
     } else if (searchedText) {
@@ -74,6 +61,7 @@ function Search() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, findedHymns]);
 
+  useEnterKeySubmit(handleSubmit);
   return (
     <>
       {searchedHymnsListOpen ? (
