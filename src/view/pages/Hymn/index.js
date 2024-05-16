@@ -1,14 +1,13 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSwipeable } from "react-swipeable";
 import hymns from "../../services/storage/hymns.json";
 import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
-import historyStore from "../../services/stores/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import { addHymn } from "../../../redux/slice/historySlice";
+import useAddToHistory from "../../../utils/hooks/useAddToHistory";
 
 const config = {
   delta: 10,
@@ -30,8 +29,6 @@ const {
 } = HymnStyledComponents;
 
 function Hymn() {
-  const [timeOnPage, setTimeOnPage] = useState(0);
-  const [prevNumber, setPrevNumber] = useState();
   const { number } = useParams();
   const isMobile = useSelector((state) => state.settings.isMobile);
   const lg = useSelector((state) => state.settings.language);
@@ -41,6 +38,7 @@ function Hymn() {
   const useArrows = useSelector((state) => state.settings.useArrows);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     number && dispatch(setCurrentNumber(number.split(",").map(Number)));
   }, [number, dispatch]);
@@ -97,27 +95,7 @@ function Hymn() {
     };
   }, [handleRightSwipe, handleLeftSwipe]);
 
-  useEffect(() => {
-    let timerInterval;
-    const hasNumber = historyStore.find(currentNumber);
-    setPrevNumber(currentNumber);
-
-    if (!hasNumber) {
-      timerInterval = setInterval(() => {
-        setTimeOnPage((prevTime) => prevTime + 1);
-      }, 1000);
-    }
-    if (timeOnPage >= 5 && !hasNumber) {
-      dispatch(addHymn(currentNumber));
-      setTimeOnPage(0);
-    }
-    currentNumber !== prevNumber && setTimeOnPage(0);
-
-    return () => {
-      clearInterval(timerInterval);
-    };
-  }, [currentNumber, timeOnPage, prevNumber]);
-
+  useAddToHistory(currentNumber);
   return (
     <>
       <Box

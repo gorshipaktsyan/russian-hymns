@@ -6,7 +6,8 @@ import { Drawer, AppBar } from "../view/components/index";
 import App from "../App";
 import hymns from "../view/services/storage/hymns.json";
 import Box from "@mui/material/Box";
-import { useDoubleTap, setTitleBy, ScrollToTop } from "../utils/index";
+import { setTitleBy, ScrollToTop, setFontSize } from "../utils/index";
+import useDoubleTap from "../utils/hooks/useDoubleTap";
 
 function Layout() {
   const settings = useSelector((state) => state.settings);
@@ -17,8 +18,11 @@ function Layout() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  useDoubleTap(pathname !== "/settings" ? dispatch : undefined);
+  useDoubleTap(pathname, dispatch, settings.fontSize);
 
+  useEffect(() => {
+    setFontSize(settings.fontSize);
+  }, [settings.fontSize]);
   useEffect(() => {
     setTitleBy(
       currentNumber,

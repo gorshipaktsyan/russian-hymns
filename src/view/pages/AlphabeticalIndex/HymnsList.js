@@ -4,6 +4,7 @@ import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import hymns from "../../services/storage/hymns.json";
 import SearchIcon from "@mui/icons-material/Search";
 import StyledComponents from "../../../utils/sharedStyles";
+import filterHymns from "../../../utils/filterHymns";
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
 
@@ -15,30 +16,7 @@ function HymnsList({
   lg,
 }) {
   const filteredHymns = useMemo(() => {
-    const removeSymbols = (text) => text.replace(lg.regExp.onlyLetters, "");
-    return hymns
-      .filter(
-        (h) => h.first_letter === letter || h.first_letter_chorus === letter
-      )
-      .map((hymn) => {
-        if (hymn.first_letter === letter) {
-          return {
-            ...hymn,
-            filteredByFirstLetter: true,
-            filteredText: removeSymbols(hymn.first_string),
-          };
-        } else {
-          return {
-            ...hymn,
-            filteredText: removeSymbols(hymn.chorus_first_string),
-          };
-        }
-      })
-      .sort((a, b) => {
-        return a.filteredText.localeCompare(b.filteredText, lg.language, {
-          sensitivity: "base",
-        });
-      });
+    return filterHymns(letter, lg);
   }, [letter]);
 
   return (

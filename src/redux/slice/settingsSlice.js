@@ -8,7 +8,7 @@ export const settingsSlice = createSlice({
   name: "settings",
   initialState: {
     fontSize: initialSettings.fontSize || 1,
-    englishSearch: initialSettings.englishSearch || false,
+    isEngSearchVisible: initialSettings.englishSearch || false,
     useArrows: initialSettings.useArrows || false,
     isMobile: navigator.maxTouchPoints > 0,
     language: initialSettings.language || russian,
@@ -16,7 +16,7 @@ export const settingsSlice = createSlice({
   reducers: {
     changeFontSize: (state, action) => {
       state.fontSize = action.payload;
-      settingsStore.set("fontSize", action.payload);
+      settingsStore.set("fontSize", Number(action.payload.toFixed(1)));
     },
     setEnglishSearch: (state, action) => {
       state.englishSearch = action.payload;

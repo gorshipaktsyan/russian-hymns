@@ -1,14 +1,10 @@
-import { useMemo, useEffect } from "react";
+import { useMemo } from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import hymns from "../../services/storage/hymns.json";
 import Subtitles from "../../services/storage/subtitles.json";
 import { Box, Divider } from "@mui/material";
 import StyledContentComponents from "./styles";
-import HymnActions from "../../../redux/actions/HymnActions";
-import {
-  resetContentValues,
-  setSubtitleId,
-} from "../../../redux/slice/contentSlice";
+import { setSubtitleId } from "../../../redux/slice/contentSlice";
 
 const { StyledSubList, StyledSubHymnsList } = StyledContentComponents;
 
@@ -32,10 +28,6 @@ function SubTitlesList({
     );
     ScrollToTittle(subtitleId);
   }
-
-  // useEffect(() => {
-  //   dispatch(resetContentValues());
-  // }, [expandedList.titleId, dispatch]);
 
   return (
     <StyledSubList>

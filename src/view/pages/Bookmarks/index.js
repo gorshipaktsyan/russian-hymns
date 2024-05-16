@@ -7,13 +7,12 @@ import { TransitionGroup } from "react-transition-group";
 import StyledComponents from "../../../utils/sharedStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { removeHymn } from "../../../redux/slice/bookmarksSlice";
-import russian from "../../../config/constants/russian";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
 function Bookmarks() {
   const savedHymns = useSelector((state) => state.bookmarks.savedHymns);
-  const lg = russian;
+  const lg = useSelector((state) => state.settings.language);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

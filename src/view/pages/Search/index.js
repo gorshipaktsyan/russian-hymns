@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HymnList from "./HymnList";
-import hymns from "../../services/storage/hymns.json";
 import Snackbar from "@mui/material/Snackbar";
-import { StyledComponents, findText } from "../../../utils/index";
+import { StyledComponents } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 import { setOpenSearchedHymnList } from "../../../redux/slice/searchSlice";
+import searchTextAndSubmit from "../../../utils/searchTextAndSubmit";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
 function Search() {
-  const englishSearch = useSelector((state) => state.settings.englishSearch);
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
   const [findedHymns, setFindedHymns] = useState([]);
   const [errorAlert, setErrorAlert] = useState(false);
+  const isEngSearchVisible = useSelector(
+    (state) => state.settings.isEngSearchVisible
+  );
   const searchedHymnsListOpen = useSelector(
     (store) => store.search.searchedHymnsListOpen
   );
@@ -28,44 +30,23 @@ function Search() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function searchRussianNumber() {
-    return findSearchedNumbers(rusNumber, "number");
-  }
-  function searchEnglishNumber() {
-    return findSearchedNumbers(engNumber, "number_eng");
-  }
-  function findSearchedNumbers(input, property) {
-    const numbers = input.split(",").map((num) => Number(num.trim()));
-    const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
-    const resultNumbers = matchingHymns.map((h) => h.number);
-    resultNumbers.length && dispatch(setCurrentNumber(resultNumbers));
-
-    return resultNumbers;
-  }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleSubmit(e) {
     e.preventDefault();
-    let number;
-    if (rusNumber) {
-      number = searchRussianNumber();
-    } else if (engNumber) {
-      number = searchEnglishNumber();
-    } else if (searchedText) {
-      setFindedHymns(findText(searchedText, lg));
-      return;
-    } else {
-      const randomNumber = Math.floor(Math.random() * 800);
-      dispatch(setCurrentNumber([randomNumber]));
-
-      number = [randomNumber];
-    }
-    if (number.length) {
-      navigate(`/hymns/${number}`);
-    }
-    setErrorAlert(true);
-    setRusNumber("");
-    setEngNumber("");
-    setSearchedText("");
+    searchTextAndSubmit(
+      rusNumber,
+      engNumber,
+      searchedText,
+      setRusNumber,
+      setEngNumber,
+      setSearchedText,
+      setCurrentNumber,
+      setFindedHymns,
+      lg,
+      dispatch,
+      navigate,
+      setErrorAlert
+    );
   }
   function handleTextChange(e) {
     const inputValue = e.target.value;
@@ -118,7 +99,7 @@ function Search() {
             }}
             autoFocus
           />
-          {englishSearch && (
+          {isEngSearchVisible && (
             <StyledTextField
               type="decimal"
               label={lg.search.searchByEnglishNumber}
