@@ -3,7 +3,6 @@ import { Box, Divider } from "@mui/material";
 import SubTitlesList from "./SubTitlesList";
 import StyledComponents from "../../../utils/sharedStyles";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
-import titles from "../../services/storage/titles.json";
 import { useDispatch, useSelector } from "react-redux";
 import { setTitleId } from "../../../redux/slice/contentSlice";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
@@ -14,6 +13,7 @@ function TitlesList() {
   const expandedList = useSelector(
     (state) => state.content.contentExpandedList
   );
+  const titles = useSelector((state) => state.titles.titles);
   const fontSize = useSelector((state) => state.settings.fontSize);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +29,7 @@ function TitlesList() {
       100
     );
   }
+
   function handleTitleClick(id) {
     dispatch(setTitleId(expandedList.titleId === id ? "" : id));
     ScrollToTittle(id);

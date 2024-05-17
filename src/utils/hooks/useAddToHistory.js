@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addHymn } from "../../redux/slice/historySlice";
-import historyStore from "../../view/services/stores/HistoryStore";
+import historyStore from "../../services/HistoryService";
 
 export default function useAddToHistory(currentNumber) {
   const dispatch = useDispatch();

@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import bookmarksStore from "../../../src/view/services/stores/BookmarksStore";
+import bookmarksService from "../../services/BookmarksService";
 export const bookmarksSlice = createSlice({
   name: "bookmarks",
   initialState: {
-    savedHymns: bookmarksStore.get() || [],
+    savedHymns: bookmarksService.get() || [],
   },
   reducers: {
     removeHymn: (state, action) => {
-      state.savedHymns = bookmarksStore.remove(action.payload);
+      state.savedHymns = bookmarksService.remove(action.payload);
     },
     saveHymn: (state, action) => {
-      state.savedHymns = bookmarksStore.set(action.payload);
+      state.savedHymns = bookmarksService.set(action.payload);
     },
   },
 });

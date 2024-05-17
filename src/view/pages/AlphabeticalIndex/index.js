@@ -5,7 +5,7 @@ import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import { setTitle } from "../../../redux/slice/titleSlice";
+import { setTitle } from "../../../redux/slice/appBarSlice";
 
 const { StyledBox } = StyledComponents;
 
@@ -19,10 +19,12 @@ function AlphabeticalIndex() {
     dispatch(setCurrentNumber([id]));
     navigate(`/hymns/${id}`);
   }
+
   function handleBackClick() {
     setLetter("");
     dispatch(setTitle(lg.alphabeticalIndex.alphabeticalIndex));
   }
+
   return (
     <StyledBox>
       {letter ? (

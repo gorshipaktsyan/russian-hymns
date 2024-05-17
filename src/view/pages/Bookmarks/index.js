@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import { Box, Divider, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,6 +22,7 @@ function Bookmarks() {
   function handleDelete(id) {
     dispatch(removeHymn(id));
   }
+
   return (
     <StyledBox>
       {savedHymns?.length > 0 ? (

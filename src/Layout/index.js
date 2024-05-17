@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setOpenDrawer } from "../redux/slice/drawerSlice";
+import { setIsDrawerOpen } from "../redux/slice/drawerSlice";
 import { Drawer, AppBar, ScrollToTop } from "../view/components/index";
 import App from "../App";
-import hymns from "../view/services/storage/hymns.json";
 import Box from "@mui/material/Box";
 import { setTitleBy, setFontSize } from "../utils/index";
 import useDoubleTap from "../utils/hooks/useDoubleTap";
@@ -14,6 +13,7 @@ function Layout() {
   const currentNumber = useSelector(
     (state) => state.currentNumber.currentNumber
   );
+  const hymns = useSelector((state) => state.hymns.hymns);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -23,6 +23,7 @@ function Layout() {
   useEffect(() => {
     setFontSize(settings.fontSize);
   }, [settings.fontSize]);
+
   useEffect(() => {
     setTitleBy(
       currentNumber,
@@ -33,9 +34,11 @@ function Layout() {
       settings.language
     );
   }, [currentNumber, pathname, dispatch, settings.language, navigate]);
+
   const handleDrawerToggle = (isOpen) => {
-    dispatch(setOpenDrawer(isOpen));
+    dispatch(setIsDrawerOpen(isOpen));
   };
+
   return (
     <Box sx={{ height: "100%" }}>
       <ScrollToTop currentNumber={currentNumber} pathname={pathname} />
@@ -43,7 +46,6 @@ function Layout() {
         lg={settings.language}
         handleDrawerToggle={handleDrawerToggle}
         currentNumber={currentNumber}
-        pathname={pathname}
       />
       <Drawer
         lg={settings.language}

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const titleSlice = createSlice({
-  name: "title",
+export const appBarSlice = createSlice({
+  name: "appBar",
   initialState: {
     title: "",
   },
@@ -12,6 +12,6 @@ export const titleSlice = createSlice({
   },
 });
 
-export const { setTitle } = titleSlice.actions;
+export const { setTitle } = appBarSlice.actions;
 
-export default titleSlice.reducer;
+export default appBarSlice.reducer;

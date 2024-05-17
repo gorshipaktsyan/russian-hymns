@@ -4,8 +4,8 @@ import SettingsStyledComponents from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import {
   changeFontSize,
-  setEnglishSearch,
-  setUseArrow,
+  setIsEngSearchVisible,
+  setIsAllowToUseArrows,
 } from "../../../redux/slice/settingsSlice";
 
 const { StyledBox } = StyledComponents;
@@ -14,8 +14,12 @@ const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
 
 function Settings() {
   const fontSize = useSelector((state) => state.settings.fontSize);
-  const useArrows = useSelector((state) => state.settings.useArrows);
-  const englishSearch = useSelector((state) => state.settings.englishSearch);
+  const isAllowToUseArrows = useSelector(
+    (state) => state.settings.isAllowToUseArrows
+  );
+  const isEngSearchVisible = useSelector(
+    (state) => state.settings.isEngSearchVisible
+  );
   const isMobile = useSelector((state) => state.settings.isMobile);
   const lg = useSelector((state) => state.settings.language);
   const dispatch = useDispatch();
@@ -24,12 +28,15 @@ function Settings() {
     const newValue = parseFloat(e.target.value);
     dispatch(changeFontSize(newValue));
   }
+
   function handleChangeArrows(e) {
-    dispatch(setUseArrow(e.target.checked));
+    dispatch(setIsAllowToUseArrows(e.target.checked));
   }
+
   function handleChangeEngSearch(e) {
-    dispatch(setEnglishSearch(e.target.checked));
+    dispatch(setIsEngSearchVisible(e.target.checked));
   }
+
   return (
     <StyledBox onTouchStart={(e) => e.stopPropagation()}>
       <StyledSetList>
@@ -53,7 +60,7 @@ function Settings() {
               <ArrowSetBox>
                 <StyledSetTpg>{lg.settings.off}</StyledSetTpg>
                 <Switch
-                  checked={useArrows}
+                  checked={isAllowToUseArrows}
                   onChange={handleChangeArrows}
                 ></Switch>
                 <StyledSetTpg>{lg.settings.on}</StyledSetTpg>
@@ -67,7 +74,7 @@ function Settings() {
           <ArrowSetBox>
             <StyledSetTpg>{lg.settings.off}</StyledSetTpg>
             <Switch
-              checked={englishSearch}
+              checked={isEngSearchVisible}
               onChange={handleChangeEngSearch}
             ></Switch>
             <StyledSetTpg>{lg.settings.on}</StyledSetTpg>

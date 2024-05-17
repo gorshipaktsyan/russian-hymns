@@ -3,15 +3,20 @@ import { createSlice } from "@reduxjs/toolkit";
 export const searchSlice = createSlice({
   name: "search",
   initialState: {
-    searchedHymnsListOpen: false,
+    isSearchedHymnsListOpen: false,
+    findedHymns: [],
   },
   reducers: {
-    setOpenSearchedHymnList: (state, action) => {
-      state.searchedHymnsListOpen = action.payload;
+    setIsSearchedHymnsListOpen: (state, action) => {
+      state.isSearchedHymnsListOpen = action.payload;
+    },
+    setFindedHymns: (state, action) => {
+      state.findedHymns = action.payload;
     },
   },
 });
 
-export const { setOpenSearchedHymnList } = searchSlice.actions;
+export const { setIsSearchedHymnsListOpen, setFindedHymns } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;

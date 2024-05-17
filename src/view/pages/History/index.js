@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import { useNavigate } from "react-router-dom";
 import { Box, Collapse, Divider } from "@mui/material";
@@ -12,16 +12,17 @@ import { clearHistory } from "../../../redux/slice/historySlice";
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
 function History() {
-  const lg = useSelector((state) => state.settings.language);
+  const [openConfirm, setOpenConfirm] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [openConfirm, setOpenConfirm] = useState(false);
   const history = useSelector((state) => state.history.searchedHymns);
+  const lg = useSelector((state) => state.settings.language);
 
   function handleClick(id) {
     dispatch(setCurrentNumber([id]));
     navigate(`/hymns/${id}`);
   }
+
   function handleClearHistory() {
     dispatch(clearHistory());
     setOpenConfirm(false);

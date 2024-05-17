@@ -8,6 +8,7 @@ function Alphabet({ setLetter, dispatch, lg, setTitle }) {
     setLetter(letter);
     dispatch(setTitle(`${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`));
   }
+
   return (
     <Box sx={{ maxWidth: "250px" }}>
       <StyledAlphabet>

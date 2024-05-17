@@ -5,7 +5,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { StyledComponents } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { setOpenSearchedHymnList } from "../../../redux/slice/searchSlice";
+import { setIsSearchedHymnsListOpen } from "../../../redux/slice/searchSlice";
 import searchTextAndSubmit from "../../../utils/searchTextAndSubmit";
 import { useEnterKeySubmit } from "../../../utils/hooks/useKeyboardClick";
 
@@ -17,54 +17,56 @@ function Search() {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
-  const [findedHymns, setFindedHymns] = useState([]);
   const [errorAlert, setErrorAlert] = useState(false);
   const isEngSearchVisible = useSelector(
     (state) => state.settings.isEngSearchVisible
   );
-  const searchedHymnsListOpen = useSelector(
-    (store) => store.search.searchedHymnsListOpen
+  const findedHymns = useSelector((state) => state.search.findedHymns);
+  const isSearchedHymnsListOpen = useSelector(
+    (state) => state.search.isSearchedHymnsListOpen
   );
+  const hymns = useSelector((state) => state.hymns.hymns);
   const lg = useSelector((state) => state.settings.language);
-  const handleClose = () => setErrorAlert(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleSubmit(e) {
-    e.preventDefault();
-    searchTextAndSubmit(
-      rusNumber,
-      engNumber,
-      searchedText,
-      setRusNumber,
-      setEngNumber,
-      setSearchedText,
-      setFindedHymns,
-      lg,
-      dispatch,
-      navigate,
-      setErrorAlert
-    );
-  }
-  function handleTextChange(e) {
-    const inputValue = e.target.value;
-    setSearchedText(inputValue);
-  }
+  useEnterKeySubmit(handleSubmit);
 
   useEffect(() => {
     if (findedHymns.length > 0) {
-      dispatch(setOpenSearchedHymnList(true));
+      dispatch(setIsSearchedHymnsListOpen(true));
     } else if (searchedText) {
       setErrorAlert(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, findedHymns]);
 
-  useEnterKeySubmit(handleSubmit);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function handleSubmit(e) {
+    e.preventDefault();
+    searchTextAndSubmit({
+      rusNumber,
+      engNumber,
+      searchedText,
+      setRusNumber,
+      setEngNumber,
+      setSearchedText,
+      setErrorAlert,
+      lg,
+      dispatch,
+      navigate,
+      hymns,
+    });
+  }
+
+  function handleTextChange(e) {
+    const inputValue = e.target.value;
+    setSearchedText(inputValue);
+  }
+
   return (
     <>
-      {searchedHymnsListOpen ? (
+      {isSearchedHymnsListOpen ? (
         <HymnList
           findedHymns={findedHymns}
           navigate={navigate}
@@ -127,10 +129,10 @@ function Search() {
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={errorAlert}
-        onClose={handleClose}
+        onClose={() => setErrorAlert(false)}
         autoHideDuration={2000}
       >
-        <StyledAlert onClose={handleClose} severity="error">
+        <StyledAlert onClose={() => setErrorAlert(false)} severity="error">
           {lg.search.errorAlert}
         </StyledAlert>
       </Snackbar>

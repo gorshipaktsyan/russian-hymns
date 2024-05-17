@@ -4,12 +4,13 @@ import { Box, Drawer, List, ListItem, ListItemButton } from "@mui/material";
 import { useSelector } from "react-redux";
 import createNavItems from "../../utils/createNavItems";
 import { resetContentValues } from "../../redux/slice/contentSlice";
-import { setTitle } from "../../redux/slice/titleSlice";
+import { setTitle } from "../../redux/slice/appBarSlice";
 
 function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
-  const drawerOpen = useSelector((state) => state.drawer.drawerOpen);
   const navItems = createNavItems(lg);
+  const isDrawerOpen = useSelector((state) => state.drawer.isDrawerOpen);
   const navigate = useNavigate();
+
   function handleNavigate(item) {
     navigate(`/${item.route}`);
     dispatch(setTitle(item.title));
@@ -20,10 +21,11 @@ function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
       })
     );
   }
+
   return (
     <Drawer
       variant="temporary"
-      open={drawerOpen}
+      open={isDrawerOpen}
       onClose={() => handleDrawerToggle(false)}
       ModalProps={{
         keepMounted: true,
@@ -37,7 +39,7 @@ function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
       }}
     >
       <Box
-        onClick={() => handleDrawerToggle(!drawerOpen)}
+        onClick={() => handleDrawerToggle(!isDrawerOpen)}
         sx={{ textAlign: "center" }}
       >
         <List>

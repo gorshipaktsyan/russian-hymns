@@ -3,15 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 export const drawerSlice = createSlice({
   name: "drawer",
   initialState: {
-    drawerOpen: false,
+    isDrawerOpen: false,
   },
   reducers: {
-    setOpenDrawer: (state, action) => {
-      state.drawerOpen = action.payload;
+    setIsDrawerOpen: (state, action) => {
+      state.isDrawerOpen = action.payload;
     },
   },
 });
 
-export const { setOpenDrawer } = drawerSlice.actions;
+export const { setIsDrawerOpen } = drawerSlice.actions;
 
 export default drawerSlice.reducer;

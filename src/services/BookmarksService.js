@@ -1,5 +1,6 @@
 import hymns from "../storage/hymns.json";
-import persistentStore from "./PersistentStore";
+import filterBy from "../utils/filterBy";
+import persistentStorage from "./PersistentStorage";
 
 function formattingDate(date) {
   const options = {
@@ -12,17 +13,17 @@ function formattingDate(date) {
   return dateFormatter.format(new Date(date));
 }
 const key = "savedHymns";
-class BookmarksStore {
+class BookmarksService {
   set(value) {
     const currentDate = new Date();
-    const savedHymnsList = persistentStore.get(key) || [];
+    const savedHymnsList = persistentStorage.get(key) || [];
     const hymnObject = { date: currentDate, number: value };
     const updatedHymns = [...new Set([hymnObject, ...savedHymnsList])];
-    persistentStore.set(key, updatedHymns);
+    persistentStorage.set(key, updatedHymns);
     return this.get();
   }
   get() {
-    const savedHymns = persistentStore.get(key) || [];
+    const savedHymns = persistentStorage.get(key) || [];
     const result = [];
     savedHymns.forEach((saved) => {
       const formattedDate = formattingDate(saved.date);
@@ -56,9 +57,9 @@ class BookmarksStore {
   }
   remove(id) {
     try {
-      const hymns = persistentStore.get(key) || [];
-      const updatedHymns = hymns.filter((hymn) => hymn.number !== id);
-      persistentStore.set(key, updatedHymns);
+      const hymns = persistentStorage.get(key) || [];
+      const updatedHymns = filterBy(hymns, "number", id, "!==");
+      persistentStorage.set(key, updatedHymns);
     } catch (error) {
       console.error(
         `Error removing item ${id} from local storage: ${error.message}`
@@ -67,6 +68,6 @@ class BookmarksStore {
     return this.get();
   }
 }
-const bookmarksStore = new BookmarksStore();
+const bookmarksService = new BookmarksService();
 
-export default bookmarksStore;
+export default bookmarksService;

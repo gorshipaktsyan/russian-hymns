@@ -1,5 +1,5 @@
 import findLocation from "./findLocation";
-import { setTitle } from "../redux/slice/titleSlice";
+import { setTitle } from "../redux/slice/appBarSlice";
 
 export default function setTitleBy(
   currentNumber,

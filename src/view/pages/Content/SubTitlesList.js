@@ -1,10 +1,9 @@
-import { useMemo } from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
-import hymns from "../../services/storage/hymns.json";
-import Subtitles from "../../services/storage/subtitles.json";
 import { Box, Divider } from "@mui/material";
 import StyledContentComponents from "./styles";
 import { setSubtitleId } from "../../../redux/slice/contentSlice";
+import { useSelector } from "react-redux";
+import filterBy from "../../../utils/filterBy";
 
 const { StyledSubList, StyledSubHymnsList } = StyledContentComponents;
 
@@ -14,14 +13,9 @@ function SubTitlesList({
   ScrollToTittle,
   dispatch,
 }) {
-  const grouped = useMemo(() => {
-    return hymns.filter((hymn) => hymn.title === expandedList.titleId);
-  }, [expandedList.titleId]);
-
-  const subtitles = useMemo(() => {
-    return Subtitles.filter((sub) => sub.title === expandedList.titleId);
-  }, [expandedList.titleId]);
-
+  const hymns = useSelector((state) => state.hymns.hymns);
+  const subtitles = useSelector((state) => state.subtitles.subtitles);
+  const filteredSubtitles = filterBy(subtitles, "title", expandedList.titleId);
   function handleSubTitleClick(subtitleId) {
     dispatch(
       setSubtitleId(expandedList.subtitleId === subtitleId ? "" : subtitleId)
@@ -31,14 +25,14 @@ function SubTitlesList({
 
   return (
     <StyledSubList>
-      {subtitles.map((sub, index) => {
-        const hymns = grouped.filter((h) => h.subtitle === sub._id);
+      {filteredSubtitles.map((sub, index) => {
+        const filteredHymnsBySub = filterBy(hymns, "subtitle", sub._id);
         return (
           <Box key={index}>
             <HymnTitle
               title={sub.name_upper}
               id={sub._id}
-              hymnsList={subtitles}
+              hymnsList={filteredSubtitles}
               index={index}
               BorderBottom={Divider}
               onTitleClick={handleSubTitleClick}
@@ -49,12 +43,12 @@ function SubTitlesList({
             />
             {expandedList.subtitleId === sub._id && (
               <StyledSubHymnsList>
-                {hymns.map((h, index) => (
+                {filteredHymnsBySub.map((h, index) => (
                   <HymnTitle
                     title={h.first_string}
                     number={h.number}
                     id={h._id}
-                    hymnsList={hymns}
+                    hymnsList={filteredSubtitles}
                     index={index}
                     BorderBottom={Divider}
                     onTitleClick={handleHymnClick}
