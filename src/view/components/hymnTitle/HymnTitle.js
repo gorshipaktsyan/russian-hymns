@@ -1,16 +1,9 @@
 import { Box } from "@mui/material";
 import HymnTitleStyledComponents from "./styles";
+import addDivider from "../../../utils/addDivider";
 
 const { StyledListItem, StyledDeletedIcon, StyledText } =
   HymnTitleStyledComponents;
-
-function addDivider(BorderBottom, hymnsList, index) {
-  if (BorderBottom && index !== hymnsList.length - 1) {
-    const lastIndex = hymnsList.length - 1;
-    return <BorderBottom key={lastIndex} />;
-  }
-  return null;
-}
 
 function HymnTitle({
   title,

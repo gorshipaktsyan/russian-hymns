@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import HymnList from "./HymnList";
-import Snackbar from "@mui/material/Snackbar";
-import { StyledComponents } from "../../../utils/index";
-import SearchStyledComponents from "./styles";
 import { useDispatch, useSelector } from "react-redux";
+import HymnList from "./HymnList";
 import { setIsSearchedHymnsListOpen } from "../../../redux/slice/searchSlice";
-import searchTextAndSubmit from "../../../utils/searchTextAndSubmit";
 import { useEnterKeySubmit } from "../../../utils/hooks/useKeyboardClick";
+import { StyledComponents, searchTextAndSubmit } from "../../../utils/index";
+import SearchStyledComponents from "./styles";
+import Snackbar from "@mui/material/Snackbar";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
@@ -41,7 +40,6 @@ function Search() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, findedHymns]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleSubmit(e) {
     e.preventDefault();
     searchTextAndSubmit({

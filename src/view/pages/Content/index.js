@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Divider } from "@mui/material";
 import SubTitlesList from "./SubTitlesList";
-import StyledComponents from "../../../utils/sharedStyles";
+import { StyledComponents, scrollToContentTittle } from "../../../utils/index";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { setTitleId } from "../../../redux/slice/contentSlice";
@@ -18,21 +18,9 @@ function TitlesList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function ScrollToTittle(id) {
-    const element = document.getElementById(id);
-    setTimeout(
-      () =>
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        }),
-      100
-    );
-  }
-
   function handleTitleClick(id) {
     dispatch(setTitleId(expandedList.titleId === id ? "" : id));
-    ScrollToTittle(id);
+    scrollToContentTittle(id);
   }
 
   function handleHymnClick(id) {
@@ -60,7 +48,6 @@ function TitlesList() {
               <SubTitlesList
                 expandedList={expandedList}
                 handleHymnClick={handleHymnClick}
-                ScrollToTittle={ScrollToTittle}
                 fontSize={fontSize}
                 dispatch={dispatch}
               />

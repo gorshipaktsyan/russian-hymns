@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
 import { useNavigate } from "react-router-dom";
 import { Box, Collapse, Divider } from "@mui/material";
@@ -7,14 +7,19 @@ import StyledComponents from "../../../utils/sharedStyles";
 import ConfirmModal from "./ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import { clearHistory } from "../../../redux/slice/historySlice";
+import {
+  clearHistory,
+  setIsConfirmOpen,
+} from "../../../redux/slice/historySlice";
+import StyledHistoryComponents from "./styles";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
+const { StyledDeleteText } = StyledHistoryComponents;
 
 function History() {
-  const [openConfirm, setOpenConfirm] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isConfirmOpen = useSelector((state) => state.history.isConfirmOpen);
   const history = useSelector((state) => state.history.searchedHymns);
   const lg = useSelector((state) => state.settings.language);
 
@@ -25,7 +30,7 @@ function History() {
 
   function handleClearHistory() {
     dispatch(clearHistory());
-    setOpenConfirm(false);
+    dispatch(setIsConfirmOpen(false));
   }
 
   return (
@@ -33,16 +38,9 @@ function History() {
       <StyledBox>
         {history.length > 0 ? (
           <StyledList>
-            <Box
-              sx={{
-                justifySelf: "center",
-                "&:hover": { color: "grey", cursor: "pointer" },
-                marginBottom: "10px",
-              }}
-              onClick={() => setOpenConfirm(true)}
-            >
+            <StyledDeleteText onClick={() => dispatch(setIsConfirmOpen(true))}>
               {lg.history.deleteHistory}
-            </Box>
+            </StyledDeleteText>
             <TransitionGroup>
               {history.map(({ date, hymns }) => (
                 <Collapse key={date}>
@@ -68,12 +66,12 @@ function History() {
           <StyledTypography>{lg.noData}</StyledTypography>
         )}
       </StyledBox>
-      {openConfirm && (
+      {isConfirmOpen && (
         <ConfirmModal
           lg={lg}
           handleClearHistory={handleClearHistory}
-          setOpenConfirm={setOpenConfirm}
-          openConfirm={openConfirm}
+          isConfirmOpen={isConfirmOpen}
+          dispatch={dispatch}
         />
       )}
     </>

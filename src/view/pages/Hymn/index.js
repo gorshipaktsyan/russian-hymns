@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import { useSwipeable } from "react-swipeable";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import useAddToHistory from "../../../utils/hooks/useAddToHistory";
-import { useKeyboardNavigation } from "../../../utils/hooks/useKeyboardClick";
-import { config } from "../../../config/constants/hymnConfig";
+import {
+  useAddToHistory,
+  useSwipeNavigation,
+} from "../../../utils/hooks/index";
+import { findHymns } from "../../../utils/find";
 
 const {
   StyledDivider,
@@ -30,48 +31,19 @@ function Hymn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useKeyboardNavigation(handleLeftSwipe, handleRightSwipe);
   useAddToHistory(currentNumber);
+
+  const { handleLeftSwipe, handleRightSwipe, handlers } = useSwipeNavigation({
+    currentNumber,
+    hymns,
+    navigate,
+  });
 
   useEffect(() => {
     number && dispatch(setCurrentNumber(number.split(",").map(Number)));
   }, [number, dispatch]);
 
-  const handlers = useSwipeable(
-    {
-      onSwipedLeft: () => handleLeftSwipe(),
-      onSwipedRight: () => handleRightSwipe(),
-      swipeDuration: 500,
-      preventScrollOnSwipe: true,
-      trackMouse: true,
-    },
-    config
-  );
-
-  const findedHymns = currentNumber.map((number) =>
-    hymns.find((h) => Number(h.number) === Number(number))
-  );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleLeftSwipe(e) {
-    e && e.stopPropagation();
-    const index = hymns.findIndex(
-      (el) => Number(el.number) === Number(currentNumber[0] + 1)
-    );
-    if (index !== -1) {
-      navigate(`/hymns/${currentNumber[0] + 1}`);
-    }
-  }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleRightSwipe(e) {
-    e && e.stopPropagation();
-    const index = hymns.findIndex(
-      (el) => Number(el.number) === Number(currentNumber[0] - 1)
-    );
-    if (index !== -1) {
-      navigate(`/hymns/${currentNumber[0] - 1}`);
-    }
-  }
+  const findedHymns = findHymns(currentNumber, hymns);
 
   return (
     <>

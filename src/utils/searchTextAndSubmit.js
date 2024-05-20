@@ -21,7 +21,7 @@ export default function searchTextAndSubmit({
   } else if (engNumber) {
     number = searchEnglishNumber(engNumber, hymns, dispatch);
   } else if (searchedText) {
-    const findedHymns = findHymns(searchedText, lg, hymns);
+    const findedHymns = searchHymnsByText(searchedText, lg, hymns);
     dispatch(setFindedHymns(findedHymns));
     return;
   } else {
@@ -56,10 +56,12 @@ function findSearchedNumbers(input, property, hymns, dispatch) {
   return resultNumbers;
 }
 
-function findHymns(searchedText, lg, hymns) {
+function searchHymnsByText(searchedText, lg, hymns) {
   const lowerCaseText = searchedText.toLowerCase();
+  const regExpOnlyLetters = new RegExp(lg.regExp.onlyLetters, "g");
+
   const textWithoutSpacesAndSymbols = lowerCaseText.replace(
-    lg.regExp.onlyLetters,
+    regExpOnlyLetters,
     ""
   );
   if (textWithoutSpacesAndSymbols === "") {
@@ -68,7 +70,7 @@ function findHymns(searchedText, lg, hymns) {
   const hymnsWithMatchKey = hymns.map((hymn) => {
     const hymnWithoutSpacesAndSymbols = hymn.text
       .toLowerCase()
-      .replace(lg.regExp.onlyLetters, "");
+      .replace(regExpOnlyLetters, "");
     return {
       ...hymn,
       matches: hymnWithoutSpacesAndSymbols.includes(

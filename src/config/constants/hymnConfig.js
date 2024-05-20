@@ -8,4 +8,4 @@ const config = {
   touchEventOptions: { passive: true },
 };
 
-export { config };
+export default config;
