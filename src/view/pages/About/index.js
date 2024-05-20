@@ -13,6 +13,7 @@ function About() {
       <p>{lg.about.asteriskNote}</p>
       <p>{lg.about.crossNote}</p>
       <p>{lg.about.numbering}</p>
+
       <p>
         {lg.about.contact}{" "}
         <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{" "}
