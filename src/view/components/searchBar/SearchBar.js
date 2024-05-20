@@ -2,21 +2,21 @@ import StyledComponents from "../../../utils/sharedStyles";
 import SearchBarStyledComponents from "./styles";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+import { useSelector } from "react-redux";
+import { setIsSearchedHymnsListOpen } from "../../../redux/slice/searchSlice";
 
 const { StyledFab } = StyledComponents;
 const { SearchedBox, StyledSearchIcon } = SearchBarStyledComponents;
 
-function SearchBar({
-  isMobile,
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
-}) {
+function SearchBar({ dispatch }) {
   const navigate = useNavigate();
+  const isMobile = useSelector((state) => state.settings.isMobile);
 
   function handleClick() {
-    openSearchedHymnList && setOpenSearchedHymnList(false);
+    dispatch(setIsSearchedHymnsListOpen(false));
     navigate("/");
   }
+
   return (
     <>
       {!isMobile ? (

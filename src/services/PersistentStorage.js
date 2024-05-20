@@ -1,4 +1,4 @@
-class PersistentStore {
+class PersistentStorage {
   set(key, value) {
     try {
       const currentItems = JSON.stringify(value);
@@ -25,6 +25,6 @@ class PersistentStore {
     }
   }
 }
-const persistentStore = new PersistentStore();
+const persistentStorage = new PersistentStorage();
 
-export default persistentStore;
+export default persistentStorage;

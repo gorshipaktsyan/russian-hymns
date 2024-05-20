@@ -15,81 +15,36 @@ import {
 } from "../view/pages";
 import StyledApp from "./styles";
 
-function App({
-  currentNumber,
-  setCurrentNumber,
-  setTitle,
-  fontSize,
-  setFontSize,
-  useArrows,
-  setUseArrows,
-  isMobile,
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
-  englishSearch,
-  setEnglishSearch,
-}) {
+function App() {
   const routes = [
     {
       path: "/",
-      element: (
-        <Search
-          setCurrentNumber={setCurrentNumber}
-          openSearchedHymnList={openSearchedHymnList}
-          setOpenSearchedHymnList={setOpenSearchedHymnList}
-          englishSearch={englishSearch}
-        />
-      ),
+      element: <Search />,
     },
     {
       path: "/hymns/:number",
-      element: (
-        <Hymn
-          currentNumber={currentNumber}
-          setCurrentNumber={setCurrentNumber}
-          useArrows={useArrows}
-          isMobile={isMobile}
-        />
-      ),
+      element: <Hymn />,
     },
     {
       path: "/settings",
-      element: (
-        <Settings
-          fontSize={fontSize}
-          setFontSize={setFontSize}
-          useArrows={useArrows}
-          setUseArrows={setUseArrows}
-          isMobile={isMobile}
-          englishSearch={englishSearch}
-          setEnglishSearch={setEnglishSearch}
-        />
-      ),
+      element: <Settings />,
     },
     { path: "/about", element: <About /> },
     {
       path: "/alphabetical",
-      element: (
-        <AlphabeticalIndex
-          setCurrentNumber={setCurrentNumber}
-          setTitle={setTitle}
-          isMobile={isMobile}
-        />
-      ),
+      element: <AlphabeticalIndex />,
     },
     {
       path: "/bookmark",
-      element: <Bookmarks setCurrentNumber={setCurrentNumber} />,
+      element: <Bookmarks />,
     },
     {
       path: "/content",
-      element: (
-        <Content setCurrentNumber={setCurrentNumber} fontSize={fontSize} />
-      ),
+      element: <Content />,
     },
     {
       path: "/history",
-      element: <History setCurrentNumber={setCurrentNumber} />,
+      element: <History />,
     },
     { path: "/preface", element: <Preface /> },
     { path: "/reference", element: <Reference /> },

@@ -1,39 +1,38 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import HymnTitle from "../../components/hymnTitle/HymnTitle";
-import { Box, Divider } from "@mui/material";
+import { Box, Divider, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TransitionGroup } from "react-transition-group";
-import Collapse from "@mui/material/Collapse";
 import StyledComponents from "../../../utils/sharedStyles";
-import bookmarksStore from "../../services/BookmarksStore";
+import { useDispatch, useSelector } from "react-redux";
+import { removeHymn } from "../../../redux/slice/bookmarksSlice";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
-function Bookmarks({ setCurrentNumber }) {
-  const [savedHymns, setSavedHymns] = useState(bookmarksStore.get());
+function Bookmarks() {
+  const savedHymns = useSelector((state) => state.bookmarks.savedHymns);
+  const lg = useSelector((state) => state.settings.language);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleClick(id) {
-    setCurrentNumber([id]);
-    navigate(`/hymns/${[id]}`);
+    navigate(`/hymns/${id}`);
   }
 
   function handleDelete(id) {
-    bookmarksStore.remove(id);
-    const updatedSavedHymns = bookmarksStore.get();
-    setSavedHymns(updatedSavedHymns);
+    dispatch(removeHymn(id));
   }
+
   return (
     <StyledBox>
-      {savedHymns.length > 0 ? (
+      {savedHymns?.length > 0 ? (
         <StyledList>
           <TransitionGroup>
-            {savedHymns.map(({ date, hymns }) => (
+            {savedHymns?.map(({ date, hymns }) => (
               <Collapse key={date}>
                 <Box sx={{ paddingBottom: "20px" }}>
                   <Divider>{date}</Divider>
-                  {hymns.map((h, index) => (
+                  {hymns?.map((h, index) => (
                     <HymnTitle
                       title={h?.first_string}
                       number={h?.number}
@@ -52,7 +51,7 @@ function Bookmarks({ setCurrentNumber }) {
           </TransitionGroup>
         </StyledList>
       ) : (
-        <StyledTypography>Нет данных</StyledTypography>
+        <StyledTypography>{lg.noData}</StyledTypography>
       )}
     </StyledBox>
   );

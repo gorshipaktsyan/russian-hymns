@@ -1,32 +1,17 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import SearchBar from "../searchBar/SearchBar";
-import bookmarksStore from "../../services/BookmarksStore";
-import AppBar from "@mui/material/AppBar";
-import { Box, IconButton, Snackbar, Toolbar } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import copyToClipboard from "../../../utils/copyToClipboard";
-import StyledComponents from "../../../utils/sharedStyles";
+import { Snackbar, AppBar } from "@mui/material";
+import { StyledComponents } from "../../../utils/index";
+import { useSelector } from "react-redux";
+import ToolBar from "./ToolBar";
 
 const { StyledAlert } = StyledComponents;
 
-function AppBarComponent({
-  handleDrawerToggle,
-  title,
-  currentNumber,
-  isMobile,
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
-}) {
+function AppBarComponent({ handleDrawerToggle, currentNumber, lg }) {
+  const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
   const [saved, setSaved] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
-  const { pathname } = useLocation();
-  const savedHymnsList = bookmarksStore.get();
-  const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
-  const handleClose = () => setCopyAlert(false);
+  const savedHymnsList = useSelector((state) => state.bookmarks.savedHymns);
 
   useEffect(() => {
     if (currentHymnNumber && savedHymnsList) {
@@ -36,24 +21,6 @@ function AppBarComponent({
       setSaved(isSaved);
     }
   }, [currentHymnNumber, savedHymnsList]);
-
-  const handleBookmarkClick = () => {
-    if (saved) {
-      bookmarksStore.remove(currentHymnNumber);
-      setSaved(false);
-    } else {
-      bookmarksStore.set(currentHymnNumber);
-      setSaved(true);
-    }
-  };
-
-  const handleTitleClick = async () => {
-    if (!currentNumber.length) {
-      return;
-    }
-    await copyToClipboard(window.location.href);
-    setCopyAlert(true);
-  };
 
   return (
     <>
@@ -65,59 +32,23 @@ function AppBarComponent({
           zIndex: 1300,
         }}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-          >
-            <MenuIcon sx={{ fontSize: "30px" }} />
-          </IconButton>
-          <Box
-            sx={{
-              fontSize: "20px",
-              cursor:
-                pathname === `/hymns/${currentNumber}` ? "pointer" : "default",
-            }}
-            dangerouslySetInnerHTML={{ __html: title }}
-            onClick={handleTitleClick}
-          />
-          <Box
-            sx={{
-              flexGrow: "1",
-            }}
-          >
-            {(pathname !== "/" || openSearchedHymnList) && (
-              <SearchBar
-                isMobile={isMobile}
-                openSearchedHymnList={openSearchedHymnList}
-                setOpenSearchedHymnList={setOpenSearchedHymnList}
-              />
-            )}
-          </Box>
-          {pathname.includes(`/hymns`) && (
-            <>
-              <IconButton color="inherit" onClick={handleBookmarkClick}>
-                {currentHymnNumber &&
-                  (saved ? (
-                    <BookmarkIcon sx={{ fontSize: "30px" }} />
-                  ) : (
-                    <BookmarkBorderIcon sx={{ fontSize: "30px" }} />
-                  ))}
-              </IconButton>
-            </>
-          )}
-        </Toolbar>
+        <ToolBar
+          handleDrawerToggle={handleDrawerToggle}
+          saved={saved}
+          setSaved={setSaved}
+          currentHymnNumber={currentHymnNumber}
+          currentNumber={currentNumber}
+          setCopyAlert={setCopyAlert}
+        />
       </AppBar>
       {copyAlert && (
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={copyAlert}
-          onClose={handleClose}
+          onClose={() => setCopyAlert(false)}
           autoHideDuration={2000}
         >
-          <StyledAlert>Ссылка на этот гимн скопирована.</StyledAlert>
+          <StyledAlert>{lg.appBar.copyAlert}</StyledAlert>
         </Snackbar>
       )}
     </>

@@ -1,5 +1,5 @@
-import hymns from "./storage/hymns.json";
-import persistentStore from "./PersistentStore";
+import hymns from "../storage/hymns.json";
+import persistentStorage from "./PersistentStorage";
 
 function formattingDate(date) {
   const options = {
@@ -12,18 +12,18 @@ function formattingDate(date) {
   return dateFormatter.format(new Date(date));
 }
 const key = "searchedHymns";
-class HistoryStore {
+class HistoryService {
   set(value) {
     const hymnIds = Array.isArray(value) ? value : [value];
     const currentDate = new Date();
-    const searchedNumbers = persistentStore.get(key) || [];
+    const searchedNumbers = persistentStorage.get(key) || [];
     const hymnObject = { date: currentDate, number: hymnIds };
     const updatedHymns = [...new Set([hymnObject, ...searchedNumbers])];
-    persistentStore.set(key, updatedHymns);
-    return hymnIds;
+    persistentStorage.set(key, updatedHymns);
+    return this.get();
   }
   get() {
-    const history = persistentStore.get(key) || [];
+    const history = persistentStorage.get(key) || [];
     const result = [];
 
     history.forEach((searched) => {
@@ -62,7 +62,7 @@ class HistoryStore {
     return result;
   }
   find(value) {
-    const searchedHymns = persistentStore.get(key);
+    const searchedHymns = persistentStorage.get(key);
 
     if (searchedHymns) {
       const hasNumber = searchedHymns.some((currentDay) =>
@@ -72,7 +72,11 @@ class HistoryStore {
     }
     return false;
   }
+  clear() {
+    persistentStorage.clear(key);
+    return [];
+  }
 }
-const historyStore = new HistoryStore();
+const historyService = new HistoryService();
 
-export default historyStore;
+export default historyService;

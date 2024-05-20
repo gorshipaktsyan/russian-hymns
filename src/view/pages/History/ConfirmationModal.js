@@ -10,20 +10,21 @@ export default function ConfirmModal({
   handleClearHistory,
   setOpenConfirm,
   openConfirm,
+  lg,
 }) {
   return (
     <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
       <DialogContent>
         <DialogContentText sx={{ color: "black" }}>
-          Вы действительно хотите удалить всю историю?
+          {lg.history.dialog}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={() => setOpenConfirm(false)}>
-          нет
+          {lg.history.no}
         </Button>
         <Button onClick={handleClearHistory} autoFocus>
-          да
+          {lg.history.yes}
         </Button>
       </DialogActions>
     </Dialog>

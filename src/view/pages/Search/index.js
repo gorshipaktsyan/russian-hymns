@@ -1,104 +1,82 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HymnList from "./HymnList";
-import hymns from "../../services/storage/hymns.json";
 import Snackbar from "@mui/material/Snackbar";
-import StyledComponents from "../../../utils/sharedStyles";
+import { StyledComponents } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
-import findText from "../../../utils/findText";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsSearchedHymnsListOpen } from "../../../redux/slice/searchSlice";
+import searchTextAndSubmit from "../../../utils/searchTextAndSubmit";
+import { useEnterKeySubmit } from "../../../utils/hooks/useKeyboardClick";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
   SearchStyledComponents;
 
-function Search({
-  setCurrentNumber,
-  openSearchedHymnList,
-  setOpenSearchedHymnList,
-  englishSearch,
-}) {
+function Search() {
   const [rusNumber, setRusNumber] = useState("");
   const [engNumber, setEngNumber] = useState("");
   const [searchedText, setSearchedText] = useState("");
-  const [findedHymns, setFindedHymns] = useState([]);
   const [errorAlert, setErrorAlert] = useState(false);
-  const handleClose = () => setErrorAlert(false);
+  const isEngSearchVisible = useSelector(
+    (state) => state.settings.isEngSearchVisible
+  );
+  const findedHymns = useSelector((state) => state.search.findedHymns);
+  const isSearchedHymnsListOpen = useSelector(
+    (state) => state.search.isSearchedHymnsListOpen
+  );
+  const hymns = useSelector((state) => state.hymns.hymns);
+  const lg = useSelector((state) => state.settings.language);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  function searchRussianNumber() {
-    return findSearchedNumbers(rusNumber, "number");
-  }
-  function searchEnglishNumber() {
-    return findSearchedNumbers(engNumber, "number_eng");
-  }
-  function findSearchedNumbers(input, property) {
-    const numbers = input.split(",").map((num) => Number(num.trim()));
-    const matchingHymns = hymns.filter((h) => numbers.includes(h[property]));
-    const resultNumbers = matchingHymns.map((h) => h.number);
-    resultNumbers.length && setCurrentNumber(resultNumbers);
-    return resultNumbers;
-  }
+  useEnterKeySubmit(handleSubmit);
+
+  useEffect(() => {
+    if (findedHymns.length > 0) {
+      dispatch(setIsSearchedHymnsListOpen(true));
+    } else if (searchedText) {
+      setErrorAlert(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, findedHymns]);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleSubmit(e) {
     e.preventDefault();
-    let number;
-    if (rusNumber) {
-      number = searchRussianNumber();
-    } else if (engNumber) {
-      number = searchEnglishNumber();
-    } else if (searchedText) {
-      setFindedHymns(findText(searchedText));
-      return;
-    } else {
-      const randomNumber = Math.floor(Math.random() * 800);
-      setCurrentNumber([randomNumber]);
-      number = [randomNumber];
-    }
-    if (number.length) {
-      navigate(`/hymns/${[number]}`);
-    }
-    setErrorAlert(true);
-    setRusNumber("");
-    setEngNumber("");
-    setSearchedText("");
+    searchTextAndSubmit({
+      rusNumber,
+      engNumber,
+      searchedText,
+      setRusNumber,
+      setEngNumber,
+      setSearchedText,
+      setErrorAlert,
+      lg,
+      dispatch,
+      navigate,
+      hymns,
+    });
   }
+
   function handleTextChange(e) {
     const inputValue = e.target.value;
     setSearchedText(inputValue);
   }
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Enter") {
-        handleSubmit(event);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleSubmit]);
-  useEffect(() => {
-    if (findedHymns.length > 0) {
-      setOpenSearchedHymnList(true);
-    } else if (searchedText) {
-      setErrorAlert(true);
-    }
-  }, [findedHymns]);
-
   return (
     <>
-      {openSearchedHymnList ? (
+      {isSearchedHymnsListOpen ? (
         <HymnList
           findedHymns={findedHymns}
-          setCurrentNumber={setCurrentNumber}
           navigate={navigate}
+          dispatch={dispatch}
         />
       ) : (
         <StyledForm>
           <StyledTextField
             type="decimal"
-            label="Поиск по русскому  номеру"
+            label={lg.search.searchByRussianNumber}
             value={rusNumber}
             inputProps={{
               inputMode: "decimal",
@@ -111,10 +89,10 @@ function Search({
             }}
             autoFocus
           />
-          {englishSearch && (
+          {isEngSearchVisible && (
             <StyledTextField
               type="decimal"
-              label="Поиск по английскому номеру"
+              label={lg.search.searchByEnglishNumber}
               value={engNumber}
               inputProps={{
                 inputMode: "decimal",
@@ -128,7 +106,7 @@ function Search({
             />
           )}
           <StyledTextField
-            label="Поиск по тексту"
+            label={lg.search.searchByText}
             value={searchedText}
             inputProps={{
               inputMode: "search",
@@ -144,18 +122,18 @@ function Search({
             variant="contained"
             onClick={handleSubmit}
           >
-            <span style={{ fontSize: "16px" }}>Поиск</span>
+            <span style={{ fontSize: "16px" }}>{lg.search.search}</span>
           </StyledSearchButton>
         </StyledForm>
       )}
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={errorAlert}
-        onClose={handleClose}
+        onClose={() => setErrorAlert(false)}
         autoHideDuration={2000}
       >
-        <StyledAlert onClose={handleClose} severity="error">
-          Соответствующий гимн не найден!
+        <StyledAlert onClose={() => setErrorAlert(false)} severity="error">
+          {lg.search.errorAlert}
         </StyledAlert>
       </Snackbar>
     </>

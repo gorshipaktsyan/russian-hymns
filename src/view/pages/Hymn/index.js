@@ -1,21 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import { useSwipeable } from "react-swipeable";
-import hymns from "../../services/storage/hymns.json";
 import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
-import historyStore from "../../services/HistoryStore";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
+import useAddToHistory from "../../../utils/hooks/useAddToHistory";
+import { useKeyboardNavigation } from "../../../utils/hooks/useKeyboardClick";
+import { config } from "../../../config/constants/hymnConfig";
 
-const config = {
-  delta: 10,
-  preventScrollOnSwipe: false,
-  trackTouch: true,
-  trackMouse: false,
-  rotationAngle: 0,
-  swipeDuration: Infinity,
-  touchEventOptions: { passive: true },
-};
 const {
   StyledDivider,
   ArrowRightIcon,
@@ -26,44 +20,23 @@ const {
   MobArrowLeftIcon,
 } = HymnStyledComponents;
 
-function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
-  const [timeOnPage, setTimeOnPage] = useState(0);
-  const [prevNumber, setPrevNumber] = useState();
+function Hymn() {
   const { number } = useParams();
+  const settings = useSelector((state) => state.settings);
+  const currentNumber = useSelector(
+    (state) => state.currentNumber.currentNumber
+  );
+  const hymns = useSelector((state) => state.hymns.hymns);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useKeyboardNavigation(handleLeftSwipe, handleRightSwipe);
+  useAddToHistory(currentNumber);
 
   useEffect(() => {
-    number && setCurrentNumber(number.split(",").map(Number));
-  }, [number, setCurrentNumber]);
+    number && dispatch(setCurrentNumber(number.split(",").map(Number)));
+  }, [number, dispatch]);
 
-  const hymn = useMemo(
-    () =>
-      currentNumber.map((number) =>
-        hymns.find((h) => Number(h.number) === Number(number))
-      ),
-    [currentNumber]
-  );
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleLeftSwipe(e) {
-    e && e.stopPropagation();
-    const index = hymns.findIndex(
-      (el) => Number(el.number) === Number(currentNumber[0] + 1)
-    );
-    if (index !== -1) {
-      navigate(`/hymns/${currentNumber[0] + 1}`);
-    }
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleRightSwipe(e) {
-    e && e.stopPropagation();
-    const index = hymns.findIndex(
-      (el) => Number(el.number) === Number(currentNumber[0] - 1)
-    );
-    if (index !== -1) {
-      navigate(`/hymns/${currentNumber[0] - 1}`);
-    }
-  }
   const handlers = useSwipeable(
     {
       onSwipedLeft: () => handleLeftSwipe(),
@@ -75,40 +48,30 @@ function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
     config
   );
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "ArrowLeft") {
-        handleRightSwipe();
-      } else if (event.key === "ArrowRight") {
-        handleLeftSwipe();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleRightSwipe, handleLeftSwipe]);
-
-  useEffect(() => {
-    let timerInterval;
-    const hasNumber = historyStore.find(currentNumber);
-    setPrevNumber(currentNumber);
-
-    if (!hasNumber) {
-      timerInterval = setInterval(() => {
-        setTimeOnPage((prevTime) => prevTime + 1);
-      }, 1000);
+  const findedHymns = currentNumber.map((number) =>
+    hymns.find((h) => Number(h.number) === Number(number))
+  );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function handleLeftSwipe(e) {
+    e && e.stopPropagation();
+    const index = hymns.findIndex(
+      (el) => Number(el.number) === Number(currentNumber[0] + 1)
+    );
+    if (index !== -1) {
+      navigate(`/hymns/${currentNumber[0] + 1}`);
     }
-    if (timeOnPage >= 30 && !hasNumber) {
-      historyStore.set(currentNumber);
-      setTimeOnPage(0);
-    }
-    currentNumber !== prevNumber && setTimeOnPage(0);
+  }
 
-    return () => {
-      clearInterval(timerInterval);
-    };
-  }, [currentNumber, timeOnPage, prevNumber]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function handleRightSwipe(e) {
+    e && e.stopPropagation();
+    const index = hymns.findIndex(
+      (el) => Number(el.number) === Number(currentNumber[0] - 1)
+    );
+    if (index !== -1) {
+      navigate(`/hymns/${currentNumber[0] - 1}`);
+    }
+  }
 
   return (
     <>
@@ -119,21 +82,21 @@ function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
         }}
         {...handlers}
       >
-        {hymn.map((h, index) => {
+        {findedHymns.map((h, index) => {
           return (
             <Box key={index}>
               <div className="hymnInfo">
-                {hymn.length > 1 && (
+                {findedHymns.length > 1 && (
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: `Гимн ${h.number}<sup>${h.sign}</sup>`,
+                      __html: `${settings.language.hymn} ${h.number}<sup>${h.sign}</sup>`,
                     }}
                   />
                 )}
               </div>
               <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
               <>
-                {!isMobile ? (
+                {!settings.isMobile ? (
                   <>
                     <ArrowLeftWrapper onClick={handleRightSwipe}>
                       <ArrowLeftIcon />
@@ -143,7 +106,7 @@ function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
                     </ArrowRightWrapper>
                   </>
                 ) : (
-                  useArrows && (
+                  settings.isAllowToUseArrows && (
                     <>
                       <MobArrowLeftIcon onClick={handleRightSwipe} />
                       <MobArrowRightIcon onClick={handleLeftSwipe} />
@@ -151,7 +114,7 @@ function Hymn({ setCurrentNumber, currentNumber, useArrows, isMobile }) {
                   )
                 )}
               </>
-              {index !== hymn.length - 1 && <StyledDivider />}
+              {index !== findedHymns.length - 1 && <StyledDivider />}
             </Box>
           );
         })}

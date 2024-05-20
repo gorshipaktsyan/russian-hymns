@@ -1,28 +1,32 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
+import { Box, Drawer, List, ListItem, ListItemButton } from "@mui/material";
+import { useSelector } from "react-redux";
+import createNavItems from "../../utils/createNavItems";
+import { resetContentValues } from "../../redux/slice/contentSlice";
+import { setTitle } from "../../redux/slice/appBarSlice";
 
-function DrawerComponent({
-  navItems,
-  mobileOpen,
-  handleDrawerToggle,
-  setTitle,
-  fontSize,
-}) {
+function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
+  const navItems = createNavItems(lg);
+  const isDrawerOpen = useSelector((state) => state.drawer.isDrawerOpen);
   const navigate = useNavigate();
+
   function handleNavigate(item) {
     navigate(`/${item.route}`);
-    setTitle(item.title);
+    dispatch(setTitle(item.title));
+    dispatch(
+      resetContentValues({
+        contentSelectedTitleId: "",
+        contentSelectedSubtitleId: "",
+      })
+    );
   }
+
   return (
     <Drawer
       variant="temporary"
-      open={mobileOpen}
-      onClose={handleDrawerToggle}
+      open={isDrawerOpen}
+      onClose={() => handleDrawerToggle(false)}
       ModalProps={{
         keepMounted: true,
       }}
@@ -34,7 +38,10 @@ function DrawerComponent({
         },
       }}
     >
-      <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+      <Box
+        onClick={() => handleDrawerToggle(!isDrawerOpen)}
+        sx={{ textAlign: "center" }}
+      >
         <List>
           {navItems.slice(1).map((item) => (
             <ListItem
@@ -57,7 +64,7 @@ function DrawerComponent({
           fontSize: "13px",
         }}
       >
-        <p>Версия: 1.3.7</p>
+        <p>{lg.version}: 1.3.7</p>
       </Box>
     </Drawer>
   );

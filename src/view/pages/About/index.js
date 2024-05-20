@@ -1,40 +1,28 @@
 import React from "react";
 import StyledComponents from "../../../utils/sharedStyles";
+import { useSelector } from "react-redux";
 
 const { InfoBox, StyledLink } = StyledComponents;
 
 function About() {
+  const lg = useSelector((state) => state.settings.language);
+
   return (
-    <InfoBox>
+    <InfoBox className="infoBox">
+      <p>{lg.about.overview}</p>
+      <p>{lg.about.asteriskNote}</p>
+      <p>{lg.about.crossNote}</p>
+      <p>{lg.about.numbering}</p>
+
       <p>
-        Это приложение представляет собой официальную электронную версию
-        сборника гимнов, опубликованного «Коллектором библейской книги» в 2014
-        году. Гимны, включённые в настоящий сборник, отобраны из нескольких
-        сборников гимнов и других книг, выпущенных служением «Живой поток»
-        (Анахайм, США), и переведены с английского языка.
-      </p>
-      <p>
-        * Все гимны, помеченные звёздочкой, были первоначально написаны на
-        английском языке Уитнессом Ли и редакционным отделом служения «Живой
-        поток» (США).
-      </p>
-      <p>
-        † Все гимны, помеченные крестиком, представляют собой сочинения
-        различных авторов, переведённые на английский язык Уитнессом Ли и
-        редакционным отделом служения «Живой поток» (США).
-      </p>
-      <p>
-        Перед текстом каждого гимна указана размерность гимна и номер
-        соответствующего гимна в английском сборнике, опубликованном служением
-        «Живой поток» (номер указан в скобках).
-      </p>
-      <p>
-        По всем вопросам, связанным с этим приложением, пожалуйста, пишите по
-        адресу <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{" "}
-        Официальный сайт «Коллектора библейской книги» —{" "}
+        {lg.about.contact}{" "}
+        <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{" "}
+        {lg.about.officialSite + " " + lg.about.collectorBook} —{" "}
         <StyledLink href="http://kbk.ru">kbk.ru</StyledLink>.
       </p>
-      <p>&copy; «Коллектор библейской книги», 2024. Все права защищены.</p>
+      <p>
+        &copy; {lg.about.collectorBook}, 2024. {lg.about.rightsReserved}
+      </p>
     </InfoBox>
   );
 }
