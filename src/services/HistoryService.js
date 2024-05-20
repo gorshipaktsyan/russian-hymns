@@ -1,4 +1,5 @@
 import hymns from "../storage/hymns.json";
+import { findBy } from "../utils/find";
 import persistentStorage from "./PersistentStorage";
 
 function formattingDate(date) {
@@ -28,7 +29,7 @@ class HistoryService {
 
     history.forEach((searched) => {
       const formattedDate = formattingDate(searched.date);
-      const entry = result.find((item) => item.date === formattedDate);
+      const entry = findBy(result, "date", formattedDate);
 
       if (!entry) {
         result.push({
@@ -38,12 +39,11 @@ class HistoryService {
       }
 
       searched.number.forEach((number) => {
-        const matchingHymn = hymns.find((h) => h.number === number);
+        const matchingHymn = findBy(hymns, "number", number);
 
         if (matchingHymn) {
-          const existingEntry = result.find(
-            (item) => item.date === formattedDate
-          );
+          const existingEntry = findBy(result, "date", formattedDate);
+
           if (existingEntry) {
             if (Array.isArray(existingEntry.hymns)) {
               existingEntry.hymns.push(matchingHymn);

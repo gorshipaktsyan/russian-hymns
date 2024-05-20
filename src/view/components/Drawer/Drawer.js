@@ -1,12 +1,16 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Drawer, List, ListItem, ListItemButton } from "@mui/material";
+import { Box, List, ListItem, ListItemButton } from "@mui/material";
 import { useSelector } from "react-redux";
-import createNavItems from "../../utils/createNavItems";
-import { resetContentValues } from "../../redux/slice/contentSlice";
-import { setTitle } from "../../redux/slice/appBarSlice";
+import createNavItems from "../../../utils/createNavItems";
+import { resetContentValues } from "../../../redux/slice/contentSlice";
+import { setTitle } from "../../../redux/slice/appBarSlice";
+import { setIsDrawerOpen } from "../../../redux/slice/drawerSlice";
+import DrawerStyledComponents from "./styles";
 
-function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
+const { StyledDrawer, StyledBox, StyledVersionText } = DrawerStyledComponents;
+
+function DrawerComponent({ fontSize, dispatch, lg }) {
   const navItems = createNavItems(lg);
   const isDrawerOpen = useSelector((state) => state.drawer.isDrawerOpen);
   const navigate = useNavigate();
@@ -20,28 +24,19 @@ function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
         contentSelectedSubtitleId: "",
       })
     );
+    dispatch(setIsDrawerOpen(false));
   }
 
   return (
-    <Drawer
+    <StyledDrawer
       variant="temporary"
       open={isDrawerOpen}
-      onClose={() => handleDrawerToggle(false)}
+      onClose={() => dispatch(setIsDrawerOpen(false))}
       ModalProps={{
         keepMounted: true,
       }}
-      sx={{
-        "& .MuiDrawer-paper": {
-          boxSizing: "border-box",
-          width: "240px",
-          paddingTop: "64px",
-        },
-      }}
     >
-      <Box
-        onClick={() => handleDrawerToggle(!isDrawerOpen)}
-        sx={{ textAlign: "center" }}
-      >
+      <StyledBox>
         <List>
           {navItems.slice(1).map((item) => (
             <ListItem
@@ -55,18 +50,11 @@ function DrawerComponent({ handleDrawerToggle, fontSize, dispatch, lg }) {
             </ListItem>
           ))}
         </List>
-      </Box>
-      <Box
-        sx={{
-          marginLeft: "10px",
-          position: "absolute",
-          bottom: 10,
-          fontSize: "13px",
-        }}
-      >
+      </StyledBox>
+      <StyledVersionText>
         <p>{lg.version}: 1.3.7</p>
-      </Box>
-    </Drawer>
+      </StyledVersionText>
+    </StyledDrawer>
   );
 }
 

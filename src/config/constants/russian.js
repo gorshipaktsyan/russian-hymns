@@ -5,7 +5,7 @@ const russian = {
   language: "ru",
   noData: "Нет данных",
   regExp: {
-    onlyLetters: "/[^а-яА-ЯёЁ]/g",
+    onlyLetters: "[а-яА-ЯёЁ]",
   },
 
   navItems: {
@@ -26,7 +26,6 @@ const russian = {
     searchByText: "Поиск по тексту",
     search: "Поиск",
     errorAlert: "Соответствующий гимн не найден!",
-    search: "Поиск",
   },
 
   appBar: {

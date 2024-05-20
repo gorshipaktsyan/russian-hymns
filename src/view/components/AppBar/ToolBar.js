@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Box, IconButton, Toolbar } from "@mui/material";
 import { Menu, BookmarkBorder, Bookmark } from "@mui/icons-material/";
 import SearchBar from "../searchBar/SearchBar";
@@ -5,30 +6,40 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { saveHymn, removeHymn } from "../../../redux/slice/bookmarksSlice";
 import { copyToClipboard } from "../../../utils/index";
+import showBookmark from "../../../utils/showBookmark";
+import { setIsSaved } from "../../../redux/slice/appBarSlice";
+import { setIsDrawerOpen } from "../../../redux/slice/drawerSlice";
 
-export default function ToolBar({
-  handleDrawerToggle,
-  saved,
-  setSaved,
-  currentHymnNumber,
-  currentNumber,
-  setCopyAlert,
-}) {
+export default function ToolBar({ setCopyAlert }) {
+  const currentNumber = useSelector(
+    (state) => state.currentNumber.currentNumber
+  );
+  const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
   const isDrawerOpen = useSelector((state) => state.drawer.isDrawerOpen);
   const isSearchedHymnsListOpen = useSelector(
     (store) => store.search.isSearchedHymnsListOpen
   );
   const title = useSelector((state) => state.appBar.title);
+  const savedHymnsList = useSelector((state) => state.bookmarks.savedHymns);
+  const isSaved = useSelector((state) => state.appBar.isSaved);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    showBookmark({
+      dispatch,
+      savedHymnsList,
+      currentHymnNumber,
+    });
+  }, [currentHymnNumber, savedHymnsList, dispatch]);
+
   const handleBookmarkClick = () => {
-    if (saved) {
+    if (isSaved) {
       dispatch(removeHymn(currentHymnNumber));
-      setSaved(false);
+      dispatch(setIsSaved(false));
     } else {
       dispatch(saveHymn(currentHymnNumber));
-      setSaved(true);
+      dispatch(setIsSaved(true));
     }
   };
 
@@ -45,7 +56,7 @@ export default function ToolBar({
         color="inherit"
         aria-label="open drawer"
         edge="start"
-        onClick={() => handleDrawerToggle(!isDrawerOpen)}
+        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}
       >
         <Menu sx={{ fontSize: "30px" }} />
       </IconButton>
@@ -71,7 +82,7 @@ export default function ToolBar({
         <>
           <IconButton color="inherit" onClick={handleBookmarkClick}>
             {currentHymnNumber &&
-              (saved ? (
+              (isSaved ? (
                 <Bookmark sx={{ fontSize: "30px" }} />
               ) : (
                 <BookmarkBorder sx={{ fontSize: "30px" }} />

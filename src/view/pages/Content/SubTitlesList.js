@@ -3,24 +3,20 @@ import { Box, Divider } from "@mui/material";
 import StyledContentComponents from "./styles";
 import { setSubtitleId } from "../../../redux/slice/contentSlice";
 import { useSelector } from "react-redux";
-import filterBy from "../../../utils/filterBy";
+import { filterBy, scrollToContentTittle } from "../../../utils/index";
 
 const { StyledSubList, StyledSubHymnsList } = StyledContentComponents;
 
-function SubTitlesList({
-  expandedList,
-  handleHymnClick,
-  ScrollToTittle,
-  dispatch,
-}) {
+function SubTitlesList({ expandedList, handleHymnClick, dispatch }) {
   const hymns = useSelector((state) => state.hymns.hymns);
   const subtitles = useSelector((state) => state.subtitles.subtitles);
   const filteredSubtitles = filterBy(subtitles, "title", expandedList.titleId);
+
   function handleSubTitleClick(subtitleId) {
     dispatch(
       setSubtitleId(expandedList.subtitleId === subtitleId ? "" : subtitleId)
     );
-    ScrollToTittle(subtitleId);
+    scrollToContentTittle(subtitleId);
   }
 
   return (
