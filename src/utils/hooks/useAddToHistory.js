@@ -21,7 +21,7 @@ export default function useAddToHistory(currentNumber) {
         setTimeOnPage((prevTime) => prevTime + 1);
       }, 1000);
     }
-    if (timeOnPage >= 30 && !hasNumber) {
+    if (timeOnPage >= 5 && !hasNumber) {
       dispatch(addHymn(currentNumber));
       setTimeOnPage(0);
     }

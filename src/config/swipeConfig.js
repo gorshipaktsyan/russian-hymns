@@ -1,4 +1,4 @@
-const config = {
+const swipeConfig = {
   delta: 10,
   preventScrollOnSwipe: false,
   trackTouch: true,
@@ -8,4 +8,4 @@ const config = {
   touchEventOptions: { passive: true },
 };
 
-export default config;
+export default swipeConfig;

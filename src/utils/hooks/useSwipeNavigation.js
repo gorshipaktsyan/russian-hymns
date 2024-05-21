@@ -1,6 +1,6 @@
 import { useSwipeable } from "react-swipeable";
 import { useKeyboardNavigation } from "./useKeyboardClick";
-import config from "../../config/constants/hymnConfig";
+import swipeConfig from "../../config/swipeConfig";
 
 export default function useSwipeNavigation({ currentNumber, hymns, navigate }) {
   // Handle left swipe
@@ -32,7 +32,7 @@ export default function useSwipeNavigation({ currentNumber, hymns, navigate }) {
     swipeDuration: 500,
     preventScrollOnSwipe: true,
     trackMouse: true,
-    config,
+    swipeConfig,
   });
 
   return {

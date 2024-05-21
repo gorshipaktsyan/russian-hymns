@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const content = "content";
+
 export const contentSlice = createSlice({
-  name: "content",
+  name: content,
   initialState: {
     contentExpandedList: {
       titleId: "",

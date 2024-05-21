@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import bookmarksService from "../../services/BookmarksService";
+
+export const bookmarks = "bookmarks";
+
 export const bookmarksSlice = createSlice({
-  name: "bookmarks",
+  name: bookmarks,
   initialState: {
     savedHymns: bookmarksService.get() || [],
   },

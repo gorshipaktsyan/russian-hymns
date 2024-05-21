@@ -9,8 +9,9 @@ import settingsReducer from "./slice/settingsSlice";
 import hymnsReducer from "./slice/hymnsSlice";
 import titlesReducer from "./slice/titlesSlice";
 import subtitlesReducer from "./slice/subtitlesSlice";
+import { combineReducers } from "@reduxjs/toolkit";
 
-const rootReducer = {
+const rootReducer = combineReducers({
   bookmarks: bookmarksReducer,
   content: contentSliceReducer,
   currentNumber: currentNumberReducer,
@@ -22,6 +23,6 @@ const rootReducer = {
   hymns: hymnsReducer,
   titles: titlesReducer,
   subtitles: subtitlesReducer,
-};
+});
 
 export default rootReducer;

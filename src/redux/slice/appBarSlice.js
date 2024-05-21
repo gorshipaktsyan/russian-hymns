@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const appBar = "appBar";
+
 export const appBarSlice = createSlice({
-  name: "appBar",
+  name: appBar,
   initialState: {
     title: "",
     isSaved: false,
