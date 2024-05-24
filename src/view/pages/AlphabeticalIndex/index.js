@@ -5,7 +5,7 @@ import HymnsList from "./HymnsList";
 import StyledComponents from "../../../utils/sharedStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import { setTitle } from "../../../redux/slice/appBarSlice";
+import { setAppBarTitle } from "../../../redux/slice/appBarSlice";
 
 const { StyledBox } = StyledComponents;
 
@@ -22,7 +22,7 @@ function AlphabeticalIndex() {
 
   function handleBackClick() {
     setLetter("");
-    dispatch(setTitle(lg.alphabeticalIndex.alphabeticalIndex));
+    dispatch(setAppBarTitle(lg.alphabeticalIndex.alphabeticalIndex));
   }
 
   return (
@@ -39,7 +39,7 @@ function AlphabeticalIndex() {
           setLetter={setLetter}
           dispatch={dispatch}
           lg={lg}
-          setTitle={setTitle}
+          setAppBarTitle={setAppBarTitle}
         />
       )}
     </StyledBox>

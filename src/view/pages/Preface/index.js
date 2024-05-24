@@ -13,13 +13,11 @@ function Preface() {
 
       <p>{lg.preface.introduction}</p>
 
-      <p>
-        <ol>
-          {lg.preface.goals.map((goal) => (
-            <li>{goal}</li>
-          ))}
-        </ol>
-      </p>
+      <ol>
+        {lg.preface.goals.map((goal, index) => (
+          <li key={index}>{goal}</li>
+        ))}
+      </ol>
 
       <p>{lg.preface.churchExistence}</p>
 

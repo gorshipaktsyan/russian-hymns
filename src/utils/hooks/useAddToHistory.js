@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addHymn } from "../../redux/slice/historySlice";
-import historyStore from "../../services/HistoryService";
+import setData from "../setData";
+import { findInStore } from "../find";
 
 export default function useAddToHistory(currentNumber) {
   const dispatch = useDispatch();
-  const [prevNumber, setPrevNumber] = useState(null);
   const [timeOnPage, setTimeOnPage] = useState(0);
+  const history = useSelector((state) => state.history.searchedHymns);
 
   useEffect(() => {
     let timerInterval;
-    const hasNumber = historyStore.find(currentNumber);
+    const hasNumber = findInStore(currentNumber, history);
 
-    if (prevNumber !== currentNumber) {
-      setPrevNumber(currentNumber);
-      setTimeOnPage(0);
-    }
     if (!hasNumber) {
       timerInterval = setInterval(() => {
         setTimeOnPage((prevTime) => prevTime + 1);
       }, 1000);
     }
-    if (timeOnPage >= 5 && !hasNumber) {
-      dispatch(addHymn(currentNumber));
+    if (timeOnPage >= 30 && !hasNumber) {
+      const hymnObject = setData(currentNumber);
+      dispatch(addHymn(hymnObject));
       setTimeOnPage(0);
     }
     return () => {
@@ -30,7 +28,7 @@ export default function useAddToHistory(currentNumber) {
         clearInterval(timerInterval);
       }
     };
-  }, [currentNumber, timeOnPage, dispatch, prevNumber]);
+  }, [currentNumber, timeOnPage, dispatch, history]);
 
   return { timeOnPage };
 }

@@ -1,7 +1,7 @@
-import AppBar from "./AppBar/AppBar";
-import Drawer from "./Drawer/Drawer";
+import AppBar from "./AppBar";
+import Drawer from "./Drawer";
 import ScrollToTop from "./ScrollToTop";
-import HymnTitle from "./hymnTitle/HymnTitle";
-import SearchBar from "./searchBar/SearchBar";
+import ListItem from "./ListItem";
+import SearchBar from "./SearchBar";
 
-export { AppBar, Drawer, HymnTitle, SearchBar, ScrollToTop };
+export { AppBar, Drawer, ListItem, SearchBar, ScrollToTop };

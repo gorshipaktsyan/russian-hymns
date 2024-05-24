@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { InitStateNames } from "../../config/constants/InitStateNames";
 
 export const drawerSlice = createSlice({
-  name: "drawer",
+  name: InitStateNames.drawer,
   initialState: {
     isDrawerOpen: false,
   },

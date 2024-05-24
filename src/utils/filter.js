@@ -1,9 +1,19 @@
-export default function filterHymnsByLetter(letter, lg, hymns) {
+function filterArray(array, key, compareValue, operator) {
+  if (typeof compareValue === "function") {
+    return array.filter((item) => compareValue(item[key]));
+  }
+  if (operator === "!==") {
+    const filteredArray = array.filter((i) => i[key] !== compareValue);
+    return filteredArray;
+  }
+  return array.filter((i) => i[key] === compareValue);
+}
+
+function filterHymnsByLetter(letter, lg, hymns) {
   const removeSymbols = (text) => text.replace(lg.regExp.onlyLetters, "");
   const filteredHymns = hymns.filter(
     (h) => h.first_letter === letter || h.first_letter_chorus === letter
   );
-
   const mappedHymns = filteredHymns.map((hymn) => {
     if (hymn.first_letter === letter) {
       return {
@@ -26,3 +36,5 @@ export default function filterHymnsByLetter(letter, lg, hymns) {
   });
   return sortedHymns;
 }
+
+export { filterArray, filterHymnsByLetter };

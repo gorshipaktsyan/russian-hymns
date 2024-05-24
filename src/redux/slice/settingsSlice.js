@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import russian from "../../config/constants/russian";
+import { InitStateNames } from "../../config/constants/InitStateNames";
 
 export const settingsSlice = createSlice({
-  name: "settings",
+  name: InitStateNames.settings,
   initialState: {
     fontSize: 1,
     isEngSearchVisible: false,

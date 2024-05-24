@@ -2,11 +2,11 @@ import { setIsSaved } from "../redux/slice/appBarSlice";
 
 export default function showBookmark({
   dispatch,
-  savedHymnsList,
+  formatedData,
   currentHymnNumber,
 }) {
-  if (currentHymnNumber && savedHymnsList) {
-    const isSaved = savedHymnsList.some((day) =>
+  if (currentHymnNumber && formatedData.length) {
+    const isSaved = formatedData.some((day) =>
       day.hymns.some((h) => h.number === currentHymnNumber)
     );
     dispatch(setIsSaved(isSaved));

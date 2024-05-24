@@ -4,7 +4,7 @@ import { Box, List, ListItem, ListItemButton } from "@mui/material";
 import { useSelector } from "react-redux";
 import createNavItems from "../../../utils/createNavItems";
 import { resetContentValues } from "../../../redux/slice/contentSlice";
-import { setTitle } from "../../../redux/slice/appBarSlice";
+import { setAppBarTitle } from "../../../redux/slice/appBarSlice";
 import { setIsDrawerOpen } from "../../../redux/slice/drawerSlice";
 import DrawerStyledComponents from "./styles";
 
@@ -17,7 +17,7 @@ function DrawerComponent({ fontSize, dispatch, lg }) {
 
   function handleNavigate(item) {
     navigate(`/${item.route}`);
-    dispatch(setTitle(item.title));
+    dispatch(setAppBarTitle(item.title));
     dispatch(
       resetContentValues({
         contentSelectedTitleId: "",

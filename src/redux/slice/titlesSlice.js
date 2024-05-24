@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import titles from "../../storage/titles.json";
+import { InitStateNames } from "../../config/constants/InitStateNames";
 
 export const titlesSlice = createSlice({
-  name: "titles",
+  name: InitStateNames.titles,
   initialState: {
     titles: titles || [],
     filteredTitles: [],

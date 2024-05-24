@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import HymnList from "./HymnList";
+import SearchedHymnList from "./SearchedHymnList";
 import { setIsSearchedHymnsListOpen } from "../../../redux/slice/searchSlice";
 import { useEnterKeySubmit } from "../../../utils/hooks/useKeyboardClick";
-import { StyledComponents, searchTextAndSubmit } from "../../../utils/index";
+import { StyledComponents, submit } from "../../../utils/index";
 import SearchStyledComponents from "./styles";
 import Snackbar from "@mui/material/Snackbar";
 
@@ -42,7 +42,7 @@ function Search() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    searchTextAndSubmit({
+    submit({
       rusNumber,
       engNumber,
       searchedText,
@@ -65,7 +65,7 @@ function Search() {
   return (
     <>
       {isSearchedHymnsListOpen ? (
-        <HymnList
+        <SearchedHymnList
           findedHymns={findedHymns}
           navigate={navigate}
           dispatch={dispatch}

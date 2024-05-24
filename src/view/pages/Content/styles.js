@@ -7,7 +7,7 @@ const StyledContentComponents = {
     marginLeft: "20px",
     marginBottom: "30px",
   }),
-  StyledSubHymnsList: styled(Box)({
+  StyledFirstStringList: styled(Box)({
     maxWidth: "610px",
     marginBottom: "20px",
     marginLeft: "20px",

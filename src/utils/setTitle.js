@@ -1,13 +1,7 @@
-import findLocation from "./findLocation";
-import { setTitle } from "../redux/slice/appBarSlice";
+import { findLocation } from "./find";
+import { setAppBarTitle } from "../redux/slice/appBarSlice";
 
-export default function setTitleBy(
-  currentNumber,
-  pathname,
-  hymns,
-  dispatch,
-  lg
-) {
+export default function setTitle(currentNumber, pathname, hymns, dispatch, lg) {
   if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
     const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
     let newTitle;
@@ -24,12 +18,12 @@ export default function setTitleBy(
       }</sup>`;
     }
 
-    dispatch(setTitle(newTitle));
+    dispatch(setAppBarTitle(newTitle));
   } else {
     const title = findLocation(pathname, lg);
 
     if (title) {
-      dispatch(setTitle(title));
+      dispatch(setAppBarTitle(title));
     }
   }
 }

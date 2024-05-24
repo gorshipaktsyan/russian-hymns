@@ -1,25 +1,46 @@
 import setFontSize from "./setFontSize";
 import copyToClipboard from "./copyToClipboard";
-import searchTextAndSubmit from "./searchTextAndSubmit";
+import submit from "./submit";
 import createNavItems from "./createNavItems";
-import setTitleBy from "./setTitleBy";
+import setTitle from "./setTitle";
 import StyledComponents from "./sharedStyles";
-import findLocation from "./findLocation";
-import filterHymnsByLetter from "./filterHymnsByLetter";
-import filterBy from "./filterBy";
-import useAddToHistory from "./hooks/useAddToHistory";
+import { filterArray, filterHymnsByLetter } from "./filter";
 import scrollToContentTittle from "./scrollToContentTittle";
+import formatData from "./formatData";
+import setData from "./setData";
+import showBookmark from "./showBookmark";
+import {
+  findLocation,
+  findBy,
+  findHymns,
+  findInStore,
+  findSearchedNumbers,
+} from "./find";
+import {
+  searchRussianNumber,
+  searchEnglishNumber,
+  searchHymnsByText,
+} from "./search";
 
 export {
   copyToClipboard,
   setFontSize,
-  searchTextAndSubmit,
+  submit,
   createNavItems,
-  setTitleBy,
+  setTitle,
   StyledComponents,
-  findLocation,
   filterHymnsByLetter,
-  filterBy,
-  useAddToHistory,
+  filterArray,
   scrollToContentTittle,
+  showBookmark,
+  formatData,
+  setData,
+  findLocation,
+  findBy,
+  findHymns,
+  findInStore,
+  findSearchedNumbers,
+  searchRussianNumber,
+  searchEnglishNumber,
+  searchHymnsByText,
 };

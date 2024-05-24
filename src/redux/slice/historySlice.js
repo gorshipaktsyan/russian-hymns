@@ -1,19 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import historyService from "../../services/HistoryService";
+import { InitStateNames } from "../../config/constants/InitStateNames";
 
 export const historySlice = createSlice({
-  name: "history",
+  name: InitStateNames.history,
   initialState: {
-    searchedHymns: historyService.get(),
+    searchedHymns: [],
     isConfirmOpen: false,
   },
   reducers: {
     clearHistory: (state) => {
-      state.searchedHymns = historyService.clear();
+      state.searchedHymns = [];
     },
     addHymn: (state, action) => {
-      state.searchedHymns = historyService.set(action.payload);
+      state.searchedHymns.unshift(action.payload);
     },
+
     setIsConfirmOpen: (state, action) => {
       state.isConfirmOpen = action.payload;
     },
