@@ -3,7 +3,7 @@ import ListItem from "../../components/ListItem";
 import { Box, Divider, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TransitionGroup } from "react-transition-group";
-import { StyledComponents, formatData } from "../../../utils/index";
+import { StyledComponents, formatDataforBookmarks } from "../../../utils/index";
 import { useDispatch, useSelector } from "react-redux";
 import { removeHymn } from "../../../redux/slice/bookmarksSlice";
 
@@ -24,8 +24,7 @@ function Bookmarks() {
     dispatch(removeHymn(id));
   }
 
-  const formatedData = formatData(savedHymns, hymns, lg);
-
+  const formatedData = formatDataforBookmarks(savedHymns, hymns, lg);
   return (
     <StyledBox>
       {formatedData.length > 0 ? (

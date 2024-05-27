@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { InitStateNames } from "../../config/constants/InitStateNames";
 
-export const appBar = "appBar";
-
 export const appBarSlice = createSlice({
   name: InitStateNames.appBar,
   initialState: {

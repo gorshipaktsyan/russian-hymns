@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { InitStateNames } from "../../config/constants/InitStateNames";
 
-export const content = "content";
-
 export const contentSlice = createSlice({
   name: InitStateNames.content,
   initialState: {

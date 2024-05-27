@@ -6,8 +6,8 @@ import setTitle from "./setTitle";
 import StyledComponents from "./sharedStyles";
 import { filterArray, filterHymnsByLetter } from "./filter";
 import scrollToContentTittle from "./scrollToContentTittle";
-import formatData from "./formatData";
-import setData from "./setData";
+import { formatDataForHistory, formatDataforBookmarks } from "./formatData";
+import { setDataForHistory, setDataForBookmarks } from "./setData";
 import showBookmark from "./showBookmark";
 import {
   findLocation,
@@ -33,8 +33,10 @@ export {
   filterArray,
   scrollToContentTittle,
   showBookmark,
-  formatData,
-  setData,
+  formatDataForHistory,
+  formatDataforBookmarks,
+  setDataForHistory,
+  setDataForBookmarks,
   findLocation,
   findBy,
   findHymns,

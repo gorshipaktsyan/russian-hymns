@@ -37,4 +37,8 @@ function filterHymnsByLetter(letter, lg, hymns) {
   return sortedHymns;
 }
 
-export { filterArray, filterHymnsByLetter };
+function filterSavedHymns(savedHymns, value) {
+  return savedHymns.map((date) => date.number.filter((n) => n !== value));
+}
+
+export { filterArray, filterHymnsByLetter, filterSavedHymns };

@@ -7,9 +7,9 @@ import { useLocation } from "react-router-dom";
 import { saveHymn, removeHymn } from "../../../redux/slice/bookmarksSlice";
 import {
   copyToClipboard,
-  setData,
+  setDataForBookmarks,
   showBookmark,
-  formatData,
+  formatDataforBookmarks,
 } from "../../../utils/index";
 import { setIsSaved } from "../../../redux/slice/appBarSlice";
 import { setIsDrawerOpen } from "../../../redux/slice/drawerSlice";
@@ -32,7 +32,7 @@ export default function ToolBar({ setCopyAlert }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const formatedData = formatData(savedHymnsList, hymns, lg);
+    const formatedData = formatDataforBookmarks(savedHymnsList, hymns, lg);
     showBookmark({
       dispatch,
       formatedData,
@@ -45,7 +45,7 @@ export default function ToolBar({ setCopyAlert }) {
       dispatch(removeHymn(currentHymnNumber));
       dispatch(setIsSaved(false));
     } else {
-      const hymnObject = setData(currentHymnNumber);
+      const hymnObject = setDataForBookmarks(currentHymnNumber);
       dispatch(saveHymn(hymnObject));
       dispatch(setIsSaved(true));
     }

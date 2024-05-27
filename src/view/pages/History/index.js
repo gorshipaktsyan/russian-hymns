@@ -3,7 +3,7 @@ import ListItem from "../../components/ListItem";
 import { useNavigate } from "react-router-dom";
 import { Box, Collapse, Divider } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
-import { StyledComponents, formatData } from "../../../utils/index";
+import { StyledComponents, formatDataForHistory } from "../../../utils/index";
 import ConfirmModal from "./ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
@@ -33,8 +33,8 @@ function History() {
     dispatch(clearHistory());
     dispatch(setIsConfirmOpen(false));
   }
-  const formatedData = formatData(history, hymns, lg);
 
+  const formatedData = formatDataForHistory(history, hymns, lg);
   return (
     <>
       <StyledBox>

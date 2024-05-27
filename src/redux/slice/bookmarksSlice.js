@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { InitStateNames } from "../../config/constants/InitStateNames";
-
-export const bookmarks = "bookmarks";
+import { filterArray } from "../../utils/filter";
 
 export const bookmarksSlice = createSlice({
   name: InitStateNames.bookmarks,
@@ -10,8 +9,11 @@ export const bookmarksSlice = createSlice({
   },
   reducers: {
     removeHymn: (state, action) => {
-      state.savedHymns = state.savedHymns.filter(
-        (hymn) => hymn._id !== action.payload
+      state.savedHymns = filterArray(
+        state.savedHymns,
+        "number",
+        action.payload,
+        "!=="
       );
     },
     saveHymn: (state, action) => {

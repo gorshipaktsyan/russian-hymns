@@ -11,11 +11,47 @@ function formattingDate(date, language) {
   return dateFormatter.format(new Date(date));
 }
 
-export default function formatData(data, hymns, language) {
+function formatDataforBookmarks(data, hymns, language) {
   const result = [];
 
-  data.forEach((searched) => {
-    const formattedDate = formattingDate(searched.date, language);
+  data.forEach((day) => {
+    const formattedDate = formattingDate(day.date, language.language);
+    const entry = findBy(result, "date", formattedDate);
+
+    if (!entry) {
+      result.push({
+        date: formattedDate,
+        hymn: [],
+      });
+    }
+
+    const matchingHymn = findBy(hymns, "number", day.number);
+
+    if (matchingHymn) {
+      const existingEntry = findBy(result, "date", formattedDate);
+
+      if (existingEntry) {
+        if (Array.isArray(existingEntry.hymns)) {
+          existingEntry.hymns.push(matchingHymn);
+        } else {
+          existingEntry.hymns = [matchingHymn];
+        }
+      } else {
+        result.push({
+          date: formattedDate,
+          hymn: [matchingHymn],
+        });
+      }
+    }
+  });
+  return result;
+}
+
+function formatDataForHistory(data, hymns, language) {
+  const result = [];
+
+  data.forEach((day) => {
+    const formattedDate = formattingDate(day.date, language.language);
     const entry = findBy(result, "date", formattedDate);
 
     if (!entry) {
@@ -25,7 +61,7 @@ export default function formatData(data, hymns, language) {
       });
     }
 
-    searched.number.forEach((number) => {
+    day.number.forEach((number) => {
       const matchingHymn = findBy(hymns, "number", number);
 
       if (matchingHymn) {
@@ -48,3 +84,5 @@ export default function formatData(data, hymns, language) {
   });
   return result;
 }
+
+export { formatDataforBookmarks, formatDataForHistory };

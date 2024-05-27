@@ -35,7 +35,9 @@ function Layout() {
         dispatch={dispatch}
         fontSize={settings.fontSize}
       />
-      <App />
+      <Box className="container">
+        <App />
+      </Box>
     </Box>
   );
 }

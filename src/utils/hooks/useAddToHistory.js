@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addHymn } from "../../redux/slice/historySlice";
-import setData from "../setData";
+import { setDataForHistory } from "../setData";
 import { findInStore } from "../find";
 
 export default function useAddToHistory(currentNumber) {
@@ -19,7 +19,7 @@ export default function useAddToHistory(currentNumber) {
       }, 1000);
     }
     if (timeOnPage >= 30 && !hasNumber) {
-      const hymnObject = setData(currentNumber);
+      const hymnObject = setDataForHistory(currentNumber);
       dispatch(addHymn(hymnObject));
       setTimeOnPage(0);
     }
