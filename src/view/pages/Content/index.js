@@ -1,21 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import SubTitlesList from "./SubTitlesList";
-import { StyledComponents, scrollToContentTittle } from "../../../utils/index";
+import { StyledComponents, scrollToContentTittle } from "../../../utils";
 import ListItem from "../../components/ListItem";
 import { setTitleId } from "../../../redux/slice/contentSlice";
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 
 const { StyledList, StyledBox } = StyledComponents;
 
 function TitlesList() {
-  const expandedList = useSelector(
-    (state) => state.content.contentExpandedList
-  );
+  const { titleId, subtitleId } = useSelector((state) => state.content);
   const titles = useSelector((state) => state.titles.titles);
   const dispatch = useDispatch();
 
   function handleTitleClick(id) {
-    dispatch(setTitleId(expandedList.titleId === id ? "" : id));
+    dispatch(setTitleId(titleId === id ? "" : id));
     scrollToContentTittle(id);
   }
 
@@ -29,15 +27,15 @@ function TitlesList() {
               id={title._id}
               list={titles}
               index={index}
-              BorderBottom={Divider}
               onTitleClick={handleTitleClick}
               style={{
-                fontWeight: expandedList.titleId === title._id && "bold",
+                fontWeight: titleId === title._id && "bold",
               }}
             />
-            {expandedList.titleId === title._id && (
+            {titleId === title._id && (
               <SubTitlesList
-                expandedList={expandedList}
+                titleId={titleId}
+                subtitleId={subtitleId}
                 dispatch={dispatch}
                 scrollToContentTittle={scrollToContentTittle}
               />

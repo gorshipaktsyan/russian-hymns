@@ -1,31 +1,29 @@
 import React from "react";
 import ListItem from "../../components/ListItem";
-import { Divider } from "@mui/material";
-import StyledComponents from "../../../utils/sharedStyles";
+import { StyledComponents } from "../../../utils";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import { setFindedHymns } from "../../../redux/slice/searchSlice";
+import { setFoundHymns } from "../../../redux/slice/searchSlice";
 
 const { StyledList, StyledBox } = StyledComponents;
 
-function SearchedHymnList({ findedHymns, navigate, dispatch }) {
+function SearchedHymnList({ foundHymns, navigate, dispatch }) {
   function handleClick(id) {
     dispatch(setCurrentNumber([id]));
-    dispatch(setFindedHymns([]));
+    dispatch(setFoundHymns([]));
     navigate(`/hymns/${id}`);
   }
 
   return (
     <StyledBox>
       <StyledList>
-        {findedHymns.map((h, index) => (
+        {foundHymns.map((h, index) => (
           <ListItem
             key={h.number}
             title={h?.first_string}
             number={h.number}
             id={h.number}
-            list={findedHymns}
+            list={foundHymns}
             index={index}
-            BorderBottom={Divider}
             onTitleClick={handleClick}
           />
         ))}

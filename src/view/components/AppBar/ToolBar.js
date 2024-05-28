@@ -10,7 +10,7 @@ import {
   setDataForBookmarks,
   showBookmark,
   formatDataforBookmarks,
-} from "../../../utils/index";
+} from "../../../utils";
 import { setIsSaved } from "../../../redux/slice/appBarSlice";
 import { setIsDrawerOpen } from "../../../redux/slice/drawerSlice";
 
@@ -32,12 +32,12 @@ export default function ToolBar({ setCopyAlert }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const formatedData = formatDataforBookmarks(savedHymnsList, hymns, lg);
-    showBookmark({
-      dispatch,
-      formatedData,
+    const formattedData = formatDataforBookmarks(savedHymnsList, hymns, lg);
+    const isBookmarked = showBookmark({
+      formattedData,
       currentHymnNumber,
     });
+    dispatch(setIsSaved(isBookmarked));
   }, [currentHymnNumber, savedHymnsList, dispatch, hymns, lg]);
 
   const handleBookmarkClick = () => {

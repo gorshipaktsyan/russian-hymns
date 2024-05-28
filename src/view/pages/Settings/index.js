@@ -1,5 +1,5 @@
 import { Divider, Slider, Switch } from "@mui/material";
-import StyledComponents from "../../../utils/sharedStyles";
+import { StyledComponents } from "../../../utils";
 import SettingsStyledComponents from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import {

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import ListItemStyledComponents from "./styles";
-import addDivider from "../../../utils/addDivider";
+import Divider from "./Divider";
 
 const { StyledListItem, StyledDeletedIcon, StyledText } =
   ListItemStyledComponents;
@@ -12,7 +12,6 @@ function ListItem({
   list,
   index,
   Icon,
-  BorderBottom,
   onIconClick,
   onTitleClick,
   style,
@@ -34,7 +33,7 @@ function ListItem({
           <StyledDeletedIcon as={Icon} onClick={() => onIconClick(id)} />
         )}
       </Box>
-      {addDivider(BorderBottom, list, index)}
+      <Divider lastIndex={list.length - 1} index={index} />
     </>
   );
 }

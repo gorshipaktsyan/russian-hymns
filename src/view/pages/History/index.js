@@ -3,7 +3,7 @@ import ListItem from "../../components/ListItem";
 import { useNavigate } from "react-router-dom";
 import { Box, Collapse, Divider } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
-import { StyledComponents, formatDataForHistory } from "../../../utils/index";
+import { StyledComponents, formatDataForHistory } from "../../../utils";
 import ConfirmModal from "./ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
@@ -34,11 +34,11 @@ function History() {
     dispatch(setIsConfirmOpen(false));
   }
 
-  const formatedData = formatDataForHistory(history, hymns, lg);
+  const formattedData = formatDataForHistory(history, hymns, lg);
   return (
     <>
       <StyledBox>
-        {formatedData.length > 0 ? (
+        {formattedData.length > 0 ? (
           <StyledList>
             <StyledDeleteHistoryText
               onClick={() => dispatch(setIsConfirmOpen(true))}
@@ -46,7 +46,7 @@ function History() {
               {lg.history.deleteHistory}
             </StyledDeleteHistoryText>
             <TransitionGroup>
-              {formatedData.map(({ date, hymns }) => (
+              {formattedData.map(({ date, hymns }) => (
                 <Collapse key={date}>
                   <Box sx={{ paddingBottom: "20px" }}>
                     <Divider>{date}</Divider>
@@ -58,7 +58,6 @@ function History() {
                         id={h._id}
                         list={hymns}
                         index={index}
-                        BorderBottom={Divider}
                         onTitleClick={handleClick}
                       />
                     ))}

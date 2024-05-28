@@ -5,11 +5,7 @@ import StyledContentComponents from "./styles";
 
 const { StyledFirstStringList } = StyledContentComponents;
 
-export default function FirstStringList({
-  firstStringList,
-  Divider,
-  dispatch,
-}) {
+export default function FirstStringList({ firstStringList, dispatch }) {
   const navigate = useNavigate();
 
   function handleHymnClick(id) {
@@ -27,7 +23,6 @@ export default function FirstStringList({
           id={h._id}
           list={firstStringList}
           index={index}
-          BorderBottom={Divider}
           onTitleClick={handleHymnClick}
           style={{
             fontSize: "15px",

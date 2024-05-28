@@ -1,4 +1,4 @@
-import StyledComponents from "../../../utils/sharedStyles";
+import { StyledComponents } from "../../../utils";
 import SearchBarStyledComponents from "./styles";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";

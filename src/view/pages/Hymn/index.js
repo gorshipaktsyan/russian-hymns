@@ -5,11 +5,8 @@ import Box from "@mui/material/Box";
 import "./index.scss";
 import HymnStyledComponents from "./styles";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import {
-  useAddToHistory,
-  useSwipeNavigation,
-} from "../../../utils/hooks/index";
-import { findHymns } from "../../../utils/find";
+import { useAddToHistory, useSwipeNavigation } from "../../../utils/hooks";
+import { findHymns } from "../../../utils";
 
 const {
   StyledDivider,
@@ -43,7 +40,7 @@ function Hymn() {
     number && dispatch(setCurrentNumber(number.split(",").map(Number)));
   }, [number, dispatch]);
 
-  const findedHymns = findHymns(currentNumber, hymns);
+  const foundHymns = findHymns(currentNumber, hymns);
 
   return (
     <>
@@ -54,11 +51,11 @@ function Hymn() {
         }}
         {...handlers}
       >
-        {findedHymns.map((h, index) => {
+        {foundHymns.map((h, index) => {
           return (
             <Box key={index}>
               <div className="hymnInfo">
-                {findedHymns.length > 1 && (
+                {foundHymns.length > 1 && (
                   <div
                     dangerouslySetInnerHTML={{
                       __html: `${settings.language.hymn} ${h.number}<sup>${h.sign}</sup>`,
@@ -86,7 +83,7 @@ function Hymn() {
                   )
                 )}
               </>
-              {index !== findedHymns.length - 1 && <StyledDivider />}
+              {index !== foundHymns.length - 1 && <StyledDivider />}
             </Box>
           );
         })}

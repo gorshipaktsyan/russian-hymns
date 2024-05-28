@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Drawer, AppBar, ScrollToTop } from "../view/components/index";
 import App from "../App";
 import Box from "@mui/material/Box";
-import { setTitle, setFontSize } from "../utils/index";
-import useDoubleTap from "../utils/hooks/useDoubleTap";
+import { setFontSize, findTitle } from "../utils";
+import { useDoubleTap } from "../utils/hooks";
+import { setAppBarTitle } from "../redux/slice/appBarSlice";
 
 function Layout() {
   const settings = useSelector((state) => state.settings);
@@ -23,7 +24,8 @@ function Layout() {
   }, [settings.fontSize]);
 
   useEffect(() => {
-    setTitle(currentNumber, pathname, hymns, dispatch, settings.language);
+    const title = findTitle(currentNumber, pathname, hymns, settings.language);
+    dispatch(setAppBarTitle(title));
   }, [currentNumber, pathname, dispatch, settings.language, hymns]);
 
   return (

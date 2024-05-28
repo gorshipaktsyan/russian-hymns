@@ -1,13 +1,4 @@
-import { setCurrentNumber } from "../redux/slice/currentNumberSlice";
 import createNavItems from "./createNavItems";
-import { filterArray } from "./filter";
-
-function findLocation(pathname, lg) {
-  const navItems = createNavItems(lg);
-  const selectedItem = navItems.find((item) => `/${item.route}` === pathname);
-
-  return selectedItem && selectedItem.title;
-}
 
 function findHymns(currentNumber, hymns) {
   if (!currentNumber || !hymns) return [];
@@ -30,15 +21,69 @@ function findInStore(value, data) {
   return false;
 }
 
-function findSearchedNumbers(input, property, hymns, dispatch) {
+function findSearchedNumbers(input, property, hymns) {
   const numbers = input.split(",").map((num) => Number(num.trim()));
-  const matchingHymns = filterArray(hymns, property, (value) =>
-    numbers.includes(value)
-  );
-  const resultNumbers = matchingHymns.map((h) => h.number);
-  resultNumbers.length && dispatch(setCurrentNumber(resultNumbers));
-
-  return resultNumbers;
+  return hymns
+    .filter((h) => numbers.includes(h[property]))
+    .map((h) => h.number);
 }
 
-export { findBy, findHymns, findInStore, findLocation, findSearchedNumbers };
+function findHymnsWithMatchKey(searchedText, regExp, hymns) {
+  const lowerCaseText = searchedText.toLowerCase();
+  const regExpOnlyLetters = new RegExp(regExp, "g");
+  const textWithoutSpacesAndSymbols = lowerCaseText.replace(
+    regExpOnlyLetters,
+    ""
+  );
+
+  if (textWithoutSpacesAndSymbols === "") return [];
+
+  const hymnsWithMatchKey = hymns.map((hymn) => {
+    const hymnWithoutSpacesAndSymbols = hymn.text
+      .toLowerCase()
+      .replace(regExpOnlyLetters, "");
+    return {
+      ...hymn,
+      matches: hymnWithoutSpacesAndSymbols.includes(
+        textWithoutSpacesAndSymbols
+      ),
+    };
+  });
+
+  return hymnsWithMatchKey.filter((h) => h.matches);
+}
+
+export default function findTitle(currentNumber, pathname, hymns, lg) {
+  let newTitle;
+
+  if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
+    const currentHymn = hymns.find((h) => currentNumber.includes(h.number));
+
+    if (currentNumber.length > 1) {
+      newTitle = `${lg.hymns} ${currentNumber
+        .slice(0, 3)
+        .map((number) => " " + number)}${
+        currentNumber.length > 3 ? " ..." : ""
+      }`;
+    } else {
+      newTitle = `${lg.hymn} ${currentNumber}<sup>${
+        currentHymn?.sign || ""
+      }</sup>`;
+    }
+
+    return newTitle;
+  } else {
+    const navItems = createNavItems(lg);
+    const selectedItem = navItems.find((item) => `/${item.route}` === pathname);
+    return selectedItem ? selectedItem.title : null;
+  }
+}
+
+export {
+  findBy,
+  findHymns,
+  findInStore,
+  findSearchedNumbers,
+  findHymnsWithMatchKey,
+  findTitle,
+};

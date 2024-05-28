@@ -4,29 +4,19 @@ import { InitStateNames } from "../../config/constants/InitStateNames";
 export const contentSlice = createSlice({
   name: InitStateNames.content,
   initialState: {
-    contentExpandedList: {
-      titleId: "",
-      subtitleId: "",
-    },
+    titleId: "",
+    subtitleId: "",
   },
   reducers: {
     resetContentValues: (state) => {
-      state.contentExpandedList = {
-        titleId: "",
-        subtitleId: "",
-      };
+      state.titleId = "";
+      state.subtitleId = "";
     },
     setTitleId: (state, action) => {
-      state.contentExpandedList = {
-        ...state.contentExpandedList,
-        titleId: action.payload,
-      };
+      state.titleId = action.payload;
     },
     setSubtitleId: (state, action) => {
-      state.contentExpandedList = {
-        ...state.contentExpandedList,
-        subtitleId: action.payload,
-      };
+      state.subtitleId = action.payload;
     },
   },
 });

@@ -3,7 +3,7 @@ import ListItem from "../../components/ListItem";
 import { Box, Divider, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TransitionGroup } from "react-transition-group";
-import { StyledComponents, formatDataforBookmarks } from "../../../utils/index";
+import { StyledComponents, formatDataforBookmarks } from "../../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { removeHymn } from "../../../redux/slice/bookmarksSlice";
 
@@ -24,13 +24,13 @@ function Bookmarks() {
     dispatch(removeHymn(id));
   }
 
-  const formatedData = formatDataforBookmarks(savedHymns, hymns, lg);
+  const formattedData = formatDataforBookmarks(savedHymns, hymns, lg);
   return (
     <StyledBox>
-      {formatedData.length > 0 ? (
+      {formattedData.length > 0 ? (
         <StyledList>
           <TransitionGroup>
-            {formatedData.map(({ date, hymns }) => (
+            {formattedData.map(({ date, hymns }) => (
               <Collapse key={date}>
                 <Box sx={{ paddingBottom: "20px" }}>
                   <Divider>{date}</Divider>
@@ -43,7 +43,6 @@ function Bookmarks() {
                       list={hymns}
                       index={index}
                       Icon={DeleteIcon}
-                      BorderBottom={Divider}
                       onTitleClick={handleClick}
                       onIconClick={handleDelete}
                     />

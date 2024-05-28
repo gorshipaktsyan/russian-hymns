@@ -1,8 +1,7 @@
-import { Divider } from "@mui/material";
+import { useSelector } from "react-redux";
 import ListItem from "../../components/ListItem";
 import SearchIcon from "@mui/icons-material/Search";
-import { StyledComponents, filterHymnsByLetter } from "../../../utils/index";
-import { useSelector } from "react-redux";
+import { StyledComponents, filterHymnsByLetter } from "../../../utils";
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
 
@@ -29,7 +28,6 @@ function HymnsList({
             id={h._id}
             list={filteredHymnsByLetter}
             index={index}
-            BorderBottom={Divider}
             onTitleClick={handleTitleClick}
           />
         ))}

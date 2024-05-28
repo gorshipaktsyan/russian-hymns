@@ -1,29 +1,26 @@
 import { useSelector } from "react-redux";
 import ListItem from "../../components/ListItem";
 import { setSubtitleId } from "../../../redux/slice/contentSlice";
-import { filterArray } from "../../../utils/index";
 import FirstStringList from "./FirstStringList";
-import { Box, Divider } from "@mui/material";
+import { Box } from "@mui/material";
 import StyledContentComponents from "./styles";
 
 const { StyledSubList } = StyledContentComponents;
 
-function SubTitlesList({ expandedList, dispatch, scrollToContentTittle }) {
+function SubTitlesList({
+  titleId,
+  subtitleId,
+  dispatch,
+  scrollToContentTittle,
+}) {
   const hymns = useSelector((state) => state.hymns.hymns);
   const subtitles = useSelector((state) => state.subtitles.subtitles);
-  const filteredSubtitles = filterArray(
-    subtitles,
-    "title",
-    expandedList.titleId
-  );
+  const filteredSubtitles = subtitles.filter((sub) => sub.title === titleId);
 
-  function handleSubTitleClick(subtitleId) {
-    dispatch(
-      setSubtitleId(expandedList.subtitleId === subtitleId ? "" : subtitleId)
-    );
-    scrollToContentTittle(subtitleId);
+  function handleSubTitleClick(id) {
+    dispatch(setSubtitleId(subtitleId === id ? "" : id));
+    scrollToContentTittle(id);
   }
-
   return (
     <StyledSubList>
       {filteredSubtitles.map((sub, index) => {
@@ -34,17 +31,15 @@ function SubTitlesList({ expandedList, dispatch, scrollToContentTittle }) {
               id={sub._id}
               list={filteredSubtitles}
               index={index}
-              BorderBottom={Divider}
               onTitleClick={handleSubTitleClick}
               style={{
-                fontWeight: expandedList.subtitleId === sub._id && "bold",
+                fontWeight: subtitleId === sub._id && "bold",
                 fontSize: "15px",
               }}
             />
-            {expandedList.subtitleId === sub._id && (
+            {subtitleId === sub._id && (
               <FirstStringList
-                firstStringList={filterArray(hymns, "subtitle", sub._id)}
-                Divider={Divider}
+                firstStringList={hymns.filter((h) => h.subtitle === sub._id)}
                 dispatch={dispatch}
               />
             )}

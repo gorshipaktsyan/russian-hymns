@@ -5,19 +5,19 @@ export const searchSlice = createSlice({
   name: InitStateNames.search,
   initialState: {
     isSearchedHymnsListOpen: false,
-    findedHymns: [],
+    foundHymns: [],
   },
   reducers: {
     setIsSearchedHymnsListOpen: (state, action) => {
       state.isSearchedHymnsListOpen = action.payload;
     },
-    setFindedHymns: (state, action) => {
-      state.findedHymns = action.payload;
+    setFoundHymns: (state, action) => {
+      state.foundHymns = action.payload;
     },
   },
 });
 
-export const { setIsSearchedHymnsListOpen, setFindedHymns } =
+export const { setIsSearchedHymnsListOpen, setFoundHymns } =
   searchSlice.actions;
 
 export default searchSlice.reducer;

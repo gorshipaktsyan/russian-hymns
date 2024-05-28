@@ -21,7 +21,7 @@ function formatDataforBookmarks(data, hymns, language) {
     if (!entry) {
       result.push({
         date: formattedDate,
-        hymn: [],
+        hymns: [],
       });
     }
 
@@ -39,7 +39,7 @@ function formatDataforBookmarks(data, hymns, language) {
       } else {
         result.push({
           date: formattedDate,
-          hymn: [matchingHymn],
+          hymns: [matchingHymn],
         });
       }
     }

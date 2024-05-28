@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import StyledComponents from "../../../utils/sharedStyles";
+import { StyledComponents } from "../../../utils";
 
 const { InfoBox } = StyledComponents;
 

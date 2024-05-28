@@ -5,7 +5,7 @@ import swipeConfig from "../../config/swipeConfig";
 export default function useSwipeNavigation({ currentNumber, hymns, navigate }) {
   // Handle left swipe
   function handleLeftSwipe(e) {
-    if (e && e.stopPropagation) e.stopPropagation();
+    e?.stopPropagation();
     const index = hymns.findIndex(
       (el) =>
         Number(el.number) ===
