@@ -1,16 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import bookmarksService from "../../services/BookmarksService";
+import { InitStateNames } from "../../config/constants/InitStateNames";
+import { filterArray } from "../../utils/filter";
+
 export const bookmarksSlice = createSlice({
-  name: "bookmarks",
+  name: InitStateNames.bookmarks,
   initialState: {
-    savedHymns: bookmarksService.get() || [],
+    savedHymns: [],
   },
   reducers: {
     removeHymn: (state, action) => {
-      state.savedHymns = bookmarksService.remove(action.payload);
+      state.savedHymns = filterArray(
+        state.savedHymns,
+        "number",
+        action.payload,
+        "!=="
+      );
     },
     saveHymn: (state, action) => {
-      state.savedHymns = bookmarksService.set(action.payload);
+      state.savedHymns.unshift(action.payload);
     },
   },
 });

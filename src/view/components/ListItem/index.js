@@ -1,15 +1,15 @@
 import { Box } from "@mui/material";
-import HymnTitleStyledComponents from "./styles";
+import ListItemStyledComponents from "./styles";
 import addDivider from "../../../utils/addDivider";
 
 const { StyledListItem, StyledDeletedIcon, StyledText } =
-  HymnTitleStyledComponents;
+  ListItemStyledComponents;
 
-function HymnTitle({
+function ListItem({
   title,
   number,
   id,
-  hymnsList,
+  list,
   index,
   Icon,
   BorderBottom,
@@ -34,8 +34,8 @@ function HymnTitle({
           <StyledDeletedIcon as={Icon} onClick={() => onIconClick(id)} />
         )}
       </Box>
-      {addDivider(BorderBottom, hymnsList, index)}
+      {addDivider(BorderBottom, list, index)}
     </>
   );
 }
-export default HymnTitle;
+export default ListItem;

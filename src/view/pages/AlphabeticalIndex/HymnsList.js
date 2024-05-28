@@ -1,8 +1,7 @@
 import { Divider } from "@mui/material";
-import HymnTitle from "../../components/hymnTitle/HymnTitle";
+import ListItem from "../../components/ListItem";
 import SearchIcon from "@mui/icons-material/Search";
-import StyledComponents from "../../../utils/sharedStyles";
-import filterHymnsByLetter from "../../../utils/filterHymnsByLetter";
+import { StyledComponents, filterHymnsByLetter } from "../../../utils/index";
 import { useSelector } from "react-redux";
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
@@ -21,13 +20,14 @@ function HymnsList({
     <StyledBox>
       <StyledList>
         {filteredHymnsByLetter.map((h, index) => (
-          <HymnTitle
+          <ListItem
+            key={h._id}
             title={
               h.filteredByFirstLetter ? h.first_string : h.chorus_first_string
             }
             number={h.number}
             id={h._id}
-            hymnsList={filteredHymnsByLetter}
+            list={filteredHymnsByLetter}
             index={index}
             BorderBottom={Divider}
             onTitleClick={handleTitleClick}

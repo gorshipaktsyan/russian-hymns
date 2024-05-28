@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { InitStateNames } from "../../config/constants/InitStateNames";
 
 export const currentNumberSlice = createSlice({
-  name: "currentNumber",
+  name: InitStateNames.currentNumber,
   initialState: {
     currentNumber: [],
   },

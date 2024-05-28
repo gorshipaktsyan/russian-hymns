@@ -1,14 +1,28 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { logger } from "redux-logger";
-import { thunk } from "redux-thunk";
 import rootReducer from "./rootReducer";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import { persistConfig } from "../config/persistConfig";
 
-const middleware = [thunk];
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-if (process.env.NODE_ENV === "development") {
-  middleware.push(logger);
-}
-
-export default configureStore({
-  reducer: rootReducer,
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+
+export const persistor = persistStore(store);
+export default store;

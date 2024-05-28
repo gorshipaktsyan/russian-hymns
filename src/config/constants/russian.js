@@ -5,7 +5,7 @@ const russian = {
   language: "ru",
   noData: "Нет данных",
   regExp: {
-    onlyLetters: "[а-яА-ЯёЁ]",
+    onlyLetters: "[^а-яА-ЯёЁ]",
   },
 
   navItems: {

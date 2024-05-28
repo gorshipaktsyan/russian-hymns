@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { InitStateNames } from "../../config/constants/InitStateNames";
 
 export const searchSlice = createSlice({
-  name: "search",
+  name: InitStateNames.search,
   initialState: {
     isSearchedHymnsListOpen: false,
     findedHymns: [],

@@ -1,19 +1,22 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom/client";
-import store from "./redux/store";
+import store, { persistor } from "./redux/store";
 import Layout from "./Layout";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import "./index.scss";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <Layout />
+        <PersistGate loading={null} persistor={persistor}>
+          <Layout />
+        </PersistGate>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

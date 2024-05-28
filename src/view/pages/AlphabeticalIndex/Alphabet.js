@@ -3,10 +3,12 @@ import AlphabeticalStyledComponents from "./styles";
 
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;
 
-function Alphabet({ setLetter, dispatch, lg, setTitle }) {
+function Alphabet({ setLetter, dispatch, lg, setAppBarTitle }) {
   function handleClick(letter) {
     setLetter(letter);
-    dispatch(setTitle(`${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`));
+    dispatch(
+      setAppBarTitle(`${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`)
+    );
   }
 
   return (

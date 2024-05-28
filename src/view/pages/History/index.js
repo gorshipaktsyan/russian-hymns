@@ -1,9 +1,9 @@
 import React from "react";
-import HymnTitle from "../../components/hymnTitle/HymnTitle";
+import ListItem from "../../components/ListItem";
 import { useNavigate } from "react-router-dom";
 import { Box, Collapse, Divider } from "@mui/material";
 import { TransitionGroup } from "react-transition-group";
-import StyledComponents from "../../../utils/sharedStyles";
+import { StyledComponents, formatDataForHistory } from "../../../utils/index";
 import ConfirmModal from "./ConfirmationModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
@@ -14,7 +14,7 @@ import {
 import StyledHistoryComponents from "./styles";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
-const { StyledDeleteText } = StyledHistoryComponents;
+const { StyledDeleteHistoryText } = StyledHistoryComponents;
 
 function History() {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ function History() {
   const isConfirmOpen = useSelector((state) => state.history.isConfirmOpen);
   const history = useSelector((state) => state.history.searchedHymns);
   const lg = useSelector((state) => state.settings.language);
+  const hymns = useSelector((state) => state.hymns.hymns);
 
   function handleClick(id) {
     dispatch(setCurrentNumber([id]));
@@ -33,25 +34,29 @@ function History() {
     dispatch(setIsConfirmOpen(false));
   }
 
+  const formatedData = formatDataForHistory(history, hymns, lg);
   return (
     <>
       <StyledBox>
-        {history.length > 0 ? (
+        {formatedData.length > 0 ? (
           <StyledList>
-            <StyledDeleteText onClick={() => dispatch(setIsConfirmOpen(true))}>
+            <StyledDeleteHistoryText
+              onClick={() => dispatch(setIsConfirmOpen(true))}
+            >
               {lg.history.deleteHistory}
-            </StyledDeleteText>
+            </StyledDeleteHistoryText>
             <TransitionGroup>
-              {history.map(({ date, hymns }) => (
+              {formatedData.map(({ date, hymns }) => (
                 <Collapse key={date}>
                   <Box sx={{ paddingBottom: "20px" }}>
                     <Divider>{date}</Divider>
                     {hymns.map((h, index) => (
-                      <HymnTitle
+                      <ListItem
+                        key={h._id}
                         title={h?.first_string}
                         number={h?.number}
                         id={h._id}
-                        hymnsList={hymns}
+                        list={hymns}
                         index={index}
                         BorderBottom={Divider}
                         onTitleClick={handleClick}

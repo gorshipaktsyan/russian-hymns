@@ -1,5 +1,5 @@
 import hymns from "../storage/hymns.json";
-import filterBy from "../utils/filterBy";
+import { filterArray } from "../utils/filter";
 import { findBy } from "../utils/find";
 import persistentStorage from "./PersistentStorage";
 
@@ -61,7 +61,7 @@ class BookmarksService {
   remove(id) {
     try {
       const hymns = persistentStorage.get(key) || [];
-      const updatedHymns = filterBy(hymns, "number", id, "!==");
+      const updatedHymns = filterArray(hymns, "number", id, "!==");
       persistentStorage.set(key, updatedHymns);
     } catch (error) {
       console.error(
