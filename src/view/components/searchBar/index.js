@@ -1,8 +1,8 @@
-import { StyledComponents } from "../../../utils";
-import SearchBarStyledComponents from "./styles";
 import { useNavigate } from "react-router-dom";
-import SearchIcon from "@mui/icons-material/Search";
 import { useSelector } from "react-redux";
+import SearchIcon from "@mui/icons-material/Search";
+import { StyledComponents } from "../../styles";
+import SearchBarStyledComponents from "./styles";
 import { setIsSearchedHymnsListOpen } from "../../../redux/slice/searchSlice";
 
 const { StyledFab } = StyledComponents;

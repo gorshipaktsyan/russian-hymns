@@ -6,16 +6,13 @@ import {
   setFoundHymns,
   setIsSearchedHymnsListOpen,
 } from "../../../redux/slice/searchSlice";
-import { useEnterKeySubmit } from "../../../utils/hooks";
-import {
-  StyledComponents,
-  clearInputs,
-  findHymnsWithMatchKey,
-  findSearchedNumbers,
-} from "../../../utils";
-import SearchStyledComponents from "./styles";
-import Snackbar from "@mui/material/Snackbar";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
+import { useEnterKeySubmit } from "../../../utils/hooks";
+import { clearInputs } from "../../../utils";
+import { hymnsService } from "../../../services";
+import { StyledComponents } from "../../styles";
+import Snackbar from "@mui/material/Snackbar";
+import SearchStyledComponents from "./styles";
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } =
@@ -33,7 +30,6 @@ function Search() {
     (state) => state.search
   );
 
-  const hymns = useSelector((state) => state.hymns.hymns);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -52,16 +48,15 @@ function Search() {
     e.preventDefault();
     let number = [];
     if (rusNumber) {
-      number = findSearchedNumbers(rusNumber, "number", hymns);
+      number = hymnsService.findSearchedHymns(rusNumber, "number");
       dispatch(setCurrentNumber([number]));
     } else if (engNumber) {
-      number = findSearchedNumbers(engNumber, "number_eng", hymns);
+      number = hymnsService.findSearchedHymns(engNumber, "number_eng");
       dispatch(setCurrentNumber([number]));
     } else if (searchedText) {
-      const foundHymns = findHymnsWithMatchKey(
+      const foundHymns = hymnsService.findHymnsWithMatchKey(
         searchedText,
-        language.regExp.onlyLetters,
-        hymns
+        language.regExp.onlyLetters
       );
       foundHymns.length && dispatch(setFoundHymns(foundHymns));
       return;

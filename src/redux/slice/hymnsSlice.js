@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import hymns from "../../storage/hymns.json";
 import { InitStateNames } from "../../config/constants/InitStateNames";
+import { hymnsService } from "../../services";
 
 export const hymnsSlice = createSlice({
   name: InitStateNames.hymns,
   initialState: {
-    hymns: hymns || [],
+    hymns: hymnsService.get() || [],
     filteredHymns: [],
   },
   reducers: {},

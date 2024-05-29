@@ -6,7 +6,7 @@ import "./index.scss";
 import HymnStyledComponents from "./styles";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 import { useAddToHistory, useSwipeNavigation } from "../../../utils/hooks";
-import { findHymns } from "../../../utils";
+import { hymnsService } from "../../../services";
 
 const {
   StyledDivider,
@@ -24,7 +24,6 @@ function Hymn() {
   const currentNumber = useSelector(
     (state) => state.currentNumber.currentNumber
   );
-  const hymns = useSelector((state) => state.hymns.hymns);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,7 +31,6 @@ function Hymn() {
 
   const { handleLeftSwipe, handleRightSwipe, handlers } = useSwipeNavigation({
     currentNumber,
-    hymns,
     navigate,
   });
 
@@ -40,7 +38,7 @@ function Hymn() {
     number && dispatch(setCurrentNumber(number.split(",").map(Number)));
   }, [number, dispatch]);
 
-  const foundHymns = findHymns(currentNumber, hymns);
+  const foundHymns = hymnsService.findHymns(currentNumber);
 
   return (
     <>
@@ -51,7 +49,7 @@ function Hymn() {
         }}
         {...handlers}
       >
-        {foundHymns.map((h, index) => {
+        {foundHymns?.map((h, index) => {
           return (
             <Box key={index}>
               <div className="hymnInfo">

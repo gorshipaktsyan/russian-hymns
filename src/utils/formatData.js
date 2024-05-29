@@ -1,4 +1,4 @@
-import { findBy } from "./find";
+import hymnsService from "../services/hymnsService";
 
 function formattingDate(date, language) {
   const options = {
@@ -11,12 +11,12 @@ function formattingDate(date, language) {
   return dateFormatter.format(new Date(date));
 }
 
-function formatDataforBookmarks(data, hymns, language) {
+function formatDataforBookmarks(data, language) {
   const result = [];
 
   data.forEach((day) => {
     const formattedDate = formattingDate(day.date, language.language);
-    const entry = findBy(result, "date", formattedDate);
+    const entry = result.find((d) => d.date === formattedDate);
 
     if (!entry) {
       result.push({
@@ -25,10 +25,10 @@ function formatDataforBookmarks(data, hymns, language) {
       });
     }
 
-    const matchingHymn = findBy(hymns, "number", day.number);
+    const matchingHymn = hymnsService.findHymn(day.number);
 
     if (matchingHymn) {
-      const existingEntry = findBy(result, "date", formattedDate);
+      const existingEntry = result.find((d) => d.date === formattedDate);
 
       if (existingEntry) {
         if (Array.isArray(existingEntry.hymns)) {
@@ -47,12 +47,12 @@ function formatDataforBookmarks(data, hymns, language) {
   return result;
 }
 
-function formatDataForHistory(data, hymns, language) {
+function formatDataForHistory(data, language) {
   const result = [];
 
   data.forEach((day) => {
     const formattedDate = formattingDate(day.date, language.language);
-    const entry = findBy(result, "date", formattedDate);
+    const entry = result.find((d) => d.date === formattedDate);
 
     if (!entry) {
       result.push({
@@ -62,10 +62,10 @@ function formatDataForHistory(data, hymns, language) {
     }
 
     day.number.forEach((number) => {
-      const matchingHymn = findBy(hymns, "number", number);
+      const matchingHymn = hymnsService.findHymn(number);
 
       if (matchingHymn) {
-        const existingEntry = findBy(result, "date", formattedDate);
+        const existingEntry = result.find((d) => d.date === formattedDate);
 
         if (existingEntry) {
           if (Array.isArray(existingEntry.hymns)) {

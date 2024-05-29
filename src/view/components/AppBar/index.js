@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useState } from "react";
-import { Snackbar, AppBar } from "@mui/material";
-import { StyledComponents } from "../../../utils";
 import ToolBar from "./ToolBar";
+import { Snackbar, AppBar } from "@mui/material";
+import { StyledComponents } from "../../styles";
 
 const { StyledAlert } = StyledComponents;
 

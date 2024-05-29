@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Drawer, AppBar, ScrollToTop } from "../view/components/index";
+import { Drawer, AppBar } from "../view/components/index";
 import App from "../App";
 import Box from "@mui/material/Box";
 import { setFontSize, findTitle } from "../utils";
@@ -13,7 +13,6 @@ function Layout() {
   const currentNumber = useSelector(
     (state) => state.currentNumber.currentNumber
   );
-  const hymns = useSelector((state) => state.hymns.hymns);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
@@ -24,13 +23,20 @@ function Layout() {
   }, [settings.fontSize]);
 
   useEffect(() => {
-    const title = findTitle(currentNumber, pathname, hymns, settings.language);
+    const title = findTitle({
+      currentNumber,
+      pathname,
+      lg: settings.language,
+    });
     dispatch(setAppBarTitle(title));
-  }, [currentNumber, pathname, dispatch, settings.language, hymns]);
+  }, [currentNumber, pathname, dispatch, settings.language]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname, currentNumber]);
 
   return (
     <Box sx={{ height: "100%" }}>
-      <ScrollToTop currentNumber={currentNumber} pathname={pathname} />
       <AppBar lg={settings.language} />
       <Drawer
         lg={settings.language}

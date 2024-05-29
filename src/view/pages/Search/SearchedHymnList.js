@@ -1,6 +1,6 @@
 import React from "react";
 import ListItem from "../../components/ListItem";
-import { StyledComponents } from "../../../utils";
+import { StyledComponents } from "../../styles";
 import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
 import { setFoundHymns } from "../../../redux/slice/searchSlice";
 

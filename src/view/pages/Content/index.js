@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import SubTitlesList from "./SubTitlesList";
-import { StyledComponents, scrollToContentTittle } from "../../../utils";
 import ListItem from "../../components/ListItem";
 import { setTitleId } from "../../../redux/slice/contentSlice";
+import { scrollToContentTittle } from "../../../utils";
+import { StyledComponents } from "../../styles";
 import { Box } from "@mui/material";
 
 const { StyledList, StyledBox } = StyledComponents;

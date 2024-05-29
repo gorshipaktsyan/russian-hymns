@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { changeFontSize } from "../../redux/slice/settingsSlice";
-import doubleTap from "../doubleTap";
+import { doubleTap } from "../";
 
 export default function useDoubleTap(pathname, dispatch, fontSize) {
   useEffect(() => {

@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
 import ListItem from "../../components/ListItem";
 import SearchIcon from "@mui/icons-material/Search";
-import { StyledComponents, filterHymnsByLetter } from "../../../utils";
+import { filterAndSortHymnsByLetter } from "../../../utils";
+import { StyledComponents } from "../../styles";
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
 
@@ -12,8 +12,7 @@ function HymnsList({
   isMobile,
   lg,
 }) {
-  const hymns = useSelector((state) => state.hymns.hymns);
-  const filteredHymnsByLetter = filterHymnsByLetter(letter, lg, hymns);
+  const filteredHymnsByLetter = filterAndSortHymnsByLetter(letter, lg);
 
   return (
     <StyledBox>

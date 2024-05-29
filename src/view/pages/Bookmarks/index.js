@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { TransitionGroup } from "react-transition-group";
 import ListItem from "../../components/ListItem";
+import { formatDataforBookmarks } from "../../../utils";
+import { removeHymn } from "../../../redux/slice/bookmarksSlice";
+import { StyledComponents } from "../../styles";
 import { Box, Divider, Collapse } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { TransitionGroup } from "react-transition-group";
-import { StyledComponents, formatDataforBookmarks } from "../../../utils";
-import { useDispatch, useSelector } from "react-redux";
-import { removeHymn } from "../../../redux/slice/bookmarksSlice";
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
 function Bookmarks() {
   const savedHymns = useSelector((state) => state.bookmarks.savedHymns);
   const lg = useSelector((state) => state.settings.language);
-  const hymns = useSelector((state) => state.hymns.hymns);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function Bookmarks() {
     dispatch(removeHymn(id));
   }
 
-  const formattedData = formatDataforBookmarks(savedHymns, hymns, lg);
+  const formattedData = formatDataforBookmarks(savedHymns, lg);
   return (
     <StyledBox>
       {formattedData.length > 0 ? (

@@ -1,10 +1,7 @@
 import { useEffect } from "react";
-import { Box, IconButton, Toolbar } from "@mui/material";
-import { Menu, BookmarkBorder, Bookmark } from "@mui/icons-material/";
-import SearchBar from "../SearchBar";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { saveHymn, removeHymn } from "../../../redux/slice/bookmarksSlice";
 import {
   copyToClipboard,
   setDataForBookmarks,
@@ -13,6 +10,10 @@ import {
 } from "../../../utils";
 import { setIsSaved } from "../../../redux/slice/appBarSlice";
 import { setIsDrawerOpen } from "../../../redux/slice/drawerSlice";
+import { saveHymn, removeHymn } from "../../../redux/slice/bookmarksSlice";
+import SearchBar from "../SearchBar";
+import { Box, IconButton, Toolbar } from "@mui/material";
+import { Menu, BookmarkBorder, Bookmark } from "@mui/icons-material/";
 
 export default function ToolBar({ setCopyAlert }) {
   const currentNumber = useSelector(
@@ -26,19 +27,18 @@ export default function ToolBar({ setCopyAlert }) {
   const title = useSelector((state) => state.appBar.title);
   const savedHymnsList = useSelector((state) => state.bookmarks.savedHymns);
   const isSaved = useSelector((state) => state.appBar.isSaved);
-  const hymns = useSelector((state) => state.hymns.hymns);
   const lg = useSelector((state) => state.settings.language);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const formattedData = formatDataforBookmarks(savedHymnsList, hymns, lg);
+    const formattedData = formatDataforBookmarks(savedHymnsList, lg);
     const isBookmarked = showBookmark({
       formattedData,
       currentHymnNumber,
     });
     dispatch(setIsSaved(isBookmarked));
-  }, [currentHymnNumber, savedHymnsList, dispatch, hymns, lg]);
+  }, [currentHymnNumber, savedHymnsList, dispatch, lg]);
 
   const handleBookmarkClick = () => {
     if (isSaved) {

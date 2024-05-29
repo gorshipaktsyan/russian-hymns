@@ -1,28 +1,27 @@
 import { useSwipeable } from "react-swipeable";
 import { useKeyboardNavigation } from "./useKeyboardClick";
 import swipeConfig from "../../config/swipeConfig";
+import { hymnsService } from "../../services";
 
-export default function useSwipeNavigation({ currentNumber, hymns, navigate }) {
-  // Handle left swipe
+export default function useSwipeNavigation({ currentNumber, navigate }) {
   function handleLeftSwipe(e) {
     e?.stopPropagation();
-    const index = hymns.findIndex(
-      (el) =>
-        Number(el.number) ===
-        Number(currentNumber[currentNumber.length - 1] + 1)
-    );
+    const nextHymnNumber = currentNumber[currentNumber.length - 1] + 1;
+    const index = hymnsService.findIndex(nextHymnNumber);
     if (index !== -1) {
-      navigate(`/hymns/${currentNumber[currentNumber.length - 1] + 1}`);
+      navigate(`/hymns/${nextHymnNumber}`);
     }
   }
 
   function handleRightSwipe(e) {
-    if (e && e.stopPropagation) e.stopPropagation();
-    const index = hymns.findIndex(
-      (el) => Number(el.number) === Number(currentNumber[0] - 1)
-    );
+    e?.stopPropagation();
+    const prevHymnNumber = currentNumber[0] - 1;
+    const index = hymnsService.findIndex(prevHymnNumber);
     if (index !== -1) {
-      navigate(`/hymns/${currentNumber[0] - 1}`);
+      navigate(`/hymns/${prevHymnNumber}`);
+    }
+    if (currentNumber[0] === 1) {
+      navigate("/hymns/1");
     }
   }
 
