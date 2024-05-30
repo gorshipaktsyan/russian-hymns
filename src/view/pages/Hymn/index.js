@@ -39,7 +39,6 @@ function Hymn() {
   }, [number, dispatch]);
 
   const foundHymns = hymnsService.findHymns(currentNumber);
-
   return (
     <>
       <Box

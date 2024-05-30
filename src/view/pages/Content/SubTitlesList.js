@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
 import ListItem from "../../components/ListItem";
 import { setSubtitleId } from "../../../redux/slice/contentSlice";
 import FirstStringList from "./FirstStringList";
 import { Box } from "@mui/material";
 import StyledContentComponents from "./styles";
+import { subtitlesService, hymnsService } from "../../../services";
 
 const { StyledSubList } = StyledContentComponents;
 
@@ -13,14 +13,13 @@ function SubTitlesList({
   dispatch,
   scrollToContentTittle,
 }) {
-  const hymns = useSelector((state) => state.hymns.hymns);
-  const subtitles = useSelector((state) => state.subtitles.subtitles);
-  const filteredSubtitles = subtitles.filter((sub) => sub.title === titleId);
+  const filteredSubtitles = subtitlesService.filterSubsByTitleId(titleId);
 
   function handleSubTitleClick(id) {
     dispatch(setSubtitleId(subtitleId === id ? "" : id));
     scrollToContentTittle(id);
   }
+
   return (
     <StyledSubList>
       {filteredSubtitles.map((sub, index) => {
@@ -39,7 +38,8 @@ function SubTitlesList({
             />
             {subtitleId === sub._id && (
               <FirstStringList
-                firstStringList={hymns.filter((h) => h.subtitle === sub._id)}
+                hymnsService={hymnsService}
+                subId={sub._id}
                 dispatch={dispatch}
               />
             )}

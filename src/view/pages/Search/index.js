@@ -29,7 +29,6 @@ function Search() {
   const { foundHymns, isSearchedHymnsListOpen } = useSelector(
     (state) => state.search
   );
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

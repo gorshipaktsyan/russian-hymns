@@ -2,7 +2,11 @@ import styled from "@emotion/styled";
 import { Box, Icon, ListItem } from "@mui/material";
 
 const ListItemStyledComponents = {
-  StyledListItem: styled(ListItem)({
+  StyledListItem: styled(Box)({
+    display: "flex",
+    alignItems: "center",
+  }),
+  StyledListItemText: styled(ListItem)({
     display: "flex",
     justifyContent: "space-between",
     padding: "5px 5px",

@@ -1,13 +1,8 @@
-import hymnsService from "../services/hymnsService";
+import { dateOptionsConfig } from "../config";
+import { hymnsService } from "../services";
 
 function formattingDate(date, language) {
-  const options = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    weekday: "short",
-  };
-  const dateFormatter = new Intl.DateTimeFormat(language, options);
+  const dateFormatter = new Intl.DateTimeFormat(language, dateOptionsConfig);
   return dateFormatter.format(new Date(date));
 }
 

@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import ListItemStyledComponents from "./styles";
 import Divider from "./Divider";
 
-const { StyledListItem, StyledDeletedIcon, StyledText } =
+const { StyledListItem, StyledListItemText, StyledDeletedIcon, StyledText } =
   ListItemStyledComponents;
 
 function ListItem({
@@ -18,21 +18,21 @@ function ListItem({
 }) {
   return (
     <>
-      <Box
+      <StyledListItem
         id={id}
         sx={{
           display: "flex",
           alignItems: "center",
         }}
       >
-        <StyledListItem onClick={() => onTitleClick(id)}>
+        <StyledListItemText onClick={() => onTitleClick(id)}>
           <StyledText style={style}>{title}</StyledText>
           <StyledText>{number}</StyledText>
-        </StyledListItem>
+        </StyledListItemText>
         {Icon && (
           <StyledDeletedIcon as={Icon} onClick={() => onIconClick(id)} />
         )}
-      </Box>
+      </StyledListItem>
       <Divider lastIndex={list.length - 1} index={index} />
     </>
   );

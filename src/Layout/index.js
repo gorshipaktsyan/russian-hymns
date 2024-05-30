@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Drawer, AppBar } from "../view/components/index";
+import { Drawer, AppBar } from "../view/components";
 import App from "../App";
 import Box from "@mui/material/Box";
 import { setFontSize, findTitle } from "../utils";
@@ -16,7 +16,7 @@ function Layout() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  useDoubleTap(pathname, dispatch, settings.fontSize);
+  useDoubleTap({ pathname, dispatch, fontSize: settings.fontSize });
 
   useEffect(() => {
     setFontSize(settings.fontSize);

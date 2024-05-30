@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import {
@@ -24,9 +23,8 @@ export default function ToolBar({ setCopyAlert }) {
   const isSearchedHymnsListOpen = useSelector(
     (store) => store.search.isSearchedHymnsListOpen
   );
-  const title = useSelector((state) => state.appBar.title);
+  const { title, isSaved } = useSelector((state) => state.appBar);
   const savedHymnsList = useSelector((state) => state.bookmarks.savedHymns);
-  const isSaved = useSelector((state) => state.appBar.isSaved);
   const lg = useSelector((state) => state.settings.language);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
@@ -40,7 +38,7 @@ export default function ToolBar({ setCopyAlert }) {
     dispatch(setIsSaved(isBookmarked));
   }, [currentHymnNumber, savedHymnsList, dispatch, lg]);
 
-  const handleBookmarkClick = () => {
+  function handleBookmarkClick() {
     if (isSaved) {
       dispatch(removeHymn(currentHymnNumber));
       dispatch(setIsSaved(false));
@@ -49,14 +47,19 @@ export default function ToolBar({ setCopyAlert }) {
       dispatch(saveHymn(hymnObject));
       dispatch(setIsSaved(true));
     }
-  };
+  }
 
-  const handleTitleClick = async () => {
-    if (pathname === `/hymns/${currentNumber}`) {
-      await copyToClipboard(window.location.href);
-      setCopyAlert(true);
+  function handleTitleClick() {
+    if (pathname.includes(`/hymns`)) {
+      copyToClipboard(window.location.href)
+        .then(() => {
+          setCopyAlert(true);
+        })
+        .catch((error) => {
+          console.error("Error copying to clipboard", error);
+        });
     }
-  };
+  }
 
   return (
     <Toolbar>
@@ -71,8 +74,7 @@ export default function ToolBar({ setCopyAlert }) {
       <Box
         sx={{
           fontSize: "20px",
-          cursor:
-            pathname === `/hymns/${currentNumber}` ? "pointer" : "default",
+          cursor: pathname.includes(`/hymns`) ? "pointer" : "default",
         }}
         dangerouslySetInnerHTML={{ __html: title }}
         onClick={handleTitleClick}

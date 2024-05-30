@@ -1,11 +1,5 @@
-async function copyToClipboard(text) {
-    try {
-        await navigator.clipboard.writeText(text)
-        console.log('Text successfully copied to clipboard');
-    } catch (error) {
-        console.error('Unable to copy text to clipboard', error);
-    }
-
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text);
 }
 
-export default copyToClipboard
+export default copyToClipboard;

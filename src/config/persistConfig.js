@@ -1,5 +1,5 @@
 import storage from "redux-persist/lib/storage";
-import { InitStateNames } from "./constants/InitStateNames";
+import { InitStateNames } from "./constants";
 
 const persistConfig = {
   key: "ru-hymns",

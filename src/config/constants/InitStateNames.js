@@ -1,4 +1,4 @@
-export const InitStateNames = {
+const InitStateNames = {
   appBar: "appBar",
   bookmarks: "bookmarks",
   content: "content",
@@ -11,3 +11,4 @@ export const InitStateNames = {
   subtitles: "subtitles",
   titles: "titles",
 };
+export default InitStateNames;

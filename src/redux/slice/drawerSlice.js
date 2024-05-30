@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { InitStateNames } from "../../config/constants/InitStateNames";
+import { InitStateNames } from "../../config/constants";
 
 export const drawerSlice = createSlice({
   name: InitStateNames.drawer,

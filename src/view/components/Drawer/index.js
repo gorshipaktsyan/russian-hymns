@@ -19,13 +19,7 @@ function DrawerComponent({ fontSize, dispatch, lg }) {
     navigate(`/${item.route}`);
     dispatch(setAppBarTitle(item.title));
     dispatch(setIsDrawerOpen(false));
-    item.route === "content" &&
-      dispatch(
-        resetContentValues({
-          titleId: "",
-          subtitleId: "",
-        })
-      );
+    item.route === "content" && dispatch(resetContentValues());
   }
 
   return (

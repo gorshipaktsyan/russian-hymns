@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import russian from "../../config/constants/russian";
-import { InitStateNames } from "../../config/constants/InitStateNames";
+import { InitStateNames, russian } from "../../config/constants";
 
 export const settingsSlice = createSlice({
   name: InitStateNames.settings,

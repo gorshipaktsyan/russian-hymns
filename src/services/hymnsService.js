@@ -24,18 +24,6 @@ class HymnsService {
   findIndex(hymnNumber) {
     return hymns.findIndex((el) => el.number === hymnNumber);
   }
-  filterHymnsByLetter(letter) {
-    return hymns.filter(
-      (h) => h.first_letter === letter || h.first_letter_chorus === letter
-    );
-  }
-  sortHymns(hymnsArray, lg) {
-    return hymnsArray.sort((a, b) => {
-      return a.filteredText.localeCompare(b.filteredText, lg, {
-        sensitivity: "base",
-      });
-    });
-  }
   findHymnsWithMatchKey(searchedText, regExp) {
     const lowerCaseText = searchedText.toLowerCase();
     const regExpOnlyLetters = new RegExp(regExp, "g");
@@ -55,6 +43,21 @@ class HymnsService {
           .includes(textWithoutSpacesAndSymbols),
       }))
       .filter((h) => h.matches);
+  }
+  filterHymnsByLetter(letter) {
+    return hymns.filter(
+      (h) => h.first_letter === letter || h.first_letter_chorus === letter
+    );
+  }
+  filterHymnsBySubId(subId) {
+    return hymns.filter((hymn) => hymn.subtitle === subId);
+  }
+  sortHymns(hymnsArray, lg) {
+    return hymnsArray.sort((a, b) => {
+      return a.filteredText.localeCompare(b.filteredText, lg, {
+        sensitivity: "base",
+      });
+    });
   }
 }
 
