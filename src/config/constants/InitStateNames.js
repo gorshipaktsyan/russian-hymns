@@ -9,6 +9,7 @@ const InitStateNames = {
   search: 'search',
   settings: 'settings',
   subtitles: 'subtitles',
-  titles: 'titles'
+  titles: 'titles',
+  alphabeticalIndex: 'alphabeticalIndex'
 };
 export default InitStateNames;

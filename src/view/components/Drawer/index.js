@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, List, ListItem, ListItemButton } from '@mui/material';
 
+import { setLetter } from '../../../redux/slice/alphabeticalSlice';
 import { setAppBarTitle } from '../../../redux/slice/appBarSlice';
 import { resetContentValues } from '../../../redux/slice/contentSlice';
 import { setIsDrawerOpen } from '../../../redux/slice/drawerSlice';
@@ -22,7 +23,8 @@ function DrawerComponent({ fontSize, dispatch, lg }) {
     navigate(`/${item.route}`);
     dispatch(setAppBarTitle(item.title));
     dispatch(setIsDrawerOpen(false));
-    item.route === 'content' && dispatch(resetContentValues());
+    dispatch(resetContentValues());
+    dispatch(setLetter(''));
   }
 
   return (

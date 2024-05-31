@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,36 +13,25 @@ const { StyledBox } = StyledComponents;
 
 function AlphabeticalIndex() {
   const lg = useSelector((state) => state.settings.language);
-  const [letter, setLetter] = useState('');
+  const letter = useSelector((state) => state.alphabeticalIndex.letter);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    letter && dispatch(setAppBarTitle(`${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`));
+  }, [letter]);
 
   function handleTitleClick(id) {
     dispatch(setCurrentNumber([id]));
     navigate(`/hymns/${id}`);
   }
 
-  function handleBackClick() {
-    setLetter('');
-    dispatch(setAppBarTitle(lg.alphabeticalIndex.alphabeticalIndex));
-  }
-
   return (
     <StyledBox>
       {letter ? (
-        <HymnsList
-          lg={lg}
-          letter={letter}
-          handleTitleClick={handleTitleClick}
-          handleBackClick={() => handleBackClick()}
-        />
+        <HymnsList lg={lg} letter={letter} handleTitleClick={handleTitleClick} />
       ) : (
-        <Alphabet
-          setLetter={setLetter}
-          dispatch={dispatch}
-          lg={lg}
-          setAppBarTitle={setAppBarTitle}
-        />
+        <Alphabet dispatch={dispatch} lg={lg} />
       )}
     </StyledBox>
   );

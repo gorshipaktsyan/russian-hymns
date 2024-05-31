@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
+import alphabeticalIndexReducer from './slice/alphabeticalSlice';
 import appBarReducer from './slice/appBarSlice';
 import bookmarksReducer from './slice/bookmarksSlice';
 import contentSliceReducer from './slice/contentSlice';
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   appBar: appBarReducer,
   hymns: hymnsReducer,
   titles: titlesReducer,
-  subtitles: subtitlesReducer
+  subtitles: subtitlesReducer,
+  alphabeticalIndex: alphabeticalIndexReducer
 });
 
 export default rootReducer;
