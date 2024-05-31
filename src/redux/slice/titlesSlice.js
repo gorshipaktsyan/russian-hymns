@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { InitStateNames } from "../../config/constants";
-import { titlesService } from "../../services";
+import { createSlice } from '@reduxjs/toolkit';
+import { InitStateNames } from '../../config/constants';
+import { titlesService } from '../../services';
 
 export const titlesSlice = createSlice({
   name: InitStateNames.titles,
   initialState: {
-    titles: titlesService.get() || [],
+    titles: titlesService.get() || []
   },
-  reducers: {},
+  reducers: {}
 });
 
 export default titlesSlice.reducer;

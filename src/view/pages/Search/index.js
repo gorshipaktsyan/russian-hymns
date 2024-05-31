@@ -1,34 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import SearchedHymnList from "./SearchedHymnList";
-import {
-  setFoundHymns,
-  setIsSearchedHymnsListOpen,
-} from "../../../redux/slice/searchSlice";
-import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import { useEnterKeySubmit } from "../../../utils/hooks";
-import { clearInputs } from "../../../utils";
-import { hymnsService } from "../../../services";
-import { StyledComponents } from "../../styles";
-import Snackbar from "@mui/material/Snackbar";
-import SearchStyledComponents from "./styles";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import SearchedHymnList from './SearchedHymnList';
+import { setFoundHymns, setIsSearchedHymnsListOpen } from '../../../redux/slice/searchSlice';
+import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
+import { useEnterKeySubmit } from '../../../utils/hooks';
+import { clearInputs } from '../../../utils';
+import { hymnsService } from '../../../services';
+import { StyledComponents } from '../../styles';
+import Snackbar from '@mui/material/Snackbar';
+import SearchStyledComponents from './styles';
 
 const { StyledAlert } = StyledComponents;
-const { StyledForm, StyledSearchButton, StyledTextField } =
-  SearchStyledComponents;
+const { StyledForm, StyledSearchButton, StyledTextField } = SearchStyledComponents;
 
 function Search() {
-  const [rusNumber, setRusNumber] = useState("");
-  const [engNumber, setEngNumber] = useState("");
-  const [searchedText, setSearchedText] = useState("");
+  const [rusNumber, setRusNumber] = useState('');
+  const [engNumber, setEngNumber] = useState('');
+  const [searchedText, setSearchedText] = useState('');
   const [errorAlert, setErrorAlert] = useState(false);
-  const { isEngSearchVisible, language } = useSelector(
-    (state) => state.settings
-  );
-  const { foundHymns, isSearchedHymnsListOpen } = useSelector(
-    (state) => state.search
-  );
+  const { isEngSearchVisible, language } = useSelector((state) => state.settings);
+  const { foundHymns, isSearchedHymnsListOpen } = useSelector((state) => state.search);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -47,10 +39,10 @@ function Search() {
     e.preventDefault();
     let number = [];
     if (rusNumber) {
-      number = hymnsService.findSearchedHymns(rusNumber, "number");
+      number = hymnsService.findSearchedHymns(rusNumber, 'number');
       dispatch(setCurrentNumber([number]));
     } else if (engNumber) {
-      number = hymnsService.findSearchedHymns(engNumber, "number_eng");
+      number = hymnsService.findSearchedHymns(engNumber, 'number_eng');
       dispatch(setCurrentNumber([number]));
     } else if (searchedText) {
       const foundHymns = hymnsService.findHymnsWithMatchKey(
@@ -79,11 +71,7 @@ function Search() {
   return (
     <>
       {isSearchedHymnsListOpen ? (
-        <SearchedHymnList
-          foundHymns={foundHymns}
-          navigate={navigate}
-          dispatch={dispatch}
-        />
+        <SearchedHymnList foundHymns={foundHymns} navigate={navigate} dispatch={dispatch} />
       ) : (
         <StyledForm>
           <StyledTextField
@@ -91,13 +79,13 @@ function Search() {
             label={language.search.searchByRussianNumber}
             value={rusNumber}
             inputProps={{
-              inputMode: "decimal",
-              pattern: "[0-9]*",
+              inputMode: 'decimal',
+              pattern: '[0-9]*'
             }}
             onChange={(e) => {
               setRusNumber(e.target.value);
-              setEngNumber("");
-              setSearchedText("");
+              setEngNumber('');
+              setSearchedText('');
             }}
             autoFocus
           />
@@ -107,13 +95,13 @@ function Search() {
               label={language.search.searchByEnglishNumber}
               value={engNumber}
               inputProps={{
-                inputMode: "decimal",
-                pattern: "[0-9]*",
+                inputMode: 'decimal',
+                pattern: '[0-9]*'
               }}
               onChange={(e) => {
                 setEngNumber(e.target.value);
-                setRusNumber("");
-                setSearchedText("");
+                setRusNumber('');
+                setSearchedText('');
               }}
             />
           )}
@@ -121,25 +109,21 @@ function Search() {
             label={language.search.searchByText}
             value={searchedText}
             inputProps={{
-              inputMode: "search",
+              inputMode: 'search'
             }}
             onChange={(e) => {
               handleTextChange(e);
-              setRusNumber("");
-              setEngNumber("");
+              setRusNumber('');
+              setEngNumber('');
             }}
           />
-          <StyledSearchButton
-            type="submit"
-            variant="contained"
-            onClick={handleSubmit}
-          >
-            <span style={{ fontSize: "16px" }}>{language.search.search}</span>
+          <StyledSearchButton type="submit" variant="contained" onClick={handleSubmit}>
+            <span style={{ fontSize: '16px' }}>{language.search.search}</span>
           </StyledSearchButton>
         </StyledForm>
       )}
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorAlert}
         onClose={() => setErrorAlert(false)}
         autoHideDuration={2000}

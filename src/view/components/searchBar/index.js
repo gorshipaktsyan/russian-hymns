@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import SearchIcon from "@mui/icons-material/Search";
-import { StyledComponents } from "../../styles";
-import SearchBarStyledComponents from "./styles";
-import { setIsSearchedHymnsListOpen } from "../../../redux/slice/searchSlice";
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import SearchIcon from '@mui/icons-material/Search';
+import { StyledComponents } from '../../styles';
+import SearchBarStyledComponents from './styles';
+import { setIsSearchedHymnsListOpen } from '../../../redux/slice/searchSlice';
 
 const { StyledFab } = StyledComponents;
 const { SearchedBox, StyledSearchIcon } = SearchBarStyledComponents;
@@ -14,7 +14,7 @@ function SearchBar({ dispatch }) {
 
   function handleClick() {
     dispatch(setIsSearchedHymnsListOpen(false));
-    navigate("/");
+    navigate('/');
   }
 
   return (

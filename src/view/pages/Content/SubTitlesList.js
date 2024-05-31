@@ -1,22 +1,17 @@
-import ListItem from "../../components/ListItem";
-import { setSubtitleId } from "../../../redux/slice/contentSlice";
-import FirstStringList from "./FirstStringList";
-import { Box } from "@mui/material";
-import StyledContentComponents from "./styles";
-import { subtitlesService, hymnsService } from "../../../services";
+import ListItem from '../../components/ListItem';
+import { setSubtitleId } from '../../../redux/slice/contentSlice';
+import FirstStringList from './FirstStringList';
+import { Box } from '@mui/material';
+import StyledContentComponents from './styles';
+import { subtitlesService, hymnsService } from '../../../services';
 
 const { StyledSubList } = StyledContentComponents;
 
-function SubTitlesList({
-  titleId,
-  subtitleId,
-  dispatch,
-  scrollToContentTittle,
-}) {
+function SubTitlesList({ titleId, subtitleId, dispatch, scrollToContentTittle }) {
   const filteredSubtitles = subtitlesService.filterSubsByTitleId(titleId);
 
   function handleSubTitleClick(id) {
-    dispatch(setSubtitleId(subtitleId === id ? "" : id));
+    dispatch(setSubtitleId(subtitleId === id ? '' : id));
     scrollToContentTittle(id);
   }
 
@@ -32,16 +27,12 @@ function SubTitlesList({
               index={index}
               onTitleClick={handleSubTitleClick}
               style={{
-                fontWeight: subtitleId === sub._id && "bold",
-                fontSize: "15px",
+                fontWeight: subtitleId === sub._id && 'bold',
+                fontSize: '15px'
               }}
             />
             {subtitleId === sub._id && (
-              <FirstStringList
-                hymnsService={hymnsService}
-                subId={sub._id}
-                dispatch={dispatch}
-              />
+              <FirstStringList hymnsService={hymnsService} subId={sub._id} dispatch={dispatch} />
             )}
           </Box>
         );

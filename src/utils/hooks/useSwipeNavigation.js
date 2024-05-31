@@ -1,7 +1,7 @@
-import { useSwipeable } from "react-swipeable";
-import { useKeyboardNavigation } from "./useKeyboardClick";
-import swipeConfig from "../../config/swipeConfig";
-import { hymnsService } from "../../services";
+import { useSwipeable } from 'react-swipeable';
+import { useKeyboardNavigation } from './useKeyboardClick';
+import swipeConfig from '../../config/swipeConfig';
+import { hymnsService } from '../../services';
 
 export default function useSwipeNavigation({ currentNumber, navigate }) {
   function handleLeftSwipe(e) {
@@ -21,7 +21,7 @@ export default function useSwipeNavigation({ currentNumber, navigate }) {
       navigate(`/hymns/${prevHymnNumber}`);
     }
     if (currentNumber[0] === 1) {
-      navigate("/hymns/1");
+      navigate('/hymns/1');
     }
   }
 
@@ -33,12 +33,12 @@ export default function useSwipeNavigation({ currentNumber, navigate }) {
     swipeDuration: 500,
     preventScrollOnSwipe: true,
     trackMouse: true,
-    swipeConfig,
+    swipeConfig
   });
 
   return {
     handleLeftSwipe,
     handleRightSwipe,
-    handlers,
+    handlers
   };
 }

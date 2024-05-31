@@ -1,18 +1,16 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Drawer, AppBar } from "../view/components";
-import App from "../App";
-import Box from "@mui/material/Box";
-import { setFontSize, findTitle } from "../utils";
-import { useDoubleTap } from "../utils/hooks";
-import { setAppBarTitle } from "../redux/slice/appBarSlice";
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Drawer, AppBar } from '../view/components';
+import App from '../App';
+import Box from '@mui/material/Box';
+import { setFontSize, findTitle } from '../utils';
+import { useDoubleTap } from '../utils/hooks';
+import { setAppBarTitle } from '../redux/slice/appBarSlice';
 
 function Layout() {
   const settings = useSelector((state) => state.settings);
-  const currentNumber = useSelector(
-    (state) => state.currentNumber.currentNumber
-  );
+  const currentNumber = useSelector((state) => state.currentNumber.currentNumber);
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
@@ -26,7 +24,7 @@ function Layout() {
     const title = findTitle({
       currentNumber,
       pathname,
-      lg: settings.language,
+      lg: settings.language
     });
     dispatch(setAppBarTitle(title));
   }, [currentNumber, pathname, dispatch, settings.language]);
@@ -36,13 +34,9 @@ function Layout() {
   }, [pathname, currentNumber]);
 
   return (
-    <Box sx={{ height: "100%" }}>
+    <Box sx={{ height: '100%' }}>
       <AppBar lg={settings.language} />
-      <Drawer
-        lg={settings.language}
-        dispatch={dispatch}
-        fontSize={settings.fontSize}
-      />
+      <Drawer lg={settings.language} dispatch={dispatch} fontSize={settings.fontSize} />
       <Box className="container">
         <App />
       </Box>

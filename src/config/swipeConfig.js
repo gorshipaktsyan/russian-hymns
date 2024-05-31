@@ -5,7 +5,7 @@ const swipeConfig = {
   trackMouse: false,
   rotationAngle: 0,
   swipeDuration: Infinity,
-  touchEventOptions: { passive: true },
+  touchEventOptions: { passive: true }
 };
 
 export default swipeConfig;

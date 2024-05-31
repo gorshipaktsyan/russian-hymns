@@ -1,9 +1,5 @@
-export default function clearInputs(
-  setRusNumber,
-  setEngNumber,
-  setSearchedText
-) {
-  setRusNumber("");
-  setEngNumber("");
-  setSearchedText("");
+export default function clearInputs(setRusNumber, setEngNumber, setSearchedText) {
+  setRusNumber('');
+  setEngNumber('');
+  setSearchedText('');
 }

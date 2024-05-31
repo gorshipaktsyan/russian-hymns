@@ -1,4 +1,4 @@
-import { titles } from "../storage";
+import { titles } from '../storage';
 
 class TitlesService {
   get() {

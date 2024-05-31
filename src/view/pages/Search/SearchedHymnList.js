@@ -1,8 +1,8 @@
-import React from "react";
-import ListItem from "../../components/ListItem";
-import { StyledComponents } from "../../styles";
-import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import { setFoundHymns } from "../../../redux/slice/searchSlice";
+import React from 'react';
+import ListItem from '../../components/ListItem';
+import { StyledComponents } from '../../styles';
+import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
+import { setFoundHymns } from '../../../redux/slice/searchSlice';
 
 const { StyledList, StyledBox } = StyledComponents;
 

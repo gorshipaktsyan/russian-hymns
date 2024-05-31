@@ -1,8 +1,8 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import CssBaseline from "@mui/material/CssBaseline";
-import StyledApp from "./styles";
-import routes from "../routes/routes";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import CssBaseline from '@mui/material/CssBaseline';
+import StyledApp from './styles';
+import routes from '../routes/routes';
 
 function App() {
   return (

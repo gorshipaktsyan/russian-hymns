@@ -1,4 +1,4 @@
-import { subtitles } from "../storage";
+import { subtitles } from '../storage';
 
 class SubtitlesService {
   get() {

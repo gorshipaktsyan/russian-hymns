@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { StyledComponents } from "../../styles";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { StyledComponents } from '../../styles';
 
 const { InfoBox, StyledLink } = StyledComponents;
 
@@ -15,9 +15,8 @@ function About() {
       <p>{lg.about.numbering}</p>
 
       <p>
-        {lg.about.contact}{" "}
-        <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{" "}
-        {lg.about.officialSite + " " + lg.about.collectorBook} —{" "}
+        {lg.about.contact} <StyledLink href="mailto:hymns@kbk.ru">hymns@kbk.ru</StyledLink>.{' '}
+        {lg.about.officialSite + ' ' + lg.about.collectorBook} —{' '}
         <StyledLink href="http://kbk.ru">kbk.ru</StyledLink>.
       </p>
       <p>

@@ -1,4 +1,4 @@
-import hymnsService from "../services/hymnsService";
+import hymnsService from '../services/hymnsService';
 
 export default function filterAndSortHymnsByLetter(letter, lg) {
   const filteredHymns = hymnsService.filterHymnsByLetter(letter);
@@ -19,11 +19,11 @@ function mapHymns({ filteredHymns, letter, lg }) {
     return {
       ...hymn,
       filteredByFirstLetter: isFirstLetterMatch,
-      filteredText,
+      filteredText
     };
   });
 }
 
 function removeSymbols(text, lg) {
-  return text.replace(lg.regExp.onlyLetters, "");
+  return text.replace(lg.regExp.onlyLetters, '');
 }

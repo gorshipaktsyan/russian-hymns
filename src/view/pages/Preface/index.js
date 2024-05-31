@@ -1,5 +1,5 @@
-import { useSelector } from "react-redux";
-import { StyledComponents } from "../../styles";
+import { useSelector } from 'react-redux';
+import { StyledComponents } from '../../styles';
 
 const { InfoBox } = StyledComponents;
 function Preface() {

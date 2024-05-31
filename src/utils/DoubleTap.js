@@ -1,4 +1,4 @@
-import doubleTapConfig from "../config/doubleTapConfig";
+import doubleTapConfig from '../config/doubleTapConfig';
 
 let lastClickTime = 0;
 

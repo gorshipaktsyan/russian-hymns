@@ -1,5 +1,5 @@
-import hymnsService from "../services/hymnsService";
-import createNavItems from "./createNavItems";
+import hymnsService from '../services/hymnsService';
+import createNavItems from './createNavItems';
 
 function findInStore(value, data) {
   if (data.length && value.length) {
@@ -18,15 +18,11 @@ export default function findTitle({ currentNumber, pathname, lg }) {
     const currentHymn = hymnsService.findHymn(currentNumber);
 
     if (currentNumber.length > 1) {
-      newTitle = `${lg.hymns} ${currentNumber
-        .slice(0, 3)
-        .map((number) => " " + number)}${
-        currentNumber.length > 3 ? " ..." : ""
+      newTitle = `${lg.hymns} ${currentNumber.slice(0, 3).map((number) => ' ' + number)}${
+        currentNumber.length > 3 ? ' ...' : ''
       }`;
     } else {
-      newTitle = `${lg.hymn} ${currentNumber}<sup>${
-        currentHymn?.sign || ""
-      }</sup>`;
+      newTitle = `${lg.hymn} ${currentNumber}<sup>${currentHymn?.sign || ''}</sup>`;
     }
 
     return newTitle;

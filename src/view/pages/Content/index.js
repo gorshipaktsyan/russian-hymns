@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import SubTitlesList from "./SubTitlesList";
-import ListItem from "../../components/ListItem";
-import { setTitleId } from "../../../redux/slice/contentSlice";
-import { scrollToContentTittle } from "../../../utils";
-import { StyledComponents } from "../../styles";
-import { Box } from "@mui/material";
+import { useDispatch, useSelector } from 'react-redux';
+import SubTitlesList from './SubTitlesList';
+import ListItem from '../../components/ListItem';
+import { setTitleId } from '../../../redux/slice/contentSlice';
+import { scrollToContentTittle } from '../../../utils';
+import { StyledComponents } from '../../styles';
+import { Box } from '@mui/material';
 
 const { StyledList, StyledBox } = StyledComponents;
 
@@ -14,7 +14,7 @@ function TitlesList() {
   const dispatch = useDispatch();
 
   function handleTitleClick(id) {
-    dispatch(setTitleId(titleId === id ? "" : id));
+    dispatch(setTitleId(titleId === id ? '' : id));
     scrollToContentTittle(id);
   }
 
@@ -30,7 +30,7 @@ function TitlesList() {
               index={index}
               onTitleClick={handleTitleClick}
               style={{
-                fontWeight: titleId === title._id && "bold",
+                fontWeight: titleId === title._id && 'bold'
               }}
             />
             {titleId === title._id && (

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
-import { Button } from '@mui/material'
+import styled from '@emotion/styled';
+import { Button } from '@mui/material';
 
 const BookmarksStyledComponents = {
   StyledOpenButton: styled(Button)({
@@ -10,6 +10,6 @@ const BookmarksStyledComponents = {
       backgroundColor: '#f0f0dc'
     }
   })
-}
+};
 
-export default BookmarksStyledComponents
+export default BookmarksStyledComponents;

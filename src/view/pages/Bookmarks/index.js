@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { TransitionGroup } from "react-transition-group";
-import ListItem from "../../components/ListItem";
-import { formatDataforBookmarks } from "../../../utils";
-import { removeHymn } from "../../../redux/slice/bookmarksSlice";
-import { StyledComponents } from "../../styles";
-import { Box, Divider, Collapse } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { TransitionGroup } from 'react-transition-group';
+import ListItem from '../../components/ListItem';
+import { formatDataforBookmarks } from '../../../utils';
+import { removeHymn } from '../../../redux/slice/bookmarksSlice';
+import { StyledComponents } from '../../styles';
+import { Box, Divider, Collapse } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
@@ -32,7 +32,7 @@ function Bookmarks() {
           <TransitionGroup>
             {formattedData.map(({ date, hymns }) => (
               <Collapse key={date}>
-                <Box sx={{ paddingBottom: "20px" }}>
+                <Box sx={{ paddingBottom: '20px' }}>
                   <Divider>{date}</Divider>
                   {hymns.map((h, index) => (
                     <ListItem

@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Box from "@mui/material/Box";
-import "./index.scss";
-import HymnStyledComponents from "./styles";
-import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import { useAddToHistory, useSwipeNavigation } from "../../../utils/hooks";
-import { hymnsService } from "../../../services";
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
+import './index.scss';
+import HymnStyledComponents from './styles';
+import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
+import { useAddToHistory, useSwipeNavigation } from '../../../utils/hooks';
+import { hymnsService } from '../../../services';
 
 const {
   StyledDivider,
@@ -15,15 +15,13 @@ const {
   ArrowLeftWrapper,
   ArrowRightWrapper,
   MobArrowRightIcon,
-  MobArrowLeftIcon,
+  MobArrowLeftIcon
 } = HymnStyledComponents;
 
 function Hymn() {
   const { number } = useParams();
   const settings = useSelector((state) => state.settings);
-  const currentNumber = useSelector(
-    (state) => state.currentNumber.currentNumber
-  );
+  const currentNumber = useSelector((state) => state.currentNumber.currentNumber);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -31,11 +29,11 @@ function Hymn() {
 
   const { handleLeftSwipe, handleRightSwipe, handlers } = useSwipeNavigation({
     currentNumber,
-    navigate,
+    navigate
   });
 
   useEffect(() => {
-    number && dispatch(setCurrentNumber(number.split(",").map(Number)));
+    number && dispatch(setCurrentNumber(number.split(',').map(Number)));
   }, [number, dispatch]);
 
   const foundHymns = hymnsService.findHymns(currentNumber);
@@ -44,7 +42,7 @@ function Hymn() {
       <Box
         className="hymns-page-wrapper"
         sx={{
-          paddingBottom: "200px",
+          paddingBottom: '200px'
         }}
         {...handlers}
       >
@@ -55,7 +53,7 @@ function Hymn() {
                 {foundHymns.length > 1 && (
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: `${settings.language.hymn} ${h.number}<sup>${h.sign}</sup>`,
+                      __html: `${settings.language.hymn} ${h.number}<sup>${h.sign}</sup>`
                     }}
                   />
                 )}

@@ -1,18 +1,16 @@
-import { Box } from "@mui/material";
-import AlphabeticalStyledComponents from "./styles";
+import { Box } from '@mui/material';
+import AlphabeticalStyledComponents from './styles';
 
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;
 
 function Alphabet({ setLetter, dispatch, lg, setAppBarTitle }) {
   function handleClick(letter) {
     setLetter(letter);
-    dispatch(
-      setAppBarTitle(`${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`)
-    );
+    dispatch(setAppBarTitle(`${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`));
   }
 
   return (
-    <Box sx={{ maxWidth: "250px" }}>
+    <Box sx={{ maxWidth: '250px' }}>
       <StyledAlphabet>
         {lg.alphabeticalIndex.alphabet.map((letter, index) => (
           <StyledLetter key={index} onClick={() => handleClick(letter)}>

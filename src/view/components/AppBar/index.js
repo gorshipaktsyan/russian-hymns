@@ -1,8 +1,8 @@
-import * as React from "react";
-import { useState } from "react";
-import ToolBar from "./ToolBar";
-import { Snackbar, AppBar } from "@mui/material";
-import { StyledComponents } from "../../styles";
+import * as React from 'react';
+import { useState } from 'react';
+import ToolBar from './ToolBar';
+import { Snackbar, AppBar } from '@mui/material';
+import { StyledComponents } from '../../styles';
 
 const { StyledAlert } = StyledComponents;
 
@@ -14,15 +14,15 @@ function AppBarComponent({ lg }) {
         position="fixed"
         component="nav"
         sx={{
-          backgroundColor: "black",
-          zIndex: 1300,
+          backgroundColor: 'black',
+          zIndex: 1300
         }}
       >
         <ToolBar setCopyAlert={setCopyAlert} />
       </AppBar>
       {copyAlert && (
         <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={copyAlert}
           onClose={() => setCopyAlert(false)}
           autoHideDuration={2000}

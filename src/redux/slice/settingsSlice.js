@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { InitStateNames, russian } from "../../config/constants";
+import { createSlice } from '@reduxjs/toolkit';
+import { InitStateNames, russian } from '../../config/constants';
 
 export const settingsSlice = createSlice({
   name: InitStateNames.settings,
@@ -8,7 +8,7 @@ export const settingsSlice = createSlice({
     isEngSearchVisible: false,
     isAllowToUseArrows: false,
     isMobile: navigator.maxTouchPoints > 0,
-    language: russian,
+    language: russian
   },
   reducers: {
     changeFontSize: (state, action) => {
@@ -19,8 +19,8 @@ export const settingsSlice = createSlice({
     },
     setIsAllowToUseArrows: (state, action) => {
       state.isAllowToUseArrows = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { changeFontSize, setIsEngSearchVisible, setIsAllowToUseArrows } =

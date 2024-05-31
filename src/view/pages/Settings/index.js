@@ -1,25 +1,20 @@
-import { Divider, Slider, Switch } from "@mui/material";
-import { StyledComponents } from "../../styles";
-import SettingsStyledComponents from "./styles";
-import { useSelector, useDispatch } from "react-redux";
+import { Divider, Slider, Switch } from '@mui/material';
+import { StyledComponents } from '../../styles';
+import SettingsStyledComponents from './styles';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   changeFontSize,
   setIsEngSearchVisible,
-  setIsAllowToUseArrows,
-} from "../../../redux/slice/settingsSlice";
+  setIsAllowToUseArrows
+} from '../../../redux/slice/settingsSlice';
 
 const { StyledBox } = StyledComponents;
-const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
-  SettingsStyledComponents;
+const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } = SettingsStyledComponents;
 
 function Settings() {
-  const {
-    fontSize,
-    isAllowToUseArrows,
-    isEngSearchVisible,
-    isMobile,
-    language,
-  } = useSelector((state) => state.settings);
+  const { fontSize, isAllowToUseArrows, isEngSearchVisible, isMobile, language } = useSelector(
+    (state) => state.settings
+  );
 
   const dispatch = useDispatch();
 
@@ -53,29 +48,23 @@ function Settings() {
         </StyledSetListItem>
         {isMobile && (
           <>
-            <Divider sx={{ width: "350px", marginTop: "15px" }} />
+            <Divider sx={{ width: '350px', marginTop: '15px' }} />
             <StyledSetListItem>
               <StyledSetTpg>{language.settings.arrows}</StyledSetTpg>
               <ArrowSetBox>
                 <StyledSetTpg>{language.settings.off}</StyledSetTpg>
-                <Switch
-                  checked={isAllowToUseArrows}
-                  onChange={handleChangeArrows}
-                ></Switch>
+                <Switch checked={isAllowToUseArrows} onChange={handleChangeArrows}></Switch>
                 <StyledSetTpg>{language.settings.on}</StyledSetTpg>
               </ArrowSetBox>
             </StyledSetListItem>
           </>
         )}
-        <Divider sx={{ width: "350px", marginTop: "15px" }} />
+        <Divider sx={{ width: '350px', marginTop: '15px' }} />
         <StyledSetListItem>
           <StyledSetTpg>{language.settings.searchByEnglishNumber}</StyledSetTpg>
           <ArrowSetBox>
             <StyledSetTpg>{language.settings.off}</StyledSetTpg>
-            <Switch
-              checked={isEngSearchVisible}
-              onChange={handleChangeEngSearch}
-            ></Switch>
+            <Switch checked={isEngSearchVisible} onChange={handleChangeEngSearch}></Switch>
             <StyledSetTpg>{language.settings.on}</StyledSetTpg>
           </ArrowSetBox>
         </StyledSetListItem>

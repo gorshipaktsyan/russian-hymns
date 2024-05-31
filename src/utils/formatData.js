@@ -1,5 +1,5 @@
-import { dateOptionsConfig } from "../config";
-import { hymnsService } from "../services";
+import { dateOptionsConfig } from '../config';
+import { hymnsService } from '../services';
 
 function formattingDate(date, language) {
   const dateFormatter = new Intl.DateTimeFormat(language, dateOptionsConfig);
@@ -16,7 +16,7 @@ function formatDataforBookmarks(data, language) {
     if (!entry) {
       result.push({
         date: formattedDate,
-        hymns: [],
+        hymns: []
       });
     }
 
@@ -34,7 +34,7 @@ function formatDataforBookmarks(data, language) {
       } else {
         result.push({
           date: formattedDate,
-          hymns: [matchingHymn],
+          hymns: [matchingHymn]
         });
       }
     }
@@ -52,7 +52,7 @@ function formatDataForHistory(data, language) {
     if (!entry) {
       result.push({
         date: formattedDate,
-        hymns: [],
+        hymns: []
       });
     }
 
@@ -71,7 +71,7 @@ function formatDataForHistory(data, language) {
         } else {
           result.push({
             date: formattedDate,
-            hymns: [matchingHymn],
+            hymns: [matchingHymn]
           });
         }
       }
