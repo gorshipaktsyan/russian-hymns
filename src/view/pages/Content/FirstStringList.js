@@ -1,6 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+
 import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
 import ListItem from '../../components/ListItem';
+
 import StyledContentComponents from './styles';
 
 const { StyledFirstStringList } = StyledContentComponents;

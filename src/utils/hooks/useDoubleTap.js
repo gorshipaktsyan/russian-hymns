@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { changeFontSize } from '../../redux/slice/settingsSlice';
 import { doubleTap } from '../';
 

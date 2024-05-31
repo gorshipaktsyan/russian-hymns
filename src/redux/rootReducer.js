@@ -1,15 +1,16 @@
+import { combineReducers } from '@reduxjs/toolkit';
+
 import appBarReducer from './slice/appBarSlice';
 import bookmarksReducer from './slice/bookmarksSlice';
 import contentSliceReducer from './slice/contentSlice';
 import currentNumberReducer from './slice/currentNumberSlice';
 import drawerReducer from './slice/drawerSlice';
 import historyReducer from './slice/historySlice';
+import hymnsReducer from './slice/hymnsSlice';
 import searchReducer from './slice/searchSlice';
 import settingsReducer from './slice/settingsSlice';
-import hymnsReducer from './slice/hymnsSlice';
-import titlesReducer from './slice/titlesSlice';
 import subtitlesReducer from './slice/subtitlesSlice';
-import { combineReducers } from '@reduxjs/toolkit';
+import titlesReducer from './slice/titlesSlice';
 
 const rootReducer = combineReducers({
   bookmarks: bookmarksReducer,

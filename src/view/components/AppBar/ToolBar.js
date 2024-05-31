@@ -1,18 +1,20 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+
+import { Bookmark, BookmarkBorder, Menu } from '@mui/icons-material/';
+import { Box, IconButton, Toolbar } from '@mui/material';
+
+import { setIsSaved } from '../../../redux/slice/appBarSlice';
+import { removeHymn, saveHymn } from '../../../redux/slice/bookmarksSlice';
+import { setIsDrawerOpen } from '../../../redux/slice/drawerSlice';
 import {
   copyToClipboard,
+  formatDataforBookmarks,
   setDataForBookmarks,
-  showBookmark,
-  formatDataforBookmarks
+  showBookmark
 } from '../../../utils';
-import { setIsSaved } from '../../../redux/slice/appBarSlice';
-import { setIsDrawerOpen } from '../../../redux/slice/drawerSlice';
-import { saveHymn, removeHymn } from '../../../redux/slice/bookmarksSlice';
 import SearchBar from '../SearchBar';
-import { Box, IconButton, Toolbar } from '@mui/material';
-import { Menu, BookmarkBorder, Bookmark } from '@mui/icons-material/';
 
 export default function ToolBar({ setCopyAlert }) {
   const currentNumber = useSelector((state) => state.currentNumber.currentNumber);
@@ -63,8 +65,7 @@ export default function ToolBar({ setCopyAlert }) {
         color="inherit"
         aria-label="open drawer"
         edge="start"
-        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}
-      >
+        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}>
         <Menu sx={{ fontSize: '30px' }} />
       </IconButton>
       <Box
@@ -78,8 +79,7 @@ export default function ToolBar({ setCopyAlert }) {
       <Box
         sx={{
           flexGrow: '1'
-        }}
-      >
+        }}>
         {(pathname !== '/' || isSearchedHymnsListOpen) && <SearchBar dispatch={dispatch} />}
       </Box>
       {pathname.includes(`/hymns`) && (

@@ -30,4 +30,4 @@ function useEnterKeySubmit(handleSubmit) {
   }, [handleSubmit]);
 }
 
-export { useKeyboardNavigation, useEnterKeySubmit };
+export { useEnterKeySubmit, useKeyboardNavigation };

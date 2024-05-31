@@ -1,6 +1,7 @@
-import ListItem from '../../components/ListItem';
 import SearchIcon from '@mui/icons-material/Search';
+
 import { filterAndSortHymnsByLetter } from '../../../utils';
+import ListItem from '../../components/ListItem';
 import { StyledComponents } from '../../styles';
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;

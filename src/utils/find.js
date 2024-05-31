@@ -1,4 +1,5 @@
 import hymnsService from '../services/hymnsService';
+
 import createNavItems from './createNavItems';
 
 function findInStore(value, data) {

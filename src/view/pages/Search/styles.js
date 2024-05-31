@@ -1,5 +1,5 @@
-import { styled } from '@mui/system';
 import { Button, TextField } from '@mui/material';
+import { styled } from '@mui/system';
 
 const SearchStyledComponents = {
   StyledSearchButton: styled(Button)({

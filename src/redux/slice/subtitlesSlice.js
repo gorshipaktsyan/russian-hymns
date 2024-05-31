@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { InitStateNames } from '../../config/constants';
 import { subtitlesService } from '../../services';
 

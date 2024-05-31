@@ -1,12 +1,12 @@
-import useDoubleTap from './useDoubleTap';
 import useAddToHistory from './useAddToHistory';
-import { useKeyboardNavigation, useEnterKeySubmit } from './useKeyboardClick';
+import useDoubleTap from './useDoubleTap';
+import { useEnterKeySubmit, useKeyboardNavigation } from './useKeyboardClick';
 import useSwipeNavigation from './useSwipeNavigation';
 
 export {
+  useAddToHistory,
   useDoubleTap,
-  useKeyboardNavigation,
   useEnterKeySubmit,
-  useSwipeNavigation,
-  useAddToHistory
+  useKeyboardNavigation,
+  useSwipeNavigation
 };

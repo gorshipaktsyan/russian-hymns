@@ -1,11 +1,14 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, List, ListItem, ListItemButton } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { createNavItems } from '../../../utils';
-import { resetContentValues } from '../../../redux/slice/contentSlice';
+import { useNavigate } from 'react-router-dom';
+
+import { Box, List, ListItem, ListItemButton } from '@mui/material';
+
 import { setAppBarTitle } from '../../../redux/slice/appBarSlice';
+import { resetContentValues } from '../../../redux/slice/contentSlice';
 import { setIsDrawerOpen } from '../../../redux/slice/drawerSlice';
+import { createNavItems } from '../../../utils';
+
 import DrawerStyledComponents from './styles';
 
 const { StyledDrawer, StyledBox, StyledVersionText } = DrawerStyledComponents;
@@ -29,8 +32,7 @@ function DrawerComponent({ fontSize, dispatch, lg }) {
       onClose={() => dispatch(setIsDrawerOpen(false))}
       ModalProps={{
         keepMounted: true
-      }}
-    >
+      }}>
       <StyledBox>
         <List>
           {navItems.slice(1).map((item) => (

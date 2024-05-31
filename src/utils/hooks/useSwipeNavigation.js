@@ -1,7 +1,9 @@
 import { useSwipeable } from 'react-swipeable';
-import { useKeyboardNavigation } from './useKeyboardClick';
+
 import swipeConfig from '../../config/swipeConfig';
 import { hymnsService } from '../../services';
+
+import { useKeyboardNavigation } from './useKeyboardClick';
 
 export default function useSwipeNavigation({ currentNumber, navigate }) {
   function handleLeftSwipe(e) {

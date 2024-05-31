@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+
 import AlphabeticalStyledComponents from './styles';
 
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;

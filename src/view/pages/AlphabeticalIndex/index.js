@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { setAppBarTitle } from '../../../redux/slice/appBarSlice';
+import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
+import { StyledComponents } from '../../styles';
+
 import Alphabet from './Alphabet';
 import HymnsList from './HymnsList';
-import { StyledComponents } from '../../styles';
-import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
-import { setAppBarTitle } from '../../../redux/slice/appBarSlice';
 
 const { StyledBox } = StyledComponents;
 

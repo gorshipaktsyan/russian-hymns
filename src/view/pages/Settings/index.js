@@ -1,12 +1,15 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Divider, Slider, Switch } from '@mui/material';
-import { StyledComponents } from '../../styles';
-import SettingsStyledComponents from './styles';
-import { useSelector, useDispatch } from 'react-redux';
+
 import {
   changeFontSize,
-  setIsEngSearchVisible,
-  setIsAllowToUseArrows
+  setIsAllowToUseArrows,
+  setIsEngSearchVisible
 } from '../../../redux/slice/settingsSlice';
+import { StyledComponents } from '../../styles';
+
+import SettingsStyledComponents from './styles';
 
 const { StyledBox } = StyledComponents;
 const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } = SettingsStyledComponents;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import { StyledComponents } from '../../styles';
 
 const { InfoBox, StyledLink } = StyledComponents;

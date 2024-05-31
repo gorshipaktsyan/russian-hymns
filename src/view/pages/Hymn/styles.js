@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { Divider, Box } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Box, Divider } from '@mui/material';
 
 const HymnStyledComponents = {
   StyledDivider: styled(Divider)({

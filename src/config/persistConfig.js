@@ -1,4 +1,5 @@
 import storage from 'redux-persist/lib/storage';
+
 import { InitStateNames } from './constants';
 
 const persistConfig = {

@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Drawer, AppBar } from '../view/components';
-import App from '../App';
+import { useLocation } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
-import { setFontSize, findTitle } from '../utils';
-import { useDoubleTap } from '../utils/hooks';
+
+import App from '../App';
 import { setAppBarTitle } from '../redux/slice/appBarSlice';
+import { findTitle, setFontSize } from '../utils';
+import { useDoubleTap } from '../utils/hooks';
+import { AppBar, Drawer } from '../view/components';
 
 function Layout() {
   const settings = useSelector((state) => state.settings);

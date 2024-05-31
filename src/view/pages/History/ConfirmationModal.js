@@ -1,4 +1,5 @@
-import { Dialog, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
+
 import { setIsConfirmOpen } from '../../../redux/slice/historySlice';
 
 export default function ConfirmModal({ handleClearHistory, dispatch, isConfirmOpen, lg }) {

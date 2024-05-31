@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, List, Fab, Alert, Typography } from '@mui/material';
+import { Alert, Box, Fab, List, Typography } from '@mui/material';
 
 const StyledComponents = {
   StyledBox: styled(Box)({

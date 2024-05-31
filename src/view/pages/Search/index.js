@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SearchedHymnList from './SearchedHymnList';
-import { setFoundHymns, setIsSearchedHymnsListOpen } from '../../../redux/slice/searchSlice';
-import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
-import { useEnterKeySubmit } from '../../../utils/hooks';
-import { clearInputs } from '../../../utils';
-import { hymnsService } from '../../../services';
-import { StyledComponents } from '../../styles';
+import { useNavigate } from 'react-router-dom';
+
 import Snackbar from '@mui/material/Snackbar';
+
+import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
+import { setFoundHymns, setIsSearchedHymnsListOpen } from '../../../redux/slice/searchSlice';
+import { hymnsService } from '../../../services';
+import { clearInputs } from '../../../utils';
+import { useEnterKeySubmit } from '../../../utils/hooks';
+import { StyledComponents } from '../../styles';
+
+import SearchedHymnList from './SearchedHymnList';
 import SearchStyledComponents from './styles';
 
 const { StyledAlert } = StyledComponents;
@@ -32,7 +35,7 @@ function Search() {
     } else if (searchedText) {
       setErrorAlert(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [dispatch, foundHymns]);
 
   function handleSubmit(e) {
@@ -126,8 +129,7 @@ function Search() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorAlert}
         onClose={() => setErrorAlert(false)}
-        autoHideDuration={2000}
-      >
+        autoHideDuration={2000}>
         <StyledAlert onClose={() => setErrorAlert(false)} severity="error">
           {language.search.errorAlert}
         </StyledAlert>

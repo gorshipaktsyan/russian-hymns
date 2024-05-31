@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { Box } from '@mui/material';
 
 const SearchBarStyledComponents = {
   StyledSearchIcon: styled(SearchIcon)({

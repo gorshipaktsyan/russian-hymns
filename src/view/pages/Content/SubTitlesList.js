@@ -1,9 +1,11 @@
-import ListItem from '../../components/ListItem';
-import { setSubtitleId } from '../../../redux/slice/contentSlice';
-import FirstStringList from './FirstStringList';
 import { Box } from '@mui/material';
+
+import { setSubtitleId } from '../../../redux/slice/contentSlice';
+import { hymnsService, subtitlesService } from '../../../services';
+import ListItem from '../../components/ListItem';
+
+import FirstStringList from './FirstStringList';
 import StyledContentComponents from './styles';
-import { subtitlesService, hymnsService } from '../../../services';
 
 const { StyledSubList } = StyledContentComponents;
 

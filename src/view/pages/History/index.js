@@ -1,15 +1,18 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { TransitionGroup } from 'react-transition-group';
-import ListItem from '../../components/ListItem';
-import ConfirmModal from './ConfirmationModal';
-import { formatDataForHistory } from '../../../utils';
+
+import { Box, Collapse, Divider } from '@mui/material';
+
 import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
 import { clearHistory, setIsConfirmOpen } from '../../../redux/slice/historySlice';
-import StyledHistoryComponents from './styles';
-import { Box, Collapse, Divider } from '@mui/material';
+import { formatDataForHistory } from '../../../utils';
+import ListItem from '../../components/ListItem';
 import { StyledComponents } from '../../styles';
+
+import ConfirmModal from './ConfirmationModal';
+import StyledHistoryComponents from './styles';
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 const { StyledDeleteHistoryText } = StyledHistoryComponents;

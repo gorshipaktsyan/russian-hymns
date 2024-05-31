@@ -1,6 +1,5 @@
-import { Box } from '@mui/material';
-import ListItemStyledComponents from './styles';
 import Divider from './Divider';
+import ListItemStyledComponents from './styles';
 
 const { StyledListItem, StyledListItemText, StyledDeletedIcon, StyledText } =
   ListItemStyledComponents;
@@ -13,8 +12,7 @@ function ListItem({ title, number, id, list, index, Icon, onIconClick, onTitleCl
         sx={{
           display: 'flex',
           alignItems: 'center'
-        }}
-      >
+        }}>
         <StyledListItemText onClick={() => onTitleClick(id)}>
           <StyledText style={style}>{title}</StyledText>
           <StyledText>{number}</StyledText>

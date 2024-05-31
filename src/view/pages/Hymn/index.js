@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
-import './index.scss';
-import HymnStyledComponents from './styles';
+
 import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
-import { useAddToHistory, useSwipeNavigation } from '../../../utils/hooks';
 import { hymnsService } from '../../../services';
+import { useAddToHistory, useSwipeNavigation } from '../../../utils/hooks';
+
+import HymnStyledComponents from './styles';
+
+import './index.scss';
 
 const {
   StyledDivider,
@@ -44,8 +48,7 @@ function Hymn() {
         sx={{
           paddingBottom: '200px'
         }}
-        {...handlers}
-      >
+        {...handlers}>
         {foundHymns?.map((h, index) => {
           return (
             <Box key={index}>
