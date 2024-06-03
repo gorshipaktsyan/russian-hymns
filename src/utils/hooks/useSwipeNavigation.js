@@ -7,20 +7,22 @@ import { useKeyboardNavigation } from './useKeyboardClick';
 
 export default function useSwipeNavigation({ currentNumber, navigate }) {
   function handleLeftSwipe(e) {
-    e?.stopPropagation();
-    const nextHymnNumber = currentNumber[currentNumber.length - 1] + 1;
-    const index = hymnsService.findIndex(nextHymnNumber);
+    e.event ? e.event.stopPropagation() : e.stopPropagation();
+
+    const biggestNumber = Math.max(...currentNumber) + 1;
+    const index = hymnsService.findIndex(biggestNumber);
     if (index !== -1) {
-      navigate(`/hymns/${nextHymnNumber}`);
+      navigate(`/hymns/${biggestNumber}`);
     }
   }
 
   function handleRightSwipe(e) {
-    e?.stopPropagation();
-    const prevHymnNumber = currentNumber[0] - 1;
-    const index = hymnsService.findIndex(prevHymnNumber);
+    e.event ? e.event.stopPropagation() : e.stopPropagation();
+
+    const smallestNumber = Math.min(...currentNumber) - 1;
+    const index = hymnsService.findIndex(smallestNumber);
     if (index !== -1) {
-      navigate(`/hymns/${prevHymnNumber}`);
+      navigate(`/hymns/${smallestNumber}`);
     }
     if (currentNumber[0] === 1) {
       navigate('/hymns/1');

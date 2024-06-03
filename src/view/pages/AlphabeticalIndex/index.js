@@ -12,13 +12,14 @@ import HymnsList from './HymnsList';
 const { StyledBox } = StyledComponents;
 
 function AlphabeticalIndex() {
-  const lg = useSelector((state) => state.settings.language);
-  const letter = useSelector((state) => state.alphabeticalIndex.letter);
+  const { language } = useSelector((state) => state.settings);
+  const { letter } = useSelector((state) => state.alphabeticalIndex);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    letter && dispatch(setAppBarTitle(`${lg.alphabeticalIndex.alphabeticalIndex} (${letter})`));
+    letter &&
+      dispatch(setAppBarTitle(`${language.alphabeticalIndex.alphabeticalIndex} (${letter})`));
   }, [letter]);
 
   function handleTitleClick(id) {
@@ -29,9 +30,9 @@ function AlphabeticalIndex() {
   return (
     <StyledBox>
       {letter ? (
-        <HymnsList lg={lg} letter={letter} handleTitleClick={handleTitleClick} />
+        <HymnsList language={language} letter={letter} handleTitleClick={handleTitleClick} />
       ) : (
-        <Alphabet dispatch={dispatch} lg={lg} />
+        <Alphabet dispatch={dispatch} language={language} />
       )}
     </StyledBox>
   );

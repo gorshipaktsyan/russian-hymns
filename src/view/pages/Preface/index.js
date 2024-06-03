@@ -4,61 +4,61 @@ import { StyledComponents } from '../../styles';
 
 const { InfoBox } = StyledComponents;
 function Preface() {
-  const lg = useSelector((state) => state.settings.language);
+  const { language } = useSelector((state) => state.settings);
 
   return (
     <InfoBox>
       <p>
-        <em>{lg.preface.preface}</em>
+        <em>{language.preface.preface}</em>
       </p>
 
-      <p>{lg.preface.introduction}</p>
+      <p>{language.preface.introduction}</p>
 
       <ol>
-        {lg.preface.goals.map((goal, index) => (
+        {language.preface.goals.map((goal, index) => (
           <li key={index}>{goal}</li>
         ))}
       </ol>
 
-      <p>{lg.preface.churchExistence}</p>
+      <p>{language.preface.churchExistence}</p>
 
-      <p>{lg.preface.inclusion}</p>
+      <p>{language.preface.inclusion}</p>
 
-      <p>{lg.preface.hymnSelection}</p>
+      <p>{language.preface.hymnSelection}</p>
 
-      <p>{lg.preface.lordRestoration}</p>
+      <p>{language.preface.lordRestoration}</p>
 
-      <p>{lg.preface.forSatisfaction}</p>
+      <p>{language.preface.forSatisfaction}</p>
 
-      <p>{lg.preface.hymnDivisions}</p>
+      <p>{language.preface.hymnDivisions}</p>
 
-      <p>{lg.preface.index}</p>
+      <p>{language.preface.index}</p>
 
-      <p>{lg.preface.melodies}</p>
+      <p>{language.preface.melodies}</p>
 
-      <p>{lg.preface.attention}</p>
+      <p>{language.preface.attention}</p>
 
-      <p>{lg.preface.continuousFlow}</p>
+      <p>{language.preface.continuousFlow}</p>
 
-      <p>{lg.preface.distractions}</p>
+      <p>{language.preface.distractions}</p>
 
-      <p>{lg.preface.gratitudeToPublishers}</p>
+      <p>{language.preface.gratitudeToPublishers}</p>
 
-      <p> {lg.preface.permissions}</p>
+      <p> {language.preface.permissions}</p>
 
-      <p> {lg.preface.gratitudeToBrothersAndSisters}</p>
+      <p> {language.preface.gratitudeToBrothersAndSisters}</p>
 
-      <p> {lg.preface.usage}</p>
+      <p> {language.preface.usage}</p>
 
-      <p> {lg.preface.encouragement}</p>
+      <p> {language.preface.encouragement}</p>
       <p>
-        {lg.preface.authors} —<br /> {lg.preface.names}
+        {language.preface.authors} —<br /> {language.preface.names}
       </p>
 
       <p>
-        {lg.preface.location}
+        {language.preface.location}
         <br />
-        {lg.preface.date}
+        {language.preface.date}
       </p>
     </InfoBox>
   );

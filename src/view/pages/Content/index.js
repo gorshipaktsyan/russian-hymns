@@ -13,7 +13,7 @@ const { StyledList, StyledBox } = StyledComponents;
 
 function TitlesList() {
   const { titleId, subtitleId } = useSelector((state) => state.content);
-  const titles = useSelector((state) => state.titles.titles);
+  const { titles } = useSelector((state) => state.titles);
   const dispatch = useDispatch();
 
   function handleTitleClick(id) {

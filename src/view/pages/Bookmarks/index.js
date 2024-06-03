@@ -13,8 +13,8 @@ import { StyledComponents } from '../../styles';
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
 function Bookmarks() {
-  const savedHymns = useSelector((state) => state.bookmarks.savedHymns);
-  const lg = useSelector((state) => state.settings.language);
+  const { savedHymns } = useSelector((state) => state.bookmarks);
+  const { language } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ function Bookmarks() {
     dispatch(removeHymn(id));
   }
 
-  const formattedData = formatDataforBookmarks(savedHymns, lg);
+  const formattedData = formatDataforBookmarks({ savedHymns, language });
   return (
     <StyledBox>
       {formattedData.length > 0 ? (
@@ -55,7 +55,7 @@ function Bookmarks() {
           </TransitionGroup>
         </StyledList>
       ) : (
-        <StyledTypography>{lg.noData}</StyledTypography>
+        <StyledTypography>{language.noData}</StyledTypography>
       )}
     </StyledBox>
   );

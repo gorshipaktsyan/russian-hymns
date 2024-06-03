@@ -20,9 +20,8 @@ const { StyledDeleteHistoryText } = StyledHistoryComponents;
 function History() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isConfirmOpen = useSelector((state) => state.history.isConfirmOpen);
-  const history = useSelector((state) => state.history.searchedHymns);
-  const lg = useSelector((state) => state.settings.language);
+  const { isConfirmOpen, searchedHymns } = useSelector((state) => state.history);
+  const { language } = useSelector((state) => state.settings);
 
   function handleClick(id) {
     dispatch(setCurrentNumber([id]));
@@ -34,14 +33,14 @@ function History() {
     dispatch(setIsConfirmOpen(false));
   }
 
-  const formattedData = formatDataForHistory(history, lg);
+  const formattedData = formatDataForHistory({ searchedHymns, language });
   return (
     <>
       <StyledBox>
         {formattedData.length > 0 ? (
           <StyledList>
             <StyledDeleteHistoryText onClick={() => dispatch(setIsConfirmOpen(true))}>
-              {lg.history.deleteHistory}
+              {language.history.deleteHistory}
             </StyledDeleteHistoryText>
             <TransitionGroup>
               {formattedData.map(({ date, hymns }) => (
@@ -65,12 +64,12 @@ function History() {
             </TransitionGroup>
           </StyledList>
         ) : (
-          <StyledTypography>{lg.noData}</StyledTypography>
+          <StyledTypography>{language.noData}</StyledTypography>
         )}
       </StyledBox>
       {isConfirmOpen && (
         <ConfirmModal
-          lg={lg}
+          language={language}
           handleClearHistory={handleClearHistory}
           isConfirmOpen={isConfirmOpen}
           dispatch={dispatch}

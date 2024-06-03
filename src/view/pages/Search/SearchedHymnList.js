@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
-import { setFoundHymns } from '../../../redux/slice/searchSlice';
 import ListItem from '../../components/ListItem';
 import { StyledComponents } from '../../styles';
 
@@ -10,7 +9,6 @@ const { StyledList, StyledBox } = StyledComponents;
 function SearchedHymnList({ foundHymns, navigate, dispatch }) {
   function handleClick(id) {
     dispatch(setCurrentNumber([id]));
-    dispatch(setFoundHymns([]));
     navigate(`/hymns/${id}`);
   }
 

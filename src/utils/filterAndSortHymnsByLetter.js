@@ -1,19 +1,19 @@
 import hymnsService from '../services/hymnsService';
 
-export default function filterAndSortHymnsByLetter(letter, lg) {
+export default function filterAndSortHymnsByLetter({ letter, language }) {
   const filteredHymns = hymnsService.filterHymnsByLetter(letter);
-  const mappedHymns = mapHymns({ filteredHymns, letter, lg });
+  const mappedHymns = mapHymns({ filteredHymns, letter, language });
 
-  const sortedHymns = hymnsService.sortHymns(mappedHymns, lg.language);
+  const sortedHymns = hymnsService.sortHymns(mappedHymns, language.language);
   return sortedHymns;
 }
 
-function mapHymns({ filteredHymns, letter, lg }) {
+function mapHymns({ filteredHymns, letter, language }) {
   return filteredHymns.map((hymn) => {
     const isFirstLetterMatch = hymn.first_letter === letter;
     const filteredText = removeSymbols(
       isFirstLetterMatch ? hymn.first_string : hymn.chorus_first_string,
-      lg
+      language
     );
 
     return {
@@ -24,6 +24,6 @@ function mapHymns({ filteredHymns, letter, lg }) {
   });
 }
 
-function removeSymbols(text, lg) {
-  return text.replace(lg.regExp.onlyLetters, '');
+function removeSymbols(text, language) {
+  return text.replace(language.regExp.onlyLetters, '');
 }

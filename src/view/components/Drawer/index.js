@@ -15,8 +15,7 @@ import DrawerStyledComponents from './styles';
 const { StyledDrawer, StyledBox, StyledVersionText } = DrawerStyledComponents;
 
 function DrawerComponent({ fontSize, dispatch, lg }) {
-  const navItems = createNavItems(lg);
-  const isDrawerOpen = useSelector((state) => state.drawer.isDrawerOpen);
+  const { isDrawerOpen } = useSelector((state) => state.drawer);
   const navigate = useNavigate();
 
   function handleNavigate(item) {
@@ -27,6 +26,7 @@ function DrawerComponent({ fontSize, dispatch, lg }) {
     dispatch(setLetter(''));
   }
 
+  const navItems = createNavItems(lg);
   return (
     <StyledDrawer
       variant="temporary"

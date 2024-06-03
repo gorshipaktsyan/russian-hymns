@@ -6,10 +6,10 @@ function formattingDate(date, language) {
   return dateFormatter.format(new Date(date));
 }
 
-function formatDataforBookmarks(data, language) {
+function formatDataforBookmarks({ savedHymns, language }) {
   const result = [];
 
-  data.forEach((day) => {
+  savedHymns.forEach((day) => {
     const formattedDate = formattingDate(day.date, language.language);
     const entry = result.find((d) => d.date === formattedDate);
 
@@ -42,10 +42,10 @@ function formatDataforBookmarks(data, language) {
   return result;
 }
 
-function formatDataForHistory(data, language) {
+function formatDataForHistory({ searchedHymns, language }) {
   const result = [];
 
-  data.forEach((day) => {
+  searchedHymns.forEach((day) => {
     const formattedDate = formattingDate(day.date, language.language);
     const entry = result.find((d) => d.date === formattedDate);
 

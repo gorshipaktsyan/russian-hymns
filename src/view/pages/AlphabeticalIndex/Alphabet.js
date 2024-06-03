@@ -6,7 +6,7 @@ import AlphabeticalStyledComponents from './styles';
 
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;
 
-function Alphabet({ dispatch, lg }) {
+function Alphabet({ dispatch, language }) {
   function handleClick(letter) {
     dispatch(setLetter(letter));
   }
@@ -14,7 +14,7 @@ function Alphabet({ dispatch, lg }) {
   return (
     <Box sx={{ maxWidth: '250px' }}>
       <StyledAlphabet>
-        {lg.alphabeticalIndex.alphabet.map((letter, index) => (
+        {language.alphabeticalIndex.alphabet.map((letter, index) => (
           <StyledLetter key={index} onClick={() => handleClick(letter)}>
             {letter}
           </StyledLetter>

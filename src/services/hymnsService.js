@@ -14,8 +14,8 @@ class HymnsService {
     return currentNumbers.map((number) => hymns.find((h) => h.number === number));
   }
   findSearchedHymns(inputtedNumbers, property) {
-    const numbers = inputtedNumbers.split(',').map((num) => Number(num.trim()));
-    return hymns.filter((h) => numbers.includes(h[property])).map((h) => h.number);
+    const numbers = new Set(inputtedNumbers.split(',').map((num) => Number(num.trim())));
+    return Array.from(numbers).filter((num) => hymns.some((h) => h[property] === num));
   }
   findIndex(hymnNumber) {
     return hymns.findIndex((el) => el.number === hymnNumber);

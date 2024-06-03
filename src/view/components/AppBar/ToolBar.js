@@ -17,24 +17,25 @@ import {
 import SearchBar from '../SearchBar';
 
 export default function ToolBar({ setCopyAlert }) {
-  const currentNumber = useSelector((state) => state.currentNumber.currentNumber);
-  const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
-  const isDrawerOpen = useSelector((state) => state.drawer.isDrawerOpen);
-  const isSearchedHymnsListOpen = useSelector((store) => store.search.isSearchedHymnsListOpen);
+  const { currentNumber } = useSelector((state) => state.currentNumber);
+  const { isDrawerOpen } = useSelector((state) => state.drawer);
+  const { foundHymns } = useSelector((store) => store.search);
   const { title, isSaved } = useSelector((state) => state.appBar);
-  const savedHymnsList = useSelector((state) => state.bookmarks.savedHymns);
-  const lg = useSelector((state) => state.settings.language);
+  const { savedHymns } = useSelector((state) => state.bookmarks);
+  const { language } = useSelector((state) => state.settings);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
+  const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
+
   useEffect(() => {
-    const formattedData = formatDataforBookmarks(savedHymnsList, lg);
+    const formattedData = formatDataforBookmarks({ savedHymns, language });
     const isBookmarked = showBookmark({
       formattedData,
       currentHymnNumber
     });
     dispatch(setIsSaved(isBookmarked));
-  }, [currentHymnNumber, savedHymnsList, dispatch, lg]);
+  }, [currentHymnNumber, savedHymns, dispatch, language]);
 
   function handleBookmarkClick() {
     if (isSaved) {
@@ -80,7 +81,7 @@ export default function ToolBar({ setCopyAlert }) {
         sx={{
           flexGrow: '1'
         }}>
-        {(pathname !== '/' || isSearchedHymnsListOpen) && <SearchBar dispatch={dispatch} />}
+        {(pathname !== '/' || !!foundHymns.length) && <SearchBar dispatch={dispatch} />}
       </Box>
       {pathname.includes(`/hymns`) && (
         <>

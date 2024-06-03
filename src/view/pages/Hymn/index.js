@@ -8,24 +8,18 @@ import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
 import { hymnsService } from '../../../services';
 import { useAddToHistory, useSwipeNavigation } from '../../../utils/hooks';
 
+import Arrows from './Arrows';
+import HymnTitle from './HymnTitle';
 import HymnStyledComponents from './styles';
 
 import './index.scss';
 
-const {
-  StyledDivider,
-  ArrowRightIcon,
-  ArrowLeftIcon,
-  ArrowLeftWrapper,
-  ArrowRightWrapper,
-  MobArrowRightIcon,
-  MobArrowLeftIcon
-} = HymnStyledComponents;
+const { StyledDivider } = HymnStyledComponents;
 
 function Hymn() {
   const { number } = useParams();
-  const settings = useSelector((state) => state.settings);
-  const currentNumber = useSelector((state) => state.currentNumber.currentNumber);
+  const { isAllowToUseArrows, isMobile, language } = useSelector((state) => state.settings);
+  const { currentNumber } = useSelector((state) => state.currentNumber);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -49,38 +43,17 @@ function Hymn() {
           paddingBottom: '200px'
         }}
         {...handlers}>
-        {foundHymns?.map((h, index) => {
+        {foundHymns?.map((hymn, index) => {
           return (
             <Box key={index}>
-              <div className="hymnInfo">
-                {foundHymns.length > 1 && (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `${settings.language.hymn} ${h.number}<sup>${h.sign}</sup>`
-                    }}
-                  />
-                )}
-              </div>
-              <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
-              <>
-                {!settings.isMobile ? (
-                  <>
-                    <ArrowLeftWrapper onClick={handleRightSwipe}>
-                      <ArrowLeftIcon />
-                    </ArrowLeftWrapper>
-                    <ArrowRightWrapper onClick={handleLeftSwipe}>
-                      <ArrowRightIcon />
-                    </ArrowRightWrapper>
-                  </>
-                ) : (
-                  settings.isAllowToUseArrows && (
-                    <>
-                      <MobArrowLeftIcon onClick={handleRightSwipe} />
-                      <MobArrowRightIcon onClick={handleLeftSwipe} />
-                    </>
-                  )
-                )}
-              </>
+              <HymnTitle foundHymns={foundHymns} language={language} hymn={hymn} />
+              <Box dangerouslySetInnerHTML={{ __html: hymn?.html }} />
+              <Arrows
+                isAllowToUseArrows={isAllowToUseArrows}
+                isMobile={isMobile}
+                handleLeftSwipe={handleLeftSwipe}
+                handleRightSwipe={handleRightSwipe}
+              />
               {index !== foundHymns.length - 1 && <StyledDivider />}
             </Box>
           );

@@ -6,8 +6,8 @@ import { StyledComponents } from '../../styles';
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;
 
-function HymnsList({ handleTitleClick, letter, handleBackClick, isMobile, lg }) {
-  const filteredHymnsByLetter = filterAndSortHymnsByLetter(letter, lg);
+function HymnsList({ handleTitleClick, letter, handleBackClick, isMobile, language }) {
+  const filteredHymnsByLetter = filterAndSortHymnsByLetter({ letter, language });
 
   return (
     <StyledBox>
