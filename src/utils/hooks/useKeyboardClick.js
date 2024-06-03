@@ -1,17 +1,17 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 function useKeyboardNavigation(handleLeftSwipe, handleRightSwipe) {
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "ArrowLeft") {
+      if (event.key === 'ArrowLeft') {
         handleRightSwipe();
-      } else if (event.key === "ArrowRight") {
+      } else if (event.key === 'ArrowRight') {
         handleLeftSwipe();
       }
     };
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [handleRightSwipe, handleLeftSwipe]);
 }
@@ -19,15 +19,15 @@ function useKeyboardNavigation(handleLeftSwipe, handleRightSwipe) {
 function useEnterKeySubmit(handleSubmit) {
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Enter") {
+      if (event.key === 'Enter') {
         handleSubmit(event);
       }
     };
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [handleSubmit]);
 }
 
-export { useKeyboardNavigation, useEnterKeySubmit };
+export { useEnterKeySubmit, useKeyboardNavigation };

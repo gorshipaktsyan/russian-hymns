@@ -1,11 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { InitStateNames } from "../../config/constants/InitStateNames";
+import { createSlice } from '@reduxjs/toolkit';
+
+import { InitStateNames } from '../../config/constants';
 
 export const appBarSlice = createSlice({
   name: InitStateNames.appBar,
   initialState: {
-    title: "",
-    isSaved: false,
+    title: '',
+    isSaved: false
   },
   reducers: {
     setAppBarTitle: (state, action) => {
@@ -13,8 +14,8 @@ export const appBarSlice = createSlice({
     },
     setIsSaved: (state, action) => {
       state.isSaved = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setAppBarTitle, setIsSaved } = appBarSlice.actions;

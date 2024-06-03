@@ -1,34 +1,29 @@
-import { findBy } from "./find";
+import { dateOptionsConfig } from '../config';
+import { hymnsService } from '../services';
 
 function formattingDate(date, language) {
-  const options = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    weekday: "short",
-  };
-  const dateFormatter = new Intl.DateTimeFormat(language, options);
+  const dateFormatter = new Intl.DateTimeFormat(language, dateOptionsConfig);
   return dateFormatter.format(new Date(date));
 }
 
-function formatDataforBookmarks(data, hymns, language) {
+function formatDataForBookmarks({ savedHymns, language }) {
   const result = [];
 
-  data.forEach((day) => {
+  savedHymns.forEach((day) => {
     const formattedDate = formattingDate(day.date, language.language);
-    const entry = findBy(result, "date", formattedDate);
+    const entry = result.find((d) => d.date === formattedDate);
 
     if (!entry) {
       result.push({
         date: formattedDate,
-        hymn: [],
+        hymns: []
       });
     }
 
-    const matchingHymn = findBy(hymns, "number", day.number);
+    const matchingHymn = hymnsService.findHymn(day.number);
 
     if (matchingHymn) {
-      const existingEntry = findBy(result, "date", formattedDate);
+      const existingEntry = result.find((d) => d.date === formattedDate);
 
       if (existingEntry) {
         if (Array.isArray(existingEntry.hymns)) {
@@ -39,7 +34,7 @@ function formatDataforBookmarks(data, hymns, language) {
       } else {
         result.push({
           date: formattedDate,
-          hymn: [matchingHymn],
+          hymns: [matchingHymn]
         });
       }
     }
@@ -47,25 +42,25 @@ function formatDataforBookmarks(data, hymns, language) {
   return result;
 }
 
-function formatDataForHistory(data, hymns, language) {
+function formatDataForHistory({ searchedHymns, language }) {
   const result = [];
 
-  data.forEach((day) => {
+  searchedHymns.forEach((day) => {
     const formattedDate = formattingDate(day.date, language.language);
-    const entry = findBy(result, "date", formattedDate);
+    const entry = result.find((d) => d.date === formattedDate);
 
     if (!entry) {
       result.push({
         date: formattedDate,
-        hymns: [],
+        hymns: []
       });
     }
 
     day.number.forEach((number) => {
-      const matchingHymn = findBy(hymns, "number", number);
+      const matchingHymn = hymnsService.findHymn(number);
 
       if (matchingHymn) {
-        const existingEntry = findBy(result, "date", formattedDate);
+        const existingEntry = result.find((d) => d.date === formattedDate);
 
         if (existingEntry) {
           if (Array.isArray(existingEntry.hymns)) {
@@ -76,7 +71,7 @@ function formatDataForHistory(data, hymns, language) {
         } else {
           result.push({
             date: formattedDate,
-            hymns: [matchingHymn],
+            hymns: [matchingHymn]
           });
         }
       }

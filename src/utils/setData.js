@@ -10,4 +10,4 @@ function setDataForBookmarks(value) {
   return hymnObject;
 }
 
-export { setDataForHistory, setDataForBookmarks };
+export { setDataForBookmarks, setDataForHistory };

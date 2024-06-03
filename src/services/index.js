@@ -1,5 +1,5 @@
-import bookmarksService from "./BookmarksService";
-import historyService from "./HistoryService";
-import settingsService from "./SettingsService";
+import hymnsService from './hymnsService';
+import subtitlesService from './subtitlesService';
+import titlesService from './titlesService';
 
-export { settingsService, bookmarksService, historyService };
+export { hymnsService, subtitlesService, titlesService };

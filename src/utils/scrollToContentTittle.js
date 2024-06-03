@@ -3,8 +3,8 @@ export default function scrollToContentTittle(id) {
   setTimeout(
     () =>
       element.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
+        behavior: 'smooth',
+        block: 'center'
       }),
     100
   );

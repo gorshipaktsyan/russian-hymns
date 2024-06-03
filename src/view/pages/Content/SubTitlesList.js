@@ -1,27 +1,20 @@
-import { useSelector } from "react-redux";
-import ListItem from "../../components/ListItem";
-import { setSubtitleId } from "../../../redux/slice/contentSlice";
-import { filterArray } from "../../../utils/index";
-import FirstStringList from "./FirstStringList";
-import { Box, Divider } from "@mui/material";
-import StyledContentComponents from "./styles";
+import { Box } from '@mui/material';
+
+import { setSubtitleId } from '../../../redux/slice/contentSlice';
+import { hymnsService, subtitlesService } from '../../../services';
+import ListItem from '../../components/ListItem';
+
+import FirstStringList from './FirstStringList';
+import StyledContentComponents from './styles';
 
 const { StyledSubList } = StyledContentComponents;
 
-function SubTitlesList({ expandedList, dispatch, scrollToContentTittle }) {
-  const hymns = useSelector((state) => state.hymns.hymns);
-  const subtitles = useSelector((state) => state.subtitles.subtitles);
-  const filteredSubtitles = filterArray(
-    subtitles,
-    "title",
-    expandedList.titleId
-  );
+function SubTitlesList({ titleId, subtitleId, dispatch, scrollToContentTittle }) {
+  const filteredSubtitles = subtitlesService.filterSubsByTitleId(titleId);
 
-  function handleSubTitleClick(subtitleId) {
-    dispatch(
-      setSubtitleId(expandedList.subtitleId === subtitleId ? "" : subtitleId)
-    );
-    scrollToContentTittle(subtitleId);
+  function handleSubTitleClick(id) {
+    dispatch(setSubtitleId(subtitleId === id ? '' : id));
+    scrollToContentTittle(id);
   }
 
   return (
@@ -34,19 +27,14 @@ function SubTitlesList({ expandedList, dispatch, scrollToContentTittle }) {
               id={sub._id}
               list={filteredSubtitles}
               index={index}
-              BorderBottom={Divider}
               onTitleClick={handleSubTitleClick}
               style={{
-                fontWeight: expandedList.subtitleId === sub._id && "bold",
-                fontSize: "15px",
+                fontWeight: subtitleId === sub._id && 'bold',
+                fontSize: '15px'
               }}
             />
-            {expandedList.subtitleId === sub._id && (
-              <FirstStringList
-                firstStringList={filterArray(hymns, "subtitle", sub._id)}
-                Divider={Divider}
-                dispatch={dispatch}
-              />
+            {subtitleId === sub._id && (
+              <FirstStringList hymnsService={hymnsService} subId={sub._id} dispatch={dispatch} />
             )}
           </Box>
         );

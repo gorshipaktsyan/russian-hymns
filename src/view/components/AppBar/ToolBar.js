@@ -1,46 +1,43 @@
-import { useEffect } from "react";
-import { Box, IconButton, Toolbar } from "@mui/material";
-import { Menu, BookmarkBorder, Bookmark } from "@mui/icons-material/";
-import SearchBar from "../SearchBar";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { saveHymn, removeHymn } from "../../../redux/slice/bookmarksSlice";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+
+import { Bookmark, BookmarkBorder, Menu } from '@mui/icons-material/';
+import { Box, IconButton, Toolbar } from '@mui/material';
+
+import { setIsSaved } from '../../../redux/slice/appBarSlice';
+import { removeHymn, saveHymn } from '../../../redux/slice/bookmarksSlice';
+import { setIsDrawerOpen } from '../../../redux/slice/drawerSlice';
 import {
   copyToClipboard,
-  setDataForBookmarks,
-  showBookmark,
   formatDataforBookmarks,
-} from "../../../utils/index";
-import { setIsSaved } from "../../../redux/slice/appBarSlice";
-import { setIsDrawerOpen } from "../../../redux/slice/drawerSlice";
+  setDataForBookmarks,
+  showBookmark
+} from '../../../utils';
+import SearchBar from '../SearchBar';
 
 export default function ToolBar({ setCopyAlert }) {
-  const currentNumber = useSelector(
-    (state) => state.currentNumber.currentNumber
-  );
-  const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
-  const isDrawerOpen = useSelector((state) => state.drawer.isDrawerOpen);
-  const isSearchedHymnsListOpen = useSelector(
-    (store) => store.search.isSearchedHymnsListOpen
-  );
-  const title = useSelector((state) => state.appBar.title);
-  const savedHymnsList = useSelector((state) => state.bookmarks.savedHymns);
-  const isSaved = useSelector((state) => state.appBar.isSaved);
-  const hymns = useSelector((state) => state.hymns.hymns);
-  const lg = useSelector((state) => state.settings.language);
+  const { currentNumber } = useSelector((state) => state.currentNumber);
+  const { isDrawerOpen } = useSelector((state) => state.drawer);
+  const { foundHymns } = useSelector((store) => store.search);
+  const { title, isSaved } = useSelector((state) => state.appBar);
+  const { savedHymns } = useSelector((state) => state.bookmarks);
+  const { language } = useSelector((state) => state.settings);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const formatedData = formatDataforBookmarks(savedHymnsList, hymns, lg);
-    showBookmark({
-      dispatch,
-      formatedData,
-      currentHymnNumber,
-    });
-  }, [currentHymnNumber, savedHymnsList, dispatch, hymns, lg]);
+  const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
 
-  const handleBookmarkClick = () => {
+  useEffect(() => {
+    const formattedData = formatDataforBookmarks({ savedHymns, language });
+    const isBookmarked = showBookmark({
+      formattedData,
+      currentHymnNumber
+    });
+    dispatch(setIsSaved(isBookmarked));
+  }, [currentHymnNumber, savedHymns, dispatch, language]);
+
+  function handleBookmarkClick() {
     if (isSaved) {
       dispatch(removeHymn(currentHymnNumber));
       dispatch(setIsSaved(false));
@@ -49,14 +46,19 @@ export default function ToolBar({ setCopyAlert }) {
       dispatch(saveHymn(hymnObject));
       dispatch(setIsSaved(true));
     }
-  };
+  }
 
-  const handleTitleClick = async () => {
-    if (pathname === `/hymns/${currentNumber}`) {
-      await copyToClipboard(window.location.href);
-      setCopyAlert(true);
+  function handleTitleClick() {
+    if (pathname.includes(`/hymns`)) {
+      copyToClipboard(window.location.href)
+        .then(() => {
+          setCopyAlert(true);
+        })
+        .catch((error) => {
+          console.error('Error copying to clipboard', error);
+        });
     }
-  };
+  }
 
   return (
     <Toolbar>
@@ -64,36 +66,31 @@ export default function ToolBar({ setCopyAlert }) {
         color="inherit"
         aria-label="open drawer"
         edge="start"
-        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}
-      >
-        <Menu sx={{ fontSize: "30px" }} />
+        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}>
+        <Menu sx={{ fontSize: '30px' }} />
       </IconButton>
       <Box
         sx={{
-          fontSize: "20px",
-          cursor:
-            pathname === `/hymns/${currentNumber}` ? "pointer" : "default",
+          fontSize: '20px',
+          cursor: pathname.includes(`/hymns`) ? 'pointer' : 'default'
         }}
         dangerouslySetInnerHTML={{ __html: title }}
         onClick={handleTitleClick}
       />
       <Box
         sx={{
-          flexGrow: "1",
-        }}
-      >
-        {(pathname !== "/" || isSearchedHymnsListOpen) && (
-          <SearchBar dispatch={dispatch} />
-        )}
+          flexGrow: '1'
+        }}>
+        {(pathname !== '/' || !!foundHymns.length) && <SearchBar dispatch={dispatch} />}
       </Box>
       {pathname.includes(`/hymns`) && (
         <>
           <IconButton color="inherit" onClick={handleBookmarkClick}>
             {currentHymnNumber &&
               (isSaved ? (
-                <Bookmark sx={{ fontSize: "30px" }} />
+                <Bookmark sx={{ fontSize: '30px' }} />
               ) : (
-                <BookmarkBorder sx={{ fontSize: "30px" }} />
+                <BookmarkBorder sx={{ fontSize: '30px' }} />
               ))}
           </IconButton>
         </>

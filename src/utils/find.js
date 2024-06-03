@@ -1,24 +1,6 @@
-import { setCurrentNumber } from "../redux/slice/currentNumberSlice";
-import createNavItems from "./createNavItems";
-import { filterArray } from "./filter";
+import hymnsService from '../services/hymnsService';
 
-function findLocation(pathname, lg) {
-  const navItems = createNavItems(lg);
-  const selectedItem = navItems.find((item) => `/${item.route}` === pathname);
-
-  return selectedItem && selectedItem.title;
-}
-
-function findHymns(currentNumber, hymns) {
-  if (!currentNumber || !hymns) return [];
-  return currentNumber.map((number) =>
-    hymns.find((h) => Number(h.number) === Number(number))
-  );
-}
-
-function findBy(array, key, value) {
-  return array.find((i) => i[key] === value);
-}
+import createNavItems from './createNavItems';
 
 function findInStore(value, data) {
   if (data.length && value.length) {
@@ -30,15 +12,26 @@ function findInStore(value, data) {
   return false;
 }
 
-function findSearchedNumbers(input, property, hymns, dispatch) {
-  const numbers = input.split(",").map((num) => Number(num.trim()));
-  const matchingHymns = filterArray(hymns, property, (value) =>
-    numbers.includes(value)
-  );
-  const resultNumbers = matchingHymns.map((h) => h.number);
-  resultNumbers.length && dispatch(setCurrentNumber(resultNumbers));
+export default function findTitle({ currentNumber, pathname, lg }) {
+  let newTitle;
 
-  return resultNumbers;
+  if (currentNumber.length && pathname === `/hymns/${currentNumber}`) {
+    const currentHymn = hymnsService.findHymn(currentNumber);
+
+    if (currentNumber.length > 1) {
+      newTitle = `${lg.hymns} ${currentNumber.slice(0, 3).map((number) => ' ' + number)}${
+        currentNumber.length > 3 ? ' ...' : ''
+      }`;
+    } else {
+      newTitle = `${lg.hymn} ${currentNumber}<sup>${currentHymn?.sign || ''}</sup>`;
+    }
+
+    return newTitle;
+  } else {
+    const navItems = createNavItems(lg);
+    const selectedItem = navItems.find((item) => `/${item.route}` === pathname);
+    return selectedItem ? selectedItem.title : null;
+  }
 }
 
-export { findBy, findHymns, findInStore, findLocation, findSearchedNumbers };
+export { findInStore, findTitle };

@@ -1,18 +1,20 @@
-import { useNavigate } from "react-router-dom";
-import ListItem from "../../components/ListItem";
-import { Box, Divider, Collapse } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { TransitionGroup } from "react-transition-group";
-import { StyledComponents, formatDataforBookmarks } from "../../../utils/index";
-import { useDispatch, useSelector } from "react-redux";
-import { removeHymn } from "../../../redux/slice/bookmarksSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { TransitionGroup } from 'react-transition-group';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, Collapse, Divider } from '@mui/material';
+
+import { removeHymn } from '../../../redux/slice/bookmarksSlice';
+import { formatDataForBookmarks } from '../../../utils';
+import ListItem from '../../components/ListItem';
+import { StyledComponents } from '../../styles';
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 
 function Bookmarks() {
-  const savedHymns = useSelector((state) => state.bookmarks.savedHymns);
-  const lg = useSelector((state) => state.settings.language);
-  const hymns = useSelector((state) => state.hymns.hymns);
+  const { savedHymns } = useSelector((state) => state.bookmarks);
+  const { language } = useSelector((state) => state.settings);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,15 +26,15 @@ function Bookmarks() {
     dispatch(removeHymn(id));
   }
 
-  const formatedData = formatDataforBookmarks(savedHymns, hymns, lg);
+  const formattedData = formatDataForBookmarks({ savedHymns, language });
   return (
     <StyledBox>
-      {formatedData.length > 0 ? (
+      {formattedData.length > 0 ? (
         <StyledList>
           <TransitionGroup>
-            {formatedData.map(({ date, hymns }) => (
+            {formattedData.map(({ date, hymns }) => (
               <Collapse key={date}>
-                <Box sx={{ paddingBottom: "20px" }}>
+                <Box sx={{ paddingBottom: '20px' }}>
                   <Divider>{date}</Divider>
                   {hymns.map((h, index) => (
                     <ListItem
@@ -43,7 +45,6 @@ function Bookmarks() {
                       list={hymns}
                       index={index}
                       Icon={DeleteIcon}
-                      BorderBottom={Divider}
                       onTitleClick={handleClick}
                       onIconClick={handleDelete}
                     />
@@ -54,7 +55,7 @@ function Bookmarks() {
           </TransitionGroup>
         </StyledList>
       ) : (
-        <StyledTypography>{lg.noData}</StyledTypography>
+        <StyledTypography>{language.noData}</StyledTypography>
       )}
     </StyledBox>
   );

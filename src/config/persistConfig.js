@@ -1,12 +1,11 @@
-import storage from "redux-persist/lib/storage";
-import { InitStateNames } from "./constants/InitStateNames";
+import storage from 'redux-persist/lib/storage';
 
-export const persistConfig = {
-  key: "ru-hymns",
+import { InitStateNames } from './constants';
+
+const persistConfig = {
+  key: 'ru-hymns',
   storage,
-  whitelist: [
-    InitStateNames.bookmarks,
-    InitStateNames.history,
-    InitStateNames.settings,
-  ],
+  whitelist: [InitStateNames.bookmarks, InitStateNames.history, InitStateNames.settings]
 };
+
+export default persistConfig;

@@ -1,33 +1,25 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Box from "@mui/material/Box";
-import "./index.scss";
-import HymnStyledComponents from "./styles";
-import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import {
-  useAddToHistory,
-  useSwipeNavigation,
-} from "../../../utils/hooks/index";
-import { findHymns } from "../../../utils/find";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const {
-  StyledDivider,
-  ArrowRightIcon,
-  ArrowLeftIcon,
-  ArrowLeftWrapper,
-  ArrowRightWrapper,
-  MobArrowRightIcon,
-  MobArrowLeftIcon,
-} = HymnStyledComponents;
+import Box from '@mui/material/Box';
+
+import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
+import { hymnsService } from '../../../services';
+import { useAddToHistory, useSwipeNavigation } from '../../../utils/hooks';
+
+import Arrows from './Arrows';
+import HymnTitle from './HymnTitle';
+import HymnStyledComponents from './styles';
+
+import './index.scss';
+
+const { StyledDivider } = HymnStyledComponents;
 
 function Hymn() {
   const { number } = useParams();
-  const settings = useSelector((state) => state.settings);
-  const currentNumber = useSelector(
-    (state) => state.currentNumber.currentNumber
-  );
-  const hymns = useSelector((state) => state.hymns.hymns);
+  const { isAllowToUseArrows, isMobile, language } = useSelector((state) => state.settings);
+  const { currentNumber } = useSelector((state) => state.currentNumber);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -35,58 +27,34 @@ function Hymn() {
 
   const { handleLeftSwipe, handleRightSwipe, handlers } = useSwipeNavigation({
     currentNumber,
-    hymns,
-    navigate,
+    navigate
   });
 
   useEffect(() => {
-    number && dispatch(setCurrentNumber(number.split(",").map(Number)));
+    number && dispatch(setCurrentNumber(number.split(',').map(Number)));
   }, [number, dispatch]);
 
-  const findedHymns = findHymns(currentNumber, hymns);
-
+  const foundHymns = hymnsService.findHymns(currentNumber);
   return (
     <>
       <Box
         className="hymns-page-wrapper"
         sx={{
-          paddingBottom: "200px",
+          paddingBottom: '200px'
         }}
-        {...handlers}
-      >
-        {findedHymns.map((h, index) => {
+        {...handlers}>
+        {foundHymns?.map((hymn, index) => {
           return (
             <Box key={index}>
-              <div className="hymnInfo">
-                {findedHymns.length > 1 && (
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `${settings.language.hymn} ${h.number}<sup>${h.sign}</sup>`,
-                    }}
-                  />
-                )}
-              </div>
-              <Box dangerouslySetInnerHTML={{ __html: h?.html }} />
-              <>
-                {!settings.isMobile ? (
-                  <>
-                    <ArrowLeftWrapper onClick={handleRightSwipe}>
-                      <ArrowLeftIcon />
-                    </ArrowLeftWrapper>
-                    <ArrowRightWrapper onClick={handleLeftSwipe}>
-                      <ArrowRightIcon />
-                    </ArrowRightWrapper>
-                  </>
-                ) : (
-                  settings.isAllowToUseArrows && (
-                    <>
-                      <MobArrowLeftIcon onClick={handleRightSwipe} />
-                      <MobArrowRightIcon onClick={handleLeftSwipe} />
-                    </>
-                  )
-                )}
-              </>
-              {index !== findedHymns.length - 1 && <StyledDivider />}
+              <HymnTitle foundHymns={foundHymns} language={language} hymn={hymn} />
+              <Box dangerouslySetInnerHTML={{ __html: hymn?.html }} />
+              <Arrows
+                isAllowToUseArrows={isAllowToUseArrows}
+                isMobile={isMobile}
+                handleLeftSwipe={handleLeftSwipe}
+                handleRightSwipe={handleRightSwipe}
+              />
+              {index !== foundHymns.length - 1 && <StyledDivider />}
             </Box>
           );
         })}

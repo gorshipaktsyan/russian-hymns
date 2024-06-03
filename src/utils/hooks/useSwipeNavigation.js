@@ -1,28 +1,31 @@
-import { useSwipeable } from "react-swipeable";
-import { useKeyboardNavigation } from "./useKeyboardClick";
-import swipeConfig from "../../config/swipeConfig";
+import { useSwipeable } from 'react-swipeable';
 
-export default function useSwipeNavigation({ currentNumber, hymns, navigate }) {
-  // Handle left swipe
+import swipeConfig from '../../config/swipeConfig';
+import { hymnsService } from '../../services';
+
+import { useKeyboardNavigation } from './useKeyboardClick';
+
+export default function useSwipeNavigation({ currentNumber, navigate }) {
   function handleLeftSwipe(e) {
-    if (e && e.stopPropagation) e.stopPropagation();
-    const index = hymns.findIndex(
-      (el) =>
-        Number(el.number) ===
-        Number(currentNumber[currentNumber.length - 1] + 1)
-    );
+    e.event ? e.event.stopPropagation() : e.stopPropagation();
+
+    const biggestNumber = Math.max(...currentNumber) + 1;
+    const index = hymnsService.findIndex(biggestNumber);
     if (index !== -1) {
-      navigate(`/hymns/${currentNumber[currentNumber.length - 1] + 1}`);
+      navigate(`/hymns/${biggestNumber}`);
     }
   }
 
   function handleRightSwipe(e) {
-    if (e && e.stopPropagation) e.stopPropagation();
-    const index = hymns.findIndex(
-      (el) => Number(el.number) === Number(currentNumber[0] - 1)
-    );
+    e.event ? e.event.stopPropagation() : e.stopPropagation();
+
+    const smallestNumber = Math.min(...currentNumber) - 1;
+    const index = hymnsService.findIndex(smallestNumber);
     if (index !== -1) {
-      navigate(`/hymns/${currentNumber[0] - 1}`);
+      navigate(`/hymns/${smallestNumber}`);
+    }
+    if (currentNumber[0] === 1) {
+      navigate('/hymns/1');
     }
   }
 
@@ -34,12 +37,12 @@ export default function useSwipeNavigation({ currentNumber, hymns, navigate }) {
     swipeDuration: 500,
     preventScrollOnSwipe: true,
     trackMouse: true,
-    swipeConfig,
+    swipeConfig
   });
 
   return {
     handleLeftSwipe,
     handleRightSwipe,
-    handlers,
+    handlers
   };
 }

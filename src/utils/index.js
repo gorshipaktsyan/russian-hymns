@@ -1,48 +1,27 @@
-import setFontSize from "./setFontSize";
-import copyToClipboard from "./copyToClipboard";
-import submit from "./submit";
-import createNavItems from "./createNavItems";
-import setTitle from "./setTitle";
-import StyledComponents from "./sharedStyles";
-import { filterArray, filterHymnsByLetter } from "./filter";
-import scrollToContentTittle from "./scrollToContentTittle";
-import { formatDataForHistory, formatDataforBookmarks } from "./formatData";
-import { setDataForHistory, setDataForBookmarks } from "./setData";
-import showBookmark from "./showBookmark";
-import {
-  findLocation,
-  findBy,
-  findHymns,
-  findInStore,
-  findSearchedNumbers,
-} from "./find";
-import {
-  searchRussianNumber,
-  searchEnglishNumber,
-  searchHymnsByText,
-} from "./search";
-
+import clearInputs from './clearInputs';
+import copyToClipboard from './copyToClipboard';
+import createNavItems from './createNavItems';
+import doubleTap from './doubleTap';
+import filterAndSortHymnsByLetter from './filterAndSortHymnsByLetter';
+import { findInStore, findTitle } from './find';
+import { formatDataforBookmarks, formatDataForHistory } from './formatData';
+import scrollToContentTittle from './scrollToContentTittle';
+import { setDataForBookmarks, setDataForHistory } from './setData';
+import setFontSize from './setFontSize';
+import showBookmark from './showBookmark';
 export {
+  clearInputs,
   copyToClipboard,
-  setFontSize,
-  submit,
   createNavItems,
-  setTitle,
-  StyledComponents,
-  filterHymnsByLetter,
-  filterArray,
-  scrollToContentTittle,
-  showBookmark,
-  formatDataForHistory,
-  formatDataforBookmarks,
-  setDataForHistory,
-  setDataForBookmarks,
-  findLocation,
-  findBy,
-  findHymns,
+  doubleTap,
+  filterAndSortHymnsByLetter,
   findInStore,
-  findSearchedNumbers,
-  searchRussianNumber,
-  searchEnglishNumber,
-  searchHymnsByText,
+  findTitle,
+  formatDataforBookmarks,
+  formatDataForHistory,
+  scrollToContentTittle,
+  setDataForBookmarks,
+  setDataForHistory,
+  setFontSize,
+  showBookmark
 };

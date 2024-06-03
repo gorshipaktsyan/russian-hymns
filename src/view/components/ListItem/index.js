@@ -1,40 +1,25 @@
-import { Box } from "@mui/material";
-import ListItemStyledComponents from "./styles";
-import addDivider from "../../../utils/addDivider";
+import Divider from './Divider';
+import ListItemStyledComponents from './styles';
 
-const { StyledListItem, StyledDeletedIcon, StyledText } =
+const { StyledListItem, StyledListItemText, StyledDeletedIcon, StyledText } =
   ListItemStyledComponents;
 
-function ListItem({
-  title,
-  number,
-  id,
-  list,
-  index,
-  Icon,
-  BorderBottom,
-  onIconClick,
-  onTitleClick,
-  style,
-}) {
+function ListItem({ title, number, id, list, index, Icon, onIconClick, onTitleClick, style }) {
   return (
     <>
-      <Box
+      <StyledListItem
         id={id}
         sx={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <StyledListItem onClick={() => onTitleClick(id)}>
+          display: 'flex',
+          alignItems: 'center'
+        }}>
+        <StyledListItemText onClick={() => onTitleClick(id)}>
           <StyledText style={style}>{title}</StyledText>
           <StyledText>{number}</StyledText>
-        </StyledListItem>
-        {Icon && (
-          <StyledDeletedIcon as={Icon} onClick={() => onIconClick(id)} />
-        )}
-      </Box>
-      {addDivider(BorderBottom, list, index)}
+        </StyledListItemText>
+        {Icon && <StyledDeletedIcon as={Icon} onClick={() => onIconClick(id)} />}
+      </StyledListItem>
+      <Divider lastIndex={list.length - 1} index={index} />
     </>
   );
 }

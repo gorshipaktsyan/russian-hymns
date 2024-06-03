@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addHymn } from "../../redux/slice/historySlice";
-import { setDataForHistory } from "../setData";
-import { findInStore } from "../find";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { addHymn } from '../../redux/slice/historySlice';
+import { findInStore, setDataForHistory } from '../';
 
 export default function useAddToHistory(currentNumber) {
   const dispatch = useDispatch();

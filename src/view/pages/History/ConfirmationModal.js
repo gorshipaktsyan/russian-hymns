@@ -1,34 +1,19 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from "@mui/material";
-import { setIsConfirmOpen } from "../../../redux/slice/historySlice";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
 
-export default function ConfirmModal({
-  handleClearHistory,
-  dispatch,
-  isConfirmOpen,
-  lg,
-}) {
+import { setIsConfirmOpen } from '../../../redux/slice/historySlice';
+
+export default function ConfirmModal({ handleClearHistory, dispatch, isConfirmOpen, language }) {
   return (
-    <Dialog
-      open={isConfirmOpen}
-      onClose={() => dispatch(setIsConfirmOpen(false))}
-    >
+    <Dialog open={isConfirmOpen} onClose={() => dispatch(setIsConfirmOpen(false))}>
       <DialogContent>
-        <DialogContentText sx={{ color: "black" }}>
-          {lg.history.dialog}
-        </DialogContentText>
+        <DialogContentText sx={{ color: 'black' }}>{language.history.dialog}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={() => dispatch(setIsConfirmOpen(false))}>
-          {lg.history.no}
+          {language.history.no}
         </Button>
         <Button onClick={handleClearHistory} autoFocus>
-          {lg.history.yes}
+          {language.history.yes}
         </Button>
       </DialogActions>
     </Dialog>

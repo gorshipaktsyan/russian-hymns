@@ -1,17 +1,18 @@
-import React from "react";
-import ListItem from "../../components/ListItem";
-import { useNavigate } from "react-router-dom";
-import { Box, Collapse, Divider } from "@mui/material";
-import { TransitionGroup } from "react-transition-group";
-import { StyledComponents, formatDataForHistory } from "../../../utils/index";
-import ConfirmModal from "./ConfirmationModal";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import {
-  clearHistory,
-  setIsConfirmOpen,
-} from "../../../redux/slice/historySlice";
-import StyledHistoryComponents from "./styles";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { TransitionGroup } from 'react-transition-group';
+
+import { Box, Collapse, Divider } from '@mui/material';
+
+import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
+import { clearHistory, setIsConfirmOpen } from '../../../redux/slice/historySlice';
+import { formatDataForHistory } from '../../../utils';
+import ListItem from '../../components/ListItem';
+import { StyledComponents } from '../../styles';
+
+import ConfirmModal from './ConfirmationModal';
+import StyledHistoryComponents from './styles';
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 const { StyledDeleteHistoryText } = StyledHistoryComponents;
@@ -19,10 +20,8 @@ const { StyledDeleteHistoryText } = StyledHistoryComponents;
 function History() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isConfirmOpen = useSelector((state) => state.history.isConfirmOpen);
-  const history = useSelector((state) => state.history.searchedHymns);
-  const lg = useSelector((state) => state.settings.language);
-  const hymns = useSelector((state) => state.hymns.hymns);
+  const { isConfirmOpen, searchedHymns } = useSelector((state) => state.history);
+  const { language } = useSelector((state) => state.settings);
 
   function handleClick(id) {
     dispatch(setCurrentNumber([id]));
@@ -34,21 +33,19 @@ function History() {
     dispatch(setIsConfirmOpen(false));
   }
 
-  const formatedData = formatDataForHistory(history, hymns, lg);
+  const formattedData = formatDataForHistory({ searchedHymns, language });
   return (
     <>
       <StyledBox>
-        {formatedData.length > 0 ? (
+        {formattedData.length > 0 ? (
           <StyledList>
-            <StyledDeleteHistoryText
-              onClick={() => dispatch(setIsConfirmOpen(true))}
-            >
-              {lg.history.deleteHistory}
+            <StyledDeleteHistoryText onClick={() => dispatch(setIsConfirmOpen(true))}>
+              {language.history.deleteHistory}
             </StyledDeleteHistoryText>
             <TransitionGroup>
-              {formatedData.map(({ date, hymns }) => (
+              {formattedData.map(({ date, hymns }) => (
                 <Collapse key={date}>
-                  <Box sx={{ paddingBottom: "20px" }}>
+                  <Box sx={{ paddingBottom: '20px' }}>
                     <Divider>{date}</Divider>
                     {hymns.map((h, index) => (
                       <ListItem
@@ -58,7 +55,6 @@ function History() {
                         id={h._id}
                         list={hymns}
                         index={index}
-                        BorderBottom={Divider}
                         onTitleClick={handleClick}
                       />
                     ))}
@@ -68,12 +64,12 @@ function History() {
             </TransitionGroup>
           </StyledList>
         ) : (
-          <StyledTypography>{lg.noData}</StyledTypography>
+          <StyledTypography>{language.noData}</StyledTypography>
         )}
       </StyledBox>
       {isConfirmOpen && (
         <ConfirmModal
-          lg={lg}
+          language={language}
           handleClearHistory={handleClearHistory}
           isConfirmOpen={isConfirmOpen}
           dispatch={dispatch}

@@ -8,41 +8,41 @@ import {
   Preface,
   Reference,
   Search,
-  Settings,
-} from "../view/pages";
+  Settings
+} from '../view/pages';
 
 const routes = [
   {
-    path: "/",
-    element: <Search />,
+    path: '/',
+    element: <Search />
   },
   {
-    path: "/hymns/:number",
-    element: <Hymn />,
+    path: '/hymns/:number',
+    element: <Hymn />
   },
   {
-    path: "/settings",
-    element: <Settings />,
+    path: '/settings',
+    element: <Settings />
   },
-  { path: "/about", element: <About /> },
+  { path: '/about', element: <About /> },
   {
-    path: "/alphabetical",
-    element: <AlphabeticalIndex />,
-  },
-  {
-    path: "/bookmark",
-    element: <Bookmarks />,
+    path: '/alphabetical',
+    element: <AlphabeticalIndex />
   },
   {
-    path: "/content",
-    element: <Content />,
+    path: '/bookmark',
+    element: <Bookmarks />
   },
   {
-    path: "/history",
-    element: <History />,
+    path: '/content',
+    element: <Content />
   },
-  { path: "/preface", element: <Preface /> },
-  { path: "/reference", element: <Reference /> },
+  {
+    path: '/history',
+    element: <History />
+  },
+  { path: '/preface', element: <Preface /> },
+  { path: '/reference', element: <Reference /> }
 ];
 
 export default routes;

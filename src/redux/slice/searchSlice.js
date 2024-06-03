@@ -1,23 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { InitStateNames } from "../../config/constants/InitStateNames";
+import { createSlice } from '@reduxjs/toolkit';
+
+import { InitStateNames } from '../../config/constants';
 
 export const searchSlice = createSlice({
   name: InitStateNames.search,
   initialState: {
-    isSearchedHymnsListOpen: false,
-    findedHymns: [],
+    foundHymns: []
   },
   reducers: {
-    setIsSearchedHymnsListOpen: (state, action) => {
-      state.isSearchedHymnsListOpen = action.payload;
-    },
-    setFindedHymns: (state, action) => {
-      state.findedHymns = action.payload;
-    },
-  },
+    setFoundHymns: (state, action) => {
+      state.foundHymns = action.payload;
+    }
+  }
 });
 
-export const { setIsSearchedHymnsListOpen, setFindedHymns } =
-  searchSlice.actions;
+export const { setFoundHymns } = searchSlice.actions;
 
 export default searchSlice.reducer;

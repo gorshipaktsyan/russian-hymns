@@ -1,18 +1,27 @@
-import { useEffect } from "react";
-import doubleTap from "../doubleTap";
+import { useEffect } from 'react';
 
-export default function useDoubleTap(pathname, dispatch, fontSize) {
+import { changeFontSize } from '../../redux/slice/settingsSlice';
+import { doubleTap } from '../';
+
+export default function useDoubleTap({ pathname, dispatch, fontSize }) {
   useEffect(() => {
     if (!dispatch) {
       return;
     }
-    const handleClick = (e) =>
-      pathname !== "/settings" && doubleTap(e, dispatch, fontSize);
 
-    document.addEventListener("click", handleClick);
+    function handleClick(e) {
+      if (pathname !== '/settings') {
+        const newFontSize = doubleTap(e, fontSize);
 
+        if (newFontSize !== fontSize) {
+          dispatch(changeFontSize(newFontSize));
+        }
+      }
+    }
+
+    document.addEventListener('click', handleClick);
     return () => {
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener('click', handleClick);
     };
   }, [dispatch, fontSize, pathname]);
 }

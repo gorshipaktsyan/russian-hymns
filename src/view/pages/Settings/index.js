@@ -1,27 +1,24 @@
-import { Divider, Slider, Switch } from "@mui/material";
-import StyledComponents from "../../../utils/sharedStyles";
-import SettingsStyledComponents from "./styles";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+
+import { Divider, Slider, Switch } from '@mui/material';
+
 import {
   changeFontSize,
-  setIsEngSearchVisible,
   setIsAllowToUseArrows,
-} from "../../../redux/slice/settingsSlice";
+  setIsEngSearchVisible
+} from '../../../redux/slice/settingsSlice';
+import { StyledComponents } from '../../styles';
+
+import SettingsStyledComponents from './styles';
 
 const { StyledBox } = StyledComponents;
-const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } =
-  SettingsStyledComponents;
+const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } = SettingsStyledComponents;
 
 function Settings() {
-  const fontSize = useSelector((state) => state.settings.fontSize);
-  const isAllowToUseArrows = useSelector(
-    (state) => state.settings.isAllowToUseArrows
+  const { fontSize, isAllowToUseArrows, isEngSearchVisible, isMobile, language } = useSelector(
+    (state) => state.settings
   );
-  const isEngSearchVisible = useSelector(
-    (state) => state.settings.isEngSearchVisible
-  );
-  const isMobile = useSelector((state) => state.settings.isMobile);
-  const lg = useSelector((state) => state.settings.language);
+
   const dispatch = useDispatch();
 
   function handleChangeFtSz(e) {
@@ -41,7 +38,7 @@ function Settings() {
     <StyledBox onTouchStart={(e) => e.stopPropagation()}>
       <StyledSetList>
         <StyledSetListItem>
-          <StyledSetTpg>{lg.settings.fontSize}</StyledSetTpg>
+          <StyledSetTpg>{language.settings.fontSize}</StyledSetTpg>
           <Slider
             aria-label="Font size"
             value={fontSize && fontSize}
@@ -54,30 +51,24 @@ function Settings() {
         </StyledSetListItem>
         {isMobile && (
           <>
-            <Divider sx={{ width: "350px", marginTop: "15px" }} />
+            <Divider sx={{ width: '350px', marginTop: '15px' }} />
             <StyledSetListItem>
-              <StyledSetTpg>{lg.settings.arrows}</StyledSetTpg>
+              <StyledSetTpg>{language.settings.arrows}</StyledSetTpg>
               <ArrowSetBox>
-                <StyledSetTpg>{lg.settings.off}</StyledSetTpg>
-                <Switch
-                  checked={isAllowToUseArrows}
-                  onChange={handleChangeArrows}
-                ></Switch>
-                <StyledSetTpg>{lg.settings.on}</StyledSetTpg>
+                <StyledSetTpg>{language.settings.off}</StyledSetTpg>
+                <Switch checked={isAllowToUseArrows} onChange={handleChangeArrows}></Switch>
+                <StyledSetTpg>{language.settings.on}</StyledSetTpg>
               </ArrowSetBox>
             </StyledSetListItem>
           </>
         )}
-        <Divider sx={{ width: "350px", marginTop: "15px" }} />
+        <Divider sx={{ width: '350px', marginTop: '15px' }} />
         <StyledSetListItem>
-          <StyledSetTpg>{lg.settings.searchByEnglishNumber}</StyledSetTpg>
+          <StyledSetTpg>{language.settings.searchByEnglishNumber}</StyledSetTpg>
           <ArrowSetBox>
-            <StyledSetTpg>{lg.settings.off}</StyledSetTpg>
-            <Switch
-              checked={isEngSearchVisible}
-              onChange={handleChangeEngSearch}
-            ></Switch>
-            <StyledSetTpg>{lg.settings.on}</StyledSetTpg>
+            <StyledSetTpg>{language.settings.off}</StyledSetTpg>
+            <Switch checked={isEngSearchVisible} onChange={handleChangeEngSearch}></Switch>
+            <StyledSetTpg>{language.settings.on}</StyledSetTpg>
           </ArrowSetBox>
         </StyledSetListItem>
       </StyledSetList>

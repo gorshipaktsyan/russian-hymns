@@ -1,16 +1,15 @@
-import { useNavigate } from "react-router-dom";
-import { setCurrentNumber } from "../../../redux/slice/currentNumberSlice";
-import ListItem from "../../components/ListItem";
-import StyledContentComponents from "./styles";
+import { useNavigate } from 'react-router-dom';
+
+import { setCurrentNumber } from '../../../redux/slice/currentNumberSlice';
+import ListItem from '../../components/ListItem';
+
+import StyledContentComponents from './styles';
 
 const { StyledFirstStringList } = StyledContentComponents;
 
-export default function FirstStringList({
-  firstStringList,
-  Divider,
-  dispatch,
-}) {
+export default function FirstStringList({ subId, dispatch, hymnsService }) {
   const navigate = useNavigate();
+  const firstStringList = hymnsService.filterHymnsBySubId(subId);
 
   function handleHymnClick(id) {
     dispatch(setCurrentNumber([id]));
@@ -27,10 +26,9 @@ export default function FirstStringList({
           id={h._id}
           list={firstStringList}
           index={index}
-          BorderBottom={Divider}
           onTitleClick={handleHymnClick}
           style={{
-            fontSize: "15px",
+            fontSize: '15px'
           }}
         />
       ))}
