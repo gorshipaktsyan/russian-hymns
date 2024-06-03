@@ -6,7 +6,7 @@ function formattingDate(date, language) {
   return dateFormatter.format(new Date(date));
 }
 
-function formatDataforBookmarks({ savedHymns, language }) {
+function formatDataForBookmarks({ savedHymns, language }) {
   const result = [];
 
   savedHymns.forEach((day) => {

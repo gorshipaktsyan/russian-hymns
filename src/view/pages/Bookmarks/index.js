@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Collapse, Divider } from '@mui/material';
 
 import { removeHymn } from '../../../redux/slice/bookmarksSlice';
-import { formatDataforBookmarks } from '../../../utils';
+import { formatDataForBookmarks } from '../../../utils';
 import ListItem from '../../components/ListItem';
 import { StyledComponents } from '../../styles';
 
@@ -26,7 +26,7 @@ function Bookmarks() {
     dispatch(removeHymn(id));
   }
 
-  const formattedData = formatDataforBookmarks({ savedHymns, language });
+  const formattedData = formatDataForBookmarks({ savedHymns, language });
   return (
     <StyledBox>
       {formattedData.length > 0 ? (
