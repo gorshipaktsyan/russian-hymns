@@ -4,7 +4,7 @@ import createNavItems from './createNavItems';
 import doubleTap from './doubleTap';
 import filterAndSortHymnsByLetter from './filterAndSortHymnsByLetter';
 import { findInStore, findTitle } from './find';
-import { formatDataforBookmarks, formatDataForHistory } from './formatData';
+import { formatDataForBookmarks, formatDataForHistory } from './formatData';
 import scrollToContentTittle from './scrollToContentTittle';
 import { setDataForBookmarks, setDataForHistory } from './setData';
 import setFontSize from './setFontSize';
@@ -17,7 +17,7 @@ export {
   filterAndSortHymnsByLetter,
   findInStore,
   findTitle,
-  formatDataforBookmarks,
+  formatDataForBookmarks,
   formatDataForHistory,
   scrollToContentTittle,
   setDataForBookmarks,

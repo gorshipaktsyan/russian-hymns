@@ -80,4 +80,4 @@ function formatDataForHistory({ searchedHymns, language }) {
   return result;
 }
 
-export { formatDataforBookmarks, formatDataForHistory };
+export { formatDataForBookmarks, formatDataForHistory };

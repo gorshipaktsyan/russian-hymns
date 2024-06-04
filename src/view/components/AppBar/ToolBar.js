@@ -10,7 +10,7 @@ import { removeHymn, saveHymn } from '../../../redux/slice/bookmarksSlice';
 import { setIsDrawerOpen } from '../../../redux/slice/drawerSlice';
 import {
   copyToClipboard,
-  formatDataforBookmarks,
+  formatDataForBookmarks,
   setDataForBookmarks,
   showBookmark
 } from '../../../utils';
@@ -29,7 +29,7 @@ export default function ToolBar({ setCopyAlert }) {
   const currentHymnNumber = currentNumber.length < 2 ? currentNumber[0] : null;
 
   useEffect(() => {
-    const formattedData = formatDataforBookmarks({ savedHymns, language });
+    const formattedData = formatDataForBookmarks({ savedHymns, language });
     const isBookmarked = showBookmark({
       formattedData,
       currentHymnNumber
