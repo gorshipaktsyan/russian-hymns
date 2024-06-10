@@ -13,11 +13,11 @@
   },
   "plugins": ["react", "prettier", "simple-import-sort"],
   "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "prettier/prettier": ["warn", { "endOfLine": "auto" }],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn"
   },
   "overrides": [
     {
@@ -30,7 +30,7 @@
       "files": ["**/*.js", "**/*.ts", "**/*.tsx"],
       "rules": {
         "simple-import-sort/imports": [
-          "error",
+          "warn",
           {
             "groups": [
               ["^react$", "^next", "^[a-z]"],

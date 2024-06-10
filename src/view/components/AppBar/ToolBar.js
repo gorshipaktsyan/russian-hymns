@@ -50,13 +50,8 @@ export default function ToolBar({ setCopyAlert }) {
 
   function handleTitleClick() {
     if (pathname.includes(`/hymns`)) {
-      copyToClipboard(window.location.href)
-        .then(() => {
-          setCopyAlert(true);
-        })
-        .catch((error) => {
-          console.error('Error copying to clipboard', error);
-        });
+      copyToClipboard(window.location.href);
+      setCopyAlert(true);
     }
   }
 
