@@ -5,11 +5,11 @@ import { hymnsService } from '../../services';
 
 import { useKeyboardNavigation } from './useKeyboardClick';
 
-export default function useSwipeNavigation({ currentNumber, navigate }) {
+export default function useSwipeNavigation({ currentHymns, navigate }) {
   function handleLeftSwipe(e) {
     e.event ? e.event.stopPropagation() : e.stopPropagation();
 
-    const biggestNumber = Math.max(...currentNumber) + 1;
+    const biggestNumber = Math.max(...currentHymns) + 1;
     const index = hymnsService.findIndex(biggestNumber);
     if (index !== -1) {
       navigate(`/hymns/${biggestNumber}`);
@@ -19,7 +19,7 @@ export default function useSwipeNavigation({ currentNumber, navigate }) {
   function handleRightSwipe(e) {
     e.event ? e.event.stopPropagation() : e.stopPropagation();
 
-    const smallestNumber = Math.min(...currentNumber) - 1;
+    const smallestNumber = Math.min(...currentHymns) - 1;
     const index = hymnsService.findIndex(smallestNumber);
     if (index !== -1) {
       navigate(`/hymns/${smallestNumber}`);
