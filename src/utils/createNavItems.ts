@@ -1,4 +1,6 @@
-function createNavItems(lg) {
+import { NavItemsTypes, RussianLanguageTypes } from '../types';
+
+function createNavItems(lg: RussianLanguageTypes): NavItemsTypes[] {
   const navItems = [
     { title: lg.navItems.hymns_1_800, route: '' },
     { title: lg.navItems.alphabeticalIndex, route: 'alphabetical' },

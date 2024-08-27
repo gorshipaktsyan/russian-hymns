@@ -3,9 +3,4 @@ export default function setFontSize(fontSize: number): void {
   if (boxElement) {
     boxElement.style.fontSize = `${fontSize.toFixed(1)}em`;
   }
-  // return () => {
-  //   if (boxElement) {
-  //     boxElement.style.fontSize = '';
-  //   }
-  // };
 }

@@ -1,4 +1,4 @@
-async function copyToClipboard(text) {
+async function copyToClipboard(text: string): Promise<void> {
   try {
     await navigator.clipboard.writeText(text);
     console.log('Text successfully copied to clipboard');

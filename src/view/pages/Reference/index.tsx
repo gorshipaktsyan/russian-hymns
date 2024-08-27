@@ -2,10 +2,11 @@ import { useSelector } from 'react-redux';
 
 import { StyledComponents } from '../../styles';
 import { RootState } from '../../../redux/store';
+import { ReactElement } from 'react';
 
 const { InfoBox } = StyledComponents;
 
-function Reference() {
+function Reference(): ReactElement {
   const { language } = useSelector((state: RootState) => state.settings);
 
   return (

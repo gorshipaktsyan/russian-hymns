@@ -14,7 +14,7 @@ import { AppDispatch, RootState } from '../../../redux/store';
 import { RussianLanguageTypes } from '../../../types';
 
 interface DrawerComponent {
-  fontSize: string
+  fontSize: number
   dispatch: AppDispatch
   lg: RussianLanguageTypes
 }

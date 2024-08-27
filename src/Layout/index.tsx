@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -11,13 +11,13 @@ import { useDoubleTap } from '../utils/hooks';
 import { AppBar, Drawer } from '../view/components';
 import { AppDispatch, RootState } from '../redux/store';
 
-function Layout() {
+function Layout(): ReactElement {
   const settings = useSelector((state: RootState) => state.settings);
   const currentHymns = useSelector((state: RootState) => state.currentHymns.currentHymns);
   const dispatch = useDispatch<AppDispatch>();
   const { pathname } = useLocation();
 
-  useDoubleTap({ pathname, dispatch, fontSize: settings.fontSize });
+  useDoubleTap({ pathname, fontSize: settings.fontSize });
 
   useEffect(() => {
     setFontSize(settings.fontSize);
@@ -29,7 +29,7 @@ function Layout() {
       pathname,
       lg: settings.language
     });
-    dispatch(setAppBarTitle(title));
+    dispatch(setAppBarTitle(title!));
   }, [currentHymns, pathname, dispatch, settings.language]);
 
   useEffect(() => {

@@ -11,16 +11,12 @@ class HymnsService {
     return this.hymns;
   }
 
-  findRandomHymn(): HymnType[] {
-    const randomNumber = Math.floor(Math.random() * 800);
-    const hymn = hymns.find((h) => h.number === randomNumber);
-
-    if (!hymn) {
-      return [hymns[0]];
-    }
-    return [hymn];
+  findRandomHymn(): number[] {
+    const randomIndex = Math.floor(Math.random() * this.hymns.length);
+    const hymn = this.hymns[randomIndex];
+  
+    return [hymn.number];
   }
-
   findHymn(currentNumbers: number[] | number): HymnType | undefined {
     if (Array.isArray(currentNumbers)) {
       return hymns.find((h) => currentNumbers.includes(h.number));
@@ -32,9 +28,9 @@ class HymnsService {
     return currentNumbers.map((number) => this.hymns.find((h) => h.number === number) as HymnType);
   }
 
-  findSearchedHymns(inputtedNumbers: string, property: keyof HymnType): HymnType[] {
-    const numbers = new Set(inputtedNumbers.split(',').map((num) => Number(num.trim())));
-    return hymns.filter((h) => Array.from(numbers).some((num) => h[property] === num));
+  findSearchedHymns(inputtedNumbers: string, property: 'number' | 'number_eng'): number[] {
+    const numbers = inputtedNumbers.split(',').map((num) => Number(num.trim()));
+    return hymns.filter((h) => numbers.includes(h[property])).map((h) => h[property]);
   }
 
   findIndex(hymnNumber: number): number {

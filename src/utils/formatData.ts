@@ -1,16 +1,16 @@
 import { dateOptionsConfig } from '../config';
 import { hymnsService } from '../services';
-import { RussianLanguageTypes } from '../types';
+import { RussianLanguageTypes, SavedHymn, SearchedHymns } from '../types';
 import FormattedDataType from '../types/formattedDataType';
 
-interface formatDataForBookmarks {
-  date: string;
-  number: number;
+interface FormatDataForBookmarks {
+  savedHymns: SavedHymn[];
+  language: RussianLanguageTypes;
 }
 
-interface formatDataForHistory {
-  date: string;
-  number: number[];
+interface FormatDataForHistory {
+  searchedHymns: SearchedHymns[];
+  language: RussianLanguageTypes;
 }
 
 function formattingDate(date: string, language: string): string {
@@ -18,10 +18,10 @@ function formattingDate(date: string, language: string): string {
   return dateFormatter.format(new Date(date));
 }
 
-function formatDataForBookmarks(
-  savedHymns: formatDataForBookmarks[],
-  language: RussianLanguageTypes
-): FormattedDataType[] {
+function formatDataForBookmarks({
+  savedHymns,
+  language
+}: FormatDataForBookmarks): FormattedDataType[] {
   const result: FormattedDataType[] = [];
 
   savedHymns.forEach((day) => {
@@ -57,10 +57,10 @@ function formatDataForBookmarks(
   return result;
 }
 
-function formatDataForHistory(
-  searchedHymns: formatDataForHistory[],
-  language: RussianLanguageTypes
-): FormattedDataType[] {
+function formatDataForHistory({
+  searchedHymns,
+  language
+}: FormatDataForHistory): FormattedDataType[] {
   const result: FormattedDataType[] = [];
 
   searchedHymns.forEach((day) => {

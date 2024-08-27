@@ -14,8 +14,8 @@ import {
   setDataForBookmarks,
   showBookmark
 } from '../../../utils';
-import SearchBar from '../SearchBar';
 import { useSelector } from '../../../utils/hooks';
+import SearchBar from '../SearchBar';
 
 export default function ToolBar({ setCopyAlert }) {
   const { currentHymns } = useSelector((state) => state.currentHymns);

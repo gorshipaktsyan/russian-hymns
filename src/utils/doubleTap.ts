@@ -2,7 +2,7 @@ import doubleTapConfig from '../config/doubleTapConfig';
 
 let lastClickTime = 0;
 
-export default function doubleTap(e, fontSize) {
+export default function doubleTap(e: MouseEvent, fontSize: number): number {
   e.preventDefault();
   const currentTime = new Date().getTime();
   const timeDifference = currentTime - lastClickTime;

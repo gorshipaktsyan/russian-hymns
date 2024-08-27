@@ -10,7 +10,7 @@ interface FilterProps extends FilteredHymns {
   language: RussianLanguageTypes;
 }
 
-export default function filterAndSortHymnsByLetter({ letter, language }:FilterProps): HymnType[] {
+export default function filterAndSortHymnsByLetter({ letter, language }: FilterProps): HymnType[] {
   const filteredHymns = hymnsService.filterHymnsByLetter(letter);
   const mappedHymns = mapHymns({ filteredHymns, letter, language });
 
@@ -22,10 +22,9 @@ function mapHymns({ filteredHymns, letter, language }: FilterProps): HymnType[] 
   return filteredHymns.map((hymn) => {
     const isFirstLetterMatch = hymn.first_letter === letter;
     const filteredText = removeSymbols(
-      isFirstLetterMatch ? hymn.first_string : hymn.chorus_first_string,
+      isFirstLetterMatch ? hymn.first_string : hymn.chorus_first_string || '',
       language
     );
-
     return {
       ...hymn,
       filteredByFirstLetter: isFirstLetterMatch,

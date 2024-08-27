@@ -7,6 +7,7 @@ import ListItem from '../../components/ListItem';
 import FirstStringList from './FirstStringList';
 import StyledContentComponents from './styles';
 import { AppDispatch } from '../../../redux/store';
+import { ReactElement } from 'react';
 
 interface SubTitlesList {
   titleId: number;
@@ -16,7 +17,7 @@ interface SubTitlesList {
 }
 const { StyledSubList } = StyledContentComponents;
 
-function SubTitlesList({ titleId, subtitleId, dispatch, scrollToContentTittle }: SubTitlesList) {
+function SubTitlesList({ titleId, subtitleId, dispatch, scrollToContentTittle }: SubTitlesList):ReactElement {
   const filteredSubtitles = subtitlesService.filterSubsByTitleId(titleId);
 
   function handleSubTitleClick(id: number) {

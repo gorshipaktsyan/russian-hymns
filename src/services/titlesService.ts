@@ -1,7 +1,12 @@
 import { titles } from '../storage';
 
+interface Titles {
+  _id: number;
+  name: string;
+}
+
 class TitlesService {
-  get() {
+  get(): Titles[] {
     return titles;
   }
 }

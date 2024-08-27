@@ -9,15 +9,16 @@ import { StyledComponents } from '../../styles';
 
 import SubTitlesList from './SubTitlesList';
 import { RootState } from '../../../redux/store';
+import { ReactElement } from 'react';
 
 const { StyledList, StyledBox } = StyledComponents;
 
-function TitlesList() {
+function TitlesList(): ReactElement {
   const { titleId, subtitleId } = useSelector((state: RootState) => state.content);
   const { titles } = useSelector((state: RootState) => state.titles);
   const dispatch = useDispatch();
 
-  function handleTitleClick(id:number):void {
+  function handleTitleClick(id: number): void {
     dispatch(setTitleId(titleId === id ? null : id));
     scrollToContentTittle(id);
   }

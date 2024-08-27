@@ -1,4 +1,4 @@
-import React from 'react';
+import  { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { TransitionGroup } from 'react-transition-group';
@@ -20,7 +20,7 @@ import { HymnType } from '../../../types';
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 const { StyledDeleteHistoryText } = StyledHistoryComponents;
 
-function History() {
+function History(): ReactElement {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isConfirmOpen, searchedHymns } = useSelector((state: RootState) => state.history);

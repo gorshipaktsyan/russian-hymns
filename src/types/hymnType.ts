@@ -13,5 +13,5 @@ export default interface HymnType {
   first_letter: string;
   first_letter_chorus: string | null;
   sign: string;
-  filteredByFirstLetter?: string;
+  filteredByFirstLetter?: boolean;
 }

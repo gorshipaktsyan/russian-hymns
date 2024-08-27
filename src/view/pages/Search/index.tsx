@@ -1,4 +1,4 @@
-import { FormEvent, FormEventHandler, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,20 +32,20 @@ function Search() {
 
   useEnterKeySubmit(handleSubmit);
 
-  function handleSubmit(e: FormEvent<HTMLDivElement>) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    let searchedHymns: HymnType[] = [];
+    let searchedHymnsNumber: number[] = [];
     const { rusNumber, engNumber, searchedText } = inputs;
 
     if (rusNumber) {
-      searchedHymns = hymnsService.findSearchedHymns(rusNumber, 'number');
-      console.log(searchedHymns);
-      dispatch(setCurrentHymns(searchedHymns));
+      searchedHymnsNumber = hymnsService.findSearchedHymns(rusNumber, 'number');
+      console.log(searchedHymnsNumber);
+      dispatch(setCurrentHymns(searchedHymnsNumber));
     }
 
     if (engNumber) {
-      searchedHymns = hymnsService.findSearchedHymns(engNumber, 'number_eng');
-      dispatch(setCurrentHymns(searchedHymns));
+      searchedHymnsNumber = hymnsService.findSearchedHymns(engNumber, 'number_eng');
+      dispatch(setCurrentHymns(searchedHymnsNumber));
     }
 
     if (searchedText) {
@@ -64,8 +64,8 @@ function Search() {
       dispatch(setCurrentHymns(randomHymn));
     }
 
-    if (searchedHymns.length) {
-      navigate(`/hymns/${searchedHymns}`);
+    if (searchedHymnsNumber.length) {
+      navigate(`/hymns/${searchedHymnsNumber}`);
       dispatch(setFoundHymns([]));
     }
 

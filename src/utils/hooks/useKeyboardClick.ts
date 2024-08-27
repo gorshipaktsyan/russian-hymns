@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { FormEvent, useEffect } from 'react';
+import { UseKeyboardNavigation } from '../../types';
 
-function useKeyboardNavigation(handleLeftSwipe, handleRightSwipe) {
+function useKeyboardNavigation({ handleLeftSwipe, handleRightSwipe }: UseKeyboardNavigation): void {
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
         handleRightSwipe(e);
       } else if (e.key === 'ArrowRight') {
@@ -16,11 +17,12 @@ function useKeyboardNavigation(handleLeftSwipe, handleRightSwipe) {
   }, [handleRightSwipe, handleLeftSwipe]);
 }
 
-function useEnterKeySubmit(handleSubmit) {
+function useEnterKeySubmit(handleSubmit: (e: FormEvent) => void) {
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
-        handleSubmit(e);
+        e.preventDefault();
+        handleSubmit(new Event('submit', { bubbles: true }) as unknown as FormEvent);
       }
     };
     window.addEventListener('keydown', handleKeyDown);

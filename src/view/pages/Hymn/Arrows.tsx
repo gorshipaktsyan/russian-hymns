@@ -1,11 +1,11 @@
-import { ReactEventHandler } from 'react';
 import HymnStyledComponents from './styles';
+import { MouseEventHandler } from 'react';
 
-interface Arrows{
-  isAllowToUseArrows: boolean
-  isMobile: boolean
-  handleLeftSwipe: ReactEventHandler
-  handleRightSwipe: ReactEventHandler
+interface Arrows {
+  isAllowToUseArrows: boolean;
+  isMobile: boolean;
+  handleLeftSwipe: MouseEventHandler<HTMLElement>;
+  handleRightSwipe: MouseEventHandler<HTMLElement>;
 }
 
 const {
@@ -37,8 +37,8 @@ export default function Arrows({
       ) : (
         isAllowToUseArrows && (
           <>
-            <MobArrowLeftIcon onClick={handleRightSwipe} />
-            <MobArrowRightIcon onClick={handleLeftSwipe} />
+            <MobArrowLeftIcon onClick={handleRightSwipe as unknown as MouseEventHandler<SVGSVGElement>} />
+            <MobArrowRightIcon onClick={handleLeftSwipe as unknown as MouseEventHandler<SVGSVGElement>} />
           </>
         )
       )}

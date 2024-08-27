@@ -1,8 +1,22 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
 
 import { setIsConfirmOpen } from '../../../redux/slice/historySlice';
+import { AppDispatch } from '../../../redux/store';
+import { RussianLanguageTypes } from '../../../types';
+import { ReactElement } from 'react';
 
-export default function ConfirmModal({ handleClearHistory, dispatch, isConfirmOpen, language }) {
+interface ConfirmModal {
+  handleClearHistory: () => void;
+  dispatch: AppDispatch,
+  isConfirmOpen: boolean;
+  language: RussianLanguageTypes;
+}
+export default function ConfirmModal({
+  handleClearHistory,
+  dispatch,
+  isConfirmOpen,
+  language
+}: ConfirmModal): ReactElement {
   return (
     <Dialog open={isConfirmOpen} onClose={() => dispatch(setIsConfirmOpen(false))}>
       <DialogContent>

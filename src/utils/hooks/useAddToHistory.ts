@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addHymn } from '../../redux/slice/historySlice';
-import { findInStore, setDataForHistory } from '../';
+import { findInStore, setDataForHistory } from '..';
+import { RootState } from '../../redux/store';
 
-export default function useAddToHistory(currentNumber) {
+export default function useAddToHistory(currentNumber:number[]) {
   const dispatch = useDispatch();
   const [timeOnPage, setTimeOnPage] = useState(0);
-  const history = useSelector((state) => state.history.searchedHymns);
+  const history = useSelector((state:RootState) => state.history.searchedHymns);
 
   useEffect(() => {
-    let timerInterval;
+    let timerInterval: NodeJS.Timeout 
     const hasNumber = findInStore(currentNumber, history);
 
     if (!hasNumber) {

@@ -1,15 +1,18 @@
-import * as React from 'react';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 import { AppBar, Snackbar } from '@mui/material';
 
 import { StyledComponents } from '../../styles';
 
 import ToolBar from './ToolBar';
+import { RussianLanguageTypes } from '../../../types';
 
 const { StyledAlert } = StyledComponents;
 
-function AppBarComponent({ lg }) {
+interface AppBarComponentProps {
+  lg: RussianLanguageTypes;
+}
+function AppBarComponent({ lg }: AppBarComponentProps): ReactElement {
   const [copyAlert, setCopyAlert] = useState(false);
   return (
     <>

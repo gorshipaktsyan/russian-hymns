@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Divider, Slider, Switch } from '@mui/material';
@@ -15,7 +15,7 @@ import { RootState } from '../../../redux/store';
 const { StyledBox } = StyledComponents;
 const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } = SettingsStyledComponents;
 
-export default function Settings() {
+export default function Settings(): ReactElement {
   const { fontSize, isAllowToUseArrows, isEngSearchVisible, isMobile, language } = useSelector(
     (state: RootState) => state.settings
   );

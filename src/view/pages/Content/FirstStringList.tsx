@@ -5,17 +5,18 @@ import ListItem from '../../components/ListItem';
 
 import StyledContentComponents from './styles';
 import { AppDispatch } from '../../../redux/store';
-import { HymnType } from '../../../types';
+import { HymnsService, HymnType } from '../../../types';
+import { ReactElement } from 'react';
 
 interface FirstStringList {
   subId: number
   dispatch: AppDispatch
-  hymnsService: any
+  hymnsService: HymnsService
 }
 
 const { StyledFirstStringList } = StyledContentComponents;
 
-export default function FirstStringList({ subId, dispatch, hymnsService }: FirstStringList) {
+export default function FirstStringList({ subId, dispatch, hymnsService }: FirstStringList):ReactElement {
   const navigate = useNavigate();
   const firstStringList = hymnsService.filterHymnsBySubId(subId);
 
