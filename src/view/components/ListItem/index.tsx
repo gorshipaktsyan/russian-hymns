@@ -1,12 +1,14 @@
 import { ComponentType, CSSProperties } from 'react';
+
+import { SvgIconProps } from '@mui/material/SvgIcon';
+
 import Divider from './Divider';
 import ListItemStyledComponents from './styles';
-import { SvgIconProps } from '@mui/material/SvgIcon';
 
 interface ListItem {
   title: string | null;
   number?: number;
-  id:  number;
+  id: number;
   list: any[];
   index: number;
   Icon?: ComponentType<SvgIconProps>;
@@ -18,16 +20,29 @@ interface ListItem {
 const { StyledListItem, StyledListItemText, StyledDeletedIcon, StyledText } =
   ListItemStyledComponents;
 
-function ListItem({ title, number, id, list, index, Icon, onIconClick, onTitleClick, style }: ListItem) {
+function ListItem({
+  title,
+  number,
+  id,
+  list,
+  index,
+  Icon,
+  onIconClick,
+  onTitleClick,
+  style
+}: ListItem) {
   return (
     <>
-      <StyledListItem
-        id={id.toString()}>
+      <StyledListItem id={id.toString()}>
         <StyledListItemText onClick={() => onTitleClick(id)}>
           <StyledText style={style}>{title}</StyledText>
           <StyledText>{number}</StyledText>
         </StyledListItemText>
-        {Icon && <StyledDeletedIcon><Icon onClick={() => onIconClick && onIconClick(id)} /></StyledDeletedIcon> }
+        {Icon && (
+          <StyledDeletedIcon>
+            <Icon onClick={() => onIconClick && onIconClick(id)} />
+          </StyledDeletedIcon>
+        )}
       </StyledListItem>
       <Divider lastIndex={list.length - 1} index={index} />
     </>

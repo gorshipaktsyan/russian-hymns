@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { setAppBarTitle } from '../../../redux/slice/appBarSlice';
 import { setCurrentHymns } from '../../../redux/slice/currentHymnsSlice';
+import { RootState } from '../../../redux/store';
+import { hymnsService } from '../../../services';
 import { StyledComponents } from '../../styles';
 
 import Alphabet from './Alphabet';
 import HymnsList from './HymnsList';
-import { RootState } from '../../../redux/store';
-import { hymnsService } from '../../../services';
 
 const { StyledBox } = StyledComponents;
 

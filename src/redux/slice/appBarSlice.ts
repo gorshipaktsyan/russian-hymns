@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { InitStateNames } from '../../config/constants';
 
 // Define the state interface
@@ -10,7 +11,7 @@ interface AppBarState {
 // Initial state
 const initialState: AppBarState = {
   title: '',
-  isSaved: false,
+  isSaved: false
 };
 
 export const appBarSlice = createSlice({
@@ -22,8 +23,8 @@ export const appBarSlice = createSlice({
     },
     setIsSaved: (state, action: PayloadAction<boolean>) => {
       state.isSaved = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setAppBarTitle, setIsSaved } = appBarSlice.actions;

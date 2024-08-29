@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 
 import { setLetter } from '../../../redux/slice/alphabeticalSlice';
-
-import AlphabeticalStyledComponents from './styles';
 import { AppDispatch } from '../../../redux/store';
 import { RussianLanguageTypes } from '../../../types';
+
+import AlphabeticalStyledComponents from './styles';
 
 interface Alphabet {
   dispatch: AppDispatch;

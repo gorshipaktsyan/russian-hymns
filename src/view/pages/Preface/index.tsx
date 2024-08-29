@@ -1,11 +1,11 @@
+import { ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 
-import { StyledComponents } from '../../styles';
 import { RootState } from '../../../redux/store';
-import { ReactElement } from 'react';
+import { StyledComponents } from '../../styles';
 
 const { InfoBox } = StyledComponents;
-function Preface() :ReactElement{
+function Preface() {
   const { language } = useSelector((state: RootState) => state.settings);
 
   return (

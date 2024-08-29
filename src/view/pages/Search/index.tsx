@@ -6,14 +6,14 @@ import Snackbar from '@mui/material/Snackbar';
 
 import { setCurrentHymns } from '../../../redux/slice/currentHymnsSlice';
 import { setFoundHymns } from '../../../redux/slice/searchSlice';
+import { RootState } from '../../../redux/store';
 import { hymnsService } from '../../../services';
+import { HymnType } from '../../../types';
 import { useEnterKeySubmit } from '../../../utils/hooks';
 import { StyledComponents } from '../../styles';
 
 import SearchedHymnList from './SearchedHymnList';
 import SearchStyledComponents from './styles';
-import { RootState } from '../../../redux/store';
-import { HymnType } from '../../../types';
 
 const { StyledAlert } = StyledComponents;
 const { StyledForm, StyledSearchButton, StyledTextField } = SearchStyledComponents;
@@ -34,18 +34,17 @@ function Search() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    let searchedHymnsNumber: number[] = [];
+    let searchedHymns: HymnType[] = [];
     const { rusNumber, engNumber, searchedText } = inputs;
 
     if (rusNumber) {
-      searchedHymnsNumber = hymnsService.findSearchedHymns(rusNumber, 'number');
-      console.log(searchedHymnsNumber);
-      dispatch(setCurrentHymns(searchedHymnsNumber));
+      searchedHymns = hymnsService.findSearchedHymns(rusNumber, 'number');
+      dispatch(setCurrentHymns(searchedHymns));
     }
 
     if (engNumber) {
-      searchedHymnsNumber = hymnsService.findSearchedHymns(engNumber, 'number_eng');
-      dispatch(setCurrentHymns(searchedHymnsNumber));
+      searchedHymns = hymnsService.findSearchedHymns(engNumber, 'number_eng');
+      dispatch(setCurrentHymns(searchedHymns));
     }
 
     if (searchedText) {
@@ -61,14 +60,15 @@ function Search() {
 
     if (!rusNumber && !engNumber && !searchedText) {
       const randomHymn = hymnsService.findRandomHymn();
-      dispatch(setCurrentHymns(randomHymn));
+      searchedHymns = [randomHymn];
+      dispatch(setCurrentHymns([randomHymn]));
     }
 
-    if (searchedHymnsNumber.length) {
-      navigate(`/hymns/${searchedHymnsNumber}`);
+    if (searchedHymns.length) {
+      const searchedHymnsNumbers = hymnsService.getHymnsNumbers(searchedHymns);
+      navigate(`/hymns/${searchedHymnsNumbers}`);
       dispatch(setFoundHymns([]));
     }
-
     setErrorAlert(true);
     setInputs({ rusNumber: '', engNumber: '', searchedText: '' });
   }
@@ -78,7 +78,7 @@ function Search() {
       {foundHymns.length ? (
         <SearchedHymnList foundHymns={foundHymns} navigate={navigate} dispatch={dispatch} />
       ) : (
-        <StyledForm onSubmit={handleSubmit}>
+        <StyledForm>
           <StyledTextField
             type="decimal"
             label={language.search.searchByRussianNumber}
@@ -128,7 +128,7 @@ function Search() {
               });
             }}
           />
-          <StyledSearchButton type="submit" variant="contained">
+          <StyledSearchButton type="submit" variant="contained" onClick={handleSubmit}>
             <span style={{ fontSize: '16px' }}>{language.search.search}</span>
           </StyledSearchButton>
         </StyledForm>
@@ -137,7 +137,8 @@ function Search() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorAlert}
         onClose={() => setErrorAlert(false)}
-        autoHideDuration={2000}>
+        autoHideDuration={2000}
+      >
         <StyledAlert onClose={() => setErrorAlert(false)} severity="error">
           {language.search.errorAlert}
         </StyledAlert>

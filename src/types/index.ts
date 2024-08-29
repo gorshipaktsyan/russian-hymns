@@ -1,27 +1,27 @@
-import HymnType from './hymnType';
-import RussianLanguageTypes from './russianLanguageTypes';
-import NavItemsTypes from './navItemsType';
+import SavedHymn from './bookmarkedHymn';
 import FormattedDataType from './formattedDataType';
-import { UseSwipeNavigationProps, SwipeEvent } from './useSwipeNavigation';
-import UseKeyboardNavigation from './useKeyboardNavigation';
-import UseDoubleTap from './useDoubleTap';
+import HymnsService from './hymnService';
+import HymnType from './hymnType';
+import NavItemsTypes from './navItemsType';
+import RussianLanguageTypes from './russianLanguageTypes';
+import SearchedHymns from './searchedHymns';
 import Subtitles from './subtitles';
 import Titles from './titles';
-import SavedHymn from './bookmarkedHymn';
-import SearchedHymns from './searchedHymns';
-import HymnsService from './hymnService';
+import UseDoubleTap from './useDoubleTap';
+import UseKeyboardNavigation from './useKeyboardNavigation';
+import { SwipeEvent, UseSwipeNavigationProps } from './useSwipeNavigation';
 export type {
-  HymnType,
-  RussianLanguageTypes,
-  NavItemsTypes,
   FormattedDataType,
-  UseSwipeNavigationProps,
-  SwipeEvent,
-  UseKeyboardNavigation,
-  UseDoubleTap,
-  Subtitles,
-  Titles,
+  HymnsService,
+  HymnType,
+  NavItemsTypes,
+  RussianLanguageTypes,
   SavedHymn,
   SearchedHymns,
-  HymnsService
+  Subtitles,
+  SwipeEvent,
+  Titles,
+  UseDoubleTap,
+  UseKeyboardNavigation,
+  UseSwipeNavigationProps
 };

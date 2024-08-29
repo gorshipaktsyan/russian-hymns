@@ -1,13 +1,13 @@
-import { useSwipeable, SwipeableHandlers, SwipeEventData } from 'react-swipeable';
+import { MouseEventHandler } from 'react';
+import { SwipeableHandlers, SwipeEventData, useSwipeable } from 'react-swipeable';
 
 import swipeConfig from '../../config/swipeConfig';
 import { hymnsService } from '../../services';
+import { SwipeEvent, UseSwipeNavigationProps } from '../../types';
 
 import { useKeyboardNavigation } from './useKeyboardClick';
-import { UseSwipeNavigationProps, SwipeEvent } from '../../types';
-import { MouseEventHandler } from 'react';
 
-export default function useSwipeNavigation({ currentHymns, navigate }: UseSwipeNavigationProps){
+export default function useSwipeNavigation({ currentHymns, navigate }: UseSwipeNavigationProps) {
   const hymnNumbers = currentHymns.map((hymn) => hymn.number);
 
   function handleEvent(e: SwipeEventData | KeyboardEvent | MouseEvent) {
@@ -47,7 +47,10 @@ export default function useSwipeNavigation({ currentHymns, navigate }: UseSwipeN
     handleRightSwipe(e as unknown as SwipeEventData);
   }
 
-  useKeyboardNavigation({ handleLeftSwipe: handleKeyboardLeftSwipe, handleRightSwipe: handleKeyboardRightSwipe });
+  useKeyboardNavigation({
+    handleLeftSwipe: handleKeyboardLeftSwipe,
+    handleRightSwipe: handleKeyboardRightSwipe
+  });
 
   const handlers: SwipeableHandlers = useSwipeable({
     onSwipedLeft: handleLeftSwipe,

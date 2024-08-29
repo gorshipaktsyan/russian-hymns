@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { InitStateNames } from '../../config/constants';
 import { HymnType } from '../../types';
 
 interface SearchState {
-  foundHymns: HymnType[]; 
+  foundHymns: HymnType[];
 }
 
 const initialState: SearchState = {
-  foundHymns: [],
+  foundHymns: []
 };
 
 export const searchSlice = createSlice({
@@ -16,8 +17,8 @@ export const searchSlice = createSlice({
   reducers: {
     setFoundHymns: (state, action: PayloadAction<HymnType[]>) => {
       state.foundHymns = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setFoundHymns } = searchSlice.actions;

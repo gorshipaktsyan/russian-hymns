@@ -1,35 +1,37 @@
 import hymnsService from '../services/hymnsService';
-import { RussianLanguageTypes } from '../types';
+import { HymnType, RussianLanguageTypes, SearchedHymns } from '../types';
+
 import createNavItems from './createNavItems';
 
 interface FindTitle {
-  currentHymns: any[]
-  pathname: string
-  lg: RussianLanguageTypes
+  currentHymns: HymnType[];
+  pathname: string;
+  lg: RussianLanguageTypes;
 }
 
-function findInStore(value: number[], data: any[]): boolean {
-  if (data.length && value.length) {
+function findInStore(hymns: HymnType[], data: SearchedHymns[]): boolean {
+  if (data.length && hymns.length) {
+    const hymnsNumbers = hymnsService.getHymnsNumbers(hymns);
     const hasNumber = data.some((currentDay) =>
-      currentDay.number.some((number: number) => value.includes(number))
+      currentDay.number.some((number: number) => hymnsNumbers.includes(number))
     );
     return hasNumber;
   }
   return false;
 }
 
-export default function findTitle({ currentHymns, pathname, lg }:FindTitle): string | null {
+export default function findTitle({ currentHymns, pathname, lg }: FindTitle): string | null {
   let newTitle;
-
-  if (currentHymns.length && pathname === `/hymns/${currentHymns}`) {
-    const currentHymn = hymnsService.findHymn(currentHymns);
+  const currentHymnNumbers = hymnsService.getHymnsNumbers(currentHymns);
+  if (currentHymns.length && pathname === `/hymns/${currentHymnNumbers}`) {
+    const currentHymn = hymnsService.findHymn(currentHymnNumbers);
 
     if (currentHymns.length > 1) {
       newTitle = `${lg.hymns} ${currentHymns.slice(0, 3).map((number) => ' ' + number)}${
         currentHymns.length > 3 ? ' ...' : ''
       }`;
     } else {
-      newTitle = `${lg.hymn} ${currentHymns}<sup>${currentHymn?.sign || ''}</sup>`;
+      newTitle = `${lg.hymn} ${currentHymnNumbers}<sup>${currentHymn?.sign || ''}</sup>`;
     }
 
     return newTitle;

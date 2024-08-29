@@ -1,5 +1,6 @@
-import HymnStyledComponents from './styles';
 import { MouseEventHandler } from 'react';
+
+import HymnStyledComponents from './styles';
 
 interface Arrows {
   isAllowToUseArrows: boolean;
@@ -37,8 +38,12 @@ export default function Arrows({
       ) : (
         isAllowToUseArrows && (
           <>
-            <MobArrowLeftIcon onClick={handleRightSwipe as unknown as MouseEventHandler<SVGSVGElement>} />
-            <MobArrowRightIcon onClick={handleLeftSwipe as unknown as MouseEventHandler<SVGSVGElement>} />
+            <MobArrowLeftIcon
+              onClick={handleRightSwipe as unknown as MouseEventHandler<SVGSVGElement>}
+            />
+            <MobArrowRightIcon
+              onClick={handleLeftSwipe as unknown as MouseEventHandler<SVGSVGElement>}
+            />
           </>
         )
       )}

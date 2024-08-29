@@ -1,4 +1,5 @@
 import { FormEvent, useEffect } from 'react';
+
 import { UseKeyboardNavigation } from '../../types';
 
 function useKeyboardNavigation({ handleLeftSwipe, handleRightSwipe }: UseKeyboardNavigation): void {

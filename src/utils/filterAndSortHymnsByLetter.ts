@@ -1,11 +1,11 @@
 import hymnsService from '../services/hymnsService';
 import { HymnType, RussianLanguageTypes } from '../types';
 
-interface FilteredHymns {
+interface FilteredHymns extends FilterProps {
   filteredHymns: HymnType[];
 }
 
-interface FilterProps extends FilteredHymns {
+interface FilterProps {
   letter: string;
   language: RussianLanguageTypes;
 }
@@ -18,7 +18,7 @@ export default function filterAndSortHymnsByLetter({ letter, language }: FilterP
   return sortedHymns;
 }
 
-function mapHymns({ filteredHymns, letter, language }: FilterProps): HymnType[] {
+function mapHymns({ filteredHymns, letter, language }: FilteredHymns): HymnType[] {
   return filteredHymns.map((hymn) => {
     const isFirstLetterMatch = hymn.first_letter === letter;
     const filteredText = removeSymbols(

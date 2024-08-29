@@ -1,4 +1,4 @@
-import  { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -6,10 +6,10 @@ import Box from '@mui/material/Box';
 
 import App from '../App';
 import { setAppBarTitle } from '../redux/slice/appBarSlice';
+import { AppDispatch, RootState } from '../redux/store';
 import { findTitle, setFontSize } from '../utils';
 import { useDoubleTap } from '../utils/hooks';
 import { AppBar, Drawer } from '../view/components';
-import { AppDispatch, RootState } from '../redux/store';
 
 function Layout(): ReactElement {
   const settings = useSelector((state: RootState) => state.settings);

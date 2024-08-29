@@ -2,7 +2,7 @@ import FormattedDataType from '../types/formattedDataType';
 
 interface showBookmark {
   formattedData: FormattedDataType[];
-  currentHymnNumber: number;
+  currentHymnNumber: number | null;
 }
 
 export default function showBookmark({ formattedData, currentHymnNumber }: showBookmark): boolean {

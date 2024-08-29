@@ -2,7 +2,7 @@ import { HymnType } from '../types';
 
 export default interface HymnsService {
   get(): HymnType[];
-  findRandomHymn(): HymnType[];
+  findRandomHymn(): HymnType;
   findHymn(currentNumbers: number[] | number): HymnType | undefined;
   findHymns(currentNumbers: number[]): HymnType[];
   findSearchedHymns(inputtedNumbers: string, property: keyof HymnType): HymnType[];
@@ -11,4 +11,5 @@ export default interface HymnsService {
   filterHymnsByLetter(letter: string): HymnType[];
   filterHymnsBySubId(subtitleId: number): HymnType[];
   sortHymns(hymnsArray: HymnType[], lg: string): HymnType[];
+  getHymnsNumbers(hymns: HymnType[]): number[];
 }

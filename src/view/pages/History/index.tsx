@@ -1,4 +1,4 @@
-import  { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { TransitionGroup } from 'react-transition-group';
@@ -7,15 +7,15 @@ import { Box, Collapse, Divider } from '@mui/material';
 
 import { setCurrentHymns } from '../../../redux/slice/currentHymnsSlice';
 import { clearHistory, setIsConfirmOpen } from '../../../redux/slice/historySlice';
+import { RootState } from '../../../redux/store';
+import { hymnsService } from '../../../services';
+import { HymnType } from '../../../types';
 import { formatDataForHistory } from '../../../utils';
 import ListItem from '../../components/ListItem';
 import { StyledComponents } from '../../styles';
 
 import ConfirmModal from './ConfirmationModal';
 import StyledHistoryComponents from './styles';
-import { RootState } from '../../../redux/store';
-import { hymnsService } from '../../../services';
-import { HymnType } from '../../../types';
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 const { StyledDeleteHistoryText } = StyledHistoryComponents;
@@ -53,7 +53,7 @@ function History(): ReactElement {
                 <Collapse key={date}>
                   <Box sx={{ paddingBottom: '20px' }}>
                     <Divider>{date}</Divider>
-                    {hymns.map((h: HymnType, index:number) => (
+                    {hymns.map((h: HymnType, index: number) => (
                       <ListItem
                         key={h._id}
                         title={h?.first_string}

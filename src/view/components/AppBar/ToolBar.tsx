@@ -17,7 +17,11 @@ import {
 import { useSelector } from '../../../utils/hooks';
 import SearchBar from '../SearchBar';
 
-export default function ToolBar({ setCopyAlert }) {
+interface IToolBar {
+  setCopyAlert: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function ToolBar({ setCopyAlert }: IToolBar) {
   const { currentHymns } = useSelector((state) => state.currentHymns);
   const { isDrawerOpen } = useSelector((state) => state.drawer);
   const { foundHymns } = useSelector((store) => store.search);
@@ -27,25 +31,29 @@ export default function ToolBar({ setCopyAlert }) {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
-  const currentHymnNumber = currentHymns.length < 2 ? currentHymns[0] : null;
+  const currentHymnNumber = currentHymns.length < 2 ? currentHymns[0]?.number : null;
 
   useEffect(() => {
-    const formattedData = formatDataForBookmarks({ savedHymns, language });
-    const isBookmarked = showBookmark({
-      formattedData,
-      currentHymnNumber
-    });
-    dispatch(setIsSaved(isBookmarked));
+    if (currentHymnNumber) {
+      const formattedData = formatDataForBookmarks({ savedHymns, language });
+      const isBookmarked = showBookmark({
+        formattedData,
+        currentHymnNumber
+      });
+      dispatch(setIsSaved(isBookmarked));
+    }
   }, [currentHymnNumber, savedHymns, dispatch, language]);
 
   function handleBookmarkClick() {
-    if (isSaved) {
-      dispatch(removeHymn(currentHymnNumber));
-      dispatch(setIsSaved(false));
-    } else {
-      const hymnObject = setDataForBookmarks(currentHymnNumber);
-      dispatch(saveHymn(hymnObject));
-      dispatch(setIsSaved(true));
+    if (currentHymnNumber) {
+      if (isSaved) {
+        dispatch(removeHymn(currentHymnNumber));
+        dispatch(setIsSaved(false));
+      } else {
+        const hymnObject = setDataForBookmarks(currentHymnNumber);
+        dispatch(saveHymn(hymnObject));
+        dispatch(setIsSaved(true));
+      }
     }
   }
 
@@ -62,7 +70,8 @@ export default function ToolBar({ setCopyAlert }) {
         color="inherit"
         aria-label="open drawer"
         edge="start"
-        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}>
+        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}
+      >
         <Menu sx={{ fontSize: '30px' }} />
       </IconButton>
       <Box
@@ -76,7 +85,8 @@ export default function ToolBar({ setCopyAlert }) {
       <Box
         sx={{
           flexGrow: '1'
-        }}>
+        }}
+      >
         {(pathname !== '/' || !!foundHymns.length) && <SearchBar />}
       </Box>
       {pathname.includes(`/hymns`) && (

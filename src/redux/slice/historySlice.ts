@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { InitStateNames } from '../../config/constants';
 import { SearchedHymns } from '../../types';
 

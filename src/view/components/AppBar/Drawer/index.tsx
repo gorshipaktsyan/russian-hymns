@@ -3,20 +3,20 @@ import { useNavigate } from 'react-router-dom';
 
 import { Box, List, ListItem, ListItemButton } from '@mui/material';
 
-import { setLetter } from '../../../redux/slice/alphabeticalSlice';
-import { setAppBarTitle } from '../../../redux/slice/appBarSlice';
-import { resetContentValues } from '../../../redux/slice/contentSlice';
-import { setIsDrawerOpen } from '../../../redux/slice/drawerSlice';
-import { createNavItems } from '../../../utils';
+import { setLetter } from '../../../../redux/slice/alphabeticalSlice';
+import { setAppBarTitle } from '../../../../redux/slice/appBarSlice';
+import { resetContentValues } from '../../../../redux/slice/contentSlice';
+import { setIsDrawerOpen } from '../../../../redux/slice/drawerSlice';
+import { AppDispatch, RootState } from '../../../../redux/store';
+import { RussianLanguageTypes } from '../../../../types';
+import { createNavItems } from '../../../../utils';
 
 import DrawerStyledComponents from './styles';
-import { AppDispatch, RootState } from '../../../redux/store';
-import { RussianLanguageTypes } from '../../../types';
 
 interface DrawerComponent {
-  fontSize: number
-  dispatch: AppDispatch
-  lg: RussianLanguageTypes
+  fontSize: number;
+  dispatch: AppDispatch;
+  lg: RussianLanguageTypes;
 }
 
 const { StyledDrawer, StyledBox, StyledVersionText } = DrawerStyledComponents;
@@ -25,7 +25,7 @@ function DrawerComponent({ fontSize, dispatch, lg }: DrawerComponent) {
   const { isDrawerOpen } = useSelector((state: RootState) => state.drawer);
   const navigate = useNavigate();
 
-  function handleNavigate(item: { title: any; route: any; }) {
+  function handleNavigate(item: { title: any; route: any }) {
     navigate(`/${item.route}`);
     dispatch(setAppBarTitle(item.title));
     dispatch(setIsDrawerOpen(false));
@@ -41,7 +41,8 @@ function DrawerComponent({ fontSize, dispatch, lg }: DrawerComponent) {
       onClose={() => dispatch(setIsDrawerOpen(false))}
       ModalProps={{
         keepMounted: true
-      }}>
+      }}
+    >
       <StyledBox>
         <List>
           {navItems.slice(1).map((item) => (

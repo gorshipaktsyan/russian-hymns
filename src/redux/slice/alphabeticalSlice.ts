@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { InitStateNames } from '../../config/constants';
 
 interface AlphabeticalIndexState {
@@ -6,7 +7,7 @@ interface AlphabeticalIndexState {
 }
 
 const initialState: AlphabeticalIndexState = {
-  letter: '',
+  letter: ''
 };
 
 export const alphabeticalIndexSlice = createSlice({
@@ -15,8 +16,8 @@ export const alphabeticalIndexSlice = createSlice({
   reducers: {
     setLetter: (state, action: PayloadAction<string>) => {
       state.letter = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setLetter } = alphabeticalIndexSlice.actions;

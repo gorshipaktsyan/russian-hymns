@@ -1,28 +1,35 @@
+import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { setCurrentHymns } from '../../../redux/slice/currentHymnsSlice';
+import { AppDispatch } from '../../../redux/store';
+import { HymnsService, HymnType } from '../../../types';
 import ListItem from '../../components/ListItem';
 
 import StyledContentComponents from './styles';
-import { AppDispatch } from '../../../redux/store';
-import { HymnsService, HymnType } from '../../../types';
-import { ReactElement } from 'react';
 
 interface FirstStringList {
-  subId: number
-  dispatch: AppDispatch
-  hymnsService: HymnsService
+  subId: number;
+  dispatch: AppDispatch;
+  hymnsService: HymnsService;
 }
 
 const { StyledFirstStringList } = StyledContentComponents;
 
-export default function FirstStringList({ subId, dispatch, hymnsService }: FirstStringList):ReactElement {
+export default function FirstStringList({
+  subId,
+  dispatch,
+  hymnsService
+}: FirstStringList): ReactElement {
   const navigate = useNavigate();
   const firstStringList = hymnsService.filterHymnsBySubId(subId);
 
   function handleHymnClick(id: number) {
-    dispatch(setCurrentHymns([id]));
-    navigate(`/hymns/${id}`);
+    const hymn = hymnsService.findHymn(id);
+    if (hymn) {
+      dispatch(setCurrentHymns([hymn]));
+      navigate(`/hymns/${id}`);
+    }
   }
 
   return (

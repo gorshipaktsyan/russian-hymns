@@ -24,7 +24,7 @@
     "react/prop-types": "off",
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "no-console": "off"
   },
   "overrides": [

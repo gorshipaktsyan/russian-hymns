@@ -11,11 +11,11 @@ class HymnsService {
     return this.hymns;
   }
 
-  findRandomHymn(): number[] {
+  findRandomHymn(): HymnType {
     const randomIndex = Math.floor(Math.random() * this.hymns.length);
     const hymn = this.hymns[randomIndex];
-  
-    return [hymn.number];
+
+    return hymn;
   }
   findHymn(currentNumbers: number[] | number): HymnType | undefined {
     if (Array.isArray(currentNumbers)) {
@@ -28,9 +28,9 @@ class HymnsService {
     return currentNumbers.map((number) => this.hymns.find((h) => h.number === number) as HymnType);
   }
 
-  findSearchedHymns(inputtedNumbers: string, property: 'number' | 'number_eng'): number[] {
+  findSearchedHymns(inputtedNumbers: string, property: 'number' | 'number_eng'): HymnType[] {
     const numbers = inputtedNumbers.split(',').map((num) => Number(num.trim()));
-    return hymns.filter((h) => numbers.includes(h[property])).map((h) => h[property]);
+    return hymns.filter((h) => numbers.includes(h[property]));
   }
 
   findIndex(hymnNumber: number): number {
@@ -64,6 +64,9 @@ class HymnsService {
         sensitivity: 'base'
       })
     );
+  }
+  getHymnsNumbers(hymns: HymnType[]): number[] {
+    return hymns.map((hymn) => hymn.number);
   }
 }
 

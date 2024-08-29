@@ -6,11 +6,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Collapse, Divider } from '@mui/material';
 
 import { removeHymn } from '../../../redux/slice/bookmarksSlice';
+import { RootState } from '../../../redux/store';
+import { HymnType } from '../../../types';
 import { formatDataForBookmarks } from '../../../utils';
 import ListItem from '../../components/ListItem';
 import { StyledComponents } from '../../styles';
-import { RootState } from '../../../redux/store';
-import { HymnType } from '../../../types';
 
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 

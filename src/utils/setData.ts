@@ -1,15 +1,21 @@
-interface HymnObject {
+import { hymnsService } from '../services';
+import { HymnType } from '../types';
+
+interface HymnObjectForHistory {
   date: string;
   number: number[];
 }
-
-function setDataForHistory(value: number[] | number): HymnObject {
-  const hymnIds = Array.isArray(value) ? value : [value];
+interface HymnObjectForBookmarks {
+  date: string;
+  number: number;
+}
+function setDataForHistory(hymns: HymnType[] | number): HymnObjectForHistory {
+  const hymnsNumbers = Array.isArray(hymns) ? hymnsService.getHymnsNumbers(hymns) : [hymns];
   const currentDate = new Date().toISOString();
-  const hymnObject = { date: currentDate, number: hymnIds };
+  const hymnObject = { date: currentDate, number: hymnsNumbers };
   return hymnObject;
 }
-function setDataForBookmarks(value: number[]): HymnObject {
+function setDataForBookmarks(value: number): HymnObjectForBookmarks {
   const currentDate = new Date().toISOString();
   const hymnObject = { date: currentDate, number: value };
   return hymnObject;

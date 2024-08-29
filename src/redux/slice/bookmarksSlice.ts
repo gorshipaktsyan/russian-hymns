@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { InitStateNames } from '../../config/constants';
 
 interface BookmarksState {
-  savedHymns: {date: string,number:number}[]; 
+  savedHymns: { date: string; number: number }[];
 }
 
 const initialState: BookmarksState = {
-  savedHymns: [],
+  savedHymns: []
 };
 
 export const bookmarksSlice = createSlice({
@@ -14,12 +15,12 @@ export const bookmarksSlice = createSlice({
   initialState,
   reducers: {
     removeHymn: (state, action: PayloadAction<number>) => {
-      state.savedHymns = state.savedHymns.filter((day) => day.number !== action.payload); 
+      state.savedHymns = state.savedHymns.filter((day) => day.number !== action.payload);
     },
     saveHymn: (state, action) => {
-      state.savedHymns.unshift(action.payload); 
-    },
-  },
+      state.savedHymns.unshift(action.payload);
+    }
+  }
 });
 
 export const { removeHymn, saveHymn } = bookmarksSlice.actions;

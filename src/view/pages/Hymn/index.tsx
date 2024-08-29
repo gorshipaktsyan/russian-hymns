@@ -5,15 +5,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 
 import { setCurrentHymns } from '../../../redux/slice/currentHymnsSlice';
+import { RootState } from '../../../redux/store';
 import { hymnsService } from '../../../services';
 import { useAddToHistory, useSwipeNavigation } from '../../../utils/hooks';
 
 import Arrows from './Arrows';
 import HymnTitle from './HymnTitle';
+import HymnStyledComponents from './styles';
 
 import './index.scss';
-import { RootState } from '../../../redux/store';
-import HymnStyledComponents from './styles';
 
 const { StyledDivider } = HymnStyledComponents;
 
@@ -47,7 +47,8 @@ function Hymn() {
         sx={{
           paddingBottom: '200px'
         }}
-        {...handlers}>
+        {...handlers}
+      >
         {currentHymns?.map((hymn, index) => {
           return (
             <Box key={index}>

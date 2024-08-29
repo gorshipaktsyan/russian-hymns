@@ -1,9 +1,9 @@
 import SearchIcon from '@mui/icons-material/Search';
 
+import { RussianLanguageTypes } from '../../../types';
 import { filterAndSortHymnsByLetter } from '../../../utils';
 import ListItem from '../../components/ListItem';
 import { StyledComponents } from '../../styles';
-import { RussianLanguageTypes } from '../../../types';
 
 interface HymnsList {
   handleTitleClick: (id: number) => void;

@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement } from 'react';
+import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Divider, Slider, Switch } from '@mui/material';
@@ -8,21 +8,21 @@ import {
   setIsAllowToUseArrows,
   setIsEngSearchVisible
 } from '../../../redux/slice/settingsSlice';
+import { RootState } from '../../../redux/store';
 import { StyledComponents } from '../../styles';
 
 import SettingsStyledComponents from './styles';
-import { RootState } from '../../../redux/store';
 const { StyledBox } = StyledComponents;
 const { StyledSetList, StyledSetListItem, StyledSetTpg, ArrowSetBox } = SettingsStyledComponents;
 
-export default function Settings(): ReactElement {
+export default function Settings() {
   const { fontSize, isAllowToUseArrows, isEngSearchVisible, isMobile, language } = useSelector(
     (state: RootState) => state.settings
   );
 
   const dispatch = useDispatch();
 
-  function handleChangeFontSize(e:Event,value: number | number[]): void {
+  function handleChangeFontSize(e: Event, value: number | number[]): void {
     if (typeof value === 'number') {
       dispatch(changeFontSize(value));
     }

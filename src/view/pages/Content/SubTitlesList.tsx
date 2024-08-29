@@ -1,23 +1,29 @@
+import { ReactElement } from 'react';
+
 import { Box } from '@mui/material';
 
 import { setSubtitleId } from '../../../redux/slice/contentSlice';
+import { AppDispatch } from '../../../redux/store';
 import { hymnsService, subtitlesService } from '../../../services';
 import ListItem from '../../components/ListItem';
 
 import FirstStringList from './FirstStringList';
 import StyledContentComponents from './styles';
-import { AppDispatch } from '../../../redux/store';
-import { ReactElement } from 'react';
 
-interface SubTitlesList {
+interface ISubTitlesList {
   titleId: number;
   subtitleId: number | null;
   dispatch: AppDispatch;
-  scrollToContentTittle: Function;
+  scrollToContentTittle: (id: number) => void;
 }
 const { StyledSubList } = StyledContentComponents;
 
-function SubTitlesList({ titleId, subtitleId, dispatch, scrollToContentTittle }: SubTitlesList):ReactElement {
+function SubTitlesList({
+  titleId,
+  subtitleId,
+  dispatch,
+  scrollToContentTittle
+}: ISubTitlesList): ReactElement {
   const filteredSubtitles = subtitlesService.filterSubsByTitleId(titleId);
 
   function handleSubTitleClick(id: number) {
