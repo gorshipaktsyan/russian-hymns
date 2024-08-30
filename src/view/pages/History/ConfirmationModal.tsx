@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
 
 import { setIsConfirmOpen } from '../../../redux/slice/historySlice';
@@ -17,7 +15,7 @@ export default function ConfirmModal({
   dispatch,
   isConfirmOpen,
   language
-}: ConfirmModal): ReactElement {
+}: ConfirmModal) {
   return (
     <Dialog open={isConfirmOpen} onClose={() => dispatch(setIsConfirmOpen(false))}>
       <DialogContent>

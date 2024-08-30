@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { setCurrentHymns } from '../../../redux/slice/currentHymnsSlice';
@@ -16,11 +15,7 @@ interface FirstStringList {
 
 const { StyledFirstStringList } = StyledContentComponents;
 
-export default function FirstStringList({
-  subId,
-  dispatch,
-  hymnsService
-}: FirstStringList): ReactElement {
+export default function FirstStringList({ subId, dispatch, hymnsService }: FirstStringList) {
   const navigate = useNavigate();
   const firstStringList = hymnsService.filterHymnsBySubId(subId);
 

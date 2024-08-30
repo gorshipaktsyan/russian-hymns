@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { TransitionGroup } from 'react-transition-group';
@@ -20,7 +19,7 @@ import StyledHistoryComponents from './styles';
 const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 const { StyledDeleteHistoryText } = StyledHistoryComponents;
 
-function History(): ReactElement {
+function History() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isConfirmOpen, searchedHymns } = useSelector((state: RootState) => state.history);
@@ -39,7 +38,7 @@ function History(): ReactElement {
     dispatch(setIsConfirmOpen(false));
   }
 
-  const formattedData = formatDataForHistory({ searchedHymns, language });
+  const formattedData = formatDataForHistory({ hymns: searchedHymns, language });
   return (
     <>
       <StyledBox>

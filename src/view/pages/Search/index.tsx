@@ -137,8 +137,7 @@ function Search() {
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorAlert}
         onClose={() => setErrorAlert(false)}
-        autoHideDuration={2000}
-      >
+        autoHideDuration={2000}>
         <StyledAlert onClose={() => setErrorAlert(false)} severity="error">
           {language.search.errorAlert}
         </StyledAlert>

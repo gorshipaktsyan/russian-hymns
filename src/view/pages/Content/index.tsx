@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Box } from '@mui/material';
@@ -13,7 +12,7 @@ import SubTitlesList from './SubTitlesList';
 
 const { StyledList, StyledBox } = StyledComponents;
 
-function TitlesList(): ReactElement {
+function TitlesList() {
   const { titleId, subtitleId } = useSelector((state: RootState) => state.content);
   const { titles } = useSelector((state: RootState) => state.titles);
   const dispatch = useDispatch();

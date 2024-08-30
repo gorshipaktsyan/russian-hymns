@@ -1,8 +1,13 @@
 import { FormEvent, useEffect } from 'react';
+interface IUseKeyboardNavigation {
+  handleLeftSwipe: (e: KeyboardEvent) => void;
+  handleRightSwipe: (e: KeyboardEvent) => void;
+}
 
-import { UseKeyboardNavigation } from '../../types';
-
-function useKeyboardNavigation({ handleLeftSwipe, handleRightSwipe }: UseKeyboardNavigation): void {
+function useKeyboardNavigation({
+  handleLeftSwipe,
+  handleRightSwipe
+}: IUseKeyboardNavigation): void {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {

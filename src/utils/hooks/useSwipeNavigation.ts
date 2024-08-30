@@ -3,20 +3,33 @@ import { SwipeableHandlers, SwipeEventData, useSwipeable } from 'react-swipeable
 
 import swipeConfig from '../../config/swipeConfig';
 import { hymnsService } from '../../services';
-import { SwipeEvent, UseSwipeNavigationProps } from '../../types';
+import { HymnType } from '../../types';
 
 import { useKeyboardNavigation } from './useKeyboardClick';
 
-export default function useSwipeNavigation({ currentHymns, navigate }: UseSwipeNavigationProps) {
+export interface IUseSwipeNavigation {
+  currentHymns: HymnType[];
+  navigate: (path: string) => void;
+}
+interface SwipeNavigationReturn {
+  handleLeftSwipe: MouseEventHandler<HTMLElement>;
+  handleRightSwipe: MouseEventHandler<HTMLElement>;
+  handlers: SwipeableHandlers;
+}
+
+export default function useSwipeNavigation({
+  currentHymns,
+  navigate
+}: IUseSwipeNavigation): SwipeNavigationReturn {
   const hymnNumbers = currentHymns.map((hymn) => hymn.number);
 
-  function handleEvent(e: SwipeEventData | KeyboardEvent | MouseEvent) {
+  function handleEvent(e: SwipeEventData | KeyboardEvent | MouseEvent): void {
     if ('stopPropagation' in e) {
       e.stopPropagation();
     }
   }
 
-  function handleLeftSwipe(e: SwipeEventData | MouseEvent) {
+  function handleLeftSwipe(e: SwipeEventData | MouseEvent): void {
     handleEvent(e);
 
     const biggestNumber = Math.max(...hymnNumbers) + 1;
@@ -26,7 +39,7 @@ export default function useSwipeNavigation({ currentHymns, navigate }: UseSwipeN
     }
   }
 
-  function handleRightSwipe(e: SwipeEventData | MouseEvent) {
+  function handleRightSwipe(e: SwipeEventData | MouseEvent): void {
     handleEvent(e);
 
     const smallestNumber = Math.min(...hymnNumbers) - 1;

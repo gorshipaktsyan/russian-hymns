@@ -3,28 +3,23 @@ import { hymnsService } from '../services';
 import { RussianLanguageTypes, SavedHymn, SearchedHymns } from '../types';
 import FormattedDataType from '../types/formattedDataType';
 
-interface FormatDataForBookmarks {
-  savedHymns: SavedHymn[];
+interface FormatData<T> {
+  hymns: T[];
   language: RussianLanguageTypes;
 }
 
-interface FormatDataForHistory {
-  searchedHymns: SearchedHymns[];
-  language: RussianLanguageTypes;
-}
+type TFormatDataForBookmarks = FormatData<SavedHymn>;
+type TFormatDataForHistory = FormatData<SearchedHymns>;
 
 function formattingDate(date: string, language: string): string {
   const dateFormatter = new Intl.DateTimeFormat(language, dateOptionsConfig);
   return dateFormatter.format(new Date(date));
 }
 
-function formatDataForBookmarks({
-  savedHymns,
-  language
-}: FormatDataForBookmarks): FormattedDataType[] {
+function formatDataForBookmarks({ hymns, language }: TFormatDataForBookmarks): FormattedDataType[] {
   const result: FormattedDataType[] = [];
 
-  savedHymns.forEach((day) => {
+  hymns.forEach((day) => {
     const formattedDate = formattingDate(day.date, language.language);
     const entry = result.find((d) => d.date === formattedDate);
 
@@ -57,13 +52,10 @@ function formatDataForBookmarks({
   return result;
 }
 
-function formatDataForHistory({
-  searchedHymns,
-  language
-}: FormatDataForHistory): FormattedDataType[] {
+function formatDataForHistory({ hymns, language }: TFormatDataForHistory): FormattedDataType[] {
   const result: FormattedDataType[] = [];
 
-  searchedHymns.forEach((day) => {
+  hymns.forEach((day) => {
     const formattedDate = formattingDate(day.date, language.language);
     const entry = result.find((d) => d.date === formattedDate);
 

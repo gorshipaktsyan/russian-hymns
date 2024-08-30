@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 import { Box } from '@mui/material';
 
 import { setSubtitleId } from '../../../redux/slice/contentSlice';
@@ -18,12 +16,7 @@ interface ISubTitlesList {
 }
 const { StyledSubList } = StyledContentComponents;
 
-function SubTitlesList({
-  titleId,
-  subtitleId,
-  dispatch,
-  scrollToContentTittle
-}: ISubTitlesList): ReactElement {
+function SubTitlesList({ titleId, subtitleId, dispatch, scrollToContentTittle }: ISubTitlesList) {
   const filteredSubtitles = subtitlesService.filterSubsByTitleId(titleId);
 
   function handleSubTitleClick(id: number) {

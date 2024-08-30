@@ -2,13 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { InitStateNames } from '../../config/constants';
 
-// Define the state interface
 interface ContentState {
   titleId: number | null;
   subtitleId: number | null;
 }
 
-// Initial state
 const initialState: ContentState = {
   titleId: null,
   subtitleId: null

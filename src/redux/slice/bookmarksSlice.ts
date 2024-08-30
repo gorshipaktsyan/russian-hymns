@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { InitStateNames } from '../../config/constants';
+import { SavedHymn } from '../../types';
 
 interface BookmarksState {
-  savedHymns: { date: string; number: number }[];
+  savedHymns: SavedHymn[];
 }
 
 const initialState: BookmarksState = {

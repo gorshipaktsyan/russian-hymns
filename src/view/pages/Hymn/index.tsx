@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -47,8 +47,7 @@ function Hymn() {
         sx={{
           paddingBottom: '200px'
         }}
-        {...handlers}
-      >
+        {...handlers}>
         {currentHymns?.map((hymn, index) => {
           return (
             <Box key={index}>

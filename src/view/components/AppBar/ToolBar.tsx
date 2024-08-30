@@ -35,7 +35,7 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
 
   useEffect(() => {
     if (currentHymnNumber) {
-      const formattedData = formatDataForBookmarks({ savedHymns, language });
+      const formattedData = formatDataForBookmarks({ hymns: savedHymns, language });
       const isBookmarked = showBookmark({
         formattedData,
         currentHymnNumber
@@ -70,8 +70,7 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
         color="inherit"
         aria-label="open drawer"
         edge="start"
-        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}
-      >
+        onClick={() => dispatch(setIsDrawerOpen(!isDrawerOpen))}>
         <Menu sx={{ fontSize: '30px' }} />
       </IconButton>
       <Box
@@ -85,8 +84,7 @@ export default function ToolBar({ setCopyAlert }: IToolBar) {
       <Box
         sx={{
           flexGrow: '1'
-        }}
-      >
+        }}>
         {(pathname !== '/' || !!foundHymns.length) && <SearchBar />}
       </Box>
       {pathname.includes(`/hymns`) && (

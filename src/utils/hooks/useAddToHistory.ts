@@ -6,14 +6,14 @@ import { RootState } from '../../redux/store';
 import { HymnType } from '../../types';
 import { findInStore, setDataForHistory } from '..';
 
-export default function useAddToHistory(currentHymn: HymnType[]) {
+export default function useAddToHistory(currentHymns: HymnType[]): { timeOnPage: number } {
   const dispatch = useDispatch();
   const [timeOnPage, setTimeOnPage] = useState(0);
   const history = useSelector((state: RootState) => state.history.searchedHymns);
 
   useEffect(() => {
     let timerInterval: NodeJS.Timeout;
-    const hasNumber = findInStore(currentHymn, history);
+    const hasNumber = findInStore(currentHymns, history);
 
     if (!hasNumber) {
       timerInterval = setInterval(() => {
@@ -21,7 +21,8 @@ export default function useAddToHistory(currentHymn: HymnType[]) {
       }, 1000);
     }
     if (timeOnPage >= 30 && !hasNumber) {
-      const hymnObject = setDataForHistory(currentHymn);
+      const hymnsArray = Array.isArray(currentHymns) ? currentHymns : [currentHymns];
+      const hymnObject = setDataForHistory(hymnsArray);
       dispatch(addHymn(hymnObject));
       setTimeOnPage(0);
     }
@@ -30,7 +31,7 @@ export default function useAddToHistory(currentHymn: HymnType[]) {
         clearInterval(timerInterval);
       }
     };
-  }, [currentHymn, timeOnPage, dispatch, history]);
+  }, [currentHymns, timeOnPage, dispatch, history]);
 
   return { timeOnPage };
 }

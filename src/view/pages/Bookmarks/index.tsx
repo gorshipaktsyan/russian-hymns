@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Collapse, Divider } from '@mui/material';
 
 import { removeHymn } from '../../../redux/slice/bookmarksSlice';
-import { RootState } from '../../../redux/store';
+import { AppDispatch, RootState } from '../../../redux/store';
 import { HymnType } from '../../../types';
 import { formatDataForBookmarks } from '../../../utils';
 import ListItem from '../../components/ListItem';
@@ -17,7 +17,7 @@ const { StyledBox, StyledList, StyledTypography } = StyledComponents;
 function Bookmarks() {
   const { savedHymns } = useSelector((state: RootState) => state.bookmarks);
   const { language } = useSelector((state: RootState) => state.settings);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   function handleClick(id: number): void {
@@ -28,7 +28,7 @@ function Bookmarks() {
     dispatch(removeHymn(id));
   }
 
-  const formattedData = formatDataForBookmarks({ savedHymns, language });
+  const formattedData = formatDataForBookmarks({ hymns: savedHymns, language });
   return (
     <StyledBox>
       {formattedData.length > 0 ? (

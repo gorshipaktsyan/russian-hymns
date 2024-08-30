@@ -2,6 +2,8 @@ import { ComponentType, CSSProperties } from 'react';
 
 import { SvgIconProps } from '@mui/material/SvgIcon';
 
+import { HymnType, NavItemsTypes, Subtitles, Titles } from '../../../types';
+
 import Divider from './Divider';
 import ListItemStyledComponents from './styles';
 
@@ -9,7 +11,7 @@ interface ListItem {
   title: string | null;
   number?: number;
   id: number;
-  list: any[];
+  list: NavItemsTypes[] | HymnType[] | Titles[] | Subtitles[];
   index: number;
   Icon?: ComponentType<SvgIconProps>;
   onIconClick?: (id: number) => void;

@@ -9,8 +9,8 @@ interface HymnObjectForBookmarks {
   date: string;
   number: number;
 }
-function setDataForHistory(hymns: HymnType[] | number): HymnObjectForHistory {
-  const hymnsNumbers = Array.isArray(hymns) ? hymnsService.getHymnsNumbers(hymns) : [hymns];
+function setDataForHistory(hymns: HymnType[]): HymnObjectForHistory {
+  const hymnsNumbers = hymnsService.getHymnsNumbers(hymns);
   const currentDate = new Date().toISOString();
   const hymnObject = { date: currentDate, number: hymnsNumbers };
   return hymnObject;

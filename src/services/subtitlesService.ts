@@ -2,7 +2,7 @@ import { subtitles } from '../storage';
 import { Subtitles } from '../types';
 
 class SubtitlesService {
-  get() {
+  get(): Subtitles[] {
     return subtitles;
   }
   filterSubsByTitleId(titleId: number): Subtitles[] {

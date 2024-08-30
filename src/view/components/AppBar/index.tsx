@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 
 import { AppBar, Snackbar } from '@mui/material';
 
@@ -12,7 +12,7 @@ const { StyledAlert } = StyledComponents;
 interface AppBarComponentProps {
   lg: RussianLanguageTypes;
 }
-function AppBarComponent({ lg }: AppBarComponentProps): ReactElement {
+function AppBarComponent({ lg }: AppBarComponentProps) {
   const [copyAlert, setCopyAlert] = useState(false);
   return (
     <>
@@ -22,8 +22,7 @@ function AppBarComponent({ lg }: AppBarComponentProps): ReactElement {
         sx={{
           backgroundColor: 'black',
           zIndex: 1300
-        }}
-      >
+        }}>
         <ToolBar setCopyAlert={setCopyAlert} />
       </AppBar>
       {copyAlert && (
@@ -31,8 +30,7 @@ function AppBarComponent({ lg }: AppBarComponentProps): ReactElement {
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={copyAlert}
           onClose={() => setCopyAlert(false)}
-          autoHideDuration={2000}
-        >
+          autoHideDuration={2000}>
           <StyledAlert>{lg.appBar.copyAlert}</StyledAlert>
         </Snackbar>
       )}

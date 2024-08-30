@@ -16,7 +16,6 @@ export const currentHymnsSlice = createSlice({
   initialState,
   reducers: {
     setCurrentHymns: (state, action: PayloadAction<HymnType[]>) => {
-      console.log(action.payload);
       state.currentHymns = action.payload;
     }
   }

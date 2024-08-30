@@ -2,10 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { InitStateNames } from '../../config/constants';
 import { hymnsService } from '../../services';
+import { HymnType } from '../../types';
 
 interface HymnsState {
-  hymns: any[];
-  filteredHymns: any[];
+  hymns: HymnType[];
+  filteredHymns: HymnType[];
 }
 
 const initialState: HymnsState = {
