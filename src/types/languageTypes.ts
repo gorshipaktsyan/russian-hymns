@@ -1,4 +1,4 @@
-export default interface RussianLanguageTypes {
+export default interface LanguageTypes {
   hymns: string;
   hymn: string;
   version: string;

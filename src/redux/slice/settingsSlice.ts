@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { InitStateNames, russian } from '../../config/constants';
-import { RussianLanguageTypes } from '../../types';
+import { LanguageTypes } from '../../types';
 
 interface SettingsState {
   fontSize: number;
   isEngSearchVisible: boolean;
   isAllowToUseArrows: boolean;
   isMobile: boolean;
-  language: RussianLanguageTypes;
+  language: LanguageTypes;
 }
 
 const initialState: SettingsState = {

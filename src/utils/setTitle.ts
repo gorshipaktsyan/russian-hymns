@@ -1,12 +1,12 @@
 import { hymnsService } from '../services';
-import { HymnType, RussianLanguageTypes } from '../types';
+import { HymnType, LanguageTypes } from '../types';
 
 import createNavItems from './createNavItems';
 
 interface SetTitle {
   currentHymns: HymnType[];
   pathname: string;
-  lg: RussianLanguageTypes;
+  lg: LanguageTypes;
 }
 
 export default function setTitle({ currentHymns, pathname, lg }: SetTitle): string | undefined {

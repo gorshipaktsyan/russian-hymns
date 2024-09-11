@@ -8,7 +8,7 @@ import { setAppBarTitle } from '../../../../redux/slice/appBarSlice';
 import { resetContentValues } from '../../../../redux/slice/contentSlice';
 import { setIsDrawerOpen } from '../../../../redux/slice/drawerSlice';
 import { AppDispatch, RootState } from '../../../../redux/store';
-import { RussianLanguageTypes } from '../../../../types';
+import { LanguageTypes } from '../../../../types';
 import { createNavItems } from '../../../../utils';
 
 import DrawerStyledComponents from './styles';
@@ -16,7 +16,7 @@ import DrawerStyledComponents from './styles';
 interface DrawerComponent {
   fontSize: number;
   dispatch: AppDispatch;
-  lg: RussianLanguageTypes;
+  lg: LanguageTypes;
 }
 
 const { StyledDrawer, StyledBox, StyledVersionText } = DrawerStyledComponents;

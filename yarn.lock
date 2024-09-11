@@ -9215,11 +9215,6 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
-use-double-tap@^1.3.6:
-  version "1.3.6"
-  resolved "https://registry.npmjs.org/use-double-tap/-/use-double-tap-1.3.6.tgz"
-  integrity sha512-zWmzlihSTuLJpT+YJqhVUySV8UNvmdmaXokBEIh+FxR4m/vaSk2cS5hlqEPDj64rmkHlL7zfRTrJPw30Jd0OZA==
-
 use-sync-external-store@^1.0.0:
   version "1.2.2"
   resolved "https://registry.npmjs.org/use-sync-external-store/-/use-sync-external-store-1.2.2.tgz"
