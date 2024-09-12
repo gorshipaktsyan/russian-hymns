@@ -12,9 +12,10 @@ interface IUseDoubleTap {
 
 export default function useDoubleTap({ pathname, fontSize, dispatch }: IUseDoubleTap): void {
   useEffect(() => {
+    if (pathname === '/settings') return;
     function handleClick(e: MouseEvent) {
       const newFontSize = doubleTap(e, fontSize);
-      if (pathname !== '/settings' && newFontSize !== fontSize) {
+      if (newFontSize !== fontSize) {
         dispatch(changeFontSize(newFontSize));
       }
     }

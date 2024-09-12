@@ -25,7 +25,7 @@ function DrawerComponent({ fontSize, dispatch, lg }: DrawerComponent) {
   const { isDrawerOpen } = useSelector((state: RootState) => state.drawer);
   const navigate = useNavigate();
 
-  function handleNavigate(item: { title: any; route: any }) {
+  function handleNavigate(item: { title: string; route: string }) {
     navigate(`/${item.route}`);
     dispatch(setAppBarTitle(item.title));
     dispatch(setIsDrawerOpen(false));
@@ -41,8 +41,7 @@ function DrawerComponent({ fontSize, dispatch, lg }: DrawerComponent) {
       onClose={() => dispatch(setIsDrawerOpen(false))}
       ModalProps={{
         keepMounted: true
-      }}
-    >
+      }}>
       <StyledBox>
         <List>
           {navItems.slice(1).map((item) => (

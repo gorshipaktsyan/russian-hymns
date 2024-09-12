@@ -3,6 +3,7 @@ const russian = {
   hymn: 'Гимн',
   version: 'Версия',
   language: 'ru',
+  key: 'ru-hymns',
   noData: 'Нет данных',
   regExp: {
     onlyLetters: '[^а-яА-ЯёЁ]'
