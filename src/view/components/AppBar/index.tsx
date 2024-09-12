@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { AppBar, Snackbar } from '@mui/material';
 
-import { RussianLanguageTypes } from '../../../types';
+import { LanguageTypes } from '../../../types';
 import { StyledComponents } from '../../styles';
 
 import ToolBar from './ToolBar';
@@ -10,7 +10,7 @@ import ToolBar from './ToolBar';
 const { StyledAlert } = StyledComponents;
 
 interface AppBarComponentProps {
-  lg: RussianLanguageTypes;
+  lg: LanguageTypes;
 }
 function AppBarComponent({ lg }: AppBarComponentProps) {
   const [copyAlert, setCopyAlert] = useState(false);

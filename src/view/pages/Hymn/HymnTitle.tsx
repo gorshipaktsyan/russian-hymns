@@ -1,8 +1,8 @@
-import { HymnType, RussianLanguageTypes } from '../../../types';
+import { HymnType, LanguageTypes } from '../../../types';
 
 interface HymnTitle {
   currentHymns: HymnType[];
-  language: RussianLanguageTypes;
+  language: LanguageTypes;
   hymn: HymnType;
 }
 

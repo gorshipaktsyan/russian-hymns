@@ -1,11 +1,11 @@
 import { dateOptionsConfig } from '../config';
 import { hymnsService } from '../services';
-import { RussianLanguageTypes, SavedHymn, SearchedHymns } from '../types';
+import { LanguageTypes, SavedHymn, SearchedHymns } from '../types';
 import FormattedDataType from '../types/formattedDataType';
 
 interface FormatData<T> {
   hymns: T[];
-  language: RussianLanguageTypes;
+  language: LanguageTypes;
 }
 
 type TFormatDataForBookmarks = FormatData<SavedHymn>;

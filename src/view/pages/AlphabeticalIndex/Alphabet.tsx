@@ -2,13 +2,13 @@ import { Box } from '@mui/material';
 
 import { setLetter } from '../../../redux/slice/alphabeticalSlice';
 import { AppDispatch } from '../../../redux/store';
-import { RussianLanguageTypes } from '../../../types';
+import { LanguageTypes } from '../../../types';
 
 import AlphabeticalStyledComponents from './styles';
 
 interface Alphabet {
   dispatch: AppDispatch;
-  language: RussianLanguageTypes;
+  language: LanguageTypes;
 }
 
 const { StyledAlphabet, StyledLetter } = AlphabeticalStyledComponents;

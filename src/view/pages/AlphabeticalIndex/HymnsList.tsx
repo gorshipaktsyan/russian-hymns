@@ -1,6 +1,6 @@
 import SearchIcon from '@mui/icons-material/Search';
 
-import { RussianLanguageTypes } from '../../../types';
+import { LanguageTypes } from '../../../types';
 import { filterAndSortHymnsByLetter } from '../../../utils';
 import ListItem from '../../components/ListItem';
 import { StyledComponents } from '../../styles';
@@ -10,7 +10,7 @@ interface HymnsList {
   letter: string;
   // handleBackClick: () => void;
   // isMobile: boolean;
-  language: RussianLanguageTypes;
+  language: LanguageTypes;
 }
 
 const { StyledBox, StyledList, StyledFab } = StyledComponents;

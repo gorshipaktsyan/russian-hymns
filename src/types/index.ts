@@ -1,8 +1,8 @@
 import FormattedDataType from './formattedDataType';
 import HymnsService from './hymnService';
 import HymnType from './hymnType';
+import LanguageTypes from './languageTypes';
 import NavItemsTypes from './navItemsType';
-import RussianLanguageTypes from './russianLanguageTypes';
 import SavedHymn from './savedHymn';
 import SearchedHymns from './searchedHymns';
 import Subtitles from './subtitles';
@@ -12,8 +12,8 @@ export type {
   FormattedDataType,
   HymnsService,
   HymnType,
+  LanguageTypes,
   NavItemsTypes,
-  RussianLanguageTypes,
   SavedHymn,
   SearchedHymns,
   Subtitles,

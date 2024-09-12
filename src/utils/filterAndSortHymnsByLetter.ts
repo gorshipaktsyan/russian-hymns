@@ -1,5 +1,5 @@
 import hymnsService from '../services/hymnsService';
-import { HymnType, RussianLanguageTypes } from '../types';
+import { HymnType, LanguageTypes } from '../types';
 
 interface FilteredHymns extends FilterProps {
   filteredHymns: HymnType[];
@@ -7,7 +7,7 @@ interface FilteredHymns extends FilterProps {
 
 interface FilterProps {
   letter: string;
-  language: RussianLanguageTypes;
+  language: LanguageTypes;
 }
 
 export default function filterAndSortHymnsByLetter({ letter, language }: FilterProps): HymnType[] {
@@ -33,6 +33,6 @@ function mapHymns({ filteredHymns, letter, language }: FilteredHymns): HymnType[
   });
 }
 
-function removeSymbols(text: string, language: RussianLanguageTypes): string {
+function removeSymbols(text: string, language: LanguageTypes): string {
   return text.replace(language.regExp.onlyLetters, '');
 }
