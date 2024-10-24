@@ -47,7 +47,7 @@ function DrawerComponent({ fontSize, dispatch, lg }) {
         </List>
       </StyledBox>
       <StyledVersionText>
-        <p>{lg.version}: 1.4.1</p>
+        <p>{lg.version}: 1.4.2</p>
       </StyledVersionText>
     </StyledDrawer>
   );
