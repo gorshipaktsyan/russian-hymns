@@ -7,7 +7,28 @@ const russian = {
   regExp: {
     onlyLetters: '[^а-яА-ЯёЁ]'
   },
-
+  test: {
+    text: 'я созерцаю',
+    letterForFiltering: 'Ш',
+    arrayForSorting: [
+      {
+        first_string: 'Благословение',
+        filteredText: 'благословение'
+      },
+      {
+        first_string: 'Божественная',
+        filteredText: 'божественная'
+      },
+      {
+        first_string: 'Благодарение',
+        filteredText: 'благодарение'
+      },
+      {
+        first_string: 'Благая весть',
+        filteredText: 'благая весть'
+      }
+    ]
+  },
   navItems: {
     hymns_1_800: 'Гимны 1-800',
     alphabeticalIndex: 'Алфавитный указатель',
