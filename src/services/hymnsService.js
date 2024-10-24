@@ -6,9 +6,6 @@ class HymnsService {
   }
 
   findHymn(currentNumber) {
-    if (Array.isArray(currentNumber)) {
-      return hymns.find((h) => currentNumber.includes(h.number));
-    }
     return hymns.find((h) => h.number === currentNumber);
   }
 
