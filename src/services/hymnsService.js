@@ -20,7 +20,7 @@ class HymnsService {
   }
 
   findIndex(hymnNumber) {
-    return hymns.findIndex((el) => el.number === hymnNumber);
+    return hymns.findIndex((h) => h.number === hymnNumber);
   }
 
   findHymnsWithMatchKey(searchedText, regExp) {
