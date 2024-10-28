@@ -4,6 +4,7 @@ const russian = {
   version: 'Версия',
   language: 'ru',
   noData: 'Нет данных',
+  newVersionAvailable: 'Доступна новая версия',
   regExp: {
     onlyLetters: '[^а-яА-ЯёЁ]'
   },

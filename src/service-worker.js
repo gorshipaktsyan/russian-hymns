@@ -60,6 +60,23 @@ registerRoute(
   })
 );
 
+// Handle updates and notify clients
+self.addEventListener('install', () => {
+  self.skipWaiting(); // Activate this service worker immediately
+});
+
+self.addEventListener('activate', (event) => {
+  console.log('Service worker activated!');
+  event.waitUntil(
+    // Notify all clients about the update
+    clients.matchAll().then((clientList) => {
+      clientList.forEach((client) => {
+        client.postMessage({ type: 'NEW_VERSION_AVAILABLE' });
+      });
+    })
+  );
+});
+
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener('message', (event) => {
