@@ -6,7 +6,7 @@ class HymnsService {
   }
 
   findHymn(currentNumber) {
-    return hymns.find((h) => h.number === currentNumber);
+    return hymns.find((h) => h.number === currentNumber[0]);
   }
 
   findHymns(currentNumbers) {
