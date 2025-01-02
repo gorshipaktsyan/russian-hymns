@@ -20,7 +20,7 @@ function formatDataForBookmarks({ savedHymns, language }) {
       });
     }
 
-    const matchingHymn = hymnsService.findHymn(day.number);
+    const matchingHymn = hymnsService.findHymn([day.number]);
 
     if (matchingHymn) {
       const existingEntry = result.find((d) => d.date === formattedDate);
@@ -57,7 +57,7 @@ function formatDataForHistory({ searchedHymns, language }) {
     }
 
     day.number.forEach((number) => {
-      const matchingHymn = hymnsService.findHymn(number);
+      const matchingHymn = hymnsService.findHymn([number]);
 
       if (matchingHymn) {
         const existingEntry = result.find((d) => d.date === formattedDate);

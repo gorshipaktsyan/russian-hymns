@@ -9,7 +9,7 @@ describe('HymnsService', () => {
   });
 
   it('should find a hymn by number', () => {
-    const result = hymnsService.findHymn(1);
+    const result = hymnsService.findHymn([1]);
     expect(result).toEqual(hymns[0]);
   });
 
@@ -70,7 +70,7 @@ describe('HymnsService', () => {
   });
 
   it('should return undefined for a non-existent hymn', () => {
-    const result = hymnsService.findHymn(hymns.length + 2);
+    const result = hymnsService.findHymn([hymns.length + 2]);
     expect(result).toBeUndefined();
   });
 });
